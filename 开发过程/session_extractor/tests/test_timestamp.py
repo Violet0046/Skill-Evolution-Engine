@@ -10,7 +10,7 @@ from datetime import datetime
 # 添加src目录到Python路径
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
-from src.timestamp import parse_timestamp, sort_by_timestamp
+from src.util.timestamp import parse_timestamp, sort_by_timestamp
 
 
 class TestTimestamp(unittest.TestCase):

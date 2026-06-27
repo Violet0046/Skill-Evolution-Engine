@@ -9,7 +9,7 @@ import os
 # 添加src目录到Python路径
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
-from src.classifier import classify_entry
+from src.util.classifier import classify_entry
 
 
 class TestClassifier(unittest.TestCase):
@@ -29,13 +29,26 @@ class TestClassifier(unittest.TestCase):
         entry = {"type": "last-prompt", "lastPrompt": "test"}
         self.assertEqual(classify_entry(entry), "last-prompt")
         
-        # attachment类型
+        # attachment类型 — 应细化为 attachment.hook_success
         entry = {"type": "attachment", "attachment": {"type": "hook_success"}}
-        self.assertEqual(classify_entry(entry), "attachment")
-    
+        self.assertEqual(classify_entry(entry), "attachment.hook_success")
+
     def test_attachment(self):
-        """测试attachment分类"""
+        """测试 attachment 细化为 attachment.{subtype}。"""
+        # hook_success → attachment.hook_success
         entry = {"type": "attachment", "attachment": {"type": "hook_success"}}
+        self.assertEqual(classify_entry(entry), "attachment.hook_success")
+
+        # todo_reminder → attachment.todo_reminder
+        entry = {"type": "attachment", "attachment": {"type": "todo_reminder"}}
+        self.assertEqual(classify_entry(entry), "attachment.todo_reminder")
+
+        # skill_listing → attachment.skill_listing
+        entry = {"type": "attachment", "attachment": {"type": "skill_listing"}}
+        self.assertEqual(classify_entry(entry), "attachment.skill_listing")
+
+        # attachment 缺 type 字段 → 兜底返回 "attachment"（不细化）
+        entry = {"type": "attachment"}
         self.assertEqual(classify_entry(entry), "attachment")
     
     def test_user_command(self):

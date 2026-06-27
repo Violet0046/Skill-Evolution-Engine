@@ -16,7 +16,7 @@ from collections import Counter
 # 添加src目录到Python路径
 sys.path.insert(0, os.path.dirname(__file__))
 
-from src.classifier import classify_entry
+from src.util.classifier import classify_entry
 
 # 配置日志
 logging.basicConfig(

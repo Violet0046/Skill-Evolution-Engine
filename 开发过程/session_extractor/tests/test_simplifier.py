@@ -20,7 +20,7 @@ import copy
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
-from src.simplifier import (
+from src.simplify import (
     simplify_entry,
     simplify_entries,
     load_config,
@@ -31,7 +31,7 @@ from src.simplifier import (
     _truncate_str,
 )
 
-CONFIG_PATH = os.path.join(os.path.dirname(__file__), "..", "entry_fields_config.json")
+CONFIG_PATH = os.path.join(os.path.dirname(__file__), "..", "src", "simplify", "entry_fields_config.json")
 
 
 def make_config(overrides=None):
@@ -222,7 +222,8 @@ class TestSimplifierV3(unittest.TestCase):
             }
             self.assertIsNone(simplify_entry(e, cfg), f"{cls} should be whole-type drop")
 
-    def test_truncate_disabled_by_default(self):
+    def test_truncate_enabled_by_default(self):
+        # v4 起 truncate_enabled 默认 true（v3.1 默认 false）
         e = {
             "uuid": "a1", "parentUuid": "p", "timestamp": "2026-01-01T00:00:00.000Z",
             "type": "assistant", "entry_class": "ai_text",
@@ -232,6 +233,22 @@ class TestSimplifierV3(unittest.TestCase):
             },
         }
         out = simplify_entry(e, make_config())
+        text = out["message"]["content"][0]["text"]
+        # 默认 truncate ON → text 应被截断（max_head 6144 + max_tail 1024 + marker）
+        self.assertLess(len(text), 10000)
+        self.assertIn("truncated", text)
+
+    def test_truncate_disabled_explicit(self):
+        # 显式 truncate_enabled=False 才关闭截断
+        e = {
+            "uuid": "a1", "parentUuid": "p", "timestamp": "2026-01-01T00:00:00.000Z",
+            "type": "assistant", "entry_class": "ai_text",
+            "message": {
+                "content": [{"type": "text", "text": "a" * 10000}],
+                "stop_reason": "end_turn", "stop_sequence": None,
+            },
+        }
+        out = simplify_entry(e, make_config({"truncate_enabled": False}))
         self.assertEqual(len(out["message"]["content"][0]["text"]), 10000)
 
     def test_truncate_enabled_truncates_long_text(self):
@@ -247,17 +264,6 @@ class TestSimplifierV3(unittest.TestCase):
         out = simplify_entry(e, cfg)
         self.assertLess(len(out["message"]["content"][0]["text"]), 10000)
         self.assertIn("truncated", out["message"]["content"][0]["text"])
-
-    def test_cwd_change_entry_kept(self):
-        e = {
-            "type": "cwd_change", "entry_class": "cwd_change",
-            "uuid": "new", "timestamp": "2026-01-01T00:00:00.000Z",
-            "cwd": "/new", "prevCwd": "/old",
-        }
-        out = simplify_entry(e, make_config())
-        self.assertIsNotNone(out)
-        self.assertEqual(out["cwd"], "/new")
-        self.assertEqual(out["prevCwd"], "/old")
 
     def test_simplify_entries_filters_dropped(self):
         cfg = make_config()

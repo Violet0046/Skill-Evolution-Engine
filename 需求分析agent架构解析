@@ -1,0 +1,284 @@
+# 5GNR-Analyst 需求分析 Agent 架构剖析
+
+> 本文件是对 `/home/10358563/Code/knowledge_engineering/workspace/需求分析Agent/` 项目"如何指导 Claude Code 执行需求分析任务"的全栈架构梳理。
+> 注：项目大量目录为软链接（CLAUDE.md、commands/、changes/、.claude/skills/、.claude/agents/），物理源在 `consume_lib/design/方法库/需求分析/.../infra/Co-Mind-Flow/`。
+
+---
+
+## 1. 一句话总览
+
+项目用 **5 层正交机制** 控制 Claude Code：
+
+| 层 | 文件/位置 | 角色 |
+|---|---|---|
+| ① 项目宪法 | `CLAUDE.md:1-99` | 项目身份、四阶段框架、硬约束、用户可见执行过程 |
+| ② 阶段命令 | `commands/phase1-4-*.md` | 每阶段具体执行脚本（输入输出、SubAgent 调用清单、门禁契约） |
+| ③ Hooks 状态机 | `.claude/hooks/*.mjs` + `lib/phase-state.mjs` | 唯一有权写 `req_analysis_phase_status.json`，维护阶段推进与门禁 |
+| ④ Skills（23 个） | `.claude/skills/*/SKILL.md` | 可复用的原子能力（查询、分析、上报、同步） |
+| ⑤ SubAgents（19 个，含 ReviewAgent） | `.claude/agents/*/agent.md` + `.claude/agents/ReviewAgent/` | 阶段 2 规划、阶段 3 单步业务执行、阶段 3 单步审查、阶段 4 回流 |
+
+五层协同实现"**输入澄清 → 任务规划 → 需求分析 → 需求总结**"的全流程，阶段状态只能由 hooks 推动，主 Agent / SubAgent / Skill 全部禁止直接写状态文件。
+
+---
+
+## 2. 五层职责详解
+
+### ① CLAUDE.md（项目宪法）
+
+文件：`CLAUDE.md:1-99`
+
+只规定**跨阶段不可违反**的硬规则，不下沉实现细节（"各阶段细节统一在对应子文档中维护"，`CLAUDE.md:65`）。
+
+- **项目定位**：5GNR 需求分析智能体，不负责代码实现，目标是"可审查、可追溯、可总结"的需求分析结果。
+- **四阶段框架**：`需求澄清 → 任务规划 → 需求分析 → 需求总结`，必须按顺序执行。
+- **阶段边界硬约束**（`CLAUDE.md:48-58`）：
+  - `req_analysis_phase_status.json` **只能由 hooks 写**，主 Agent/SubAgent/Skill 全部禁止直接写。
+  - 阶段启动状态只由 `UserPromptSubmit` hook 在识别 `/phaseX...` 命令时写入。
+  - 阶段 3 完成后**不得自动进入阶段 4**；只能提示用户输入 `/phase4-summary`。
+  - 用户自定义阶段 3 计划场景：必须仍走完 1→2→3→4 完整流程，仅阶段 2 输出"用户引导的任务子集计划"，阶段 3 按该计划串行执行。
+- **Hook 标准职责**（`CLAUDE.md:60-72`）：阶段启动 / 阶段内门禁 / 阶段完成 / 交付副作用 四类。
+- **环境变量**（`CLAUDE.md:60-72` + `settings.local.json:2-5`）：
+  - `REQUIREMENT_WORK_ROOT=./changes/`：需求工作区根路径，hook 用其拼接 `{root}/{task_id}/需求分析工作流`。
+  - `AUTO_CONFIRM=false`：阶段 2 非默认计划 / 阶段 3 用户确认门禁清单的跳过开关。
+- **用户可见执行过程**（`CLAUDE.md:88-99`）：
+  - 开始前展示四阶段 checklist。
+  - 已提供可执行输入立即开始阶段 1，禁止再问 "1/2/3 选项"。
+  - 执行中持续同步：当前阶段 / 当前 SubAgent / 审查状态 / 下一步。
+  - Auto 模式识别规则：SubAgent 输出含 `[auto-confirm]` 标记，或环境变量 `AUTO_CONFIRM=true`，主 Agent 跳过用户确认。
+- **subAgent 调用要求**（`CLAUDE.md:104`）：必须前台模式（`run_in_background=false, background=false`）。
+
+### ② commands/（阶段命令脚本）
+
+四个文件，**按阶段严格下沉实现细节**，CLAUDE.md 不重复：
+
+| 文件 | 行数 | 关键内容 |
+|---|---|---|
+| `commands/phase1-requirement-clarify.md` | 39 | 阶段 1 唯一主线：必须调用"初始化"Skill；输出门禁含 `input/市场需求.md`；按 `is_algorithm_design_related` 决定是否补 `算法分析.md` |
+| `commands/phase2-task-planning.md` | 81 | 全流程 vs 子集计划意图判断；`需求分析执行计划.json` 契约；强制用 `Task(subagent_type="智能需求规划")` |
+| `commands/phase3-requirement-analysis.md` | 297 | 阶段 3 详细编排：清单来源、用户确认门禁清单（6 个指定 SubAgent）、`[auto-confirm]` 隔离、`review-agent` 调用 prompt 标准结构 |
+| `commands/phase4-summary.md` | 58 | 阶段 4 目标；`final_summary.md` 位置；强制调用 `数据回流-agent` + `内容同步` Skill |
+
+**phase3 是最复杂的一层**：每个业务步骤的固定执行模板是
+`①Task(subagent_type=<subagent>) 业务 → ②若命中 6 个用户确认门禁清单且 AUTO_CONFIRM=false，需用户确认 → ③Task(subagent_type="review-agent") → ④仅 passed=true 才放行下一步 → ⑤最多重试 3 次`。
+
+### ③ Hooks（状态机驱动器）
+
+文件分布：`.claude/hooks/*.mjs` + `lib/phase-state.mjs` + `lib/phase2-hook-utils.mjs`。
+
+**唯一有权写状态文件的工具**（`lib/phase-state.mjs:5-141`）：
+
+```
+startPhase(phase)            // running
+completePhase(phase, opts)   // completed + 设置下一阶段 pending
+setPhasePending(phase)       // pending
+ensurePhaseStatusShape()     // 补齐 phase1-4/current_phase/task_id 骨架
+readOrCreatePhaseStatus()    // 读取/创建
+```
+
+字段结构：`{ task_id, mr_id, current_phase, updated_at, next_action, last_command, phase1..phase4: { status, started_at, finished_at } }`，status 取值 `pending|running|completed`。
+
+**4 类 hook 与触发事件**：
+
+| 事件 | Hook 文件 | 职责 |
+|---|---|---|
+| `UserPromptSubmit` | `phase-start-on-command.mjs` | 匹配 `/phaseX...` 命令写 `phaseX.status=running` + 校验前置阶段 completed |
+| `PreToolUse/Skill` | `phase1-workdir-prepare.mjs`、`phase4-tool-gate.mjs` | 阶段 1 准备工作目录（执行 `create_req_structure.sh` 补 8 个模板）；阶段 4 校验 phase4 状态 |
+| `PreToolUse/Subagent\|Task\|Agent` | `phase2-planning-gate.mjs`、`phase3-subagent-gate.mjs`、`phase3-task-running-update.mjs`、`phase4-tool-gate.mjs` | 阶段 2/3/4 子代理门禁；阶段 3 额外要求上一步 `*.review_result.json` 存在且 `passed=true` |
+| `PostToolUse/Skill` | `phase1-status-shape-ensure.mjs` | 初始化 Skill 完成后补齐状态文件骨架 |
+| `PostToolUse/Subagent\|Task\|Agent` | `phase2-planning-complete.mjs`、`phase3-review-complete.mjs` | 校验计划/审查结果后推进阶段 |
+| `PostToolUse/*` | `tool-healthcheck.mjs` | stderr/异常关键词去重写入 `logs/error.log`，不写状态文件 |
+| `Stop` | `phase1-init-complete.mjs`、`phase4-summary-complete.mjs` | 阶段 1 输入文件非空校验 → 写完成；阶段 4 含交付副作用后写完成 |
+
+**核心工具 `phase2-hook-utils.mjs`**：
+- `resolveWorkDir`（`:78-135`）：6 级优先级解析工作目录——状态文件 work_dir > cwd 内状态文件 > `REQUIREMENT_WORK_DIR` env > task_id 目录锁 > 标准路径 > 自由文本正则。
+- `atomicWriteJson / safeReadJson / appendHookLog`（`:296-317, :21-37`）：原子写 JSON 与日志。
+
+### ④ Skills（23 个原子能力）
+
+位于 `.claude/skills/*/SKILL.md`。按业务域分组：
+
+**通用 / 元能力（10 个）**
+- `初始化`：阶段 1 统一入口（读目录锁 → 调查询 → 生成 4 类输入文件）
+- `查询需求信息` / `查询icenter页面内容`：调 RDC/iCenter MCP 读工作项元数据与文档
+- `内容同步`：阶段 4 强制调用，把 `req_design_document.md` 同步到 Copilot
+- `结果校验`：调 `AskUserQuestion` 强制 A/B 确认
+- `场景检索`：2 轮预算检索，输出标准场景识别结果
+- `协议分析`：协议册召回 → 信令信元抽取 → 写 `req_design_document.md`
+- `差分场景检查单`：7 条规则遍历场景因素，生成检查单并回填
+- `SDD任务时间记录` / `SDD任务生成文字记录` / `SDD内容上报`：活动级度量上报
+
+**特性域变更分析（5 个）**：filesearch 用例召回 / rag 用例召回 / 用例筛选 / 变更点生成 / 评审
+**系统域变更分析（4 个）**：算法 / 子系统 / 组件 / 模块变更分析
+**问题域场景分析（4 个）**：根因分析 / 要素提取与定义 / 标准场景识别与回流 / 用户需求分析汇总
+
+每个 SKILL.md 明确写出"输入文件 → 输出文件路径 → 关键步骤"，是 SubAgent 直接调用的标准操作手册。
+
+### ⑤ SubAgents（19 个执行单元）
+
+位于 `.claude/agents/*/agent.md`，按阶段角色分类（`ls .claude/agents/` 实测共 18 个业务代理 + ReviewAgent）：
+
+| 阶段 | 关键 SubAgent | 职责 |
+|---|---|---|
+| 阶段 2 | `智能需求规划-agent` | 由 `phase2-planning-gate.mjs` 门控，输出 `需求分析执行计划.json` |
+| 阶段 3（业务） | `协议分析-agent` / `差分场景检查单-agent` / `用例召回Agent` / `补充实现思路分析-agent` 等 17 个 | 每步按 `phase3-subagent-gate.mjs` 校验计划内 + 上一步审查通过才能调用 |
+| 阶段 3（审查） | `ReviewAgent` (review-agent) | 单步审查，输出双产物 `{work_dir}/审查结果/step_review/{subagent_type}.review_result.json(.md)`；含 13 条 `rules/*-review-rule.md` 与业务 SubAgent 一一对应 |
+| 阶段 4 | `数据回流-agent` | 阶段 4 强制调用 |
+
+**ReviewAgent 输出契约**（`.claude/agents/ReviewAgent/review_agent.md:218-231`）：
+- 主键强校验 `subagentType === subagent_type`；
+- `passed=false` 时主流程读取 `failedChecks + retryAdvice` 驱动上一步 SubAgent 重做（最多 3 次）。
+
+---
+
+## 3. 一次完整任务的执行时序（端到端）
+
+```
+用户输入：/phase1-requirement-clarify + 需求 ID
+   │
+   ▼
+【阶段 1：需求澄清】
+   ├─ UserPromptSubmit hook → phase-start-on-command.mjs
+   │    └─ 写 phase1.status=running（前置阶段无需校验）
+   ├─ 主 Agent 调用 Skill:初始化
+   │    └─ PreToolUse hook → phase1-workdir-prepare.mjs
+   │         └─ 调 create_req_structure.sh，补 8 个模板
+   │              （changes/{task_id}/需求分析工作流/{input,review_result,...}）
+   ├─ 初始化 Skill 内部调 查询需求信息 / 查询iCenter页面内容
+   │    └─ 产出 input/市场需求.md、input/算法分析.md（按 is_algorithm_design_related）
+   ├─ PostToolUse hook → phase1-status-shape-ensure.mjs（补齐骨架）
+   └─ Stop hook → phase1-init-complete.mjs
+        ├─ 校验 input/市场需求.md 非空 + 状态文件存在 + 需求基本信息.json 字段齐
+        └─ completePhase('phase1', { nextPhase:'phase2', nextStatus:'pending' })
+
+   ▼
+
+【阶段 2：任务规划】（用户输入 /phase2-task-planning）
+   ├─ UserPromptSubmit hook → phase1 completed 校验 + phase2.status=running
+   ├─ PreToolUse hook → phase2-planning-gate.mjs（门控 智能需求规划）
+   └─ 主 Agent 调 Task(subagent_type="智能需求规划", run_in_background=false)
+        └─ 产出 需求分析执行计划.json（结构同 phases/phase2-subagent-list.json）
+             ├─ PostToolUse hook → phase2-planning-complete.mjs
+             │    ├─ validatePhase3PlanPathWithinBoundary
+             │    ├─ 生成任务表 需求任务状态记录表.md
+             │    └─ completePhase('phase2', { nextPhase:'phase3', nextStatus:'pending' })
+             └─ 非默认流程 + AUTO_CONFIRM=false → 用户确认子集计划
+
+   ▼
+
+【阶段 3：需求分析】（用户输入 /phase3-requirement-analysis）
+   ├─ UserPromptSubmit hook → phase2 completed + assertPhase3Plan + phase3.status=running
+   └─ 按计划清单 N 步，每步固定模板：
+        ┌─────────────────────────────────────────────────┐
+        │ Step i:                                         │
+        │ ① PreToolUse hook → phase3-subagent-gate.mjs    │
+        │    ├─ phase3.status==='running'                 │
+        │    ├─ subagent ∈ 计划清单                       │
+        │    └─ 上一步 *.review_result.json.passed=true   │
+        │ ② 主 Agent 调 Task(subagent_type=<sub>, bg=false)│
+        │    ├─ PreToolUse hook → phase3-task-running-update.mjs
+        │    │    └─ 任务表行置 "进行中"                  │
+        │    ├─ SubAgent 产出 业务文件                    │
+        │    └─ 若命中 6 个用户确认门禁清单（且 AUTO_CONFIRM=false）→ 用户确认
+        │ ③ 主 Agent 调 Task(subagent_type="review-agent")│
+        │    └─ PostToolUse hook → phase3-review-complete.mjs
+        │         ├─ 读 {work_dir}/审查结果/step_review/{subagent}.review_result.json
+        │         ├─ passed=true → 任务表行置 "已完成"     │
+        │         └─ passed=false → 读 retryAdvice → 重做（≤3 次）
+        └─────────────────────────────────────────────────┘
+        末步：
+        └─ phase3-review-complete.mjs → allPlanSubagentsPassed
+             └─ completePhase('phase3', { nextPhase:'phase4', nextStatus:'pending' })
+        注：阶段 3 完成后**不自动进入阶段 4**，主 Agent 仅提示用户输入 /phase4-summary。
+
+   ▼
+
+【阶段 4：需求总结】（用户输入 /phase4-summary）
+   ├─ UserPromptSubmit hook → 校验 phase4.status==='pending' → 写 running
+   ├─ PreToolUse hook → phase4-tool-gate.mjs（门控 Skill:内容同步 / Agent:数据回流）
+   ├─ 主 Agent 调 Agent:数据回流-agent + Skill:内容同步
+   │    └─ 写 审查结果/final_summary.md
+   └─ Stop hook → phase4-summary-complete.mjs
+        ├─ 校验 final_summary.md 存在 + phase3 全审查通过
+        ├─ 调 lib/phase4-delivery.mjs:deliverPhase4Artifacts
+        │    └─ 读需求基本信息.json.mr_id
+        │    └─ 目标 = {projectRoot}/../../需求产物/{mr_id}
+        │    └─ 递归复制整个 work_dir 到目标目录（跳过 .runs）
+        └─ completePhase('phase4', { clearNextAction:true })
+```
+
+---
+
+## 4. 关键硬约束与边界（执行时必须遵守）
+
+1. **状态文件只能由 hooks 写**——`CLAUDE.md:48-58` 三处反复强调；主流程、SubAgent、Skill 任何直接写 `req_analysis_phase_status.json` 都视为违规。
+2. **阶段 3 不得自动进入阶段 4**——`CLAUDE.md:54-56`：阶段 3 完成后只能写 `phase4.status=pending`，**禁止写 running**，只能由用户显式 `/phase4-summary` 触发。
+3. **SubAgent 必须前台模式**——`CLAUDE.md:104`：`run_in_background=false, background=false`。
+4. **Auto 模式双重识别**——SubAgent 输出含 `[auto-confirm]` 标记 **或** 环境变量 `AUTO_CONFIRM=true`，主 Agent 都跳过用户确认（`CLAUDE.md:96-98`）。
+5. **阶段 3 步骤 6 个用户确认门禁清单**（`phase3-requirement-analysis.md:58-63`）：仅清单内 SubAgent + AUTO_CONFIRM=false 才需用户确认；其余 SubAgent 直接进入 review-agent。
+6. **审查契约强校验**：`review_result.json.subagentType` 必须等于调用时的 `subagent_type`（`review_agent.md:218-231`）；否则视为审查无效。
+7. **软链接工作目录**：禁止跳转到软链接源物理路径执行命令——所有命令必须锁定当前工作目录（`CLAUDE.md:110-114`）。
+
+---
+
+## 5. 关键文件索引（用于执行/审查时跳转）
+
+| 类别 | 关键路径 |
+|---|---|
+| 宪法 | `CLAUDE.md:1-99` |
+| 阶段命令 | `commands/phase1-requirement-clarify.md:1-39`、`commands/phase2-task-planning.md:1-81`、`commands/phase3-requirement-analysis.md:1-297`、`commands/phase4-summary.md:1-58` |
+| 状态机核心 | `.claude/hooks/lib/phase-state.mjs:5-141`、`.claude/hooks/phase2-hook-utils.mjs:78-135` |
+| 阶段启动 | `.claude/hooks/phase-start-on-command.mjs:1-145` |
+| 阶段 1 门禁/完成 | `phase1-workdir-prepare.mjs:166-238`、`phase1-init-complete.mjs:47-112` |
+| 阶段 2/3/4 门禁 | `phase2-planning-gate.mjs:7-37`、`phase3-subagent-gate.mjs:43-106`、`phase4-tool-gate.mjs:13-50` |
+| 阶段 3 完成 | `phase3-review-complete.mjs:140-155` |
+| 阶段 4 交付 | `phase4-summary-complete.mjs:15-92`、`lib/phase4-delivery.mjs:44-76` |
+| Settings | `.claude/settings.local.json:1-137` |
+| ReviewAgent | `.claude/agents/ReviewAgent/review_agent.md:1-282`、`.claude/agents/ReviewAgent/rules/*-review-rule.md`（13 条） |
+
+---
+
+## 6. 验证方式（仅说明，不实际执行——当前 plan 模式）
+
+1. **读 CLAUDE.md** 验证四阶段框架与硬约束 → 对照本文 §1、§4。
+2. **读 `phase-start-on-command.mjs`** 验证阶段启动逻辑 → 对照 §2 ③ 表。
+3. **读 `phase3-review-complete.mjs:140-155`** 验证阶段 3→4 的 `pending` 边界 → 对照 §3 阶段 3 末步。
+4. **读 `phase4-delivery.mjs:44-76`** 验证交付复制目标目录与跳过规则 → 对照 §3 阶段 4。
+5. **ls `.claude/skills/`** 数出 24 个 skill 目录 → 对照 §2 ④。
+6. **ls `.claude/agents/`** 数出 19 个 agent 目录 → 对照 §2 ⑤。
+
+如果数到与本文不符，说明本文需要修订；否则视为与代码现状一致。
+
+---
+
+## 7. 四个澄清点（用户核对）
+
+用户在阅读本文后提出的四个确认问题，逐条校正如下：
+
+### Q1：阶段 2 主要生成 `phase2-subagent-list.json` 对吧？
+
+**部分对，路径与名称略偏差**。
+
+- **实际产出**：`{需求工作目录}/需求分析执行计划.json`（主 Agent 与 `phase2-planning-complete.mjs:42-124` 都引用这个路径）。
+- **结构参照**：`phases/phase2-subagent-list.json`（作为契约模板，含 `phase2_subagent_list` 字段）。
+
+### Q2：任务规划是阶段 2 完成的对吧？
+
+**对**。阶段 2（task planning）的唯一主线是 `Task(subagent_type="智能需求规划-agent")`，产出 `需求分析执行计划.json`；`phase2-planning-complete.mjs` 校验后才写 `phase2.status=completed`。
+
+### Q3：阶段 3 是调用 subagent 分别分析补充？
+
+**对，但有两层"调用"**：
+
+- **业务 SubAgent**（`协议分析-agent` / `用例召回Agent` / 4 类系统域变更分析-agent 等 17 个）：执行具体分析，产出业务文件。
+- **review-agent**：**每个业务步骤完成后必须串行调用一次**，输出 `{work_dir}/审查结果/step_review/{subagent_type}.review_result.json`。`passed=true` 放行下一步，`passed=false` 读 `retryAdvice` 驱动业务 SubAgent 重做（≤3 次）。
+
+所以阶段 3 的固定模板是**业务 → review → 业务 → review → ...** 串行 N 步，每步都被 `phase3-subagent-gate.mjs` 校验（计划内 + 上一步审查通过）。
+
+### Q4：任务全部结束后用户可选进入阶段 4？
+
+**阶段 4 是"必经"而非"可选"，但触发动作由用户显式给出**。CLAUDE.md 硬约束（`CLAUDE.md:54-56`）：
+
+- 阶段 3 完成后只能写 `phase4.status=pending`，**禁止写 running**，**禁止自动进入阶段 4**。
+- 只有用户显式输入 `/phase4-summary`，UserPromptSubmit hook 才把 `phase4.status` 写为 `running`，阶段 4 才真正启动。
+
+结论：**阶段 4 必须存在并最终交付**，但**触发权在用户手里**——Claude Code 不会跨过这条边界自动推进。

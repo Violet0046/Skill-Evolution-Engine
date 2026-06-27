@@ -1,0 +1,10 @@
+review-agent:
+  expected_subagent_types:
+    - review-agent
+    - 通用review-agent
+  retry_count: 2
+  required_fields:
+    - passed
+    - retryAdvice
+  caller_phases:
+    - phase3

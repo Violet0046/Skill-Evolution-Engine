@@ -1,13 +1,18 @@
 """
-Entry 精简器（v3）
+Entry 精简器
 
-- 按 entry_class 路由配置（v3 config 顶层键）
-- attachment subtype：仅 `hook_success` 命中；其他 subtype 整类型 DROP
+- 按 entry_class 路由配置
+- 黑名单：拷贝 entry 全部字段，按 drop 列表删除
+- attachment subtype：仅配置的 4 类（hook_success / async_hook_response /
+  hook_blocking_error / hook_non_blocking_error）命中；其他 subtype 整类型 DROP
 - 整类型 DROP（classifier 返回的 entry_class 不在 config 中）→ 整条丢
 - `_META._TRUNCATE` 仅在 `config["truncate_enabled"]` 为真时生效
-- 强制保留 `entry_class`
+- 强制保留 `entry_class`（attachment 细化为 attachment.{subtype}）
+
+drop 黑名单模式 — 新字段默认保留，detector 可灵活读取。
 """
 
+import copy
 import json
 import logging
 from typing import Any, Dict, List, Optional, Tuple
@@ -22,9 +27,12 @@ def load_config(config_path: str) -> Dict[str, Any]:
 
 
 def _resolve_config_block(entry: Dict[str, Any], config: Dict[str, Any]) -> Optional[Dict[str, Any]]:
-    """按 entry_class 取配置块（v3：attachment 仅 hook_success 命中）。
+    """按 entry_class 取配置块。
 
-    顺序：entry_class → entry.type → None（None 表示整类型 DROP）。
+    - entry_class == "attachment" → attachment.{subtype} 路径
+    - 其他 entry_class → 直接查 config 顶层 key
+    - 未命中 → 返回 None（整类型 DROP）
+
     """
     cls = entry.get("entry_class")
     if cls == "attachment":
@@ -36,9 +44,6 @@ def _resolve_config_block(entry: Dict[str, Any], config: Dict[str, Any]) -> Opti
         return None
     if cls and cls in config:
         return config[cls]
-    typ = entry.get("type")
-    if typ and typ in config:
-        return config[typ]
     return None
 
 
@@ -202,101 +207,83 @@ def _truncate_str(value: Any, rule: Dict[str, Any], is_error: bool) -> Any:
 
 
 def simplify_entry(entry: Dict[str, Any], config: Dict[str, Any]) -> Optional[Dict[str, Any]]:
-    """精简单条 entry。
+    """精简单条 entry（黑名单模式）。
 
     返回 None 表示整类型 DROP（不进入输出）；否则返回精简后的 dict。
 
     步骤：
     1. 取配置块（v3: attachment 仅 hook_success 命中；未命中 → 整类型 DROP）。
-    2. 合并 required+recommended+optional 路径，逐路径取值并写入新 dict。
-    3. 应用 _META._TRUNCATE（仅当 config["truncate_enabled"] 为真）。
-    4. 强制保留 entry_class。
+    2. 深拷贝 entry → simplified（保留所有原字段）。
+    3. 应用 drop 列表（删除指定路径，含通配符）。
+    4. 应用 _META._TRUNCATE（仅当 config["truncate_enabled"] 为真）。
+    5. 强制保留 entry_class（attachment 细化为 attachment.{subtype}）。
     """
     type_config = _resolve_config_block(entry, config)
     if type_config is None:
         return None
 
-    truncate_enabled = bool(config.get("truncate_enabled", False))
-    truncate_rules: List[Dict[str, Any]] = []
-    if truncate_enabled:
-        truncate_rules = config.get("_META", {}).get("_TRUNCATE", [])
+    # 1) 深拷贝 entry → simplified（默认保留所有字段）
+    simplified = copy.deepcopy(entry)
 
-    keep_paths: List[str] = (
-        list(type_config.get("required", []))
-        + list(type_config.get("recommended", []))
-        + list(type_config.get("optional", []))
-    )
-    drop_paths: List[str] = list(type_config.get("drop", []))
-
-    simplified: Dict[str, Any] = {}
-
-    def _rule_for(rules: List[Dict[str, Any]], path: str) -> Optional[Dict[str, Any]]:
-        for r in rules:
-            if r["path"] == path:
-                return r
-        return None
-
-    list_pending: Dict[str, Dict[int, Dict[str, Any]]] = {}
-
-    def _ensure_list_elem(container_path: str, idx: int) -> Dict[str, Any]:
-        bucket = list_pending.setdefault(container_path, {})
-        if idx not in bucket:
-            bucket[idx] = {}
-        return bucket[idx]
-
-    for path in keep_paths:
-        trunc_rule = _rule_for(truncate_rules, path)
-        values = _get_path(entry, path)
-        if not values:
-            continue
-
-        if "[*]" in path:
-            container = _strip_wildcard(path)
-            leaf_key = path.rsplit(".", 1)[-1].split("[")[0]
-            container_values = _get_path(entry, container)
-            elems: List[Any] = []
-            for v in container_values:
-                if isinstance(v, list):
-                    elems.extend(v)
-                else:
-                    elems.append(v)
-            for list_idx, elem in enumerate(elems):
-                if not isinstance(elem, dict):
-                    continue
-                slot = _ensure_list_elem(container, list_idx)
-                if trunc_rule and leaf_key in elem:
-                    val = elem[leaf_key]
-                    is_err = bool(elem.get("is_error"))
-                    if leaf_key == "content":
-                        empty_marker = trunc_rule.get("empty_marker")
-                        if val in (None, ""):
-                            if empty_marker:
-                                slot[leaf_key] = empty_marker
-                            continue
-                    slot[leaf_key] = _truncate_str(val, trunc_rule, is_err)
-                else:
-                    slot[leaf_key] = elem.get(leaf_key)
-        else:
-            v = values[0]
-            if trunc_rule and isinstance(v, str):
-                v = _truncate_str(v, trunc_rule, False)
-            _set_path(simplified, path, v)
-
-    for container_path, bucket in list_pending.items():
-        ordered = [bucket[i] for i in sorted(bucket.keys())]
-        _set_path(simplified, container_path, ordered)
-
-    for drop_path in drop_paths:
+    # 2) 应用 drop 列表（黑名单：删除指定路径）
+    for drop_path in type_config.get("drop", []):
         _delete_path(simplified, drop_path)
 
+    # 3) 应用 truncation 规则（如果启用）
+    if config.get("truncate_enabled"):
+        _apply_truncation_rules(
+            simplified,
+            config.get("_META", {}).get("_TRUNCATE", []),
+        )
+
+    # 4) 强制保留 entry_class（attachment 细化为 attachment.{subtype}）
     cls = entry.get("entry_class")
     if cls == "attachment":
-        att_type = entry.get("attachment", {}).get("type")
+        att_type = (entry.get("attachment") or {}).get("type")
         if att_type:
             cls = f"attachment.{att_type}"
     simplified["entry_class"] = cls
 
     return simplified
+
+
+def _apply_truncation_rules(entry: Dict[str, Any], rules: List[Dict[str, Any]]) -> None:
+    """原地按 rules 截断 entry 的指定路径。
+
+    支持两种路径：
+    - 简单路径（无 [*]）：直接取 value → 截断 → 写回
+    - 通配路径（含 [*]）：遍历 list 元素，截断 leaf key
+    """
+    for rule in rules:
+        path = rule["path"]
+        if "[*]" not in path:
+            # 简单路径
+            vals = _get_path(entry, path)
+            if vals and isinstance(vals[0], str):
+                _set_path(entry, path, _truncate_str(vals[0], rule, False))
+            continue
+
+        # 通配路径：遍历 list 截断 leaf
+        container = _strip_wildcard(path)
+        leaf_key = path.rsplit(".", 1)[-1].split("[")[0]
+        container_values = _get_path(entry, container)
+        if not container_values:
+            continue
+        for v in container_values:
+            if not isinstance(v, list):
+                continue
+            for item in v:
+                if not isinstance(item, dict) or leaf_key not in item:
+                    continue
+                val = item[leaf_key]
+                is_err = bool(item.get("is_error"))
+                if leaf_key == "content":
+                    empty_marker = rule.get("empty_marker")
+                    if val in (None, ""):
+                        if empty_marker:
+                            item[leaf_key] = empty_marker
+                        continue
+                item[leaf_key] = _truncate_str(val, rule, is_err)
 
 
 def simplify_entries(entries: List[Dict[str, Any]], config_path: str) -> List[Dict[str, Any]]:
