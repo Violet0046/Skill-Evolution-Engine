@@ -1,0 +1,14 @@
+{
+  "name": "SEE (Skill Evolution Engine)",
+  "description": "技能进化引擎，用于从Claude Code session中提取结构化证据，分析失败模式，进化skill定义",
+  "permissions": {
+    "allow": [
+      "Bash(*)",
+      "Read",
+      "Write",
+      "Edit",
+      "Glob",
+      "Grep"
+    ]
+  }
+}

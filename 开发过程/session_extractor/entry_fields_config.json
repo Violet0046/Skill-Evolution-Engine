@@ -1,0 +1,243 @@
+{
+  "version": "3.0",
+  "description": "Session Entry 字段保留配置 v3 — 整类型 DROP 5 类 + attachment 仅保留 hook_success + 移除 message.model/usage/type。truncation 默认关闭。session 共享字段(sessionId/version/entrypoint/isSidechain/userType/cwd)由 session_simplifier.py 提到第 1 行 header，本 config 仅管单条 entry 字段精简。",
+  "truncate_enabled": false,
+  "_META": {
+    "_TRUNCATE": [
+      {
+        "path": "toolUseResult.stdout",
+        "max_head": 2048,
+        "max_tail": 1024,
+        "marker": "\n…[truncated, {n} bytes omitted]…\n",
+        "keep_whole_if_is_error": true
+      },
+      {
+        "path": "toolUseResult.stderr",
+        "max_head": 2048,
+        "max_tail": 1024,
+        "marker": "\n…[truncated, {n} bytes omitted]…\n",
+        "keep_whole_if_is_error": true
+      },
+      {
+        "path": "message.content[*].content",
+        "max_head": 2048,
+        "max_tail": 1024,
+        "marker": "\n…[truncated, {n} bytes omitted]…\n",
+        "keep_whole_if_is_error": true,
+        "empty_marker": "(empty)"
+      },
+      {
+        "path": "message.content[*].text",
+        "max_head": 6144,
+        "max_tail": 1024,
+        "marker": "\n…[truncated, {n} bytes omitted]…\n",
+        "keep_whole_if_is_error": false
+      },
+      {
+        "path": "attachment.stdout",
+        "max_head": 2048,
+        "max_tail": 1024,
+        "marker": "\n…[truncated, {n} bytes omitted]…\n",
+        "keep_whole_if_is_error": true
+      },
+      {
+        "path": "attachment.stderr",
+        "max_head": 2048,
+        "max_tail": 1024,
+        "marker": "\n…[truncated, {n} bytes omitted]…\n",
+        "keep_whole_if_is_error": true
+      }
+    ]
+  },
+  "user_command": {
+    "description": "系统注入的 <local-command-caveat> 等命令类提示。DROP-WHOLE。",
+    "required": [
+      "uuid",
+      "parentUuid",
+      "timestamp",
+      "message",
+      "entry_class"
+    ],
+    "recommended": [],
+    "optional": [],
+    "drop": [
+      "promptId",
+      "sessionId",
+      "permissionMode",
+      "entrypoint",
+      "isSidechain",
+      "userType",
+      "cwd",
+      "version",
+      "gitBranch",
+      "isMeta"
+    ]
+  },
+  "user_input": {
+    "description": "用户真实输入（text 字符串 或 list[{text}]）。",
+    "required": [
+      "uuid",
+      "parentUuid",
+      "timestamp",
+      "entry_class",
+      "message.content"
+    ],
+    "recommended": [
+      "promptId"
+    ],
+    "optional": [
+      "permissionMode"
+    ],
+    "drop": [
+      "message.content[*].type",
+      "entrypoint",
+      "isSidechain",
+      "userType",
+      "cwd",
+      "version",
+      "gitBranch",
+      "isMeta",
+      "agentId"
+    ]
+  },
+  "tool_result": {
+    "description": "工具执行结果（message.content[*].type=tool_result）。关键：保留与 ai_tool_call 的关联 + toolUseResult。",
+    "required": [
+      "uuid",
+      "parentUuid",
+      "timestamp",
+      "entry_class",
+      "message.content[*].tool_use_id",
+      "message.content[*].is_error",
+      "sourceToolAssistantUUID"
+    ],
+    "recommended": [
+      "toolUseResult",
+      "message.content[*].content"
+    ],
+    "optional": [
+      "promptId"
+    ],
+    "drop": [
+      "message.content[*].type",
+      "isSidechain",
+      "userType",
+      "cwd",
+      "version",
+      "gitBranch",
+      "entrypoint",
+      "isMeta"
+    ]
+  },
+  "ai_text": {
+    "description": "assistant 文本输出。保留 <think> 与 stop_reason + stop_sequence，删 model/usage/type。",
+    "required": [
+      "uuid",
+      "parentUuid",
+      "timestamp",
+      "entry_class",
+      "message.content[*].text",
+      "message.stop_reason",
+      "message.stop_sequence"
+    ],
+    "recommended": [
+      "message.id"
+    ],
+    "optional": [],
+    "drop": [
+      "message.content[*].type",
+      "message.model",
+      "message.usage",
+      "isSidechain",
+      "userType",
+      "cwd",
+      "version",
+      "gitBranch",
+      "entrypoint"
+    ]
+  },
+  "ai_tool_call": {
+    "description": "assistant 工具调用。name + input 核心信号；id 与 tool_result 配对。",
+    "required": [
+      "uuid",
+      "parentUuid",
+      "timestamp",
+      "entry_class",
+      "message.content[*].id",
+      "message.content[*].name",
+      "message.content[*].input",
+      "message.stop_reason",
+      "message.stop_sequence"
+    ],
+    "recommended": [
+      "message.id"
+    ],
+    "optional": [],
+    "drop": [
+      "message.content[*].type",
+      "message.model",
+      "message.usage",
+      "isSidechain",
+      "userType",
+      "cwd",
+      "version",
+      "gitBranch",
+      "entrypoint"
+    ]
+  },
+  "attachment.hook_success": {
+    "description": "attachment 唯一保留的 subtype：hook 执行结果。",
+    "required": [
+      "uuid",
+      "parentUuid",
+      "timestamp",
+      "entry_class",
+      "attachment.type",
+      "attachment.hookName",
+      "attachment.hookEvent",
+      "attachment.command",
+      "attachment.exitCode",
+      "attachment.durationMs"
+    ],
+    "recommended": [
+      "attachment.stdout",
+      "attachment.stderr"
+    ],
+    "optional": [],
+    "drop": [
+      "attachment.content",
+      "isSidechain",
+      "userType",
+      "cwd",
+      "version",
+      "gitBranch",
+      "entrypoint"
+    ]
+  },
+  "ai-title": {
+    "description": "自动生成的会话标题。",
+    "required": [
+      "aiTitle",
+      "entry_class",
+      "timestamp"
+    ],
+    "recommended": [],
+    "optional": [],
+    "drop": [
+      "sessionId"
+    ]
+  },
+  "cwd_change": {
+    "description": "v3 自动插入的特殊 entry：检测到 session 内 cwd 跳变时生成。下游靠 entry_class='cwd_change' 识别。",
+    "required": [
+      "entry_class",
+      "uuid",
+      "timestamp",
+      "cwd",
+      "prevCwd"
+    ],
+    "recommended": [],
+    "optional": [],
+    "drop": []
+  }
+}
