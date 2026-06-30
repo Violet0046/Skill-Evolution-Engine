@@ -18,7 +18,7 @@ logger = logging.getLogger(__name__)
 
 # session header 字段
 SESSION_HEADER_FIELDS = [
-    "sessionId", "version", "entrypoint", "isSidechain", "userType", "cwd",
+    "sessionId", "version", "entrypoint", "isSidechain", "userType", "cwd", "slug",
 ]
 
 

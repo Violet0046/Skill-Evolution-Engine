@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """v4 collector 主入口 — argparse + 调 pipeline.run()。
 
 CLI：

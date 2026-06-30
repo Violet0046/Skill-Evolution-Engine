@@ -1,7 +1,8 @@
 {
   "truncate_enabled": true,
   "_DROP_CLASSES": [
-    "progress",
+    "progress.hook_progress",
+    "progress.skill_progress",
     "queue-operation",
     "file-history-snapshot",
     "last-prompt",
@@ -65,6 +66,13 @@
         "max_tail": 1024,
         "marker": "\n…[truncated, {n} bytes omitted]…\n",
         "keep_whole_if_is_error": true
+      },
+      {
+        "path": "data.message.message.content[*].content",
+        "max_head": 2048,
+        "max_tail": 1024,
+        "marker": "\n…[truncated, {n} bytes omitted]…\n",
+        "keep_whole_if_is_error": true
       }
     ]
   },
@@ -80,7 +88,8 @@
       "version",
       "gitBranch",
       "isMeta",
-      "cwd"
+      "cwd",
+      "slug"
     ]
   },
   "user_input": {
@@ -95,7 +104,8 @@
       "gitBranch",
       "isMeta",
       "agentId",
-      "cwd"
+      "cwd",
+      "slug"
     ]
   },
   "tool_result": {
@@ -109,7 +119,8 @@
       "gitBranch",
       "entrypoint",
       "isMeta",
-      "cwd"
+      "cwd",
+      "slug"
     ]
   },
   "ai_text": {
@@ -124,7 +135,8 @@
       "version",
       "gitBranch",
       "entrypoint",
-      "cwd"
+      "cwd",
+      "slug"
     ]
   },
   "ai_tool_call": {
@@ -139,7 +151,8 @@
       "version",
       "gitBranch",
       "entrypoint",
-      "cwd"
+      "cwd",
+      "slug"
     ]
   },
   "attachment.hook_success": {
@@ -153,7 +166,8 @@
       "version",
       "gitBranch",
       "entrypoint",
-      "cwd"
+      "cwd",
+      "slug"
     ]
   },
   "attachment.async_hook_response": {
@@ -165,7 +179,8 @@
       "version",
       "gitBranch",
       "entrypoint",
-      "cwd"
+      "cwd",
+      "slug"
     ]
   },
   "attachment.hook_blocking_error": {
@@ -177,7 +192,8 @@
       "version",
       "gitBranch",
       "entrypoint",
-      "cwd"
+      "cwd",
+      "slug"
     ]
   },
   "attachment.hook_non_blocking_error": {
@@ -189,14 +205,16 @@
       "version",
       "gitBranch",
       "entrypoint",
-      "cwd"
+      "cwd",
+      "slug"
     ]
   },
   "ai-title": {
     "drop": [
       "type",
       "sessionId",
-      "cwd"
+      "cwd",
+      "slug"
     ]
   }
 }

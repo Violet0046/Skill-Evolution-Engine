@@ -4,8 +4,9 @@ Session条目分类器
 根据entry的type字段和message.content中的type字段,将条目分为以下类别:
 - user类型: user_command、user_input、tool_result
 - assistant类型: ai_text、ai_tool_call
-- attachment 类型：细化为 attachment.{subtype}（如 attachment.hook_success）
-- 其他系统类型：file-history-snapshot、permission-mode、ai-title、queue-operation、last-prompt、system、progress
+- attachment类型：细化为 attachment.{subtype}（如 attachment.hook_success）
+- progress类型：细化为 progress.{subtype}（如 progress.hook_progress / progress.skill_progress）
+- 其他系统类型：file-history-snapshot、permission-mode、ai-title、queue-operation、last-prompt、system
 
 """
 
@@ -25,7 +26,8 @@ def classify_entry(entry: Dict[str, Any]) -> str:
       - ai_text：message.content中的type为text
       - ai_tool_call：message.content中的type为tool_use
     - attachment 类型：细化为 attachment.{subtype}（如 attachment.hook_success）
-    - 其他系统类型：file-history-snapshot、permission-mode、ai-title、queue-operation、last-prompt、system、progress
+    - progress 类型：细化为 progress.{data.type}（如 progress.hook_progress / progress.skill_progress）
+    - 其他系统类型：file-history-snapshot、permission-mode、ai-title、queue-operation、last-prompt、system
     """
     entry_type = entry.get("type", "")
 
@@ -36,9 +38,17 @@ def classify_entry(entry: Dict[str, Any]) -> str:
             return f"attachment.{att_type}"
         return "attachment"
 
+    # progress 类型：进一步细化为 progress.{data.type}
+    # 仿 attachment 模式：用 data.type 做子类型路由；未来发现的 progress.{新 subtype} 自动 KEEP
+    if entry_type == "progress":
+        data_type = (entry.get("data", {}) or {}).get("type")
+        if data_type:
+            return f"progress.{data_type}"
+        return "progress"
+
     # 其他系统类型（system / queue-operation / last-prompt / ...）原样返回
     if entry_type in ["system", "queue-operation", "last-prompt",
-                       "file-history-snapshot", "permission-mode", "ai-title","progress"]:
+                       "file-history-snapshot", "permission-mode", "ai-title"]:
         return entry_type
 
     # 处理user类型

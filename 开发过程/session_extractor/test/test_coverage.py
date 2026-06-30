@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """
 分类器覆盖率测试脚本
 
@@ -6,7 +5,7 @@
 未覆盖的entry会输出到errentry.jsonl文件。
 
 用法：
-    python3.8 test_coverage.py                       # 默认测试 ../projects
+    python3.8 test_coverage.py                      # 默认测试 ../../projects
     python3.8 test_coverage.py <目录>                # 测试指定目录
     python3.8 test_coverage.py --list                # 列出待测文件，不运行
     python3.8 test_coverage.py --output err.jsonl    # 自定义错误输出文件
@@ -21,8 +20,8 @@ import logging
 from pathlib import Path
 from collections import Counter
 
-# 添加脚本所在目录到Python路径
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+# 添加脚本所在目录的父目录（session_extractor 根）到Python路径，以解析 `src.*` 子包
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from src.simplify.classifier import classify_entry
 
@@ -34,9 +33,10 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 
-# 默认待测目录（脚本所在目录的同级 ../projects）
+# 默认待测目录：session_extractor/ 上两级（开发过程/）下的 projects/
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-DEFAULT_TEST_DIR = os.path.normpath(os.path.join(SCRIPT_DIR, "..", "projects"))
+PROJECT_ROOT = os.path.dirname(SCRIPT_DIR)  # session_extractor/
+DEFAULT_TEST_DIR = os.path.normpath(os.path.join(PROJECT_ROOT, "..", "projects"))
 DEFAULT_ERROR_FILE = os.path.join(SCRIPT_DIR, "errentry.jsonl")
 
 

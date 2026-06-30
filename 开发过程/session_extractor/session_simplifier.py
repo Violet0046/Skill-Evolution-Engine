@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """v4 collector 向后兼容入口 — 委托到 run.main()。
 
 为保留 v3 的调用习惯（`python3 session_simplifier.py in out`），本文件只做
