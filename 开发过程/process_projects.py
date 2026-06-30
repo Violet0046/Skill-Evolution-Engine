@@ -5,7 +5,6 @@ process_projects.py — 遍历 projects/ 下所有 session，simplify 后写到 
   projects/1dc55302-.../session.jsonl              →  project_out/1dc55302-.../session.jsonl
   projects/1dc55302-.../subagents/agent-xxx.jsonl  →  project_out/1dc55302-.../subagents/agent-xxx.jsonl
 
-每个 session 用 v4 collector 的 pipeline.run 简化。
 """
 
 from __future__ import annotations
@@ -19,7 +18,7 @@ from pathlib import Path
 SESSION_EXTRACTOR_DIR = Path(__file__).parent / "session_extractor"
 sys.path.insert(0, str(SESSION_EXTRACTOR_DIR))
 
-from src.pipeline import run as pipeline_run  # noqa: E402
+from session_extractor.src.pipeline import run as pipeline_run  # noqa: E402
 
 
 PROJECTS_DIR = Path(__file__).parent / "projects"

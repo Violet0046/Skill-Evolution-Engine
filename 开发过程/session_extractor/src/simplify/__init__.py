@@ -1,18 +1,28 @@
-"""util/ 子目录：通用 IO 工具。
+"""simplify/ 子目录：entry 字段精简 + truncation。
 
-- session_io.py: session 文件加载 + header 提取 + cwd 跳变标记（mutate entry）
+- simplifier.py:          字段白名单 + truncate 规则实现
+- entry_fields_config.json: 字段保留规范 + truncation 默认配置
+
 """
 
-from ..util.session_io import (
-    SESSION_HEADER_FIELDS,
-    load_session_entries,
-    extract_session_header,
-    insert_cwd_changes,
+from .simplifier import (
+    load_config,
+    simplify_entry,
+    simplify_entries,
+    _get_path,
+    _set_path,
+    _strip_wildcard,
+    _iter_path_steps,
+    _truncate_str,
 )
 
 __all__ = [
-    "SESSION_HEADER_FIELDS",
-    "load_session_entries",
-    "extract_session_header",
-    "insert_cwd_changes",
+    "load_config",
+    "simplify_entry",
+    "simplify_entries",
+    "_get_path",
+    "_set_path",
+    "_strip_wildcard",
+    "_iter_path_steps",
+    "_truncate_str",
 ]

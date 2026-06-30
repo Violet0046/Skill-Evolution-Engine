@@ -5,7 +5,7 @@ Session条目分类器
 - user类型: user_command、user_input、tool_result
 - assistant类型: ai_text、ai_tool_call
 - attachment 类型：细化为 attachment.{subtype}（如 attachment.hook_success）
-- 其他系统类型：file-history-snapshot、permission-mode、ai-title、queue-operation、last-prompt、system
+- 其他系统类型：file-history-snapshot、permission-mode、ai-title、queue-operation、last-prompt、system、progress
 
 """
 
@@ -25,7 +25,7 @@ def classify_entry(entry: Dict[str, Any]) -> str:
       - ai_text：message.content中的type为text
       - ai_tool_call：message.content中的type为tool_use
     - attachment 类型：细化为 attachment.{subtype}（如 attachment.hook_success）
-    - 其他系统类型：file-history-snapshot、permission-mode、ai-title、queue-operation、last-prompt、system
+    - 其他系统类型：file-history-snapshot、permission-mode、ai-title、queue-operation、last-prompt、system、progress
     """
     entry_type = entry.get("type", "")
 
@@ -38,7 +38,7 @@ def classify_entry(entry: Dict[str, Any]) -> str:
 
     # 其他系统类型（system / queue-operation / last-prompt / ...）原样返回
     if entry_type in ["system", "queue-operation", "last-prompt",
-                       "file-history-snapshot", "permission-mode", "ai-title"]:
+                       "file-history-snapshot", "permission-mode", "ai-title","progress"]:
         return entry_type
 
     # 处理user类型

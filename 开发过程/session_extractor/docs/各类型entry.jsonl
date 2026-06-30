@@ -329,3 +329,24 @@
     "permissionMode": "bypassPermissions",
     "sessionId": "332883f3-4f66-485f-8ef3-ab44ce7e4520",
 },
+# progress
+{
+    "parentUuid": null,
+    "isSidechain": false,
+    "type": "progress",
+    "data": {
+      "type": "hook_progress",
+      "hookEvent": "SessionStart",
+      "hookName": "SessionStart:startup",
+      "command": "node \"/home/10087141@zte.intra/工作/Claude-Code-Agent-Monitor/scripts/hook-handler.js\" SessionStart"
+    },
+    "parentToolUseID": "986092e3-d0e7-4484-a4e7-2b8f6f3fc9ed",
+    "toolUseID": "986092e3-d0e7-4484-a4e7-2b8f6f3fc9ed",
+    "timestamp": "2026-05-22T03:17:43.367Z",
+    "uuid": "1442c627-e52f-4e6d-a44d-bab5401817dd",
+    "userType": "external",
+    "cwd": "/home/10087141@zte.intra/AI_DEV/SDD/ran_sdd/02_SDD功能类需求_iMate_skill_subAnget/02_设计域",
+    "sessionId": "1dc55302-5d21-4c65-b915-029031760ee6",
+    "version": "2.1.77",
+    "gitBranch": "master",
+},

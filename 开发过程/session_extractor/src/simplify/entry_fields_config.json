@@ -1,5 +1,27 @@
 {
   "truncate_enabled": true,
+  "_DROP_CLASSES": [
+    "progress",
+    "queue-operation",
+    "file-history-snapshot",
+    "last-prompt",
+    "system",
+    "permission-mode",
+    "attachment.todo_reminder",
+    "attachment.skill_listing",
+    "attachment.nested_memory",
+    "attachment.dynamic_skill",
+    "attachment.edited_text_file",
+    "attachment.hook_additional_context",
+    "attachment.command_permissions",
+    "attachment.task_reminder",
+    "attachment.date_change",
+    "attachment.queued_command",
+    "attachment.mcp_instructions_delta",
+    "attachment.hook_cancelled",
+    "attachment.auto_mode",
+    "attachment.auto_mode_exit"
+  ],
   "_META": {
     "_TRUNCATE": [
       {

@@ -62,7 +62,7 @@
         "user_confirmation",
         "symlink"
       ],
-      "spec_loaded": true,
+      "spec_loaded": false,
       "truncate_enabled": true,
       "warnings": []
     },

@@ -1,20 +1,19 @@
 """
 Entry 精简器
 
-- 按 entry_class 路由配置
-- 黑名单：拷贝 entry 全部字段，按 drop 列表删除
-- attachment subtype：仅配置的 4 类（hook_success / async_hook_response /
-  hook_blocking_error / hook_non_blocking_error）命中；其他 subtype 整类型 DROP
-- 整类型 DROP（classifier 返回的 entry_class 不在 config 中）→ 整条丢
+- 默认全保留 + 显式 DROP 名单（`_DROP_CLASSES`）
+- 已配 config 块的 entry_class → 按 drop 列表字段裁剪（黑名单）
+- 命中 `_DROP_CLASSES` → 整条 DROP
+- 既未配也不在 DROP 名单 → pass_through，保留 entry 全部字段
 - `_META._TRUNCATE` 仅在 `config["truncate_enabled"]` 为真时生效
-- 强制保留 `entry_class`（attachment 细化为 attachment.{subtype}）
-
-drop 黑名单模式 — 新字段默认保留，detector 可灵活读取。
+- 强制规范化 `entry_class`：None → "<unrecognized>" sentinel
+- attachment 在输出时细化为 attachment.{subtype}
 """
 
 import copy
 import json
 import logging
+from collections import Counter
 from typing import Any, Dict, List, Optional, Tuple
 
 logger = logging.getLogger(__name__)
@@ -26,25 +25,40 @@ def load_config(config_path: str) -> Dict[str, Any]:
         return json.load(f)
 
 
-def _resolve_config_block(entry: Dict[str, Any], config: Dict[str, Any]) -> Optional[Dict[str, Any]]:
-    """按 entry_class 取配置块。
+def _resolve_config_block(
+    entry: Dict[str, Any],
+    config: Dict[str, Any],
+) -> Tuple[str, Optional[Dict[str, Any]]]:
+    """按 entry_class 解析配置块 + DROP 决策。
 
-    - entry_class == "attachment" → attachment.{subtype} 路径
-    - 其他 entry_class → 直接查 config 顶层 key
-    - 未命中 → 返回 None（整类型 DROP）
-
+    返回 (decision, type_config_or_None)：
+    - "keep"        : 命中显式 config 块 → type_config 非空
+    - "drop"        : 命中 _DROP_CLASSES   → type_config = None
+    - "pass_through": 既未识别也不在 DROP 名单 → 默认全保留
     """
     cls = entry.get("entry_class")
+    drop_set = set(config.get("_DROP_CLASSES", []))
+
+    # classifier 未识别（返回 None）：默认保留（新 session type 不被吞）
+    if cls is None:
+        return "pass_through", None
+
+    # attachment 路径：把 "attachment" 粗类转 attachment.{subtype} 再路由
     if cls == "attachment":
-        att_type = entry.get("attachment", {}).get("type")
-        if att_type:
-            sub_key = f"attachment.{att_type}"
-            if sub_key in config:
-                return config[sub_key]
-        return None
-    if cls and cls in config:
-        return config[cls]
-    return None
+        att_type = (entry.get("attachment") or {}).get("type")
+        sub_key = f"attachment.{att_type}" if att_type else "attachment"
+        if sub_key in config and isinstance(config[sub_key], dict):
+            return "keep", config[sub_key]
+        if sub_key in drop_set:
+            return "drop", None
+        return "pass_through", None
+
+    # 顶层 key
+    if cls in config and isinstance(config[cls], dict):
+        return "keep", config[cls]
+    if cls in drop_set:
+        return "drop", None
+    return "pass_through", None
 
 
 def _iter_path_steps(path: str) -> List[Tuple[str, Optional[int], bool]]:
@@ -207,41 +221,44 @@ def _truncate_str(value: Any, rule: Dict[str, Any], is_error: bool) -> Any:
 
 
 def simplify_entry(entry: Dict[str, Any], config: Dict[str, Any]) -> Optional[Dict[str, Any]]:
-    """精简单条 entry（黑名单模式）。
+    """精简单条 entry（默认全保留 + 显式 DROP 名单 + 黑名单字段裁剪）。
 
-    返回 None 表示整类型 DROP（不进入输出）；否则返回精简后的 dict。
+    返回 None → 整类型 DROP（命中 _DROP_CLASSES）。
+    命中已配 config 块 → 走黑名单 drop 列表。
+    未识别/未配置但不在 DROP 名单 → pass_through，保留 entry 全部字段。
 
     步骤：
-    1. 取配置块（v3: attachment 仅 hook_success 命中；未命中 → 整类型 DROP）。
-    2. 深拷贝 entry → simplified（保留所有原字段）。
-    3. 应用 drop 列表（删除指定路径，含通配符）。
-    4. 应用 _META._TRUNCATE（仅当 config["truncate_enabled"] 为真）。
-    5. 强制保留 entry_class（attachment 细化为 attachment.{subtype}）。
+    1. 路由决策（_resolve_config_block）：keep / drop / pass_through。
+    2. drop → 返回 None；keep → 深拷贝 + drop 列表；pass_through → 深拷贝。
+    3. 应用 _META._TRUNCATE（仅当 config["truncate_enabled"] 为真）。
+    4. 强制规范化 entry_class：None → "<unrecognized>" sentinel；attachment 细化为 attachment.{subtype}。
     """
-    type_config = _resolve_config_block(entry, config)
-    if type_config is None:
+    decision, type_config = _resolve_config_block(entry, config)
+    if decision == "drop":
         return None
 
-    # 1) 深拷贝 entry → simplified（默认保留所有字段）
     simplified = copy.deepcopy(entry)
 
-    # 2) 应用 drop 列表（黑名单：删除指定路径）
-    for drop_path in type_config.get("drop", []):
-        _delete_path(simplified, drop_path)
+    # 命中已配 config 块：应用 drop 列表
+    if decision == "keep":
+        for drop_path in type_config.get("drop", []):
+            _delete_path(simplified, drop_path)
 
-    # 3) 应用 truncation 规则（如果启用）
+    # 应用 truncation 规则（如果启用）
     if config.get("truncate_enabled"):
         _apply_truncation_rules(
             simplified,
             config.get("_META", {}).get("_TRUNCATE", []),
         )
 
-    # 4) 强制保留 entry_class（attachment 细化为 attachment.{subtype}）
+    # 强制规范化 entry_class
     cls = entry.get("entry_class")
     if cls == "attachment":
         att_type = (entry.get("attachment") or {}).get("type")
         if att_type:
             cls = f"attachment.{att_type}"
+    if not cls:
+        cls = "<unrecognized>"
     simplified["entry_class"] = cls
 
     return simplified
@@ -287,15 +304,33 @@ def _apply_truncation_rules(entry: Dict[str, Any], rules: List[Dict[str, Any]]) 
 
 
 def simplify_entries(entries: List[Dict[str, Any]], config_path: str) -> List[Dict[str, Any]]:
-    """批量精简 entries。整类型 DROP 的 entry（simplify_entry 返回 None）被过滤掉。"""
+    """批量精简 entries。
+
+    - 整类型 DROP 的 entry（simplify_entry 返回 None）按 entry_class 计入 drop 统计。
+    - pass_through 的 entry 计入 pass_through 计数，便于用户发现未识别类型。
+    """
     config = load_config(config_path)
     out: List[Dict[str, Any]] = []
-    dropped = 0
+    drop_counts: Counter = Counter()
+    pass_through_count = 0
     for entry in entries:
         result = simplify_entry(entry, config)
         if result is None:
-            dropped += 1
+            cls = entry.get("entry_class")
+            drop_counts[cls if cls else "<unrecognized>"] += 1
             continue
         out.append(result)
-    logger.info("已精简 %d 个 entries（整类型 DROP %d 条）", len(entries), dropped)
+        cls = result.get("entry_class")
+        if cls and cls not in config and (cls not in (config.get("_DROP_CLASSES") or [])):
+            pass_through_count += 1
+    if drop_counts:
+        logger.info(
+            "已精简 %d 个 entries（整类型 DROP：%s）",
+            len(out), dict(drop_counts.most_common()),
+        )
+    if pass_through_count:
+        logger.info(
+            "pass_through（未识别/未配但保留）共 %d 条 —— 建议显式配置或加入 _DROP_CLASSES",
+            pass_through_count,
+        )
     return out
