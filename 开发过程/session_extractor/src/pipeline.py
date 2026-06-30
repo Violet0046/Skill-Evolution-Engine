@@ -29,7 +29,7 @@ from src.spec_loader import load_spec
 from src.stages.bundle_writer import make_empty_bundle, write_bundle
 from src.stages.execution_pattern import compute_execution_pattern
 from src.stages.user_feedback import extract_user_feedback
-from src.util.classifier import classify_entry
+from src.simplify.classifier import classify_entry
 from src.util.session_io import (
     load_session_entries,
     extract_session_header,

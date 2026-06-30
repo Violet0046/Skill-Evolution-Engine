@@ -9,7 +9,7 @@ import os
 # 添加src目录到Python路径
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
-from src.util.classifier import classify_entry
+from 开发过程.session_extractor.src.simplify.classifier import classify_entry
 
 
 class TestClassifier(unittest.TestCase):

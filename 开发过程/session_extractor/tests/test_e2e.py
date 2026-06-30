@@ -18,7 +18,7 @@ from pathlib import Path
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
 from src.pipeline import run as pipeline_run
-from src.util.classifier import classify_entry
+from 开发过程.session_extractor.src.simplify.classifier import classify_entry
 from src.util.session_io import load_session_entries
 from src.util.timestamp import parse_timestamp, sort_by_timestamp
 
