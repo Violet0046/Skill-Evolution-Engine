@@ -47,6 +47,7 @@ from src.util.session_io import (  # noqa: E402
     load_session_entries,
     extract_session_header,
 )
+from src.util.agent_meta import copy_agent_meta_files  # noqa: E402
 from src.simplify.classifier import classify_entry  # noqa: E402
 from src.simplify.simplifier import simplify_entries  # noqa: E402
 
@@ -104,8 +105,20 @@ def process_one_session(
         for e in simplified:
             f.write(json.dumps(e, ensure_ascii=False) + "\n")
 
+    # 6) 顺手 copy subagents/*.meta.json（让索引构建能拿到 agentType）
+    #   主流程：input_path = projects/<sid>.jsonl,  subagents 在 projects/<sid>/subagents/
+    #   subagent：input_path = projects/<sid>/subagents/agent-xxx.jsonl, input_path.parent 就是 subagents/
+    if file_type == "main":
+        sid = header.get("sessionId")
+        input_sub_dir = input_path.parent / sid / "subagents" if sid else None
+        output_sub_dir = output_path.parent / sid / "subagents" if sid else None
+    else:
+        input_sub_dir = input_path.parent
+        output_sub_dir = output_path.parent
+    meta_copied = copy_agent_meta_files(input_sub_dir, output_sub_dir) if input_sub_dir else 0
+
     size_out = output_path.stat().st_size if output_path.exists() else 0
-    return {
+    result = {
         **base,
         "size_out_bytes": size_out,
         "entries_in": len(entries),
@@ -113,6 +126,9 @@ def process_one_session(
         "format": fmt,
         "session_id": header.get("sessionId"),
     }
+    if meta_copied:
+        result["meta_files_copied"] = meta_copied
+    return result
 
 
 def build_summary_json(
