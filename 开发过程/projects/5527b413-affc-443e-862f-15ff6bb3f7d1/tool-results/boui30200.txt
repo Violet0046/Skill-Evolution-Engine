@@ -1,0 +1,2114 @@
+总用量 8556
+drwxrwxr-x  2 10217492@zte.intra 10217492@zte.intra 110592 6月   1 19:40 .
+drwxrwxr-x 19 10217492@zte.intra 10217492@zte.intra   4096 6月  17 08:42 ..
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    213 6月   1 19:40 100M带宽.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    285 6月   1 19:40 100RB调度带宽.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    344 6月   1 19:40 1024QAM功能支持较差的终端.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    292 6月   1 19:40 1+1 JR负增益环境.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    273 6月   1 19:40 128波束权值表.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    225 6月   1 19:40 128T-64T机型.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    277 6月   1 19:40 128T基站.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    259 6月   1 19:40 128T机型.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    334 6月   1 19:40 128T通感基站组网.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    264 6月   1 19:40 128TR基站.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    262 6月   1 19:40 128TR天线配置.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    271 6月   1 19:40 128TR AAU.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    268 6月   1 19:40 1+2多BWP配置.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    269 6月   1 19:40 1+2BWP配置场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    310 6月   1 19:40 1+2 JR负增益环境.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    265 6月   1 19:40 1.8GHz和2.1GHz载波.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    290 6月   1 19:40 1D3U帧结构配置.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    340 6月   1 19:40 1D3U帧结构.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    255 6月   1 19:40 1+N协同.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    228 6月   1 19:40 1P1B测量.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    307 6月   1 19:40 1P1B或1PNB模拟波束.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    246 6月   1 19:40 1P1B轮扫.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    296 6月   1 19:40 1T终端.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    218 6月   1 19:40 1Tx终端.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    300 6月   1 19:40 20+90+60的BWP布局.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    398 6月   1 19:40 20%水空一体帧结构.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    288 6月   1 19:40 20M带宽.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    400 6月   1 19:40 20MHz载波带宽经滤波后实际占用17.5MHz频谱.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    272 6月   1 19:40 2.1GHz上行载波.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    321 6月   1 19:40 25M包20M以外的带宽配置.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    321 6月   1 19:40 2.5ms双帧结构.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    254 6月   1 19:40 2.6G-3.5G-4.9G频段.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    272 6月   1 19:40 28A和28B BWP选择方案.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    243 6月   1 19:40 2G+1NR配置.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    278 6月   1 19:40 2G+2U+1NR-LTE配置.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    322 6月   1 19:40 2T UBR.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    266 6月   1 19:40 2UE空分场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    239 6月   1 19:40 30M-40M-45M带宽.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    307 6月   1 19:40 3+2帧结构配置.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    300 6月   1 19:40 3+2帧结构.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    293 6月   1 19:40 3+2ms两S帧结构配置需求.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    290 6月   1 19:40 3+2ms帧结构.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    278 6月   1 19:40 32TR站型.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    253 6月   1 19:40 3.5G频段.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    272 6月   1 19:40 3.5GHz下行载波.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    373 6月   1 19:40 3CC及以上载波聚合场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    260 6月   1 19:40 400M带宽.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    317 6月   1 19:40 400UE大容量场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    232 6月   1 19:40 40M带宽配置.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    262 6月   1 19:40 4.9G频段.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    258 6月   1 19:40 4.9G帧结构.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    284 6月   1 19:40 4载波聚合.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    334 6月   1 19:40 4G-5G业务需求差异化.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    262 6月   1 19:40 4T8R终端.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    329 6月   1 19:40 4T-8T超级小区.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    252 6月   1 19:40 4T基站配置.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    242 6月   1 19:40 4T基站.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    312 6月   1 19:40 4T机型设备.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    274 6月   1 19:40 4T开环传输模式.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    275 6月   1 19:40 4TDOAPMI传输模式.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    387 6月   1 19:40 4T PAD超级小区组网场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    274 6月   1 19:40 4TPMI传输模式.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    270 6月   1 19:40 4T SUBF传输模式.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    286 6月   1 19:40 4T UBR.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    294 6月   1 19:40 5G-A演进.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    190 6月   1 19:40 5GC.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    340 6月   1 19:40 5G-R A-B双连接组网.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    387 6月   1 19:40 5G-R A-B网异频双连接组网.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    424 6月   1 19:40 5G-R A-B网SSB频域错开共享载波组网.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    314 6月   1 19:40 5G-R.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    310 6月   1 19:40 5ms单 1+2BWP 100M配置.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    305 6月   1 19:40 5ms单-2.5ms双-1D3U帧结构.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    262 6月   1 19:40 5ms单帧结构.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    268 6月   1 19:40 5ms帧结构.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    277 6月   1 19:40 5QI1承载业务.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    262 6月   1 19:40 5QI1承载.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    308 6月   1 19:40 5QI1业务.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    244 6月   1 19:40 5QI2业务.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    278 6月   1 19:40 5QI3.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    312 6月   1 19:40 5QI4.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    297 6月   1 19:40 5QI5.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    278 6月   1 19:40 5QI6.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    313 6月   1 19:40 5QI7.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    364 6月   1 19:40 5QI8.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    278 6月   1 19:40 5QI9.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    334 6月   1 19:40 5QI保障业务.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    278 6月   1 19:40 5QI识别.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    356 6月   1 19:40 60度以上大张角需求.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    262 6月   1 19:40 800-900M DSS场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    248 6月   1 19:40 800M邻频点干扰.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    285 6月   1 19:40 8:4:2时隙配比.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    242 6月   1 19:40 8T基站.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    233 6月   1 19:40 8T机型.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    274 6月   1 19:40 8T开环传输模式.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    275 6月   1 19:40 8TDOAPMI传输模式.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    272 6月   1 19:40 8TR机型.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    374 6月   1 19:40 8T RRU超级小区组网场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    270 6月   1 19:40 8T SUBF传输模式.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    314 6月   1 19:40 900M FNR和FL非标带宽.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    247 6月   1 19:40 9200机框.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    286 6月   1 19:40 9611特定机型.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    318 6月   1 19:40 9650E机型.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    303 6月   1 19:40 9651-D机型（双频64TR）.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    331 6月   1 19:40 9651L机型.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    279 6月   1 19:40 9835 8T机型.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    319 6月   1 19:40 99.999%可靠性业务.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    316 6月   1 19:40 99.99%可靠性业务.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    244 6月   1 19:40 阿联酋市场.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    296 6月   1 19:40 白名单终端.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    209 6月   1 19:40 板级池化MAC层调度器.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    305 6月   1 19:40 版本落后的终端.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    236 6月   1 19:40 办公业务.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    320 6月   1 19:40 保障目标未达标的GBR承载.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    268 6月   1 19:40 保障用户.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    275 6月   1 19:40 背景用户.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    508 6月   1 19:40 背景噪声.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    302 6月   1 19:40 本邻信道相关性较高.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    394 6月   1 19:40 本区与邻区的PDSCH相互干扰.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    305 6月   1 19:40 本区与邻区的SSB相互干扰.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    328 6月   1 19:40 本区UE间干扰.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    333 6月   1 19:40 闭环保障机制.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    260 6月   1 19:40 边界小区.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    289 6月   1 19:40 边缘弱场环境.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    246 6月   1 19:40 边缘UE.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    313 6月   1 19:40 标准5QI.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    340 6月   1 19:40 标准带宽15MHz滤波为11MHz.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    374 6月   1 19:40 波束覆盖不足.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    427 6月   1 19:40 波束跟踪能力差.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    399 6月   1 19:40 波束级模拟加载功能.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    478 6月   1 19:40 波束间干扰强.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    354 6月   1 19:40 波束内UE信道相关性低.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    326 6月   1 19:40 波束域干扰协同需求.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    302 6月   1 19:40 波束RB占用差异.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    287 6月   1 19:40 波位级相关性.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    248 6月   1 19:40 不合适的波束角度.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    319 6月   1 19:40 不同信道质量用户.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    325 6月   1 19:40 不同BWP上的业务测试需求.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    322 6月   1 19:40 不同RI的SUBF传输模式.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    298 6月   1 19:40 不支持90M带宽的终端.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    373 6月   1 19:40 不支持专用BWP不配PRACH的RedCap终端.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    351 6月   1 19:40 不支持twoPUCCH-F0-2-ConsecSymbols的UE.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    328 6月   1 19:40 部分波束不发送信号.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    261 6月   1 19:40 部分共享场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    316 6月   1 19:40 部分共享配置.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    326 6月   1 19:40 部分RB协作slot连续数过多.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    263 6月   1 19:40 参数回退场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    254 6月   1 19:40 参数继承.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    295 6月   1 19:40 参数上移至CPA.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    282 6月   1 19:40 参数套规整场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    320 6月   1 19:40 参数套配置.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    235 6月   1 19:40 插拔双光纤.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    350 6月   1 19:40 插值信道估计方式.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    233 6月   1 19:40 长视频业务.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    273 6月   1 19:40 长周期NCD-SSB.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    276 6月   1 19:40 超过2个小BWP配置.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    332 6月   1 19:40 超级小区间交叠区.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    402 6月   1 19:40 超级小区内CP发射功率不一致.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    302 6月   1 19:40 超级小区切换场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    391 6月   1 19:40 超级小区协作传输技术.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    418 6月   1 19:40 超级小区CP间重叠覆盖.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    292 6月   1 19:40 超级小区.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    347 6月   1 19:40 超级小区TTI调度能力受限.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    243 6月   1 19:40 超远覆盖基站.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    255 6月   1 19:40 超远覆盖通信需求.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    333 6月   1 19:40 超远覆盖.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    290 6月   1 19:40 潮汐现象.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    296 6月   1 19:40 车顶天线多径反射.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    313 6月   1 19:40 持续上行大流量业务.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    254 6月   1 19:40 持续下行大包业务.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    290 6月   1 19:40 初始缓冲完成.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    262 6月   1 19:40 初始接入过程.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    270 6月   1 19:40 初始BWP配置为20M.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    359 6月   1 19:40 传输链路拥塞.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    332 6月   1 19:40 传输链路TCP报文乱序.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    371 6月   1 19:40 传输模式通道组.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    332 6月   1 19:40 传输时延过高.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    263 6月   1 19:40 传统室分RRU.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    335 6月   1 19:40 传统JR-CJT协同.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    342 6月   1 19:40 垂直4行水平16列极化天线阵列.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    345 6月   1 19:40 垂直波宽7度左右.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    389 6月   1 19:40 垂直方向模拟波束参数配置需求.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    309 6月   1 19:40 垂直展宽波束.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    233 6月   1 19:40 纯通信场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    215 6月   1 19:40 纯NR场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    338 6月   1 19:40 存在邻区SSB干扰的物理小区空口链路.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    299 6月   1 19:40 存在时域偏移的NCD-SSB.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    387 6月   1 19:40 存在CSI-RS资源超配风险的终端.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    269 6月   1 19:40 大包业务场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    254 6月   1 19:40 大包业务用户.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    278 6月   1 19:40 大包业务.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    263 6月   1 19:40 大包用户.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    231 6月   1 19:40 大包CA用户.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    261 6月   1 19:40 大包UE场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    234 6月   1 19:40 大包UE.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    287 6月   1 19:40 大规模CPE网络.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    272 6月   1 19:40 大流量业务.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    353 6月   1 19:40 大气波导干扰.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    353 6月   1 19:40 大气波导环境.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    308 6月   1 19:40 大气波导开启状态.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    338 6月   1 19:40 大气波导现象环境.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    305 6月   1 19:40 大气波导现象.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    284 6月   1 19:40 大容量场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    293 6月   1 19:40 大容量小包业务.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    275 6月   1 19:40 大容量站点.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    321 6月   1 19:40 大容量PUCCH场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    392 6月   1 19:40 大容量SRS相关性计算受限场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    352 6月   1 19:40 大数据量传输.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    283 6月   1 19:40 大张角覆盖需求.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    295 6月   1 19:40 带间载波聚合.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    310 6月   1 19:40 带内载波聚合.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    297 6月   1 19:40 单板12LTE小区.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    251 6月   1 19:40 单板12NR小区.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    294 6月   1 19:40 单板18LTE小区.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    294 6月   1 19:40 单板21LTE小区.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    304 6月   1 19:40 单板2感知小区.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    265 6月   1 19:40 单板2NR小区.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    307 6月   1 19:40 单板3感知小区.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    280 6月   1 19:40 单板3LTE小区.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    301 6月   1 19:40 单板3NR小区.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    298 6月   1 19:40 单板4NR小区.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    257 6月   1 19:40 单板6感知小区.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    260 6月   1 19:40 单板6LTE小区.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    278 6月   1 19:40 单板6NR小区.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    244 6月   1 19:40 单板9LTE小区.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    298 6月   1 19:40 单板9NR小区.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    269 6月   1 19:40 单独SRPING标志位.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    319 6月   1 19:40 单符号0号SR资源.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    192 6月   1 19:40 单极化射频模块.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    254 6月   1 19:40 单模拟波束限制.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    395 6月   1 19:40 单物理小区多逻辑小区.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    317 6月   1 19:40 单一逻辑信道满足用户面拥塞条件.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    324 6月   1 19:40 单一逻辑信道满足AMBR-MBR条件.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    341 6月   1 19:40 单载波多物理小区.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    389 6月   1 19:40 单载波双频点物理小区.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    335 6月   1 19:40 单载波双物理小区.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    428 6月   1 19:40 单载波双SSB配置.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    373 6月   1 19:40 单载波双SSB频点物理小区组网.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    374 6月   1 19:40 单载波双SSB频点物理小区.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    404 6月   1 19:40 单载波支持双SSB频点物理小区组网.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    284 6月   1 19:40 单PUCCH group配置.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    255 6月   1 19:40 单UE测试.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    428 6月   1 19:40 单UE多业务保障容量受限.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    362 6月   1 19:40 单UE频域信道一致性差.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    302 6月   1 19:40 氮化镓功放终端.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    219 6月   1 19:40 低成本终端.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    269 6月   1 19:40 低负荷场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    257 6月   1 19:40 低负荷小区.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    272 6月   1 19:40 低轨卫星场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    363 6月   1 19:40 低轨卫星基站.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    284 6月   1 19:40 低空保障用户.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    284 6月   1 19:40 低空场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    278 6月   1 19:40 低空大包用户.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    269 6月   1 19:40 低空多用户商用测试.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    296 6月   1 19:40 低空飞行器.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    308 6月   1 19:40 低空覆盖场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    308 6月   1 19:40 低空或地面场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    269 6月   1 19:40 低空基站.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    281 6月   1 19:40 低空上行大包业务.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    260 6月   1 19:40 低空通信场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    401 6月   1 19:40 低空通信覆盖.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    278 6月   1 19:40 低空通信.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    335 6月   1 19:40 低空无人机用户.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    239 6月   1 19:40 低空小区.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    300 6月   1 19:40 低空用户高PRB利用率.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    269 6月   1 19:40 低空用户和地面用户同小区.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    356 6月   1 19:40 低空用户速率低于保障门限.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    245 6月   1 19:40 低空用户.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    281 6月   1 19:40 低空LOS场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    300 6月   1 19:40 低频64T64R硬件配置.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    308 6月   1 19:40 低频谱效率用户.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    340 6月   1 19:40 低时延高可靠业务即将超时.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    296 6月   1 19:40 低数据速率业务.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    263 6月   1 19:40 低速用户.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    285 6月   1 19:40 低响应概率邻区.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    284 6月   1 19:40 低业务调度阻塞率.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    275 6月   1 19:40 低用户负载.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    332 6月   1 19:40 低BLER状态.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    298 6月   1 19:40 低PRB利用率小区.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    263 6月   1 19:40 地面场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    250 6月   1 19:40 地面大网基站.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    278 6月   1 19:40 地面+低空通信场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    444 6月   1 19:40 地面基站与低空用户距离超过SRS测量范围.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    272 6月   1 19:40 地面上行或下行大包用户.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    275 6月   1 19:40 地面小区.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    308 6月   1 19:40 地铁场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    374 6月   1 19:40 地铁隧道场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    302 6月   1 19:40 地铁隧道.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    374 6月   1 19:40 第4和第5类调度失败场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    231 6月   1 19:40 第一个Dslot时隙.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    304 6月   1 19:40 电联场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    272 6月   1 19:40 电联大T机型.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    489 6月   1 19:40 电信800M NR扩频到15M边带插损 (15M - 15M+10M LTE DSS- 15M + 5M LTE DSS).md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    287 6月   1 19:40 电信海域覆盖.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    198 6月   1 19:40 掉电RRU.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    260 6月   1 19:40 调度后存在剩余功率.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    368 6月   1 19:40 调度提前量差异.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    248 6月   1 19:40 调度相同RB段的UE.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    245 6月   1 19:40 叠加包套餐用户.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    320 6月   1 19:40 定点测试或拉测场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    323 6月   1 19:40 定位测量需求.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    278 6月   1 19:40 定位技术.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    287 6月   1 19:40 定位用户.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    296 6月   1 19:40 定向感知增强覆盖.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    260 6月   1 19:40 动态流量变化场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    355 6月   1 19:40 抖动信道.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    263 6月   1 19:40 抖音业务.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    438 6月   1 19:40 端到端时延与可靠性保障.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    288 6月   1 19:40 端口配置65535.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    275 6月   1 19:40 端口识别.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    233 6月   1 19:40 短视频业务.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    281 6月   1 19:40 短视频.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    275 6月   1 19:40 断电断传输状态.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    316 6月   1 19:40 对地小区.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    299 6月   1 19:40 对地用户多对空用户少.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    332 6月   1 19:40 对空对地小区隔离.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    353 6月   1 19:40 对空和对地差异化配置需求.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    331 6月   1 19:40 对空小区.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    299 6月   1 19:40 对空用户多对地用户少.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    300 6月   1 19:40 多变量判决条件.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    284 6月   1 19:40 多波束调度.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    361 6月   1 19:40 多带宽配置.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    302 6月   1 19:40 多档位保障配置场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    272 6月   1 19:40 多段式上行干扰消除.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    302 6月   1 19:40 多个保障用户.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    320 6月   1 19:40 多个不同优先级用户.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    300 6月   1 19:40 多个CA尾包用户.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    275 6月   1 19:40 多个CORESET0配置.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    263 6月   1 19:40 多个RedCap ATU用户.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    308 6月   1 19:40 多行两极化合成波束.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    366 6月   1 19:40 多机型支持.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    293 6月   1 19:40 多节点联合赋形发送.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    322 6月   1 19:40 多逻辑信道业务状态不一致.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    312 6月   1 19:40 多模拟波束调度.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    307 6月   1 19:40 多频点CD+NCD-SSB干扰.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    220 6月   1 19:40 多频段机型.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    247 6月   1 19:40 多频机型.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    358 6月   1 19:40 多扇区负荷均衡场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    264 6月   1 19:40 多射频单元.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    273 6月   1 19:40 多速率匹配UE.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    275 6月   1 19:40 多套CSI-RS配置.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    305 6月   1 19:40 多物理小区统一处理.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    281 6月   1 19:40 多小区对空覆盖.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    416 6月   1 19:40 多小区集中调度器.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    352 6月   1 19:40 多小区间PDSCH层映射配置差异.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    399 6月   1 19:40 多小区间PDSCH调制方式不一致.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    352 6月   1 19:40 多小区间PDSCH预编码配置差异.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    411 6月   1 19:40 多小区间PDSCH资源配置不一致.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    426 6月   1 19:40 多小区间PUSCH资源映射配置差异.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    439 6月   1 19:40 多小区间UE空口链路信号质量差异大.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    296 6月   1 19:40 多小区协同配置.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    296 6月   1 19:40 多小区协同.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    393 6月   1 19:40 多小区PDSCH加扰配置不一致.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    326 6月   1 19:40 多样化干扰模式.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    233 6月   1 19:40 多用户并发.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    284 6月   1 19:40 多用户场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    319 6月   1 19:40 多用户持续密集调度.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    317 6月   1 19:40 多用户混合场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    317 6月   1 19:40 多用户接入场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    333 6月   1 19:40 多用户业务负载差异.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    320 6月   1 19:40 多载波部署场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    311 6月   1 19:40 多载波场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    320 6月   1 19:40 多载波环境.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    284 6月   1 19:40 多种频段网络.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    318 6月   1 19:40 多种CA组合.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    315 6月   1 19:40 多A3邻区.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    269 6月   1 19:40 多B配置场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    292 6月   1 19:40 多BWP并发调度.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    331 6月   1 19:40 多BWP部署场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    286 6月   1 19:40 多BWP场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    283 6月   1 19:40 多BWP配置.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    308 6月   1 19:40 多BWP随机化功能.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    263 6月   1 19:40 多BWP网络切片.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    250 6月   1 19:40 多BWP FMM场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    312 6月   1 19:40 多CA用户竞争SRS资源.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    281 6月   1 19:40 多CC场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    233 6月   1 19:40 多CP配置.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    250 6月   1 19:40 多K2调度启用.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    260 6月   1 19:40 多K2时序生效.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    275 6月   1 19:40 多K2.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    354 6月   1 19:40 多Koffset.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    360 6月   1 19:40 多NCD-SSB的BWP.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    300 6月   1 19:40 多UE摆拍联合赋形32流.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    407 6月   1 19:40 多UE保障业务容量受限.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    342 6月   1 19:40 多UE并发场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    322 6月   1 19:40 多UE并发接入.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    258 6月   1 19:40 多UE场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    339 6月   1 19:40 多UE小流量业务并发.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    255 6月   1 19:40 多UE用户.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    300 6月   1 19:40 二扇区规格.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    285 6月   1 19:40 法线方向UE.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    294 6月   1 19:40 法线位置UE.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    304 6月   1 19:40 非标带宽配置.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    362 6月   1 19:40 非标带宽.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    266 6月   1 19:40 非大包业务用户.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    276 6月   1 19:40 非感知时隙.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    227 6月   1 19:40 非高负荷场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    338 6月   1 19:40 非高铁模式.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    278 6月   1 19:40 非恒模权值.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    275 6月   1 19:40 非混合波束赋形.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    349 6月   1 19:40 非连续数据传输.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    334 6月   1 19:40 非周期性数据业务.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    307 6月   1 19:40 非周期CSI反馈.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    375 6月   1 19:40 非周期CSI-RS资源.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    232 6月   1 19:40 非DSS场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    220 6月   1 19:40 服务小区.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    317 6月   1 19:40 辅辅载波切换.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    263 6月   1 19:40 辅载波激活状态.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    366 6月   1 19:40 辅载波上行Slot中无UCI复用.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    266 6月   1 19:40 辅载波使能状态.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    266 6月   1 19:40 辅载波添加过程.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    269 6月   1 19:40 辅载波.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    417 6月   1 19:40 辅助上行载波组网(SUL).md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    269 6月   1 19:40 复杂功能叠加.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    446 6月   1 19:40 负荷预测节能时段优化.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    372 6月   1 19:40 负TA环境.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    266 6月   1 19:40 干扰避让策略开启.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    328 6月   1 19:40 感知_10%帧结构.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    293 6月   1 19:40 感知_20%帧结构.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    290 6月   1 19:40 感知板重启.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    305 6月   1 19:40 感知板.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    322 6月   1 19:40 感知板-VSPe6.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    272 6月   1 19:40 感知波束发送.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    341 6月   1 19:40 感知低速物体轨迹.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    363 6月   1 19:40 感知辅助通信场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    281 6月   1 19:40 感知高速物体轨迹.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    281 6月   1 19:40 感知类业务.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    338 6月   1 19:40 感知模式下的特殊帧结构.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    309 6月   1 19:40 感知模式下时隙资源受限.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    566 6月   1 19:40 感知目标尺寸.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    294 6月   1 19:40 感知时隙.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    338 6月   1 19:40 感知站间波束干扰.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    248 6月   1 19:40 感知ATU.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    335 6月   1 19:40 高低频共享BBU的逻辑站点部署.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    288 6月   1 19:40 高低频CA场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    240 6月   1 19:40 高低频CA用户.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    308 6月   1 19:40 高低站部署场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    248 6月   1 19:40 高负荷场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    295 6月   1 19:40 高负荷基站载波小区.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    254 6月   1 19:40 高负荷基站.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    287 6月   1 19:40 高负荷小区.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    275 6月   1 19:40 高负荷.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    293 6月   1 19:40 高负载数据传输.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    367 6月   1 19:40 高负载移动应用业务.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    314 6月   1 19:40 高干扰.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    170 6月   1 19:40 高轨卫星.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    390 6月   1 19:40 高可靠性业务.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    397 6月   1 19:40 高流量媒体传输.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    227 6月   1 19:40 高流PMI用户.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    305 6月   1 19:40 高楼场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    260 6月   1 19:40 高楼用户.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    242 6月   1 19:40 高码率场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    299 6月   1 19:40 高频场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    293 6月   1 19:40 高频调度.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    347 6月   1 19:40 高频基站.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    299 6月   1 19:40 高频上行覆盖受限状态.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    275 6月   1 19:40 高频FWA网络.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    284 6月   1 19:40 高社会价值任务场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    332 6月   1 19:40 高时延空口链路.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    322 6月   1 19:40 高数据吞吐量业务.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    317 6月   1 19:40 高速公路并线场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    425 6月   1 19:40 高速移动场景下的用户密集接入.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    344 6月   1 19:40 高速移动场景下的UE接入.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    365 6月   1 19:40 高速移动场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    356 6月   1 19:40 高速移动终端.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    287 6月   1 19:40 高速移动状态.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    329 6月   1 19:40 高速移动UE用户.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    260 6月   1 19:40 高速用户.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    361 6月   1 19:40 高铁500km-h档位.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    266 6月   1 19:40 高铁场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    295 6月   1 19:40 高铁超级小区.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    329 6月   1 19:40 高铁缓冲带.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    251 6月   1 19:40 高铁来车.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    317 6月   1 19:40 高铁专网小区.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    260 6月   1 19:40 高通终端.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    373 6月   1 19:40 高通终端PDSCH Type2解调性能异常.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    438 6月   1 19:40 高通X55终端在32波束CSI-RS重配时发生异常.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    284 6月   1 19:40 高相关性波位.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    299 6月   1 19:40 高性能PDCCH传输需求.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    266 6月   1 19:40 高业务负荷.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    320 6月   1 19:40 高优先级5QI业务.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    257 6月   1 19:40 高优先级业务.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    272 6月   1 19:40 高站点部署.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    291 6月   1 19:40 高Caps接入.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    252 6月   1 19:40 高NI场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    323 6月   1 19:40 高NI RB占比.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    320 6月   1 19:40 高Padding率.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    266 6月   1 19:40 高PDCCH使用率.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    366 6月   1 19:40 高PRACH slot占用比例场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    277 6月   1 19:40 高PRB利用率.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    299 6月   1 19:40 高RRC用户数场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    238 6月   1 19:40 公共调度slot.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    441 6月   1 19:40 公共coreset和专用coreset结束符号不对齐.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    388 6月   1 19:40 公共PUCCH打断PUSCH.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    296 6月   1 19:40 公网邻区.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    254 6月   1 19:40 公网小区.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    380 6月   1 19:40 公专网频域协同机制.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    344 6月   1 19:40 功率打压持续.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    269 6月   1 19:40 功率分配需求.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    266 6月   1 19:40 功率共享场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    284 6月   1 19:40 功率回退量估算.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    299 6月   1 19:40 功率受限的忙载波.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    290 6月   1 19:40 功率受限终端.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    269 6月   1 19:40 功率受限状态.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    299 6月   1 19:40 功率资源受限.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    341 6月   1 19:40 宫格信道估计方式.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    313 6月   1 19:40 工信部测试场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    278 6月   1 19:40 共RRU设备的多个载波.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    325 6月   1 19:40 固定PRB利用率门限.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    268 6月   1 19:40 固定RB配置.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    250 6月   1 19:40 光口故障.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    317 6月   1 19:40 广义QoS功能生效.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    330 6月   1 19:40 广义QoS上行大BSR识别.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    257 6月   1 19:40 广义Qos业务用户.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    363 6月   1 19:40 广义QoS SR短周期预留功能部署.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    304 6月   1 19:40 广义QosType用户.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    266 6月   1 19:40 广义QoS Type.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    263 6月   1 19:40 广义QOS Type.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    239 6月   1 19:40 规格约束.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    393 6月   1 19:40 国铁Trace采集.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    392 6月   1 19:40 海思芯片终端在鸿蒙系统下不支持K2频段小于3GHz.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    341 6月   1 19:40 海思终端TA值异常.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    374 6月   1 19:40 海域超远覆盖场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    410 6月   1 19:40 航空地面通信覆盖.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    456 6月   1 19:40 航线ATG非标帧结构.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    274 6月   1 19:40 核心网兼容R18协议.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    254 6月   1 19:40 黑名单终端.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    278 6月   1 19:40 黑匣子维测技术.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    356 6月   1 19:40 宏微异时隙场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    239 6月   1 19:40 宏站场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    284 6月   1 19:40 后验防护功能有效性.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    308 6月   1 19:40 缓存资源池.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    266 6月   1 19:40 混合业务场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    263 6月   1 19:40 混合用户场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    455 6月   1 19:40 基带板多核负载不均.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    335 6月   1 19:40 基带板多帧结构配置.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    332 6月   1 19:40 基带板核负荷不均衡.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    332 6月   1 19:40 基带板混插部署.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    440 6月   1 19:40 基带板节能.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    313 6月   1 19:40 基带板内2CP.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    308 6月   1 19:40 基带板内3CP.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    351 6月   1 19:40 基带板片间CP数不均衡.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    302 6月   1 19:40 基带板支持多帧处理.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    377 6月   1 19:40 基带板functionMode自适应.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    347 6月   1 19:40 基带板PPS处理器自愈.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    335 6月   1 19:40 基于位图调度符号关断场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    344 6月   1 19:40 基于DeepEdge识别的业务类型用户.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    263 6月   1 19:40 基站电源分配单元.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    255 6月   1 19:40 基站调度偏保守.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    463 6月   1 19:40 基站定位能力.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    317 6月   1 19:40 基站高功耗.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    398 6月   1 19:40 基站基于BSR估算UE上行调度RB数过程.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    400 6月   1 19:40 基站间非标准物理链路.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    302 6月   1 19:40 基站间物理链路.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    389 6月   1 19:40 基站间智能计算资源共享组网.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    412 6月   1 19:40 基站间X2接口链路丢包率过高.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    427 6月   1 19:40 基站间X2接口链路高丢包.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    400 6月   1 19:40 基站间X2接口时延过高.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    439 6月   1 19:40 基站间X2接口物理链路高时延.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    392 6月   1 19:40 基站间X2接口协议版本不一致.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    427 6月   1 19:40 基站间X2链路非理想传输时延.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    391 6月   1 19:40 基站间Xn接口物理链路高时延.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    385 6月   1 19:40 基站间Xn接口协议版本不匹配.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    338 6月   1 19:40 基站检测上行无线链路失败.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    242 6月   1 19:40 基站节能.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    293 6月   1 19:40 基站能耗高.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    362 6月   1 19:40 基站容灾模式.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    377 6月   1 19:40 基站上电初始化过程.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    392 6月   1 19:40 基站上行预调度机制.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    275 6月   1 19:40 基站退服.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    236 6月   1 19:40 基站维测指标异常.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    371 6月   1 19:40 基站物理小区CP数配置为12.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    403 6月   1 19:40 基站物理小区CP数配置为6.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    287 6月   1 19:40 基站语音寻呼量大.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    347 6月   1 19:40 基站运维管理单元.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    328 6月   1 19:40 基站运维管理.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    362 6月   1 19:40 基站智能数据存储与提取能力.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    367 6月   1 19:40 基站Trace采集.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    407 6月   1 19:40 基准通道调度较少.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    242 6月   1 19:40 即时通信业务.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    333 6月   1 19:40 即时通讯.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    314 6月   1 19:40 极短时间调度完成的分片.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    233 6月   1 19:40 极重载小区.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    335 6月   1 19:40 交叉时隙干扰.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    391 6月   1 19:40 接入阶段上行预调度.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    364 6月   1 19:40 接入PDCCH资源受限.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    277 6月   1 19:40 节能+DSS场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    269 6月   1 19:40 近点保障用户.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    351 6月   1 19:40 近点用户.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    298 6月   1 19:40 近点LOS场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    319 6月   1 19:40 近点.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    296 6月   1 19:40 静态分布式不均衡.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    242 6月   1 19:40 静态默认角度6度.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    349 6月   1 19:40 开了模拟波束的小区.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    352 6月   1 19:40 可靠性保障业务.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    320 6月   1 19:40 可配置基础保障速率场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    324 6月   1 19:40 控制面-C.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    344 6月   1 19:40 空地同频组网.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    263 6月   1 19:40 空地小区交叠区.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    296 6月   1 19:40 空地小区同频组网.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    296 6月   1 19:40 空地用户分布不均.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    260 6月   1 19:40 空分开关开启.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    335 6月   1 19:40 空分RB的UE间RB不对齐.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    313 6月   1 19:40 空分UE间干扰高.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    273 6月   1 19:40 空分UE配对场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    372 6月   1 19:40 空口报文乱序.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    274 6月   1 19:40 空口测量间隙状态.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    293 6月   1 19:40 空口上行波形自适应功能配置.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    258 6月   1 19:40 空口无线链路中断.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    278 6月   1 19:40 空口校准成功统计.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    305 6月   1 19:40 空口资源受限.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    284 6月   1 19:40 空闲通道抬升.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    284 6月   1 19:40 跨服务小区MU-MIMO用户.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    305 6月   1 19:40 跨运营商对流层波导干扰.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    398 6月   1 19:40 跨载波UE级频域管理技术(CA).md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    387 6月   1 19:40 跨站CJT场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    317 6月   1 19:40 宽波束RIM RS发送功能启用.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    317 6月   1 19:40 宽带资源池已满.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    308 6月   1 19:40 宽带SRS.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    280 6月   1 19:40 扩展5QI业务.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    257 6月   1 19:40 扩展5QI.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    275 6月   1 19:40 拉测用户.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    340 6月   1 19:40 拉远信道.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    270 6月   1 19:40 类Ping业务.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    266 6月   1 19:40 联发CSI-RS方式.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    331 6月   1 19:40 联合接收技术(CoMP-JR).md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    258 6月   1 19:40 连接态UT定位.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    266 6月   1 19:40 连续DTX重传.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    298 6月   1 19:40 良好的信道条件.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    334 6月   1 19:40 两流SINR差异大.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    380 6月   1 19:40 邻区不满足CoMP协作条件.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    299 6月   1 19:40 邻区高负荷状态.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    336 6月   1 19:40 邻区上行共享信道干扰.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    311 6月   1 19:40 邻区退服状态.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    318 6月   1 19:40 邻区下行共享信道干扰.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    293 6月   1 19:40 邻区响应能力差异大.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    314 6月   1 19:40 邻区休眠状态.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    214 6月   1 19:40 邻区.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    410 6月   1 19:40 邻区PDCCH干扰导致Msg4接收失败.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    425 6月   1 19:40 邻区PDSCH对本区SRS的时域干扰.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    347 6月   1 19:40 邻区PDSCH对本区SSB的下行干扰.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    377 6月   1 19:40 邻区PDSCH干扰本区PUSCH.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    290 6月   1 19:40 邻区PRB利用率突变.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    410 6月   1 19:40 邻区PUCCH干扰本区PUCCH.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    251 6月   1 19:40 邻区PUCCH高干扰.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    296 6月   1 19:40 邻区SIB1干扰.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    360 6月   1 19:40 邻区SRS干扰本区SRS.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    302 6月   1 19:40 邻区SRS解调冲突.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    332 6月   1 19:40 邻区SSB干扰本区PDSCH.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    277 6月   1 19:40 邻区SSB干扰.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    292 6月   1 19:40 邻区UCI性能较差.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    283 6月   1 19:40 流量类业务.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    296 6月   1 19:40 流量需求大用户.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    311 6月   1 19:40 流媒体播放恢复.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    293 6月   1 19:40 流媒体传输中断.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    260 6月   1 19:40 流媒体会话终止.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    278 6月   1 19:40 流媒体业务启动.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    287 6月   1 19:40 流媒体预加载.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    411 6月   1 19:40 码控状态下的UE.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    223 6月   1 19:40 马来CD网络.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    409 6月   1 19:40 满足扩容流量门限的小区.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    333 6月   1 19:40 满足COMPA3的邻区.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    293 6月   1 19:40 密集城区场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    292 6月   1 19:40 免测量切换.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    239 6月   1 19:40 免切场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    281 6月   1 19:40 免切功能.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    290 6月   1 19:40 免切邻区用户.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    299 6月   1 19:40 模拟波束功能开启.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    230 6月   1 19:40 模拟波束角度配置.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    272 6月   1 19:40 模拟波束切换过程.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    278 6月   1 19:40 模拟波束切换集合.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    329 6月   1 19:40 模拟加载功能.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    207 6月   1 19:40 目标UE.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    275 6月   1 19:40 偶发性干扰.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    311 6月   1 19:40 旁瓣干扰虚警.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    284 6月   1 19:40 配置约束.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    276 6月   1 19:40 配置NCD-SSB的邻区.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    250 6月   1 19:40 频点配置场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    200 6月   1 19:40 频段n144.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    231 6月   1 19:40 频段n20 (FDD 800M).md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    231 6月   1 19:40 频段n28 (FDD 700M).md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    182 6月   1 19:40 频段n75.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    228 6月   1 19:40 频段n8 (FDD 900M).md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    552 6月   1 19:40 频偏变化信道（变速用户）.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    373 6月   1 19:40 频偏测量结果介于2DMRS-3DMRS之间.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    302 6月   1 19:40 频域离散干扰.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    260 6月   1 19:40 苹果终端.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    263 6月   1 19:40 普通用户.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    287 6月   1 19:40 签约用户.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    356 6月   1 19:40 潜在专用PDCCH符号数大于CORESET0符号数.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    264 6月   1 19:40 强场环境.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    305 6月   1 19:40 强交叠区域终端.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    269 6月   1 19:40 切换场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    340 6月   1 19:40 切换-重建立场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    248 6月   1 19:40 轻量化保障场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    272 6月   1 19:40 区域内基站节能.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    295 6月   1 19:40 全共享配置.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    420 6月   1 19:40 确定性调度器.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    317 6月   1 19:40 人工邻区关系调整.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    299 6月   1 19:40 容量自适应.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    350 6月   1 19:40 容器或进程异常复位.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    305 6月   1 19:40 容灾基站.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    341 6月   1 19:40 容灾模式.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    292 6月   1 19:40 弱场环境.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    391 6月   1 19:40 弱覆盖用户.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    374 6月   1 19:40 弱信号覆盖区域.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    299 6月   1 19:40 三层小区场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    311 6月   1 19:40 三层小区模型.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    260 6月   1 19:40 三层小区网络.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    296 6月   1 19:40 三层小区.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    373 6月   1 19:40 三段式RB分配机制.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    330 6月   1 19:40 三扇区规格.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    274 6月   1 19:40 三小区交叠区.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    314 6月   1 19:40 三主键保障业务.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    330 6月   1 19:40 三主键级业务配置受限.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    304 6月   1 19:40 三主键识别结果变化.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    170 6月   1 19:40 扫码支付.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    308 6月   1 19:40 商用版本功能测试.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    266 6月   1 19:40 商用参数配置场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    332 6月   1 19:40 商用测试场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    221 6月   1 19:40 商用场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    284 6月   1 19:40 商用基线配置.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    271 6月   1 19:40 商用PUSCH RedCap用户.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    372 6月   1 19:40 上行2CC组网.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    311 6月   1 19:40 上行3CC组网.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    288 6月   1 19:40 上行4载波聚合.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    369 6月   1 19:40 上行4CC组网.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    348 6月   1 19:40 上行5CC组网.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    292 6月   1 19:40 上行6CC组网.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    320 6月   1 19:40 上行大包业务.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    317 6月   1 19:40 上行低速率首包.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    203 6月   1 19:40 上行调度队列积压.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    324 6月   1 19:40 上行调度时隙.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    272 6月   1 19:40 上行调度受限.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    427 6月   1 19:40 上行多载波聚合.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    319 6月   1 19:40 上行发送功率受限.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    309 6月   1 19:40 上行干扰电平>-115db.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    317 6月   1 19:40 上行基础保障速率.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    340 6月   1 19:40 上行解调时隙.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    327 6月   1 19:40 上行理论速率统计.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    412 6月   1 19:40 上行联合解调技术.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    299 6月   1 19:40 上行连续DCI0lost.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    314 6月   1 19:40 上行路径损耗保持不变.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    352 6月   1 19:40 上行路损无效值状态.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    268 6月   1 19:40 上行数据传输.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    293 6月   1 19:40 上行速率类业务.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    248 6月   1 19:40 上行无业务状态.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    349 6月   1 19:40 上行小数据包传输.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    385 6月   1 19:40 上行协作能力优化系数参数配置保守.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    297 6月   1 19:40 上行载波聚合.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    332 6月   1 19:40 上行AMC外环偏离状态.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    309 6月   1 19:40 上行BLER占比高的终端.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    309 6月   1 19:40 上行CA配置.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    345 6月   1 19:40 上行CCE分配失败概率统计需求.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    308 6月   1 19:40 上行CoMP技术.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    323 6月   1 19:40 上行CS场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    318 6月   1 19:40 上行DCI0Lost的终端.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    248 6月   1 19:40 上行DFT波形.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    332 6月   1 19:40 上行DMRS插花.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    365 6月   1 19:40 上行iBLER自适应功能开启.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    311 6月   1 19:40 上下行不对称载波组网.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    272 6月   1 19:40 上下行固定比例划分.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    339 6月   1 19:40 少量UE摆拍冲峰值场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    229 6月   1 19:40 少量UE接入.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    318 6月   1 19:40 射频模块并柜部署(eDas).md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    318 6月   1 19:40 射频模块部分通道故障.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    478 6月   1 19:40 射频模块高功率下高阶MCS调制性能差.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    354 6月   1 19:40 射频模块支持模拟波束赋形能力.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    287 6月   1 19:40 射频模块_IF0机型.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    284 6月   1 19:40 射频模块_IF1机型.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    230 6月   1 19:40 射频模块_IF3机型.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    343 6月   1 19:40 射频通道发射器件静默比例.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    357 6月   1 19:40 射频通道功率不平衡.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    340 6月   1 19:40 射频U转D的EVM性能差.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    326 6月   1 19:40 深度休眠状态.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    290 6月   1 19:40 时频资源闲置.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    283 6月   1 19:40 时速450km-h高速移动终端.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    283 6月   1 19:40 时隙关断.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    275 6月   1 19:40 时序-时域资源受限.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    279 6月   1 19:40 时序适配需求.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    278 6月   1 19:40 时延敏感类业务.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    329 6月   1 19:40 时延敏感业务.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    278 6月   1 19:40 视频业务占比高区域.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    374 6月   1 19:40 手动配置邻区关系场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    422 6月   1 19:40 受控小基站（Controlled Small Cell）.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    356 6月   1 19:40 梳分预留资源已分配.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    314 6月   1 19:40 数据传输速率受限.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    347 6月   1 19:40 数据传输速率限制.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    293 6月   1 19:40 数据回传业务.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    266 6月   1 19:40 数据量较大的用户.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    323 6月   1 19:40 数据面传输丢包.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    274 6月   1 19:40 数模混合场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    295 6月   1 19:40 数模机型.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    302 6月   1 19:40 双检开关打开.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    281 6月   1 19:40 双卡双通终端副卡业务时主卡部分Port不发送PUSCH.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    337 6月   1 19:40 双卡双通终端主卡通话+副卡业务.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    319 6月   1 19:40 双卡终端辅卡paging场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    271 6月   1 19:40 双频64TR基站.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    299 6月   1 19:40 双频点物理小区.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    283 6月   1 19:40 双频AAU机型.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    320 6月   1 19:40 双射频设备配置.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    344 6月   1 19:40 双物理小区配置.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    293 6月   1 19:40 双向数据传输.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    254 6月   1 19:40 双载波配置.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    297 6月   1 19:40 双PRACH能力.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    322 6月   1 19:40 双SSB频点物理小区.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    479 6月   1 19:40 速率匹配场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    261 6月   1 19:40 速率匹配周期限制.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    275 6月   1 19:40 泰尔网测场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    235 6月   1 19:40 泰国AIS网络.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    232 6月   1 19:40 泰国TRUE网络.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    294 6月   1 19:40 套餐业务.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    269 6月   1 19:40 套餐用户.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    299 6月   1 19:40 特定类型用户.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    362 6月   1 19:40 特定时间段（早8点前、晚22点后）.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    272 6月   1 19:40 特定业务.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    251 6月   1 19:40 特定用户类型.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    258 6月   1 19:40 特定帧结构.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    251 6月   1 19:40 特定QCI承载用户.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    364 6月   1 19:40 特定SPID-RFSP用户.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    281 6月   1 19:40 特殊场景配置.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    296 6月   1 19:40 特殊套餐用户.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    336 6月   1 19:40 特殊子帧配比10;2;2->3;9;2.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    386 6月   1 19:40 特殊子帧配置10:2:2.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    379 6月   1 19:40 特殊子帧配置6:4:4.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    376 6月   1 19:40 特殊子帧配置8:4:2.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    281 6月   1 19:40 提前调度需求.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    337 6月   1 19:40 天线法线方向用户.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    356 6月   1 19:40 天线恒模加权技术.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    216 6月   1 19:40 天线数量_128T.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    228 6月   1 19:40 天线数量_1T.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    235 6月   1 19:40 天线数量_2T.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    267 6月   1 19:40 天线数量_32T.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    239 6月   1 19:40 天线数量_4T.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    213 6月   1 19:40 天线数量_64T.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    229 6月   1 19:40 天线数量_8T.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    335 6月   1 19:40 天线数量_大T.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    263 6月   1 19:40 天线数量_小T.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    262 6月   1 19:40 跳波束场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    254 6月   1 19:40 跳频单音干扰.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    208 6月   1 19:40 通道关断.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    299 6月   1 19:40 通道级校准权值观测.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    272 6月   1 19:40 通道抢占.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    263 6月   1 19:40 通道数不一致.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    290 6月   1 19:40 通道数自适应.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    317 6月   1 19:40 通道自适应选择场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    269 6月   1 19:40 通道自适应.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    325 6月   1 19:40 通感多模融合.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    277 6月   1 19:40 通感基站.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    290 6月   1 19:40 通感一体化场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    329 6月   1 19:40 通感一体化基站.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    294 6月   1 19:40 通感一体化配置.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    311 6月   1 19:40 通感一体化新机型A9650S S49.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    303 6月   1 19:40 通感一体AAU.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    510 6月   1 19:40 通感一体.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    274 6月   1 19:40 同波束用户.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    304 6月   1 19:40 同频波束干扰环境.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    353 6月   1 19:40 同频小区重叠覆盖.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    302 6月   1 19:40 同频组网环境.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    245 6月   1 19:40 同频组网.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    299 6月   1 19:40 同一调度资源竞争.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    269 6月   1 19:40 透传模式.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    311 6月   1 19:40 突发大容量场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    302 6月   1 19:40 突发干扰.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    299 6月   1 19:40 突发自然灾害.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    314 6月   1 19:40 外部干扰.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    371 6月   1 19:40 外场波束配置需求.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    296 6月   1 19:40 外场积极分流要求.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    371 6月   1 19:40 外场业务模型不稳定.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    269 6月   1 19:40 网络负载变化.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    301 6月   1 19:40 网络高负荷.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    296 6月   1 19:40 网络共享技术.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    355 6月   1 19:40 网络切片保障业务失效.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    311 6月   1 19:40 网络切片间干扰.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    373 6月   1 19:40 网络切片内的机器类业务交互.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    403 6月   1 19:40 尾包调度场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    368 6月   1 19:40 尾包用户调度优先级低.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    305 6月   1 19:40 卫星波束.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    552 6月   1 19:40 卫星轨道位置开普勒轨道根数计算过程（六根数）.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    383 6月   1 19:40 卫星轨道位置速度矢量计算过程.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    240 6月   1 19:40 未配置SRS的UE.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    384 6月   1 19:40 无人机用户.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    308 6月   1 19:40 无线环境变化.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    331 6月   1 19:40 无线网络异常检测与定位.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    450 6月   1 19:40 无源互调干扰(Passive Intermodulation Interference).md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    270 6月   1 19:40 无PUCCH发送slot.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    263 6月   1 19:40 物理小区1200RRC档位配置.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    260 6月   1 19:40 物理小区400RRC档位配置.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    260 6月   1 19:40 物理小区800RRC档位配置.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    355 6月   1 19:40 物理小区高铁350km-h档位配置.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    350 6月   1 19:40 物理小区高铁450km-h档位配置.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    308 6月   1 19:40 物理小区级资源配置.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    335 6月   1 19:40 物理小区间负载不均衡.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    384 6月   1 19:40 物理小区空口_1+1BWP配置.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    296 6月   1 19:40 物理小区空口_1+2BWP配置.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    336 6月   1 19:40 物理小区空口_单1+2BWP配置.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    392 6月   1 19:40 物理小区空口_多1+1BWP配置.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    383 6月   1 19:40 物理小区空口_多1+2BWP配置.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    323 6月   1 19:40 物理小区上行峰值速率.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    323 6月   1 19:40 物理小区下行峰值速率.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    299 6月   1 19:40 物理小区用户数大于1200RRC档位配置.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    296 6月   1 19:40 物理小区用户数小于400RRC档位配置.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    479 6月   1 19:40 物理小区灾害模式.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    386 6月   1 19:40 物理小区RRC连接用户数达到上限.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    274 6月   1 19:40 物联网业务.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    269 6月   1 19:40 物联网终端.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    275 6月   1 19:40 息屏状态.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    317 6月   1 19:40 系统内同频干扰.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    327 6月   1 19:40 下行2CC组网.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    366 6月   1 19:40 下行3CC组网.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    361 6月   1 19:40 下行4CC组网.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    314 6月   1 19:40 下行5CC组网.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    351 6月   1 19:40 下行6CC组网.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    318 6月   1 19:40 下行7CC组网.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    323 6月   1 19:40 下行8CC组网.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    305 6月   1 19:40 下行大包用户.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    281 6月   1 19:40 下行低速率用户.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    203 6月   1 19:40 下行调度队列积压.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    353 6月   1 19:40 下行飞控信令.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    442 6月   1 19:40 下行符号间功率不平衡导致EVM性能下降.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    381 6月   1 19:40 下行符号间功率差引起EVM恶化.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    335 6月   1 19:40 下行功率超限风险.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    284 6月   1 19:40 下行功率控制场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    317 6月   1 19:40 下行基础保障速率.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    293 6月   1 19:40 下行拉测用户.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    338 6月   1 19:40 下行路径损耗突变40dB.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    308 6月   1 19:40 下行商用测试大包用户.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    308 6月   1 19:40 下行时延评价.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    272 6月   1 19:40 下行数据传输.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    407 6月   1 19:40 下行速率自愈到最高档位且仍质差.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    350 6月   1 19:40 下行速率自愈未到最高档位.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    339 6月   1 19:40 下行速率自愈Type UE.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    323 6月   1 19:40 下行无线资源利用率.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    389 6月   1 19:40 下行物理层LDPC编码能力不足.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    398 6月   1 19:40 下行相干联合传输(CJT).md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    349 6月   1 19:40 下行小数据包传输.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    383 6月   1 19:40 下行协作能力优化系数参数配置保守.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    292 6月   1 19:40 下行业务量变化.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    506 6月   1 19:40 下行业务量不大且需要激活下行辅载波的用户.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    359 6月   1 19:40 下行业务量不大.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    317 6月   1 19:40 下行业务量密集.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    314 6月   1 19:40 下行业务量稀疏.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    260 6月   1 19:40 下行用户尾包.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    267 6月   1 19:40 下行BF传输模式.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    309 6月   1 19:40 下行BLER占比高的终端.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    616 6月   1 19:40 下行CoMP技术.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    271 6月   1 19:40 下行COMP协同.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    333 6月   1 19:40 下行CoMP协作.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    238 6月   1 19:40 下行COMP UE.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    352 6月   1 19:40 下行CS.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    319 6月   1 19:40 下行DTX比例高的终端.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    320 6月   1 19:40 下行MU-MIMO场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    349 6月   1 19:40 下行PDSCH空分调度.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    281 6月   1 19:40 下行PMI进空分功能.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    287 6月   1 19:40 下行PRB高利用率.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    250 6月   1 19:40 下行SDMA用户.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    405 6月   1 19:40 下行Slot占比较少.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    259 6月   1 19:40 下行TCP RTT.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    269 6月   1 19:40 夏季高温天气.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    256 6月   1 19:40 显式重传场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    374 6月   1 19:40 限制集非限制集配置.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    245 6月   1 19:40 相邻波束聚集用户.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    285 6月   1 19:40 相邻CP位于铁路同侧.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    300 6月   1 19:40 小包数据传输.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    260 6月   1 19:40 小包业务场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    290 6月   1 19:40 小包业务.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    236 6月   1 19:40 小包用户.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    291 6月   1 19:40 小包UE.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    265 6月   1 19:40 小带宽场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    275 6月   1 19:40 小带宽.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    390 6月   1 19:40 小区边缘用户.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    332 6月   1 19:40 小区低负荷.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    304 6月   1 19:40 小区覆盖边缘区域.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    275 6月   1 19:40 小区覆盖差异.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    371 6月   1 19:40 小区覆盖差.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    311 6月   1 19:40 小区覆盖范围差异.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    314 6月   1 19:40 小区负荷状态.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    332 6月   1 19:40 小区高负荷.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    285 6月   1 19:40 小区高PRB利用率.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    386 6月   1 19:40 小区过去7天自忙时PDCP流量.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    293 6月   1 19:40 小区级高负荷.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    354 6月   1 19:40 小区级CoMP JT-CS-CBF功能.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    263 6月   1 19:40 小区间切换场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    374 6月   1 19:40 小区间天线数差异_1T-2T.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    397 6月   1 19:40 小区间天线数差异_1T-4T.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    367 6月   1 19:40 小区间天线数差异_2T-4T-8T.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    375 6月   1 19:40 小区间天线数差异_2T-4T.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    383 6月   1 19:40 小区间天线数差异_2T-8T.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    368 6月   1 19:40 小区间天线数差异_32T-64T.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    399 6月   1 19:40 小区间天线数差异_4T-8T.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    373 6月   1 19:40 小区间天线数差异_8T-32T-64T.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    449 6月   1 19:40 小区间PUSCH传输格式预编码配置差异.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    344 6月   1 19:40 小区间XC链路受限.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    242 6月   1 19:40 小区交叠区用户.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    305 6月   1 19:40 小区交叠区域.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    299 6月   1 19:40 小区内大小包业务混合.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    305 6月   1 19:40 小区用户数较少.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    332 6月   1 19:40 小区中负荷.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    291 6月   1 19:40 小区资源不足.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    296 6月   1 19:40 小区资源紧张.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    251 6月   1 19:40 小数据包业务.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    265 6月   1 19:40 小天线S发U功能开启.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    257 6月   1 19:40 小业务量.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    247 6月   1 19:40 小T场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    275 6月   1 19:40 校园卡用户.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    284 6月   1 19:40 校准计数器管理.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    343 6月   1 19:40 协作小区低负荷.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    347 6月   1 19:40 协作小区高负荷.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    326 6月   1 19:40 协作小区高负载.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    380 6月   1 19:40 协作小区强制协作回退成优先协作.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    317 6月   1 19:40 协作小区选择.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    340 6月   1 19:40 新开频段小区.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    287 6月   1 19:40 新开站默认开启SRS容量自适应.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    340 6月   1 19:40 新通话业务.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    313 6月   1 19:40 信道变化较快.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    293 6月   1 19:40 信道均衡消除干扰.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    273 6月   1 19:40 信道质量好UE.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    310 6月   1 19:40 信道质量快速变化.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    337 6月   1 19:40 信道质量区间变化.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    319 6月   1 19:40 信道质量突变.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    302 6月   1 19:40 信号交叠区.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    289 6月   1 19:40 星网非标周期CSI.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    379 6月   1 19:40 星网非标周期TRS.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    460 6月   1 19:40 星载基站与终端距离远.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    247 6月   1 19:40 星载基站.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    293 6月   1 19:40 虚拟路测.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    404 6月   1 19:40 需要激活下行辅载波.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    260 6月   1 19:40 需要提升RIM RS检测性能.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    332 6月   1 19:40 寻呼参数关联配置.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    293 6月   1 19:40 寻呼周期参数修改.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    308 6月   1 19:40 业务负载变化场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    284 6月   1 19:40 业务负载低.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    293 6月   1 19:40 业务空闲时段.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    307 6月   1 19:40 业务连续性保障.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    296 6月   1 19:40 业务模型从小包切换到大包.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    282 6月   1 19:40 业务周期较长.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    311 6月   1 19:40 夜间时间段.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    239 6月   1 19:40 一线运维人员.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    302 6月   1 19:40 移动过程远中近点变化.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    269 6月   1 19:40 移动性场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    266 6月   1 19:40 移动用户.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    263 6月   1 19:40 已启动调度数据包.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    353 6月   1 19:40 异常传输模式配置.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    224 6月   1 19:40 异常终端.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    275 6月   1 19:40 异厂家切换场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    338 6月   1 19:40 异频小区重叠覆盖.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    257 6月   1 19:40 异频SSB.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    269 6月   1 19:40 音视频业务.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    317 6月   1 19:40 应用层数据传输.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    284 6月   1 19:40 应用下载场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    311 6月   1 19:40 用户垂直分布较大.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    269 6月   1 19:40 用户分布集中.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    272 6月   1 19:40 用户分布离散.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    350 6月   1 19:40 用户行为不可预测.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    395 6月   1 19:40 用户面-U.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    287 6月   1 19:40 用户切换.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    314 6月   1 19:40 用户数超过300RRC.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    269 6月   1 19:40 用户数增多.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    257 6月   1 19:40 用户数增加.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    351 6月   1 19:40 用户信道空口丢包率低.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    342 6月   1 19:40 用户信道空口丢包率高.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    346 6月   1 19:40 用户信道空口时延抖动大.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    343 6月   1 19:40 用户信道空口时延抖动小.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    311 6月   1 19:40 用户业务类型多样化.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    257 6月   1 19:40 用户移动.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    308 6月   1 19:40 用户扎堆分布.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    327 6月   1 19:40 优质SRS资源分配需求.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    224 6月   1 19:40 游戏业务.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    287 6月   1 19:40 有剩余功率的闲载波.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    350 6月   1 19:40 与现场纯NR对齐的SSB GSCN配置需求.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    239 6月   1 19:40 语数并发场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    302 6月   1 19:40 语音包攒包.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    302 6月   1 19:40 语音承载释放.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    209 6月   1 19:40 语音起呼.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    278 6月   1 19:40 语音上行slot聚合功能配置.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    328 6月   1 19:40 语音寻呼.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    277 6月   1 19:40 语音业务发包规律.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    256 6月   1 19:40 语音业务.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    284 6月   1 19:40 预调度策略配置.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    407 6月   1 19:40 预调度挤占其他业务.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    352 6月   1 19:40 远点用户.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    261 6月   1 19:40 远点UE.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    302 6月   1 19:40 远端干扰场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    314 6月   1 19:40 远端干扰.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    329 6月   1 19:40 远端交叉时隙干扰环境.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    295 6月   1 19:40 越区覆盖.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    227 6月   1 19:40 云业务.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    164 6月   1 19:40 云游戏.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    233 6月   1 19:40 载波带宽_100MHz.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    374 6月   1 19:40 载波带宽_200MHz.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    230 6月   1 19:40 载波带宽_20MHz.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    313 6月   1 19:40 载波带宽_25MHz.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    230 6月   1 19:40 载波带宽_40MHz.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    230 6月   1 19:40 载波带宽_45MHz.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    230 6月   1 19:40 载波带宽_50MHz.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    227 6月   1 19:40 载波带宽_5MHz.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    226 6月   1 19:40 载波带宽_60M.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    276 6月   1 19:40 载波带宽_70MHz.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    230 6月   1 19:40 载波带宽_80MHz.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    325 6月   1 19:40 载波带宽配置_10MHz.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    273 6月   1 19:40 载波带宽配置_15MHz.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    313 6月   1 19:40 载波带宽配置_30MHz.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    332 6月   1 19:40 载波带宽配置_90MHz.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    350 6月   1 19:40 载波带宽_小带宽.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    296 6月   1 19:40 载波独立配置.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    349 6月   1 19:40 载波功率配置冗余的小区.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    275 6月   1 19:40 载波共用天线.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    214 6月   1 19:40 载波关断.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    400 6月   1 19:40 载波级带宽配置为10MHz但实际滤波带宽为9.6MHz.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    392 6月   1 19:40 载波级带宽配置异常.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    284 6月   1 19:40 载波级资源统计.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    326 6月   1 19:40 载波间负载不均衡状态.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    432 6月   1 19:40 载波聚合场景下的CQI异常上报终端.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    346 6月   1 19:40 载波聚合场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    359 6月   1 19:40 载波小区高负荷状态.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    389 6月   1 19:40 载波小区间XC链路配置.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    362 6月   1 19:40 载波小区上行流数受限.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    407 6月   1 19:40 载波小区下行流数受限.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    311 6月   1 19:40 载波小区业务类型差异.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    328 6月   1 19:40 载波小区L2资源池化.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    409 6月   1 19:40 载波小区RRC连接用户数受限.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    341 6月   1 19:40 增强型符号关断节能功能启用.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    230 6月   1 19:40 扎堆分布用户.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    355 6月   1 19:40 窄带SRS.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    212 6月   1 19:40 展锐终端.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    299 6月   1 19:40 站点负荷状态.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    209 6月   1 19:40 站级池化MAC层调度器.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    248 6月   1 19:40 站间邻区.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    250 6月   1 19:40 站间JR UE.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    272 6月   1 19:40 整网基站节能.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    331 6月   1 19:40 帧格式_1D1S8U.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    304 6月   1 19:40 帧格式_1D3U.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    312 6月   1 19:40 帧格式_2.5ms单DDSUU.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    234 6月   1 19:40 帧格式_2.5ms单.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    241 6月   1 19:40 帧格式_2.5ms双.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    352 6月   1 19:40 帧格式_3ms+2ms.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    370 6月   1 19:40 帧格式_5ms(3+2)DDDSUU DDDD.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    319 6月   1 19:40 帧格式_5ms.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    322 6月   1 19:40 帧格式_8D1S1U.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    313 6月   1 19:40 帧格式_动态帧结构DSSSU.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    292 6月   1 19:40 帧格式_静态帧结构DDDSU.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    306 6月   1 19:40 帧格式类型_双S.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    305 6月   1 19:40 帧格式_DS.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    212 6月   1 19:40 帧头偏移.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    299 6月   1 19:40 政企网核心网.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    268 6月   1 19:40 支持2MO的UE.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    287 6月   1 19:40 支持两频段间轮发的终端.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    333 6月   1 19:40 支持双RSRP上报的UE终端.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    270 6月   1 19:40 支持DMRS TYPE II的终端.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    391 6月   1 19:40 支持lch-ToSCellRestriction能力的终端.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    447 6月   1 19:40 支持MBS的UE.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    407 6月   1 19:40 支持NCD-SSB的BWP配置.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    267 6月   1 19:40 支持R16 Tx switch的终端.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    344 6月   1 19:40 支持R17高功率指示的终端.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    330 6月   1 19:40 支持srs switch的终端.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    354 6月   1 19:40 支持srs switch-tx switch的CA终端.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    272 6月   1 19:40 直播场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    230 6月   1 19:40 直播业务.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    308 6月   1 19:40 直播.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    278 6月   1 19:40 直流配电单元.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    332 6月   1 19:40 智能化增强开关开启.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    302 6月   1 19:40 智算板定位功能.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    368 6月   1 19:40 智算板冗余备份机制.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    287 6月   1 19:40 智算板算力受限.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    272 6月   1 19:40 智算板套餐保障用户.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    277 6月   1 19:40 智算板.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    302 6月   1 19:40 质差终端.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    302 6月   1 19:40 中低负荷条件.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    269 6月   1 19:40 中低负荷小区.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    255 6月   1 19:40 中高负荷.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    311 6月   1 19:40 中心频点配置.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    182 6月   1 19:40 中移试验星C01.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    227 6月   1 19:40 中远点用户.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    227 6月   1 19:40 中载小区.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    262 6月   1 19:40 终端1024QAM能力.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    197 6月   1 19:40 终端1T8R.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    197 6月   1 19:40 终端2T6R.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    197 6月   1 19:40 终端2T8R.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    264 6月   1 19:40 终端4T8R.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    421 6月   1 19:40 终端不支持专用BWP缺失初始BWP配置.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    256 6月   1 19:40 终端初始接入.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    378 6月   1 19:40 终端的NDI和基站不一致.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    340 6月   1 19:40 终端低频段支持能力.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    408 6月   1 19:40 终端对RV为1的SIB1解码失败.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    465 6月   1 19:40 终端发射路径切换能力.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    376 6月   1 19:40 终端复合节能机制.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    309 6月   1 19:40 终端高阶调制性能劣化.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    385 6月   1 19:40 终端高DTX比例.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    267 6月   1 19:40 终端共存测试场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    277 6月   1 19:40 终端过热场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    342 6月   1 19:40 终端节能释放.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    239 6月   1 19:40 终端节能状态.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    293 6月   1 19:40 终端晶振频偏.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    272 6月   1 19:40 终端能力受限.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    322 6月   1 19:40 终端能力_双卡双待双通(DSDA).md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    355 6月   1 19:40 终端能力_双SIM卡双待机(DSDS).md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    484 6月   1 19:40 终端能力_支持降低载波聚合分量载波数量以实现节能.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    232 6月   1 19:40 终端能力_终端通过降BWP带宽节能.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    234 6月   1 19:40 终端能力_终端通过降MIMO层数节能.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    281 6月   1 19:40 终端能力_EN-DC.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    343 6月   1 19:40 终端能力_FR1+FR2 NRCA.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    319 6月   1 19:40 终端能力_NSA双连接.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    512 6月   1 19:40 终端能力_PEI.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    362 6月   1 19:40 终端能力_redcap(barringEmergencyCall).md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    409 6月   1 19:40 终端能力_skipUplinkTxDynamic能力.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    359 6月   1 19:40 终端能力_ SSSGSwitching.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    178 6月   1 19:40 终端能力_TSN.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    236 6月   1 19:40 终端切换.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    365 6月   1 19:40 终端上报PUCCH format4支持能力与实际不符.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    281 6月   1 19:40 终端上行1发下行6收.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    344 6月   1 19:40 终端位置识别.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    332 6月   1 19:40 终端无法正确解码RV为1的SIB1.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    464 6月   1 19:40 终端协议兼容性异常检测.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    277 6月   1 19:40 终端信道质量差.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    341 6月   1 19:40 终端业务空闲态.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    305 6月   1 19:40 终端业务停止状态.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    330 6月   1 19:40 终端远程中继能力.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    277 6月   1 19:40 终端在交叠区.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    353 6月   1 19:40 终端在无上行数据时进入休眠状态.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    385 6月   1 19:40 终端支持跨PUCCH组的不同numerology能力.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    291 6月   1 19:40 终端支持RedCap能力.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    311 6月   1 19:40 终端支持Relay能力.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    368 6月   1 19:40 终端重定向入网.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    539 6月   1 19:40 终端CSI测量误差导致BF权重选择不当.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    371 6月   1 19:40 终端DMRS搬移能力缺失导致解调性能下降.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    352 6月   1 19:40 终端DMRS符号搬移能力.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    269 6月   1 19:40 终端DRX状态.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    334 6月   1 19:40 终端LTE CRS接收能力.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    331 6月   1 19:40 终端PDCCH Skipping 能力.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    336 6月   1 19:40 终端PDSCH_DMRS类型能力支持.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    362 6月   1 19:40 终端PUCCH Format4能力上报错误.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    331 6月   1 19:40 终端Resume过程.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    297 6月   1 19:40 终端RSRP未收敛.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    341 6月   1 19:40 终端SINR测量能力.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    311 6月   1 19:40 终端SRS发送异常.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    366 6月   1 19:40 终端-SRS资源配置切换能力.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    454 6月   1 19:40 终端TBoMS能力.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    248 6月   1 19:40 重传场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    263 6月   1 19:40 重传载波.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    227 6月   1 19:40 重载小区.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    355 6月   1 19:40 周期性模拟波束切换场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    266 6月   1 19:40 周期性模拟波束切换.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    350 6月   1 19:40 周期性上行干扰.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    310 6月   1 19:40 周期性数据业务.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    279 6月   1 19:40 周期性稀疏业务.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    362 6月   1 19:40 周期性CSI与非周期性CSI并存.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    456 6月   1 19:40 周期性CSI-RS资源配置.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    318 6月   1 19:40 周期性NZP-CSI-RS资源配置.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    403 6月   1 19:40 周期SRS.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    454 6月   1 19:40 周期TRS资源.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    336 6月   1 19:40 主辅载波间的Xc接口.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    341 6月   1 19:40 主辅载波切换.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    305 6月   1 19:40 主控板处理能力不足.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    338 6月   1 19:40 主控板负荷分担模式.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    293 6月   1 19:40 主控板内存不足.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    275 6月   1 19:40 主控板主备冗余.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    302 6月   1 19:40 主控板UAS容器自愈.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    451 6月   1 19:40 主载波与辅载波重叠覆盖.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    296 6月   1 19:40 主载波Fi从0开始调整.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    251 6月   1 19:40 主载波RLF.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    311 6月   1 19:40 专网切换UE.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    248 6月   1 19:40 专网小区.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    294 6月   1 19:40 专用小BWP不带RA节点.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    307 6月   1 19:40 专用BWP无SRS资源.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    304 6月   1 19:40 专用CORESET收缩.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    344 6月   1 19:40 专用CORESET在共享谱.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    310 6月   1 19:40 专用PDCCH符号数扩展到3.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    419 6月   1 19:40 专用PDCCH符号数小于公共符号数.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    316 6月   1 19:40 专用PDCCH duration等于1.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    423 6月   1 19:40 专用PUCCH打断PUSCH频域位置.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    284 6月   1 19:40 资源抢占需求.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    255 6月   1 19:40 子载波间隔(120KHz).md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    561 6月   1 19:40 子载波间隔(240KHz).md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    255 6月   1 19:40 子载波间隔(30KHz).md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    332 6月   1 19:40 自动驾驶业务场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    314 6月   1 19:40 自然灾害场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    311 6月   1 19:40 最大CCE聚合度UE.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    308 6月   1 19:40 最小保障速率门限.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    437 6月   1 19:40 A40U终端SRS与PUSCH功率跳变导致上行数据解调失败.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    292 6月   1 19:40 A9611.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    267 6月   1 19:40 A9622E S35.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    293 6月   1 19:40 A9641A S49(支持EMF).md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    335 6月   1 19:40 A9642A S35(CWA)（A9652A S35）.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    285 6月   1 19:40 A9650机型.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    282 6月   1 19:40 A9650E S49.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    225 6月   1 19:40 A9650 S49.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    293 6月   1 19:40 A9650 S70(AZB).md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    272 6月   1 19:40 A9650 S70.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    298 6月   1 19:40 A9650S S49机型.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    275 6月   1 19:40 A9650S S49.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    188 6月   1 19:40 A9651A S26.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    187 6月   1 19:40 A9651H S35.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    288 6月   1 19:40 A9651H S36(AWB).md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    213 6月   1 19:40 A9651L.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    302 6月   1 19:40 A9651L S35机型.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    283 6月   1 19:40 A9651L S35.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    278 6月   1 19:40 A9652D M2635（BZC）.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    303 6月   1 19:40 A9652D M2635(BZE).md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    300 6月   1 19:40 A9652H S36(AWB).md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    276 6月   1 19:40 A9652S S36.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    169 6月   1 19:40 A9732 M1719.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    169 6月   1 19:40 A9732 M1821.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    274 6月   1 19:40 A9752机型.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    300 6月   1 19:40 A9752 M171926.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    169 6月   1 19:40 A9752 M1719.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    291 6月   1 19:40 A9752 M182126.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    279 6月   1 19:40 A9752 M1821.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    282 6月   1 19:40 A9752 M2636.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    244 6月   1 19:40 A9835.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    537 6月   1 19:40 AAPC.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    319 6月   1 19:40 AAU单载波未满配功率.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    348 6月   1 19:40 AAU和RRU插花组网.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    309 6月   1 19:40 AAU模拟波束赋形能力.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    283 6月   1 19:40 AAU_A9642A S35.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    179 6月   1 19:40 AAU_A9651D.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    176 6月   1 19:40 AAU_A9900.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    211 6月   1 19:40 AAU-RRU节能.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    309 6月   1 19:40 AC校正能力.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    285 6月   1 19:40 AC校准成功状态.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    306 6月   1 19:40 AI负荷预测.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    356 6月   1 19:40 AMBR配置.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    318 6月   1 19:40 AMBR.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    260 6月   1 19:40 AMC外环算法.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    305 6月   1 19:40 AMR编码模式切换.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    286 6月   1 19:40 AMR-WB语音编码.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    299 6月   1 19:40 AN资源（symb#13）.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    299 6月   1 19:40 AN Format3-4负荷变化.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    361 6月   1 19:40 AOA定位技术.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    279 6月   1 19:40 AppID识别.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    251 6月   1 19:40 ATG场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    251 6月   1 19:40 ATG覆盖半径大.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    255 6月   1 19:40 ATG基站.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    440 6月   1 19:40 ATG天线波束选择机制.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    281 6月   1 19:40 ATG网络场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    560 6月   1 19:40 ATG网络对公网的干扰.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    303 6月   1 19:40 ATG小区.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    275 6月   1 19:40 ATG站点挂高较高.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    383 6月   1 19:40 ATG终端天线选择机制.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    284 6月   1 19:40 ATU保障参数隔离场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    285 6月   1 19:40 ATU保障场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    301 6月   1 19:40 ATU测试场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    277 6月   1 19:40 ATU大包用户.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    296 6月   1 19:40 ATU档位限制.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    326 6月   1 19:40 ATU功能生效时间段.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    305 6月   1 19:40 ATU邻区.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    293 6月   1 19:40 ATU小区.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    296 6月   1 19:40 ATU用户.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    278 6月   1 19:40 ATU原因激活的BWP.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    227 6月   1 19:40 ATU UE.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    529 6月   1 19:40 Autolog采集.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    300 6月   1 19:40 B方案部署环境.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    353 6月   1 19:40 BBU备份链型组网.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    370 6月   1 19:40 BBU备份组网下超级小区部分CP链路中断.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    339 6月   1 19:40 BBU背板交换容量不足.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    290 6月   1 19:40 BBU基带板故障状态.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    299 6月   1 19:40 BBU间多小区联合ELAA协作.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    302 6月   1 19:40 BBU内多小区联合ELAA协作.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    266 6月   1 19:40 BBU内同频小区.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    427 6月   1 19:40 BBU冗余组网_主备星型连接.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    386 6月   1 19:40 BBU冗余组网.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    358 6月   1 19:40 BBU与射频单元间物理链路类型.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    415 6月   1 19:40 BBU与射频单元间物理链路时延增大.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    386 6月   1 19:40 BBU与射频单元经交换板互联的前传链路类型.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    304 6月   1 19:40 BBU与PB双光纤冗余连接.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    340 6月   1 19:40 BBU与RRU直连物理链路.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    475 6月   1 19:40 BBU与RRU-AAU间单光纤链路组网.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    314 6月   1 19:40 BBU与RRU-AAU间单光纤上联_星型组网.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    543 6月   1 19:40 BBU与RRU-AAU间环形链路组网.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    303 6月   1 19:40 BC级powerclass为PC2的终端.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    266 6月   1 19:40 BC模式赋形.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    235 6月   1 19:40 BF低流UE.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    225 6月   1 19:40 BF共核.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    267 6月   1 19:40 BF模式被选择.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    265 6月   1 19:40 BPS2.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    266 6月   1 19:40 BSR更新不及时.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    350 6月   1 19:40 BSR上报接收与解析过程.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    258 6月   1 19:40 burst业务.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    294 6月   1 19:40 BWP布局场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    334 6月   1 19:40 BWP复杂参数套配置.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    312 6月   1 19:40 BWP精简B方案.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    335 6月   1 19:40 BWP配置与激活状态不一致.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    296 6月   1 19:40 BWP上字型场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    224 6月   1 19:40 BWP无RA资源.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    286 6月   1 19:40 bwp增删场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    292 6月   1 19:40 BWP ID字段值为0.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    306 6月   1 19:40 CA场景容量自适应.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    272 6月   1 19:40 CA场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    346 6月   1 19:40 CA分流.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    228 6月   1 19:40 CA功能开启.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    276 6月   1 19:40 CA功能启用.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    449 6月   1 19:40 CA配置下终端主载波BWP切换失败引发RAT回落.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    300 6月   1 19:40 CA用户数量激增.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    234 6月   1 19:40 CA用户.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    364 6月   1 19:40 CA与CoMP共享XC链路.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    258 6月   1 19:40 CA组网_1FDD+3TDD.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    252 6月   1 19:40 CA组网_1FDD+4TDD.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    272 6月   1 19:40 CA组网_2FDD+3TDD.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    272 6月   1 19:40 CA组网_3FDD+1TDD.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    272 6月   1 19:40 CA组网_3FDD+3TDD.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    225 6月   1 19:40 CA组网_4TDD.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    269 6月   1 19:40 CA+CoMP协作.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    332 6月   1 19:40 CA UE级XC链路受限.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    238 6月   1 19:40 CC16.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    308 6月   1 19:40 CCE按比例划分功能启用.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    283 6月   1 19:40 CCE高负荷小区.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    290 6月   1 19:40 CFI固定为1和2配置.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    370 6月   1 19:40 CFI和CRS速率匹配支持不理想的终端.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    281 6月   1 19:40 CFR功能启用.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    346 6月   1 19:40 CJT功能.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    297 6月   1 19:40 CJT协作场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    355 6月   1 19:40 CoMP策略优化.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    282 6月   1 19:40 CoMP场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    255 6月   1 19:40 CoMP功能配置.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    320 6月   1 19:40 CoMP功能需求.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    361 6月   1 19:40 CoMP功能与其他功能同时开启.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    249 6月   1 19:40 CoMP功能.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    282 6月   1 19:40 COMP邻区配置.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    281 6月   1 19:40 CoMP提前调度.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    276 6月   1 19:40 COMP协作.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    271 6月   1 19:40 CoMP资源配置.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    248 6月   1 19:40 COMPCRV多BWP.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    299 6月   1 19:40 CoMP JR+提前调度场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    370 6月   1 19:40 COMP support字段配置场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    314 6月   1 19:40 CORESET0符号数为1或2.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    290 6月   1 19:40 CORESET0内USS调度.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    326 6月   1 19:40 CORESET0速率匹配功能开启.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    460 6月   1 19:40 Coreset0与专用Coreset频域部分交叠.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    309 6月   1 19:40 CORESET0在独享谱.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    333 6月   1 19:40 CORESET0在共享谱.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    275 6月   1 19:40 CORESET0重叠.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    329 6月   1 19:40 CP闭塞.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    280 6月   1 19:40 CP波形传输.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    299 6月   1 19:40 CP退服.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    272 6月   1 19:40 CPA流控机制.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    293 6月   1 19:40 CPA与SPA协调机制缺失.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    333 6月   1 19:40 CPE设备.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    305 6月   1 19:40 CPE质差状态.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    332 6月   1 19:40 CQI0异常上报场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    350 6月   1 19:40 CRS解调性能劣化终端.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    335 6月   1 19:40 CSI上报重配场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    371 6月   1 19:40 CSI资源分配复杂场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    248 6月   1 19:40 CSI-RS测量.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    245 6月   1 19:40 CSI-RS滤波配置.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    281 6月   1 19:40 D0D5后7符号.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    273 6月   1 19:40 D3-ELAA技术.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    267 6月   1 19:40 D42平台UBR机型.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    245 6月   1 19:40 D板和E板.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    302 6月   1 19:40 dAAU独立SSB配置.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    308 6月   1 19:40 DCI长度对齐检查机制.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    348 6月   1 19:40 DDSUU帧结构.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    271 6月   1 19:40 deltaSINR配置为0.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    320 6月   1 19:40 DFS比例大于3%.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    253 6月   1 19:40 DIA 8T配置.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    291 6月   1 19:40 DIA天线.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    563 6月   1 19:40 DMIMO技术.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    360 6月   1 19:40 DMRS 1+1+1配置需求.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    291 6月   1 19:40 DMRS配置2+0.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    286 6月   1 19:40 DMRS配置为pos3.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    251 6月   1 19:40 DNS查询请求.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    284 6月   1 19:40 DNS识别.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    278 6月   1 19:40 DRA识别.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    246 6月   1 19:40 DRX关闭状态.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    244 6月   1 19:40 DRX开启状态.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    302 6月   1 19:40 DRX配置.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    293 6月   1 19:40 DSC与CSC基带板共框部署.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    252 6月   1 19:40 DSS 15包10场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    267 6月   1 19:40 DSS 24-2场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    262 6月   1 19:40 DSS部署场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    415 6月   1 19:40 DSS场景独享谱和共享谱干扰不一致.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    292 6月   1 19:40 DSS场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    317 6月   1 19:40 DSS和上行CoMP共存配置.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    317 6月   1 19:40 DSS和下行CoMP共存配置.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    292 6月   1 19:40 DSS跨基带板链路.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    282 6月   1 19:40 DSS配置场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    270 6月   1 19:40 DSS全共享场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    259 6月   1 19:40 DSS FDD宏站场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    232 6月   1 19:40 DSS FDD宏站.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    280 6月   1 19:40 DSS_NR独立运行.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    396 6月   1 19:40 DSS_SSB频域位置灵活部署.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    378 6月   1 19:40 DU小区级CA配置需求.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    362 6月   1 19:40 duration=1的PDCCH符号自适应.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    242 6月   1 19:40 ECID定位.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    343 6月   1 19:40 eMBB初始BWP资源配置不足.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    259 6月   1 19:40 EMBB高负载.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    229 6月   1 19:40 eMBB业务.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    316 6月   1 19:40 eMBB终端.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    349 6月   1 19:40 eMBB专用BWP资源配置不足.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    364 6月   1 19:40 EPC增强型核心网（支持4G-5G共核心网）.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    214 6月   1 19:40 eRedCap能力_supportOfERedCap-r18.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    200 6月   1 19:40 eRedCap_新增eRedCap能力.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    176 6月   1 19:40 Ethernet 报文.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    341 6月   1 19:40 EVS编码语音业务场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    355 6月   1 19:40 F+2T DL3CC&UL2CC载波聚合场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    329 6月   1 19:40 FA重耕部署.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    264 6月   1 19:40 FDD DSS场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    383 6月   1 19:40 FDD LTE-NR Dynamic Spectrum Sharing.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    173 6月   1 19:40 FDD.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    316 6月   1 19:40 FMM_8T_DSS场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    276 6月   1 19:40 FMM DSS部署场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    287 6月   1 19:40 FMM.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    362 6月   1 19:40 FNR 40M-45M-50M带宽小区.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    314 6月   1 19:40 FNR 4T场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    304 6月   1 19:40 FNR 8T常规天线.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    235 6月   1 19:40 FNR 8T基站.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    288 6月   1 19:40 FNR基站.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    348 6月   1 19:40 FNR精准PDSCH功能.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    266 6月   1 19:40 FNR空口校准.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    343 6月   1 19:40 FNR频段小区.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    276 6月   1 19:40 FNR JT-CJT协作模式.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    306 6月   1 19:40 format4低码率.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    291 6月   1 19:40 FR1 300M+FR2 800M配置.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    256 6月   1 19:40 FR1频段.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    318 6月   1 19:40 FR1+FR2 NR载波聚合组网.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    214 6月   1 19:40 FR2频段.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    275 6月   1 19:40 FTP下载场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    297 6月   1 19:40 FTP业务和ping包业务.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    186 6月   1 19:40 funcset1081350.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    284 6月   1 19:40 FWA用户.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    262 6月   1 19:40 GBAe.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    279 6月   1 19:40 GBR 5QI多用户.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    330 6月   1 19:40 GBR承载保障.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    392 6月   1 19:40 GBR承载大流量业务.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    401 6月   1 19:40 GBR承载小流量业务.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    262 6月   1 19:40 GBR承载.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    262 6月   1 19:40 GBR业务.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    281 6月   1 19:40 GBR用户.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    294 6月   1 19:40 GBR.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    305 6月   1 19:40 gNB覆盖不到的场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    373 6月   1 19:40 GTPU链路保活失败.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    272 6月   1 19:40 H.263视频编码协议.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    277 6月   1 19:40 H.265视频编码传输.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    302 6月   1 19:40 HARQ进程调度间隔长.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    700 6月   1 19:40 HARQ重复传输误判导致的数据丢弃.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    442 6月   1 19:40 HyperMIMO技术.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    367 6月   1 19:40 ICMP协议消息.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    315 6月   1 19:40 inter-band CA场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    290 6月   1 19:40 IP浅度识别.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    400 6月   1 19:40 IPsec ESP安全传输.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    256 6月   1 19:40 JR功能开启.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    269 6月   1 19:40 JR功能.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    270 6月   1 19:40 JT技术.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    320 6月   1 19:40 JT协作场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    330 6月   1 19:40 JT协作.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    280 6月   1 19:40 JT状态.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    319 6月   1 19:40 JT-CS-CBF自适应场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    309 6月   1 19:40 Ka频段载波.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    251 6月   1 19:40 L1-RSRP波束UE.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    336 6月   1 19:40 LI上报不准.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    272 6月   1 19:40 license控制需求.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    300 6月   1 19:40 LMF部署架构.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    296 6月   1 19:40 LMF部署于智算板.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    268 6月   1 19:40 LMF部署于NE板.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    190 6月   1 19:40 LOS信道.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    287 6月   1 19:40 LOS占优场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    365 6月   1 19:40 Los-Nlos信道状态改变.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    255 6月   1 19:40 LTE侧功率boosting.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    262 6月   1 19:40 LTE独立激活.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    350 6月   1 19:40 LTE小区高负荷.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    390 6月   1 19:40 LTE与NR动态频谱共享.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    407 6月   1 19:40 LTE与NR小区间的灵活频谱共享部署.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    415 6月   1 19:40 LTE中心频点和NR中心频点的相对位置_LTE位于低频.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    459 6月   1 19:40 LTE中心频点和NR中心频点的相对位置_LTE位于高频.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    308 6月   1 19:40 LTE_Cfimaxconfig_3配置.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    319 6月   1 19:40 LTE CRS对NR的下行干扰.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    495 6月   1 19:40 LTE CRS-PBCH-PSS-SSS速率匹配.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    378 6月   1 19:40 LTE FDD + NR FDD.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    321 6月   1 19:40 LTE MBSFN子帧.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    363 6月   1 19:40 LTE-NR 100M包20M.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    403 6月   1 19:40 LTE-NR 10MHz带宽内5MHz动态频谱共享_低频段LTE主占.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    346 6月   1 19:40 LTE-NR 10MHz载波聚合配置.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    396 6月   1 19:40 LTE-NR 20M包10M_LTE在高.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    366 6月   1 19:40 LTE-NR 20MHz载波聚合配置.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    367 6月   1 19:40 LTE-NR 20MHz载波内2个专有BWP配置.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    458 6月   1 19:40 LTE-NR 25MHz带宽包20MHz使用场景_LTE高频部署.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    511 6月   1 19:40 LTE-NR 30MHz带宽内20MHz LTE载波位于高频段的共存场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    411 6月   1 19:40 LTE-NR 50M包15M_LTE在低.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    415 6月   1 19:40 LTE-NR 50M包15M_LTE在高.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    543 6月   1 19:40 LTE-NR 50MHz带宽下LTE载波位于高频段的共存场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    343 6月   1 19:40 LTE-NR动态频谱共享技术.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    384 6月   1 19:40 LTE-NR 动态频谱共享下的8T并柜配置.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    476 6月   1 19:40 LTE-NR 高频段50MHz带宽内包含5MHz LTE载波的共存场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    443 6月   1 19:40 LTE-NR 高频段DSS部署场景：50MHz总带宽内含20MHz LTE载波.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    305 6月   1 19:40 LTE-NR共射频功率共享.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    383 6月   1 19:40 LTE-NR 共载波频率复用配置.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    438 6月   1 19:40 LTE-NR 频段共享配置 - 15MHz NR 包含 10MHz LTE 下层部署.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    278 6月   1 19:40 LTE-NR频段重耕.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    461 6月   1 19:40 LTE-NR 频谱共享配置_50M带宽封装20M_LTE低频段优先.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    547 6月   1 19:40 LTE-NR 频谱共享下20M+20M载波聚合配置_LTE低频段主载波.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    424 6月   1 19:40 LTE-NR 频谱共享下20MHz带宽内10MHz LTE低频段部署.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    490 6月   1 19:40 LTE-NR 频谱共享中LTE载波位于低频段的30MHz打包20MHz配置.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    479 6月   1 19:40 LTE-NR 频谱共享中LTE载波位于高频段的40MHz带宽配置.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    461 6月   1 19:40 LTE-NR 频谱共享中LTE载波位于NR载波低端25MHz带宽内.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    474 6月   1 19:40 LTE-NR 频谱共享中LTE载波位于NR载波低端5MHz偏移配置.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    545 6月   1 19:40 LTE-NR 频谱共享中LTE载波位于NR载波低端的50MHz总带宽配置.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    375 6月   1 19:40 LTE-NR 小区间动态频谱共享(TDD DSS).md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    439 6月   1 19:40 LTE-NR 小区间载波数量差异.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    325 6月   1 19:40 LTE-NR小区制式差异配置.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    394 6月   1 19:40 LTE-NR DSS配置冲突：LTE载波模3不等于NR载波.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    449 6月   1 19:40 LTE-NR Dynamic Spectrum Sharing with LTE at High Band.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    561 6月   1 19:40 LTE-NR Dynamic Spectrum Sharing with LTE Carrier Positioned at Higher Frequency in 15MHz Bandwidth Configuration.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    719 6月   1 19:40 LTE-NR Dynamic Spectrum Sharing with LTE Lower Band Embedded in NR Channel.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    600 6月   1 19:40 LTE-NR Dynamic Spectrum Sharing with LTE Lower Band Embedding.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    402 6月   1 19:40 LTE-NR PDCCH资源复用效率不足.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    324 6月   1 19:40 LTE_PDCCH资源轻负荷.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    317 6月   1 19:40 LTE TDD + NR TDD.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    349 6月   1 19:40 MAC层上行调度决策过程.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    404 6月   1 19:40 MAC层上行调度能力受限.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    373 6月   1 19:40 MAC层下行调度能力受限.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    347 6月   1 19:40 MAC层TTI调度能力受限.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    329 6月   1 19:40 MAC分流功能启用.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    334 6月   1 19:40 MBR配置.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    292 6月   1 19:40 MBR.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    329 6月   1 19:40 MCS=0 RI=1调度.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    298 6月   1 19:40 MCS27高调制阶数状态.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    308 6月   1 19:40 MiCell虚配SSB.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    265 6月   1 19:40 MICELL_A9306.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    300 6月   1 19:40 MICELL_A9326.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    286 6月   1 19:40 MICELL_A9326S.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    272 6月   1 19:40 MICELL.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    308 6月   1 19:40 msg3传输模式预编码开启.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    309 6月   1 19:40 Msg4调度冲突.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    203 6月   1 19:40 MTK终端.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    245 6月   1 19:40 MTK M90终端.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    291 6月   1 19:40 MU比例较高.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    297 6月   1 19:40 MU功能使能.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    243 6月   1 19:40 MU功能.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    297 6月   1 19:40 MU空分配对场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    325 6月   1 19:40 MU周期结束时刻.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    265 6月   1 19:40 MUBF传输模式.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    307 6月   1 19:40 multi-CSI配置.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    258 6月   1 19:40 MU-MIMO的UE.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    303 6月   1 19:40 MU ZF模式.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    224 6月   1 19:40 N41频段.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    370 6月   1 19:40 N78频段.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    259 6月   1 19:40 n78c频段.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    173 6月   1 19:40 nan.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    353 6月   1 19:40 NB-IoT网络覆盖.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    361 6月   1 19:40 NCD和CD带宽配置差异.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    296 6月   1 19:40 NCD-SSB的BWP配置.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    313 6月   1 19:40 NCD-SSB干扰.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    339 6月   1 19:40 NCD-SSB专用BWP.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    291 6月   1 19:40 NCJT协作场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    404 6月   1 19:40 NCR基站.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    304 6月   1 19:40 NCR扩展覆盖部署.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    266 6月   1 19:40 NCR上行干扰.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    299 6月   1 19:40 NCR设备无SIM卡接入过程.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    288 6月   1 19:40 NCR设备.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    300 6月   1 19:40 NCS配置.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    223 6月   1 19:40 NE板.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    310 6月   1 19:40 NE编排器_商飞场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    379 6月   1 19:40 NGAP-S1AP闭塞.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    292 6月   1 19:40 NGAP-S1AP闪断.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    343 6月   1 19:40 NGBR配置.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    250 6月   1 19:40 NGBR业务.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    259 6月   1 19:40 NGBR.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    327 6月   1 19:40 NG-C 接口链路异常.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    356 6月   1 19:40 NG-U 接口链路.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    302 6月   1 19:40 NG-U链路保活状态正常.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    319 6月   1 19:40 NLOS环境.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    250 6月   1 19:40 Non-GBR业务.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    211 6月   1 19:40 NR 18M带宽.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    385 6月   1 19:40 NR的PDSCH RB占用频谱与LTE频谱不重叠.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    399 6月   1 19:40 NR的PDSCH RB占用频谱与LTE频谱重叠.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    366 6月   1 19:40 NR多小区间20MHz带宽载波资源共享.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    423 6月   1 19:40 NR多小区间载波带宽不一致.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    432 6月   1 19:40 NR多小区间PUSCH层映射配置差异.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    399 6月   1 19:40 NR多小区间PUSCH调制方式配置差异.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    426 6月   1 19:40 NR多小区间PUSCH加扰配置差异.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    460 6月   1 19:40 NR多小区间SSB频点不一致.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    335 6月   1 19:40 NR覆盖较好的场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    258 6月   1 19:40 NR干扰统计.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    356 6月   1 19:40 NR高频场景下的paging slot.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    331 6月   1 19:40 NR基站站型差异_宏站与微站.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    408 6月   1 19:40 NR空口双连接(NR-DC).md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    341 6月   1 19:40 NR双连接组网.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    355 6月   1 19:40 NR下行空口丢包.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    395 6月   1 19:40 NR小区间10MHz带宽载波资源共享.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    389 6月   1 19:40 NR小区间非对称载波带宽配置.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    353 6月   1 19:40 NR小区间天线配置不一致.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    410 6月   1 19:40 NR小区间载波等带宽共享（15MHz）.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    412 6月   1 19:40 NR小区间载波等带宽共享_20MHz包含15MHz.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    403 6月   1 19:40 NR小区间载波等带宽共享_40MHz包含20MHz子载波.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    380 6月   1 19:40 NR小区间载波等带宽资源共享.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    407 6月   1 19:40 NR小区间载波聚合配置特征_1vsN.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    371 6月   1 19:40 NR小区间载波数量1:1共享配置.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    353 6月   1 19:40 NR小区间PDSCH资源协调.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    435 6月   1 19:40 NR与LTE小区间SCS配置不一致.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    368 6月   1 19:40 NR与LTE小区重叠覆盖.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    423 6月   1 19:40 NR载波带宽包含LTE载波的动态频谱共享配置.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    296 6月   1 19:40 NR Band n66.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    281 6月   1 19:40 NR FMM A9752 M1821机型.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    222 6月   1 19:40 NR-LTE 8M带宽.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    305 6月   1 19:40 NR NTN频段n145支持.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    414 6月   1 19:40 NSA组网架构.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    426 6月   1 19:40 NSA组网.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    286 6月   1 19:40 NTN场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    344 6月   1 19:40 NTN地面透传基站.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    370 6月   1 19:40 NTN对TN下行链路干扰.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    422 6月   1 19:40 NTN非标准频段配置差异.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    388 6月   1 19:40 NTN覆盖与TN覆盖的边缘波位.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    182 6月   1 19:40 NTN基站256波束.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    180 6月   1 19:40 NTN基站32波束.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    269 6月   1 19:40 NTN基站波束能力.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    280 6月   1 19:40 NTN基站.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    457 6月   1 19:40 NTN基站PHY Cluster调度容量受限.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    392 6月   1 19:40 NTN基站SPA调度UE选择过程.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    398 6月   1 19:40 NTN基站TTI调度能力受限.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    416 6月   1 19:40 NTN链路高频偏.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    296 6月   1 19:40 NTN透传模式.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    480 6月   1 19:40 NTN透明传输模式下的噪声指数测量过程.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    443 6月   1 19:40 NTN透明传输模式下星载基站射频信号转发过程.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    456 6月   1 19:40 NTN透明传输模式星载基站UL信号转发过程.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    356 6月   1 19:40 NTN透明转发模式.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    277 6月   1 19:40 NTN网络部署.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    324 6月   1 19:40 NTN网络.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    311 6月   1 19:40 NTN卫星固定波束指向模式.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    287 6月   1 19:40 NTN卫星基站.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    338 6月   1 19:40 NTN卫星星历格式差异.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    363 6月   1 19:40 NTN卫星再生模式基站.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    377 6月   1 19:40 NTN星网私有协议适配.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    299 6月   1 19:40 NTN星载基站初始化上电.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    302 6月   1 19:40 NTN星载基站多波束配置.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    377 6月   1 19:40 NTN星载基站固定波束覆盖模式.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    389 6月   1 19:40 NTN星载基站轨道参数计算过程.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    407 6月   1 19:40 NTN星载基站上电时物理小区建立状态.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    335 6月   1 19:40 NTN星载基站业务初始化上电.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    314 6月   1 19:40 NTN星载基站硬件顺序上电.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    444 6月   1 19:40 NTN星载基站再生模式1（集成核心网功能）.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    284 6月   1 19:40 NTN星载基站再生模式.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    311 6月   1 19:40 NTN星载基站.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    364 6月   1 19:40 NTN与TN交叠覆盖场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    275 6月   1 19:40 NTN与TN网管融合.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    292 6月   1 19:40 Ookla-OpenSignal用户.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    242 6月   1 19:40 OSI发送时隙.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    406 6月   1 19:40 OSI时域资源配置能力.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    269 6月   1 19:40 OTT用户.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    271 6月   1 19:40 Paging并发slot.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    242 6月   1 19:40 Paging发送时隙.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    363 6月   1 19:40 Paging时域周期和偏移支持范围调整.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    317 6月   1 19:40 paging搜索空间非0配置.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    380 6月   1 19:40 Paging消息干扰相邻小区PDSCH资源.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    287 6月   1 19:40 paging总功率不足.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    292 6月   1 19:40 pattern3模式.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    298 6月   1 19:40 PBR_QoS保障.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    278 6月   1 19:40 PDCCH符号不对齐.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    302 6月   1 19:40 PDCCH符号自适应功能开启.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    368 6月   1 19:40 PDCCH符号自适应扩展到3符号.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    341 6月   1 19:40 PDCCH干扰邻区PDCCH信道.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    306 6月   1 19:40 PDCCH容量受限.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    317 6月   1 19:40 PDCCH上下行同传时隙.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    308 6月   1 19:40 PDCCH时频域资源受限.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    326 6月   1 19:40 PDCCH信号差.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    340 6月   1 19:40 PDCCH虚检.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    389 6月   1 19:40 PDCCH资源PDSCH与PUSCH分配不平衡.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    370 6月   1 19:40 PDCCH_CCE资源哈希受限.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    423 6月   1 19:40 PDCCH Coreset0利用率低.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    400 6月   1 19:40 PDCCH Coreset0资源受限.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    257 6月   1 19:40 PDCCH MU功能启用.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    331 6月   1 19:40 PDCCH Skipping功能.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    314 6月   1 19:40 PDSCH调度执行过程.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    310 6月   1 19:40 PDSCH覆盖受限.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    373 6月   1 19:40 PDSCH 时频域资源受限.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    331 6月   1 19:40 PDSCH信道质量差.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    304 6月   1 19:40 PDU会话管理.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    437 6月   1 19:40 PHY部分板型下SRS起始位置不支持奇数RB.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    383 6月   1 19:40 PHY层波束赋形空分复用能力受限.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    317 6月   1 19:40 PHY层TTI调度能力受限.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    449 6月   1 19:40 PHY处理单元SRS相关性计算能力不足.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    338 6月   1 19:40 PHY处理能力受限场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    347 6月   1 19:40 PHY处理能力限制.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    310 6月   1 19:40 PHY解调能力限制.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    337 6月   1 19:40 PHY解调ucibit数受限.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    336 6月   1 19:40 PHY内存受限.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    254 6月   1 19:40 PHY配置.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    344 6月   1 19:40 PHY下行控制信息比特长度超限.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    379 6月   1 19:40 PHY相关性计算能力不足.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    291 6月   1 19:40 PHY硬件不支持BF空分.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    258 6月   1 19:40 PIM3干扰.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    211 6月   1 19:40 PIM5干扰.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    308 6月   1 19:40 PIM干扰检测.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    296 6月   1 19:40 PIM时变特征.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    239 6月   1 19:40 PIM突变.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    260 6月   1 19:40 PIM影响不严重.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    347 6月   1 19:40 PPS处理内存不足.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    323 6月   1 19:40 PPS处理能力不足.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    299 6月   1 19:40 PRACH格式.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    346 6月   1 19:40 PRACH时域资源配置.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    330 6月   1 19:40 PRACH信道质量差.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    316 6月   1 19:40 PRB利用率低.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    257 6月   1 19:40 PRB利用率门限.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    291 6月   1 19:40 PUCCH上UCI解调能力提升.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    363 6月   1 19:40 PUCCH四合一场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    299 6月   1 19:40 PUCCH资源竞争.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    305 6月   1 19:40 PUCCH资源配置受限.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    281 6月   1 19:40 pucch fmt3资源.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    293 6月   1 19:40 PUCCH Format3数量受限.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    336 6月   1 19:40 PUCCH format3资源瓶颈场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    460 6月   1 19:40 PUCCH format3-format4处理能力在组内小区间分配不均.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    435 6月   1 19:40 PUCCH format 3-format 4的处理能力受限.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    297 6月   1 19:40 PUCCH format4异常终端.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    332 6月   1 19:40 PUCCH RB资源受限场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    392 6月   1 19:40 PUCCH SR资源配置时域受限.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    360 6月   1 19:40 PUCCH TPC触发的MAC CE.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    547 6月   1 19:40 PUSCH端口间信道质量不均衡.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    351 6月   1 19:40 PUSCH链路质量差.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    300 6月   1 19:40 PUSCH上UCI解调能力未提升.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    362 6月   1 19:40 PUSCH时频资源分配受限.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    337 6月   1 19:40 PUSCH DFT波形.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    355 6月   1 19:40 PUSCH DFT解调能力受限.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    238 6月   1 19:40 PWS广播.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    377 6月   1 19:40 QCell点控休眠.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    359 6月   1 19:40 Qcell.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    287 6月   1 19:40 QCELL_R8139.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    289 6月   1 19:40 QCELL_R8149.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    357 6月   1 19:40 QCELL R8149 T3500.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    331 6月   1 19:40 QCELL_R8159 F2100.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    288 6月   1 19:40 QCELL_R8159.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    393 6月   1 19:40 QoS Class Identifier (QCI) 或 5QI 映射用户.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    287 6月   1 19:40 QosFlow与DRB多对一映射.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    305 6月   1 19:40 QosFlow与DRB一对一映射.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    278 6月   1 19:40 QoS Type 6 用户.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    289 6月   1 19:40 QosType业务.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    335 6月   1 19:40 R18功能支持要求.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    198 6月   1 19:40 R8149 M182126.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    175 6月   1 19:40 R8159_M182135E.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    256 6月   1 19:40 R9018R S21.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    263 6月   1 19:40 R9028R.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    341 6月   1 19:40 R9254E S2100.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    169 6月   1 19:40 R9254 S8500.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    296 6月   1 19:40 R9264 M1821 ACA RRU.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    294 6月   1 19:40 R9268E M1821.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    171 6月   1 19:40 R9269E M1821.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    165 6月   1 19:40 R9604 S35.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    273 6月   1 19:40 R9614E M1826.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    285 6月   1 19:40 R9626 M2326.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    302 6月   1 19:40 RAC调度受限.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    374 6月   1 19:40 RACH资源配置受限.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    471 6月   1 19:40 RAN无线能力开放.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    293 6月   1 19:40 RB差异较大的UE.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    258 6月   1 19:40 RB大小.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    271 6月   1 19:40 RB分配方式.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    257 6月   1 19:40 RB级信道质量.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    370 6月   1 19:40 RB间相关性低的UE.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    348 6月   1 19:40 RB位置分配策略基于配置决策.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    337 6月   1 19:40 RB限制功能同时开启.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    271 6月   1 19:40 RB预留需求.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    294 6月   1 19:40 RE级速率匹配.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    331 6月   1 19:40 REC优先RAC.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    328 6月   1 19:40 redcap独立初始BWP.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    256 6月   1 19:40 RedCap功能.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    262 6月   1 19:40 RedCap手表终端.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    249 6月   1 19:40 RedCap业务.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    301 6月   1 19:40 RedCap用户数增加.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    260 6月   1 19:40 RedCap用户.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    285 6月   1 19:40 RedCap增强功能.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    272 6月   1 19:40 redcap终端.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    272 6月   1 19:40 Redcap终端.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    310 6月   1 19:40 RedCap终端.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    302 6月   1 19:40 RedCap专用BWP配置.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    262 6月   1 19:40 RedCap ATU用户.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    312 6月   1 19:40 redcap BWP频域不重叠.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    385 6月   1 19:40 RedCap UE初始BWP中PDCCH资源受限且包含NCD SSB.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    361 6月   1 19:40 RedCap UE初始BWP资源配置不足.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    466 6月   1 19:40 RedCap UE在包含NCD SSB的专用BWP上PDCCH资源受限.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    398 6月   1 19:40 RedCap UE在BWP上资源配置不足.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    319 6月   1 19:40 RI=3-4调度条件.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    282 6月   1 19:40 RI>=3传输需求.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    246 6月   1 19:40 RI>=3用户.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    328 6月   1 19:40 RIM RS波束级发送功能启用.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    268 6月   1 19:40 RIM RS Pattern为2.5ms周期.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    258 6月   1 19:40 RR算法.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    329 6月   1 19:40 RRC连接平均用户数.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    287 6月   1 19:40 RRC连接重建立.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    311 6月   1 19:40 RRC用户数大于400.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    249 6月   1 19:40 RRC_CONNECTED.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    233 6月   1 19:40 RRC_IDLE.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    179 6月   1 19:40 RRC INACTIVE.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    313 6月   1 19:40 RRU并柜.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    333 6月   1 19:40 RRU部署距离BBU远.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    326 6月   1 19:40 RRU分布式部署.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    300 6月   1 19:40 RRU干扰隔离度波动.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    264 6月   1 19:40 RRU供电配电单元.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    273 6月   1 19:40 RRU功率发射超过阈值.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    334 6月   1 19:40 RRU和基带双检不一致.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    498 6月   1 19:40 RRU级联组网.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    276 6月   1 19:40 RRU检测粒度为天粒度级.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    274 6月   1 19:40 RRU交付测试场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    277 6月   1 19:40 RRU劈裂.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    343 6月   1 19:40 RRU软劈裂.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    255 6月   1 19:40 RRU剩余功率有限.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    183 6月   1 19:40 RRU-AAU故障.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    344 6月   1 19:40 RRU-AAU下行功率动态共享.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    395 6月   1 19:40 RRU-AAU相位与时延校准过程.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    310 6月   1 19:40 RSRP测量不准确.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    307 6月   1 19:40 RTP协议异常.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    292 6月   1 19:40 RTT定位.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    374 6月   1 19:40 S1-C接口控制面连接异常.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    395 6月   1 19:40 S1-U接口数据传输异常.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    279 6月   1 19:40 S49通感场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    302 6月   1 19:40 S发U场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    280 6月   1 19:40 S发U功能开启.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    286 6月   1 19:40 S发U配置.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    280 6月   1 19:40 S时隙配置PUSCH符号.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    286 6月   1 19:40 S时隙Flexible符号传输PUSCH.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    292 6月   1 19:40 S子帧调度.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    276 6月   1 19:40 S子帧配比6:2:6.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    276 6月   1 19:40 S子帧配比6:4:4.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    275 6月   1 19:40 SA组网.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    351 6月   1 19:40 SCTP链路瞬时中断.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    331 6月   1 19:40 SDL辅助下行载波聚合.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    289 6月   1 19:40 SECU-SCF(NTN网管).md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    435 6月   1 19:40 Seventh-Order Passive Intermodulation (PIM7).md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    400 6月   1 19:40 SIB1加密保护.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    358 6月   1 19:40 SIB1时域资源配置能力.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    377 6月   1 19:40 SIB1与邻区PDSCH时频资源冲突导致下行干扰.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    239 6月   1 19:40 SIB发送时隙.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    241 6月   1 19:40 SINR较低.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    260 6月   1 19:40 slot级更新周期.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    244 6月   1 19:40 slot级配置.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    322 6月   1 19:40 slot级业务量变化.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    388 6月   1 19:40 Slot间业务负载不均衡.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    341 6月   1 19:40 slot上CSI Report个数接近上限.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    369 6月   1 19:40 slotAMC功能开启.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    311 6月   1 19:40 Smart PBR功能启用.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    275 6月   1 19:40 SPA置信度判决缺失.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    382 6月   1 19:40 SPA自愈功能.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    348 6月   1 19:40 SPA-PHY-RRM联动保障.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    334 6月   1 19:40 SR调度机会浪费.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    318 6月   1 19:40 SR响应调度频度较高场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    499 6月   1 19:40 SR资源配置失败触发的竞争随机接入过程.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    324 6月   1 19:40 SR资源配置需求.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    323 6月   1 19:40 SRB和DRB同传首包调度.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    229 6月   1 19:40 SRS波束UE.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    346 6月   1 19:40 SRS测量邻区信号.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    263 6月   1 19:40 SRS测量.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    302 6月   1 19:40 SRS符号级干扰.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    326 6月   1 19:40 SRS能量投影波束替换.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    275 6月   1 19:40 SRS容量受限.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    290 6月   1 19:40 SRS容量自适应已开启.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    239 6月   1 19:40 SRS突然不发.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    298 6月   1 19:40 SRS信号质量差.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    307 6月   1 19:40 SRS资源池配置需求.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    326 6月   1 19:40 SRS资源配置固定预留.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    360 6月   1 19:40 SRS资源配置组合受限.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    309 6月   1 19:40 SRS资源配置.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    311 6月   1 19:40 SRS Carrier Switch功能启用.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    287 6月   1 19:40 SSB波束变化.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    304 6月   1 19:40 SSB波束赋形权值配置2Port.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    301 6月   1 19:40 SSB测量与接入控制.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    331 6月   1 19:40 SSB多波束.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    239 6月   1 19:40 SSB发送时隙.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    291 6月   1 19:40 SSB非标准频率位置.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    290 6月   1 19:40 SSB功率大于NR可用功率.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    287 6月   1 19:40 SSB功率配置过大.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    258 6月   1 19:40 SSB功率受限.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    349 6月   1 19:40 SSB功率提升需求.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    308 6月   1 19:40 SSB接纳仅Legacy终端.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    305 6月   1 19:40 SSB接纳仅redcap终端.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    332 6月   1 19:40 SSB接纳Legacy + redcap终端.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    322 6月   1 19:40 SSB频点定制需求.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    382 6月   1 19:40 SSB时域资源配置能力.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    302 6月   1 19:40 SSB时域自适应.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    313 6月   1 19:40 SSB位于载波边缘.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    322 6月   1 19:40 SSB位于载波频带中心.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    291 6月   1 19:40 SSB信号差.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    330 6月   1 19:40 SSB与LTE PBCH重叠场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    266 6月   1 19:40 SSB slot.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    253 6月   1 19:40 S slot发PUSCH.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    277 6月   1 19:40 S slot符号配比3:8:3.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    277 6月   1 19:40 S slot符号配比6:2:6.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    265 6月   1 19:40 S slot高干扰电平.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    234 6月   1 19:40 S slot时隙.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    251 6月   1 19:40 Sslot子帧调度.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    317 6月   1 19:40 S slot.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    267 6月   1 19:40 SU业务场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    284 6月   1 19:40 SU用户.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    295 6月   1 19:40 subBandSRSConSwitch参数开启.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    311 6月   1 19:40 SUBF传输模式UE.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    284 6月   1 19:40 SUL载波交叠区域.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    282 6月   1 19:40 SUL载波.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    298 6月   1 19:40 SuperMIMO+宏站场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    361 6月   1 19:40 SuperMIMO技术.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    245 6月   1 19:40 T0预调度.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    329 6月   1 19:40 TA偏差较大的邻区.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    325 6月   1 19:40 TCP报文传输异常.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    371 6月   1 19:40 TCP报文固定字段.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    301 6月   1 19:40 TCP连接建立失败.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    275 6月   1 19:40 TCP选项字段配置.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    247 6月   1 19:40 TDD 40M-50M带宽.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    360 6月   1 19:40 TDD帧结构Sslot下行符号为6符号.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    173 6月   1 19:40 TDD.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    344 6月   1 19:40 TN网络的终端对NTN网络的上行干扰.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    297 6月   1 19:40 TNR大T场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    257 6月   1 19:40 TNR多波束配置.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    268 6月   1 19:40 TNR通道关断关闭.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    257 6月   1 19:40 TNR制式.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    277 6月   1 19:40 TNR终端.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    242 6月   1 19:40 TNR CJT部分RB协作.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    255 6月   1 19:40 TNR CJT协作模式.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    281 6月   1 19:40 ToB低时延业务.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    274 6月   1 19:40 ToB.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    242 6月   1 19:40 ToC.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    434 6月   1 19:40 TRS与ZP错开配置场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    260 6月   1 19:40 TSCAI预调度.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    311 6月   1 19:40 TTI调度能力受限.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    301 6月   1 19:40 TTI调度推迟.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    305 6月   1 19:40 TTI级调度.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    314 6月   1 19:40 TTI级功率共享.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    329 6月   1 19:40 TTI级通道关断.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    292 6月   1 19:40 two PUCCH group配置.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    268 6月   1 19:40 Type8用户.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    313 6月   1 19:40 Type级业务评价准则.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    279 6月   1 19:40 TypeA调度.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    300 6月   1 19:40 TypeB 3DMRS配置.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    284 6月   1 19:40 TypeB调度.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    300 6月   1 19:40 U19发SRS功能.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    279 6月   1 19:40 U6G 128TR AAU.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    265 6月   1 19:40 U6G版本.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    231 6月   1 19:40 U6G场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    274 6月   1 19:40 U6G基站.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    286 6月   1 19:40 U6G机型A9650 S70.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    361 6月   1 19:40 U6G宽扫描机型.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    228 6月   1 19:40 U6G.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    233 6月   1 19:40 UAI功能.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    269 6月   1 19:40 UDP协议传输.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    319 6月   1 19:40 UDP Echo Request-Response.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    299 6月   1 19:40 UE大量上行数据.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    303 6月   1 19:40 UE调度次数少.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    407 6月   1 19:40 UE辅助信息节能.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    304 6月   1 19:40 UE各载波能力差异.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    285 6月   1 19:40 UE级根因分析结果.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    324 6月   1 19:40 UE级CoMP JR功能.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    300 6月   1 19:40 UE级PMI功能需求.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    301 6月   1 19:40 UE间信道低相关性.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    305 6月   1 19:40 UE接入控制.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    272 6月   1 19:40 UE接入与移动性管理.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    315 6月   1 19:40 UE空间分布复杂.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    392 6月   1 19:40 UE空口信道端口间低相关性.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    276 6月   1 19:40 UE能力限制.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    291 6月   1 19:40 UE能力支持XP3B.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    246 6月   1 19:40 UE请求RB数.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    341 6月   1 19:40 UE位置上报控制.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    306 6月   1 19:40 UE虚检DCI.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    351 6月   1 19:40 UE业务调度阻塞.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    365 6月   1 19:40 UE在高频场景下盲检次数超限.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    311 6月   1 19:40 UE在NCR覆盖区切入切出.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    281 6月   1 19:40 UE在SUL上的发送状态.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    358 6月   1 19:40 UE PMI Reporting Inaccuracy.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    302 6月   1 19:40 UL only TRP大包用户.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    340 6月   1 19:40 UltraCell.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    350 6月   1 19:40 UPA识别的下行UE throughput低速占比top UE.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    368 6月   1 19:40 UPA自愈.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    249 6月   1 19:40 U slot发SRS.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    299 6月   1 19:40 UTDOA定位.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    176 6月   1 19:40 V1100机柜.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    314 6月   1 19:40 VBPC板小T小区.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    270 6月   1 19:40 VBPc板小T.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    283 6月   1 19:40 VBPC基带单板.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    308 6月   1 19:40 VBPc.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    274 6月   1 19:40 VBPd04.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    252 6月   1 19:40 VBPd07.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    217 6月   1 19:40 VBPd0e.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    259 6月   1 19:40 VBPd0.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    284 6月   1 19:40 VBPd1.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    218 6月   1 19:40 VBPd24.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    299 6月   1 19:40 VBPd2.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    275 6月   1 19:40 VBPd2p.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    299 6月   1 19:40 VBPd6.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    283 6月   1 19:40 VBPD基带单板.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    328 6月   1 19:40 VBPd.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    257 6月   1 19:40 VBPe14.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    308 6月   1 19:40 VBPe24.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    413 6月   1 19:40 VBPE2支持下行16流与上行8流.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    291 6月   1 19:40 VBPe2.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    293 6月   1 19:40 VBPe2r.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    282 6月   1 19:40 VBPe3.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    269 6月   1 19:40 VBPe3y.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    186 6月   1 19:40 VBPe4.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    282 6月   1 19:40 VBPe6.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    283 6月   1 19:40 VBPE基带单板.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    259 6月   1 19:40 VBPe.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    320 6月   1 19:40 VIP用户.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    323 6月   1 19:40 VONR三方通话中保持状态.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    304 6月   1 19:40 VONR三方通话中通话状态.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    359 6月   1 19:40 VONR上行空口时延抖动.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    365 6月   1 19:40 VONR上行空口数据丢失.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    280 6月   1 19:40 VoNR视频彩铃业务.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    369 6月   1 19:40 VONR下行空口时延抖动.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    248 6月   1 19:40 VoNR业务.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    248 6月   1 19:40 VONR业务.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    308 6月   1 19:40 VoNR用户.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    295 6月   1 19:40 VONR语音彩铃业务.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    271 6月   1 19:40 VSPe2.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    271 6月   1 19:40 VSPe4.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    257 6月   1 19:40 VSW.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    248 6月   1 19:40 VVC编码协议应用.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    273 6月   1 19:40 WaveJudge仪表.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    249 6月   1 19:40 WUS功能.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    340 6月   1 19:40 X2接口链路中断.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    401 6月   1 19:40 X2接口数据包乱序.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    306 6月   1 19:40 X6G.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    295 6月   1 19:40 X6G NTN基带板工作模式.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    333 6月   1 19:40 X6G TocTn基带板工作模式.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    377 6月   1 19:40 XC链路速率受限.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    237 6月   1 19:40 XC链路.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    400 6月   1 19:40 Xn接口链路丢包率过高.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    352 6月   1 19:40 Xn接口数据包乱序.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    206 6月   1 19:40 Xn链路.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    267 6月   1 19:40 XR场景.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    292 6月   1 19:40 XR流媒体业务.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    297 6月   1 19:40 XR业务.md
+-rw-rw-r--  1 10217492@zte.intra 10217492@zte.intra    150 6月   1 19:40 XR.md

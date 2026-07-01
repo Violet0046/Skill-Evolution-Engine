@@ -48,7 +48,7 @@ def classify_entry(entry: Dict[str, Any]) -> str:
 
     # 其他系统类型（system / queue-operation / last-prompt / ...）原样返回
     if entry_type in ["system", "queue-operation", "last-prompt",
-                       "file-history-snapshot", "permission-mode", "ai-title"]:
+                       "file-history-snapshot", "permission-mode", "ai-title", "mode"]:
         return entry_type
 
     # 处理user类型

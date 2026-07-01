@@ -3,6 +3,7 @@
   "_DROP_CLASSES": [
     "progress.hook_progress",
     "progress.skill_progress",
+    "mode",
     "queue-operation",
     "file-history-snapshot",
     "last-prompt",

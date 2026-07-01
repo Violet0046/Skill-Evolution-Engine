@@ -1,0 +1,801 @@
+# [RAN-6166005][广义QOS识别用户支持下行动态目标BLER【NR】]-盖亚创建
+
+**本文为5G增量需求分析和设计文档**
+
+请在表格中按下面的枚举值填写状态，enum{初始、已初审、修订中、已定稿}
+
+| **设计状态** | 初始 |
+| **规划** | 唐轩10191935  李积江10164308 |
+| **算法** | 李博航10192443 |
+| **BA** | 杨文乐10313446 |
+| **TS** | 牛勇清10189966 |
+
+# 1 需求分析
+
+## 1.1 需求基本信息
+
+| 需求Id | 需求名称 | 需求描述 | 需求澄清人 | 需求分析人 | 需求类型 |
+| --- | --- | --- | --- | --- | --- |
+| RAN-6166005 | 广义QOS识别用户支持下行动态目标BLER【NR】 | 需求来源:【需求来源和背景。故障需提供EC号】  游戏这类业务需要控制低BLER，但是测试中发现游戏业务小包→大包切换时、低BLER容易产生BSR阻塞，  诉求： 当type级配置的下行目标BLER<小区级下行目标BLER（包含生效目标BLER自适应功能），且小包切换到大包，type级目标BLER需要突破配置的低目标BLER，做到大小包切换时目标BLER自适应，需要考虑报文级BLER，  4/5G均需要支持；  对于5G还存在一个问题：近点存在配置bler与1%取小的实现，需要取消；  价值和收益:【对网络或用户体验的增益】  需求描述:【功能要求、性能水平、呈现效果】  应用场景:【何种场景中使用或被触发】 版本规划与时间点:【市场要求时间与规划版本，写大版本号如3.10即可】 终端支持情况:【商用终端支持情况，尚未明确填“后续跟踪”】  功能评估:【评估该功能所需计数器、KPI，与KPI领域负责人沟通确认】  验收准则:【验收通过的方式】  注释和问题:【是否需要支持高铁/CA/SuperCell/DSS?】 | 唐轩10191935; 李积江10164308 | 杨文乐10313446; 李博航10192443 | 01-商用 |
+
+## 1.2 需求澄清结果
+
+### 1.2.1 适用场景描述
+
+| 制式（站型） | 组网 | 容量密度 | 覆盖场强 | 互斥功能集合 | 场景出现概率 | 其他信息 |
+| --- | --- | --- | --- | --- | --- | --- |
+| 通用 | 通用 | 不限制 | 不限制 | 无 | 中 |  |
+
+### 1.2.2 需求设计目标
+
+| 一级场景 | 二级场景 | 设计目标 |
+| --- | --- | --- |
+| 问题分析 | 原始外场问题 | 外场保障时延敏感型业务（游戏，OTT语音等）采用广义QosType低目标Bler进行保障，  当UE仅有游戏或者OTT类语音业务时，此时来包均为上下行离散小包，空口调度非常流程，几乎不存在阻塞，低目标Bler可以有效降低时延和抖动；  当UE有游戏或者OTT类语音业务时+其它并发业务，此时其业务模型有离散调度小包转为连续大包调度，空口出现阻塞，此时由于低目标Bler设置导致上下行空口调度过于保守，导致上下行阻塞问题更加严重，引起游戏或者OTT类语音业务时延和抖动大幅恶化； |
+| 问题原因分析 | 当广义QosType生效AMC差异化保障时，广义QosType的目标Bler优先级高于小区级目标Bler，当配置目标Bler低于小区级目标Bler时，且上下行出现大流量业务则会导致过度保守，无法发挥空口性能的问题。  触发条件：  （1）广义QosType用户配置上下行AMC Bler低于小区级，进行上下行空口保守调度；  （2）广义QosType用户在保守调度时，出现上行或下行出现大包业务，导致BSR无法快速清空； |
+| 期望达到的效果 | （1）广义QosType在配置低于小区级目标Bler且为小包离散调度时，按照配置目标Bler进行保守调度；  （2）广义QosType在配置低于小区级目标Bler且为大包连续调度（空口阻塞），突破广义QosType保守调度，按照小区级目标Bler进行调度；  （3）当小区上下行PRB利用率高于门限，小区处于高负荷场景时，退出AMC保守调度机制，以调度效率优先；  （4）对于5G还存在一个问题：近点存在配置bler与1%取小的实现，需要取消； |
+| 除本需求要求场景外，是否还有其他场景可用 | NR和LTE均存在该问题，该方案思路可共用 |
+| 评估结论（算法） | 01-可采纳-商用场景有意义 |
+| 算法评估意见 | 具有商用意义，建议采纳 |
+| 交付内容 | 可选方案描述<简要解决问题逻辑> | （1）在进行上下行广义Qos保守调度时，广义QosType目标Bler低于小区级目标Bler：  在SPA进行UE上下行阻塞率判断，  当UE阻塞率低于门限时，则认为该UE空口能力有冗余，按照保守目标Bler进行调度；  当UE阻塞率高于门限时，则认为该UE空口能力不足，退出保守调度，按照小区级目标Bler进行调度；  （2）监控小区上下行PRB利用率，到小区负荷高于门限时，退出AMC保守调度； |
+| 预期收益<外部KPI指标> | 详见典型测试用例预期 |
+| 预期风险<外部KPI指标> | 功能开启后上下行Bler会提升 |
+| 测试用例<典型用例> | **基于多业务并发的广义QosType目标Bler回退至小区级目标Bler**   （1）小区近中远分别放置一个广义QosType用户，且下行配置1%/5%/10%/15%目标Bler，进行周期性发包业，基站侧和UE侧均需要进行Ping时延探测，时延评估作为背景持续进行观测；  （2）Ping业务稳定后，终端侧或服务器侧可观测时延稳定，顺序加载下行报文下载->离散业务->下行报文下载->离散业务->停止加载下行脉冲灌包，并同时观察上下行Ping测试数据；  （3）记录下行速率，小区下行Bler，小区下行SE，小区下行平均MCS，基站侧和UE侧Ping测试时延，均需要按照秒级进行记录；  功能关预期：小区级Bler与广义QosType用户配置目标Bler接近；  功能开预期：小区级Bler在仅有Ping业务时与广义QosType用户配置目标Bler接近，在存在下行报文下载，对应上下行Bler与小区配置默认Bler接近；  在广义QosType目标Bler低于小区级Bler时，相较于功能关闭在下行报文下载时，小区SE和小区下行平均MCS均有提升，且下行速率有提升，基站侧和UE侧监控时延降低；  在广义QosType目标Bler高于小区级Bler时，最终指标结果与测试环境等因素相关，无法给出准确预期； 广义QosType目标Bler基于小区级自适应 （1）小区下行PRB利用率超过门限后，广义QosType 下行AMC目标Bler差异化配置，回退至小区级下行目标Bler，优先保障小区级速率；  （2）对于5G还存在一个问题：近点存在配置bler与1%取小的实现，需要取消；     | **665015** | CUUP小区类型 | 小区视频下行TCP报文RTT平均时延 | 本指标是统计周期内小区从GTPU层收到下行视频TCP报文到GTPU层收到该报文的ACK消息所用时长的平均值，反映小区空口的传输质量。指标值越小，小区空口传输质量越好。 | 小区视频下行TCP采样报文RTT总时延/小区视频下行TCP采样报文总个数 | C605480008/C605480009 | |
+
+## 1.3 性能观测描述
+
+| 是否性能需求 | 算法性能观测描述 |
+| --- | --- |
+| 是 | **基于多业务并发的广义QosType目标Bler回退至小区级目标Bler** （1）小区近中远分别放置一个广义QosType用户，且下行配置1%/5%/10%/15%目标Bler，进行周期性发包业，基站侧和UE侧均需要进行Ping时延探测，时延评估作为背景持续进行观测；  （2）Ping业务稳定后，终端侧或服务器侧可观测时延稳定，顺序加载下行报文下载->离散业务->下行报文下载->离散业务->停止加载下行脉冲灌包，并同时观察上下行Ping测试数据；  （3）记录下行速率，小区下行Bler，小区下行SE，小区下行平均MCS，基站侧和UE侧Ping测试时延，均需要按照秒级进行记录；  功能关预期：小区级Bler与广义QosType用户配置目标Bler接近；  功能开预期：小区级Bler在仅有Ping业务时与广义QosType用户配置目标Bler接近，在存在下行报文下载，对应下行Bler与小区配置默认Bler接近；  在广义QosType目标Bler低于小区级Bler时，相较于功能关闭在下行报文下载时，小区SE和小区下行平均MCS均有提升，且下行速率有提升，基站侧和UE侧监控时延降低；  在广义QosType目标Bler高于小区级Bler时，最终指标结果与测试环境等因素相关，无法给出准确预期；  下行TCP RTT时延统计指标   | **665015** | CUUP小区类型 | 小区视频下行TCP报文RTT平均时延 | 本指标是统计周期内小区从GTPU层收到下行视频TCP报文到GTPU层收到该报文的ACK消息所用时长的平均值，反映小区空口的传输质量。指标值越小，小区空口传输质量越好。 | 小区视频下行TCP采样报文RTT总时延/小区视频下行TCP采样报文总个数 | C605480008/C605480009 |  广义QosType目标Bler基于小区级自适应 （1）小区下行PRB利用率超过门限后，广义QosType 下行AMC目标Bler差异化配置，回退至小区级下行目标Bler，优先保障小区级速率；  （2）对于5G还存在一个问题：近点存在配置bler与1%取小的实现，需要取消； |
+
+# 2 算法概要设计
+
+| 功能点 | 主逻辑 | 风险点 | 其他 |
+| --- | --- | --- | --- |
+| SPA | （1）上下行阻塞率统计，用于判断是否存在上下行阻塞情况；  （2）上下行PRB利用率计算，用于判断小区上下行负荷情况；  （3）上下行AMC Type级目标Bler在超过阻塞率场景下或者这上下行PRB利用率超过门限时，回退至小区级目标Bler； | 功能部署后，小区级上下行目标Bler会提升； |  |
+| PHY | 无 | 无 |  |
+| L3 | 无 | 无 |  |
+| 管理面 | 无 | 无 |  |
+| 高频特殊处理 | 高频可直接采用此方案 | 无 |  |
+
+# 3 算法详细设计
+
+## 3.1 算法原理概述
+
+**新增统计节点或复用当前SPA已有统计节点，同时需要考虑SA，NSA，LTE，CA场景**
+
+| 场景 | 下行广义Qos AMC回退至小区级判断 | 上行广义Qos AMC回退至小区级判断 |
+| --- | --- | --- |
+| NSA-NR | 下行瞬时UE-throughput，计算下行CU+DU的BSR清空时间，当前方案存在两种统计模式 （1）原空口实际速率统计(累计数据量)； （2）新空口能力速率统计（类UE-throughput）；  <https://udm.zte.com.cn/UDM/Application/DocManage/FrmDocumentView.aspx?DocId=7449945>  UDS处理波及：  1、UDS收到PPS发送的F1U\_DU2CU\_BLOCK\_RATIO\_IND，在PDCP层周期（500ms）计算下行数据阻塞率（清缓存时延）：  a、SA承载、NSA SCG承载：T\_delay = （PDCP\_Buffsize + NR\_RLC\_Buffsize ）/ NR\_DesireDateRate ；  b、NSA SCG Split承载：T\_delay = （PDCP\_Buffsize + NR\_RLC\_Buffsize + LTE\_RLC\_Buffsize）/（NR\_DesireDateRate + LTE\_DesireDateRate)；  2、通过消息F1U\_CU2DU\_BLOCK\_RATIO\_RPT发送到DU侧；  3、SA承载或NSA SCG承载F1U\_CU2DU\_BLOCK\_RATIO\_RPT仅发送给NR侧，NSA SCG Split承载要同时发送给NR侧和LTE侧。 | 基于NR侧上报BSR计算上行阻塞率进行判断 https://udm.zte.com.cn/udm/Application/DocManage/FrmDocumentView.aspx?DocId=34220933 |
+| NSA-LTE | 基于LTE侧上报BSR计算上行阻塞率进行判断 https://udm.zte.com.cn/udm/Application/DocManage/FrmDocumentView.aspx?DocId=38401105 |
+| NSA-NR-CA | 基于NR侧上报BSR计算上行阻塞率进行判断 https://udm.zte.com.cn/udm/Application/DocManage/FrmDocumentView.aspx?DocId=34220933 |
+| NSA-LTE-CA | 基于LTE侧上报BSR计算上行阻塞率进行判断 https://udm.zte.com.cn/udm/Application/DocManage/FrmDocumentView.aspx?DocId=38401105 |
+| SA | 基于NR侧上报BSR计算上行阻塞率进行判断 https://udm.zte.com.cn/udm/Application/DocManage/FrmDocumentView.aspx?DocId=34220933 |
+| SA-CA |
+| LTE | NSA和SA场景下计算公式在LTE侧暂不支持，和崔主席讨论评估，LTE侧支持难度非常大，不建议重新开发。 LTE单载波场景下，使用当前已有下行阻塞率清除流程； https://udm.zte.com.cn/udm/Application/DocManage/FrmDocumentView.aspx?DocId=38401105 | 基于LTE侧上报BSR计算上行阻塞率进行判断 https://udm.zte.com.cn/udm/Application/DocManage/FrmDocumentView.aspx?DocId=38401105 |
+| LTE-CA |
+
+| 制式 | 策略 | 空口能力速率评估是否已对齐方式2（考虑有效时间） | 涉及参数 |
+| --- | --- | --- | --- |
+| LTE | desired data rate | flowCtrlSchCapRateSwitch配置为1时，采用有效时长计算desired data rate； flowCtrlSchCapRateSwitch配置为0时，采用滑窗时长计算desired data rate； | flowCtrlSchCapRateSwitch |
+| NR | desired data rate | reserved218[1]/reserved218[2]配置为1时，采用有效时长计算desired data rate； reserved218[1]/reserved218[2]配置为0时，采用滑窗时长计算desired data rate； | reserved218 |
+
+（1）下行阻塞率，计算公式：该周期预估每个DRB清空RLC和PDCP缓存数据量的时长（单位：ms）；针对当前场景需要新增开关触发统计机制且与原NR质切功能进行隔离；
+
+（2）上行阻塞率，计算公式：上行待调度BSR/下行调度TBsize：针对当前场景需要新增开关触发统计机制且与原NR质切功能进行隔离；
+
+**上下行负荷统计**
+
+（1）下行PRB利用率，计算公式：10秒级下行PDSCH使用RB数/下行PDSCH可用RB数
+
+（2）上行PRB利用率，计算公式：10秒级下行PDSCH使用RB数/下行PDSCH可用RB数
+
+**目标：快速启动，缓慢回收，当出现场景时瞬时启动，当场景结束后维持一段时间，确定稳定后再考虑回退；或者不进行回退；**
+
+**尽量复用当前已有架构逻辑，减少新增统计；**
+
+**所需参数，尽量复用当前已有架构参数，避免参数重复；**
+
+（1）上行阻塞率门限，当超过该门限则上行AMC从广义QosType级回退至小区级；
+
+（2）下行阻塞率门限，当超过该门限则下行AMC从广义QosType级回退至小区级；
+
+（3）上行PRB利用率门限，当超过该门限则上行AMC从广义QosType级回退至小区级；
+
+（4）下行PRB利用率门限，当超过该门限则上行AMC从广义QosType级回退至小区级；
+
+上行AMC目标Bler阻塞场景退出算法主流程如下：
+
+（1）若小区上行多业务并发的广义QosType目标Bler优化功能开启，则进入（2），否则退出当前流程；
+
+（1-1）该功能为QosType级配置是否生效，未配置的QosType默认走原流程；
+
+（2）获取小区QosType级上行PRB利用率门限，上行阻塞率门限，进入（3）；
+
+（3）判断上行PRB利用率和阻塞率
+
+（3-1）若当前小区上行PRB利用率超过高门限，则当前QosType退出上行AMC差异化保障，进入（4），否则保持当前状态；
+
+（3-2）若该UE上行阻塞率超过高门限，该UE退出当前QosType差异化保障，进入（5），否则保持当前上行AMC QosType差异化配置；
+
+（4）连续多个（参数可配）周期PRB利用率低于低门限，则当前QosType上行AMC差异化保障恢复；
+
+（5）若连续多秒（参数可配）该UE阻塞率低于低门限，则该UE上行AMC QosType差异化配置重新生效；
+
+下行AMC目标Bler阻塞场景退出算法主流程如下：
+
+（1）若小区下行多业务并发的广义QosType目标Bler优化功能开启，则进入（2），否则退出当前流程；
+
+（1-1）该功能为QosType级配置是否生效，未配置的QosType默认走原流程；
+
+（2）获取小区QosType级下行PRB利用率门限，下行缓存清除的时长门限，进入（3）；
+
+（3）判断下行PRB利用率和下行缓存清除时长
+
+（3-1）若当前小区下行PRB利用率超过高门限，则当前QosType退出下行AMC差异化保障，进入（4），否则保持当前状态；
+
+（3-2）若该UE下行缓存清除时长超过高门限，该UE退出当前QosType差异化保障，进入（5），否则保持当前下行AMC QosType差异化配置；
+
+（4）连续多个（参数可配）周期PRB利用率低于低门限，则当前QosType下行AMC差异化保障恢复；
+
+（5）若连续多秒（参数可配）该UE下行缓存清除时长低于低门限，则该UE下行AMC QosType差异化配置重新生效；
+
+**备注：**
+
+**对于5G还存在一个问题：近点存在配置bler与1%取小的实现，需要取消；**
+
+## 3.2 场景设计目标
+
+| 什么场景 | 通过什么方式 | 达成什么效果 |
+| --- | --- | --- |
+| 基于多业务并发的广义QosType目标Bler回退至小区级目标Bler | （1）小区近中远分别放置一个广义QosType用户，且上下行配置1%/5%/10%/15%目标Bler，进行周期性发包业，基站侧和UE侧均需要进行Ping时延探测，时延评估作为背景持续进行观测； （2）Ping业务稳定后，终端侧或服务器侧可观测时延稳定，顺序加载下行报文下载->上行报文上传->下行报文下载->上行报文上传->下行报文下载->上行报文上传->停止加载上下行脉冲灌包，并同时观察上下行Ping测试数据； （3）记录上下行速率，小区上下行Bler，小区上下行SE，小区上下行平均MCS，基站侧和UE侧Ping测试时延，均需要按照秒级进行记录； | 功能关预期：小区级Bler与广义QosType用户配置目标Bler接近； 功能开预期：小区级Bler在仅有Ping业务时与广义QosType用户配置目标Bler接近，在存在下行报文下载/上行报文上传时，对应上下行Bler与小区配置默认Bler接近； 在广义QosType目标Bler低于小区级Bler时，相较于功能关闭在下行报文下载/上行报文上传时，小区SE和小区上下行平均MCS均有提升，且上下行速率有提升，基站侧和UE侧监控时延降低； 在广义QosType目标Bler低于小区级Bler时，最终指标结果与测试环境等因素相关，无法给出准确预期； 当UE并发业务结束后，满足上行阻塞率低门限或者下行BSR清除时间低门限后，上下行QosType的AMC差异化保障重新生效； |
+| 广义QosType目标Bler基于小区级自适应 | （1）小区下行PRB利用率超过门限后，广义QosType 下行AMC目标Bler差异化配置，回退至小区级下行目标Bler，优先保障小区级速率； 当下行PRB利用率满足低门限后，QosType的下行AMC差异化重新生效； （2）小区上行PRB利用率超过门限后，广义QosType 上行AMC目标Bler差异化配置，回退至小区级上行目标Bler，优先保障小区级速率； 当上行PRB利用率满足低门限后，QosType的下行AMC差异化重新生效； | （1）小区下行PRB利用率超过门限后，广义QosType 下行AMC目标Bler差异化配置，回退至小区级下行目标Bler，优先保障小区级速率； 当下行PRB利用率满足低门限后，QosType的下行AMC差异化重新生效； （2）小区上行PRB利用率超过门限后，广义QosType 上行AMC目标Bler差异化配置，回退至小区级上行目标Bler，优先保障小区级速率； 当上行PRB利用率满足低门限后，QosType的下行AMC差异化重新生效； |
+
+## 3.3 关键检查项
+
+| 检查项 | 详细内容 |
+| --- | --- |
+| 生效范围 | 所有终端 |
+| 方案是否涉及重配 | 否 |
+| 场景识别 | 生效广义QosType上下行AMC差异化场景 |
+| 进入条件 | 上下行PRB利用率超过门限，或上行阻塞率超过高门限，或下行BSR清除时间超过高门限 |
+| 退出条件 | 上下行PRB利用率低于门限，或上行阻塞率低于低门限，或下行BSR清除时间低于低门限 |
+| 后评估指标 | UE级上下行Bler，以及小区级上下行目标Bler 在广义QosType目标Bler低于小区级Bler时，相较于功能关闭在下行报文下载/上行报文上传时，小区SE和小区上下行平均MCS均有提升，且上下行速率有提升，基站侧和UE侧监控时延降低 在广义QosType目标Ble高于小区级Bler时，最终指标结果与测试环境等因素相关，无法给出准确预期； |
+| 典型场景 | 基于多业务并发的广义QosType目标Bler回退至小区级目标Bler （1）小区近中远分别放置一个广义QosType用户，且上下行配置1%/5%/10%/15%目标Bler，进行周期性发包业，基站侧和UE侧均需要进行Ping时延探测，时延评估作为背景持续进行观测； （2）Ping业务稳定后，终端侧或服务器侧可观测时延稳定，顺序加载下行报文下载->上行报文上传->下行报文下载->上行报文上传->下行报文下载->上行报文上传->停止加载上下行脉冲灌包，并同时观察上下行Ping测试数据； （3）记录上下行速率，小区上下行Bler，小区上下行SE，小区上下行平均MCS，基站侧和UE侧Ping测试时延，均需要按照秒级进行记录； 功能关预期：小区级Bler与广义QosType用户配置目标Bler接近； 功能开预期：小区级Bler在仅有Ping业务时与广义QosType用户配置目标Bler接近，在存在下行报文下载/上行报文上传时，对应上下行Bler与小区配置默认Bler接近； 在广义QosType目标Bler低于小区级Bler时，相较于功能关闭在下行报文下载/上行报文上传时，小区SE和小区上下行平均MCS均有提升，且上下行速率有提升，基站侧和UE侧监控时延降低； 在广义QosType目标Bler高于小区级Bler时，最终指标结果与测试环境等因素相关，无法给出准确预期； 广义QosType目标Bler基于小区级自适应 （1）小区下行PRB利用率超过门限后，广义QosType 下行AMC目标Bler差异化配置，回退至小区级下行目标Bler，优先保障小区级速率； （2）小区上行PRB利用率超过门限后，广义QosType 上行AMC目标Bler差异化配置，回退至小区级上行目标Bler，优先保障小区级速率； （3）对于5G还存在一个问题：近点存在配置bler与1%取小的实现，需要取消； |
+| 性能影响因素 | 小区级平均RB利用率; 小区上行干扰水平 |
+| 新传与重传是否需要区分处理 | 无差分 |
+| 是否包含接入/切换阶段处理-增加描述解释 | 不包含 |
+| 大容量/高负荷是否需要特殊处理 | 功能正常运行 |
+| 高低频是否需要差分处理 | 无差分 |
+
+## 3.4 算法框架流程
+
+### 3.4.1 算法框架流程图
+
+### 3.4.2 算法框架主要逻辑表格
+
+| 功能点 | 目标、原理描述 |
+| --- | --- |
+| 上行阻塞率 | 上行感知使用上行数据堵塞进行评估，对于BSR不为空且上行QoS选出来的用户，按照如下方式对新传数据的上行堵塞比例进行采样，然后按照配置的滤波因子对采样值进行滤波，得到堵塞比例的滤波值：  1) 如果该UE得到了TBSize授权（TBSize为非0），则本次输出的堵塞比例= 使用TBSize授权之前的该UE的BSR / 授权的TBSize；  2) 如果该UE没有得到TBSize授权，则本次输出的堵塞比例=“默认的上行数据堵塞比例”。  其中，UE的BSR为该UE所有LCG的BSR之和，堵塞比例的滤波值保留一位有效小数。  特别地，对于授权TBSize后，BSR清空的UE，在清空BSR的那一次TBSize授权时，将堵塞比例的滤波值也清空。  待1秒上报周期达到后，如果用户有堵塞比例滤波值，则上报该滤波值；如果用户没有堵塞比例滤波值，则上报0值。  堵塞比例的滤波方式都是使用当前采样值\* “上行数据堵塞比例滤波系数” + 历史值 \* （1 - “上行数据堵塞比例滤波系数”），滤波值的初始值为采样值的初始值。  NR参考文档：<https://udm.zte.com.cn/udm/Application/DocManage/FrmDocumentView.aspx?DocId=34220933>  LTE参考文档：<https://udm.zte.com.cn/udm/Application/DocManage/FrmDocumentView.aspx?DocId=38401105> |
+| 下行速率和BSR清空时间统计 | 对于NSA，SA场景下行BSR清空时间如下  下行瞬时UE-throughput，计算下行CU+DU的BSR清空时间，当前方案存在两种统计模式  （1）原空口实际速率统计(累计数据量)；  （2）新空口能力速率统计（类UE-throughput）；  <https://udm.zte.com.cn/UDM/Application/DocManage/FrmDocumentView.aspx?DocId=7449945>  LTE，LTE CA下行BSR清空时间计算如下  NSA和SA场景下计算公式在LTE侧暂不支持，和崔主席讨论评估，LTE侧支持难度非常大，不建议重新开发。  LTE单载波场景下，使用当前已有下行阻塞率清除流程；  https://udm.zte.com.cn/udm/Application/DocManage/FrmDocumentView.aspx?DocId=38401105 |
+| 上行广义QosType AMC目标Bler自适应 | 上行广义QosType AMC目标Bler自适应 |
+| 下行广义QosType AMC目标Bler自适应 | 下行广义QosType AMC目标Bler自适应 |
+
+## 3.5 框架中各主要流程详细算法
+
+### 3.5.1 “上行阻塞率”关键流程设计
+
+#### 3.5.1.1 关键流程流程图设计
+
+#### 3.5.1.2 关键流程标准化表格
+
+#### 3.5.1.3 解释业务信息
+
+**上行AMC目标Bler阻塞场景退出算法主流程如下：**
+
+针对SA，SA-CA，NSA，LTE，LTE-CA几个场景进行处理
+
+| 场景 | 下行广义Qos AMC回退至小区级判断 | 上行广义Qos AMC回退至小区级判断 |
+| --- | --- | --- |
+| NSA-NR | 下行瞬时UE-throughput，计算下行CU+DU的BSR清空时间，当前方案存在两种统计模式 （1）原空口实际速率统计(累计数据量)； （2）新空口能力速率统计（类UE-throughput）； https://udm.zte.com.cn/UDM/Application/DocManage/FrmDocumentView.aspx?DocId=7449945 | 基于NR侧上报BSR计算上行阻塞率进行判断 https://udm.zte.com.cn/udm/Application/DocManage/FrmDocumentView.aspx?DocId=34220933 |
+| NSA-LTE | 下行瞬时UE-throughput，计算下行CU+DU的BSR清空时间，当前方案存在两种统计模式 （1）原空口实际速率统计(累计数据量)； （2）新空口能力速率统计（类UE-throughput）； https://udm.zte.com.cn/UDM/Application/DocManage/FrmDocumentView.aspx?DocId=7449945 | 基于LTE侧上报BSR计算上行阻塞率进行判断 https://udm.zte.com.cn/udm/Application/DocManage/FrmDocumentView.aspx?DocId=38401105 |
+| NSA-NR-CA | 下行瞬时UE-throughput，计算下行CU+DU的BSR清空时间，当前方案存在两种统计模式 （1）原空口实际速率统计(累计数据量)； （2）新空口能力速率统计（类UE-throughput）； https://udm.zte.com.cn/UDM/Application/DocManage/FrmDocumentView.aspx?DocId=7449945 | 基于NR侧上报BSR计算上行阻塞率进行判断 https://udm.zte.com.cn/udm/Application/DocManage/FrmDocumentView.aspx?DocId=34220933 |
+| NSA-LTE-CA | 下行瞬时UE-throughput，计算下行CU+DU的BSR清空时间，当前方案存在两种统计模式 （1）原空口实际速率统计(累计数据量)； （2）新空口能力速率统计（类UE-throughput）； https://udm.zte.com.cn/UDM/Application/DocManage/FrmDocumentView.aspx?DocId=7449945 | 基于LTE侧上报BSR计算上行阻塞率进行判断 https://udm.zte.com.cn/udm/Application/DocManage/FrmDocumentView.aspx?DocId=38401105 |
+| SA | 下行瞬时UE-throughput，计算下行CU+DU的BSR清空时间，当前方案存在两种统计模式 （1）原空口实际速率统计(累计数据量)； （2）新空口能力速率统计（类UE-throughput）； https://udm.zte.com.cn/UDM/Application/DocManage/FrmDocumentView.aspx?DocId=7449945 | 基于NR侧上报BSR计算上行阻塞率进行判断 https://udm.zte.com.cn/udm/Application/DocManage/FrmDocumentView.aspx?DocId=34220933 |
+| SA-CA | 下行瞬时UE-throughput，计算下行CU+DU的BSR清空时间，当前方案存在两种统计模式 （1）原空口实际速率统计(累计数据量)； （2）新空口能力速率统计（类UE-throughput）； https://udm.zte.com.cn/UDM/Application/DocManage/FrmDocumentView.aspx?DocId=7449945 | 基于NR侧上报BSR计算上行阻塞率进行判断 https://udm.zte.com.cn/udm/Application/DocManage/FrmDocumentView.aspx?DocId=34220933 |
+| LTE | NSA和SA场景下计算公式在LTE侧暂不支持，和崔主席讨论评估，LTE侧支持难度非常大，不建议重新开发。 LTE单载波场景下，使用当前已有下行阻塞率清除流程； https://udm.zte.com.cn/udm/Application/DocManage/FrmDocumentView.aspx?DocId=38401105 | 基于LTE侧上报BSR计算上行阻塞率进行判断 https://udm.zte.com.cn/udm/Application/DocManage/FrmDocumentView.aspx?DocId=38401105 |
+| LTE-CA | NSA和SA场景下计算公式在LTE侧暂不支持，和崔主席讨论评估，LTE侧支持难度非常大，不建议重新开发； LTE-CA场景下，使用当前已有下行阻塞率清除流程； https://udm.zte.com.cn/udm/Application/DocManage/FrmDocumentView.aspx?DocId=38401105 | 基于LTE侧上报BSR计算上行阻塞率进行判断 https://udm.zte.com.cn/udm/Application/DocManage/FrmDocumentView.aspx?DocId=38401105 |
+
+**（1）若小区上行多业务并发的广义QosType目标Bler优化功能开启，则进入（2），否则退出当前流程；**
+
+（1-1）该功能为QosType级配置是否生效，未配置的QosType默认走原流程；
+
+**NR（SA+NSA+CA）需要新增参数：**
+
+[**QosMappingStgy**](https://wxlab.zte.com.cn:7891/?c=para&a=allmocdetail&id=3105&branch=master)**.AMCmultiservice[上行近点，上行远点，下行近点，下行远点]，该开关用于控制上行广义功能是否开启，该参数配置为0时关闭功能，配置非0时，未阻塞率，且实际阻塞率门限为10\*AMCmultiservice；**
+
+**需求提出方强烈要求增加上行singlerbsinr和下行SE门限，将上下行进行近点和远点分开，并使用不同的门限：**[**QosMappingStgy**](https://wxlab.zte.com.cn:7891/?c=para&a=allmocdetail&id=3105&branch=master)**.AMCmultiserviceThr[上行，下行]：上行采用使用Singlerbsinr，下行使用SE**
+
+**LTE+LTE CA需要新增参数：**
+
+**AMCmultiservice[上行近点，上行远点，下行近点，下行远点]，该开关用于控制上行广义功能是否开启，该参数配置为0时关闭功能，配置非0时，未阻塞率，且实际阻塞率门限为10\*AMCmultiservice；**
+
+**AMCmultiserviceThr[上行，下行]：上行采用使用Singlerbsinr区分上行近点和上行远点，下行使用SE区分下行近点和下行远点**
+
+（2）获取小区QosType级上行PRB利用率门限，上行阻塞率门限，进入（3）；
+
+（2-1）上行PRB利用率：上行PRB利用率高门限(暂定70%），上行PRB利用率低门限max（（暂定为上行PRB利用率高门限减30%），0）；
+
+NR侧：
+
+目前由于无法新增过多参数，目前仅能
+
+[HighCapacityEnsure](https://wxlab.zte.com.cn:7891/?c=para&a=allmocdetail&id=67690&branch=master).hce\_UlPrbUsage[0..32]，该参数为广义QosType已有上行PRB利用率负荷门限
+
+该参数为“RAN-4117738：NR 广义QoS 保障增加负荷控制（市场需求 RAN-4150067: 大容量小区感知保障-UE感测提升策略降级）”引入，与当前功能复用参数，当两个功能需求不一致时可更换Type或者进行参数讨论；
+
+LTE侧：
+
+aucGeneralQosPrbRtoThr[4]
+
+该参数表示广义QoS保障自适应机制中的PRB利用率门限，用于判断小区负荷状态并采取相应措施以保障服务质量。该参数为数组，包含4个元素。元素0表示上行PRB利用率低门限，当上行PRB利用率低于此值时，系统认为小区处于轻载状态；元素1表示上行PRB利用率高门限，当上行PRB利用率超过此值时，系统认为小区处于重载状态；元素2表示下行PRB利用率低门限，当下行PRB利用率低于此值时，系统同样认为小区处于轻载状态；元素3表示下行PRB利用率高门限，当下行PRB利用率超过此值时，系统认为小区处于重载状态。
+
+<https://rdcloud.zte.com.cn/uportal/rd-uportal/workspaces/RAN/apps/wim/allWorkItems/RAN-6118042?teamId=bdv_132886>
+
+（2-2）上行阻塞率门限：**上行阻塞率高门限（暂定100）**，上行阻塞率低门限（暂定1，可强制写死）；
+
+[**QosMappingStgy**](https://wxlab.zte.com.cn:7891/?c=para&a=allmocdetail&id=3105&branch=master)**.AMCmultiservice[上行，下行]**
+
+其阻塞率门限需要需要区分TDD和FDD场景，因此建议该参数作为小区级参数
+
+参考协议Buffer size levels for BSR（NR为short BSR，Long BSR上限远超该门限）最大上报为15WBytes，实际维护BSR为30WBytes，
+
+Index
+
+Buffer Size (BS) value [bytes]
+
+参考当前分析数据，以及调度TBsize分布，建议上行阻塞率门限高门限为100，低门限为0，或者说
+
+| Buffer size levels for BSR | 调度TBszie | 阻塞率 |
+| 300000 | 100 | 3000 |
+| 300000 | 200 | 1500 |
+| 300000 | 500 | 600 |
+| 300000 | 1000 | 300 |
+| 300000 | 2000 | 150 |
+| 300000 | 5000 | 60 |
+| 20000 | 50 | 400 |
+| 20000 | 100 | 200 |
+| 20000 | 200 | 100 |
+| 20000 | 500 | 40 |
+| 5000 | 30 | 167 |
+| 5000 | 40 | 125 |
+| 5000 | 50 | 100 |
+| 5000 | 60 | 83 |
+| 5000 | 70 | 71 |
+
+（3）判断上行PRB利用率和阻塞率
+
+（3-1）若当前小区上行PRB利用率超过高门限，则当前QosType退出上行AMC差异化保障，进入（4），否则保持当前状态；
+
+（3-2）若该UE上行阻塞率超过高门限，该UE退出当前QosType差异化保障，进入（5），否则保持当前上行AMC QosType差异化配置；
+
+（4）若上行PRB利用率低于低门限，则当前QosType上行AMC差异化保障恢复；
+
+（5）若连续2秒该UE阻塞率低于低门限低门限，则该UE上行AMC QosType差异化配置重新生效；
+
+### 3.5.2 “下行速率和BSR清空时间统计”关键流程设计
+
+#### 3.5.2.1 关键流程流程图设计
+
+#### 3.5.2.2 关键流程标准化表格
+
+#### 3.5.2.3 解释业务信息
+
+**下行AMC处理流程**
+
+针对SA，SA-CA，NSA，LTE，LTE-CA几个场景进行处理
+
+**对于NR AMC匹配逻辑与之前保持一致，只对匹配到qostype的UE生效**
+
+| 场景 | 下行广义Qos AMC回退至小区级判断 | 上行广义Qos AMC回退至小区级判断 |
+| --- | --- | --- |
+| NSA-NR | 下行瞬时UE-throughput，计算下行CU+DU的BSR清空时间，当前方案存在两种统计模式 （1）原空口实际速率统计(累计数据量)； （2）新空口能力速率统计（类UE-throughput）；  <https://udm.zte.com.cn/UDM/Application/DocManage/FrmDocumentView.aspx?DocId=7449945>  UDS处理波及：  1、UDS收到PPS发送的F1U\_DU2CU\_BLOCK\_RATIO\_IND，在PDCP层周期（500ms）计算下行数据阻塞率（清缓存时延）：  a、SA承载、NSA SCG承载：T\_delay = （PDCP\_Buffsize + NR\_RLC\_Buffsize ）/ NR\_DesireDateRate ；  b、NSA SCG Split承载：T\_delay = （PDCP\_Buffsize + NR\_RLC\_Buffsize + LTE\_RLC\_Buffsize）/（NR\_DesireDateRate + LTE\_DesireDateRate)；  2、通过消息F1U\_CU2DU\_BLOCK\_RATIO\_RPT发送到DU侧；  3、SA承载或NSA SCG承载F1U\_CU2DU\_BLOCK\_RATIO\_RPT仅发送给NR侧，NSA SCG Split承载要同时发送给NR侧和LTE侧。 | 基于NR侧上报BSR计算上行阻塞率进行判断 https://udm.zte.com.cn/udm/Application/DocManage/FrmDocumentView.aspx?DocId=34220933 |
+| NSA-LTE | 基于LTE侧上报BSR计算上行阻塞率进行判断 https://udm.zte.com.cn/udm/Application/DocManage/FrmDocumentView.aspx?DocId=38401105 |
+| NSA-NR-CA | 基于NR侧上报BSR计算上行阻塞率进行判断 https://udm.zte.com.cn/udm/Application/DocManage/FrmDocumentView.aspx?DocId=34220933 |
+| NSA-LTE-CA | 基于LTE侧上报BSR计算上行阻塞率进行判断 https://udm.zte.com.cn/udm/Application/DocManage/FrmDocumentView.aspx?DocId=38401105 |
+| SA | 基于NR侧上报BSR计算上行阻塞率进行判断 https://udm.zte.com.cn/udm/Application/DocManage/FrmDocumentView.aspx?DocId=34220933 |
+| SA-CA |
+| LTE | NSA和SA场景下计算公式在LTE侧暂不支持，和崔主席讨论评估，LTE侧支持难度非常大，不建议重新开发。 LTE单载波场景下，使用当前已有下行阻塞率清除流程； https://udm.zte.com.cn/udm/Application/DocManage/FrmDocumentView.aspx?DocId=38401105 | 基于LTE侧上报BSR计算上行阻塞率进行判断 https://udm.zte.com.cn/udm/Application/DocManage/FrmDocumentView.aspx?DocId=38401105 |
+| LTE-CA |
+
+**下行速率和BSR空时间统计**退出算法主流程如下：
+
+（1）若小区下行多业务并发的广义QosType目标Bler优化功能开启，则进入（2），否则退出当前流程；
+
+（1-1）该功能为QosType级配置是否生效，未配置的QosType默认走原流程；
+
+**NR（SA+NSA+CA）需要新增参数：**
+
+**目前由于上下行诉求拆分交付，本次新增参数仅为下行阻塞率计算**[**QosMappingStgy**](https://wxlab.zte.com.cn:7891/?c=para&a=allmocdetail&id=3105&branch=master)**.dlAmcBlockingRate[近点]，远点用户实际生效阻塞率为**[**QosMappingStgy**](https://wxlab.zte.com.cn:7891/?c=para&a=allmocdetail&id=3105&branch=master)**.dlAmcBlockingRate[近点]+Reserved（远点）参数偏移量，该开关用于控制下行广义功能是否开启，该参数配置为0时关闭功能，配置非0时，未阻塞率，且实际阻塞率门限为10\*AMCDLBlockingRate；**
+
+**将下行进行近点和远点分开，并使用不同的门限：Reserved\_下行SE门限[下行]：下行使用SE，使用下行AMC维护调度SE，单位：Bytes/RB，下行SE讨论后确认基于MU模块输出调度SE查表获取（目前代码中按照100RB\*144RE的表格查询），最终折算至Bytes/RB；**
+
+**同时由于MU输出调度SE无滤波及平均值计算，因此增加迟滞区间，参考下表中不同SE场景下速率差异，定义20%的迟滞区间，最终生效值=取整（Reserved\_下行SE门限\*30%）；（对于无法获取UE的下行SE时，将其判断为近点UE）**
+
+**若高UE已被判定为运点用户时，当UE下行SE超过Reserved\_下行SE门限\*（130%）时，认为满足近点门限，其调整为近点用户；否则保持当前状态；**
+
+![](https://i.zte.com.cn//zte-rdcloud-rdc-rdcserver/file/viewFile/d00387a2-f940-4ad2-8014-7cd7c29943d6/10192443?w=0&h=0 "image.png")
+
+**对于NSA场景下，NR和LTE侧下行BSR清空时间计算逻辑一致，是否退出由两边参数独立控制；**
+
+**LTE+LTE CA需要新增参数：**
+
+**NSA-LTE侧**
+
+**dlAmcBlockingRate[下行近点]，该开关用于控制上行广义功能是否开启，该参数配置为0时关闭功能，配置非0时，未阻塞率，且实际阻塞率门限为10\*dlAmcBlockingRate；**
+
+**目前由于上下行诉求拆分交付，本次新增参数仅为下行阻塞率计算**[**R\_DLTRFFTYPCELL**](https://wxlab.zte.com.cn:7891/?c=para&a=allmocdetail&id=3105&branch=master)**.dlAmcBlockingRate[近点]，远点用户实际生效阻塞率为**[**R\_DLTRFFTYPCELL**](https://wxlab.zte.com.cn:7891/?c=para&a=allmocdetail&id=3105&branch=master)**.dlAmcBlockingRate[近点]+Reserved（远点）参数偏移量，该开关用于控制下行广义功能是否开启，该参数配置为0时关闭功能，配置非0时，未阻塞率，且实际阻塞率门限为10\*AMCDLBlockingRate；**
+
+**Reserved\_下行SE门限[下行]：下行使用SE（需要确定当前调度SE的接口读取内容，以及计算结果）**
+
+**对于LTE终端（NSA终端）使用CMAC计算下行阻塞率，**R\_DLTRFFTYPCELL.dlAmcBlockingRate4farLTE/R\_DLTRFFTYPCELL.dlAmcBlockingRate4farLTE4Far，SE门限采用R\_DLTRFFTYPCELL.dlAmcBlockingRateSE；
+
+**对于NSA场景下，NR和LTE侧下行BSR清空时间计算逻辑一致，是否退出由两边参数独立控制；**
+
+| 制式 | 场景 | 参数 | 生效说明 |
+| --- | --- | --- | --- |
+| SA-NR  SA-CA-NR  NSA-NR  NSA-CA-NR | 下行阻塞率门限参数  SPA使用 | [**QosMappingStgy**](https://wxlab.zte.com.cn:7891/?c=para&a=allmocdetail&id=3105&branch=master)**.dlAmcBlockingRate[近点]**  **Reserved（远点）参数偏移量**  **Reserved\_下行SE门限[下行]** | NR侧不区分SA和NSA场景，均按照三主键匹配结果生效 |
+| NSA-LTE | 下行阻塞率门限参数  CMAC使用 | R\_DLTRFFTYPCELL.dlAmcBlockingRate  R\_DLTRFFTYPCELL.dlAmcBlockingRate4far  R\_DLTRFFTYPCELL.dlAmcBlockingRateSE | NSA场景下，对于LTE侧  NSA终端使用用户面计算阻塞率，使用相关参数 |
+| LTE | 下行阻塞率门限参数  CMAC使用 | R\_DLTRFFTYPCELL.dlAmcBlockingRateSE  R\_DLTRFFTYPCELL.dlAmcBlockingRate4farLTE  R\_DLTRFFTYPCELL.dlAmcBlockingRate4farLTE4Far | LTE终端（非NSA终端）使用下行MAC计算阻塞率，使用相关参数 |
+
+（2）获取小区QosType级下行PRB利用率门限（代码写死，高门限80%，低门限50%），下行BSR清空时间门限，进入（3）；
+
+（2-1）下行PRB利用率：下行PRB利用率高门限(80%），下行PRB利用率低门限（50%）；
+
+NR侧：
+
+下行PRB利用门限写死，不通过参数配置，PRB利用率统计周期代码流程默认为1秒更新；
+
+该参数为“RAN-4117738：NR 广义QoS 保障增加负荷控制（市场需求 RAN-4150067: 大容量小区感知保障-UE感测提升策略降级）”引入，与当前功能复用参数，当两个功能需求不一致时可更换Type或者进行参数讨论；
+
+LTE侧：
+
+与NR侧处理一致，PRB利用率高负荷和低负荷门限写死，不再新增参数；
+
+（2-2）下行BSR清空时间门限：**下行BSR清空时间限dlAmcBlockingRate[近点]（暂定100）**，**下行BSR清空时间限低门限**（固定未5ms）；
+
+NR侧：[**QosMappingStgy**](https://wxlab.zte.com.cn:7891/?c=para&a=allmocdetail&id=3105&branch=master)**.dlAmcBlockingRate[近点]，Reserved\_远点用户阻塞率偏移**
+
+LTE侧（NSA）：[**R\_DLTRFFTYPCELL**](https://wxlab.zte.com.cn:7891/?c=para&a=allmocdetail&id=3105&branch=master)**.dlAmcBlockingRate[近点]，dlAmcBlockingRate4far[远点]**
+
+LTE侧（非NSA）：R\_DLTRFFTYPCELL.dlAmcBlockingRate4farLTE/R\_DLTRFFTYPCELL.dlAmcBlockingRate4farLTE4Far
+
+其阻塞率门限需要需要区分TDD和FDD场景，因此建议该参数作为小区级参数
+
+（3）判断下行PRB利用率和阻塞率
+
+（3-1）若当前小区下行PRB利用率超过高门限下行PRB利用率高门限(80%），则当前QosType退出下行AMC差异化保障，进入（4），否则保持当前状态；
+
+（3-2）若该UE下行BSR清空时间超过门限（**[近点]或（远点）阻塞率门限**），该UE退出当前QosType差异化保障，进入（5），否则保持当前下行AMC QosType差异化配置；
+
+（4）若下行PRB利用率低于低门限下行PRB利用率低门限（50%），则当前QosType下行AMC差异化保障恢复；
+
+（5）若连续500ms该UE下行BSR清空时间低于低门限，则该UE下行AMC QosType差异化配置重新生效；
+
+（5-1）目前SA/NSA，PPS通知SPA为500ms通知一次，因此SPA实现转换下变成连续1次低于低门限，不再增加定时器处理；
+
+**下行SE计算流程：**
+
+(1)AMC模块根据其下行传输端口数量，确定该UE使用RE数量，仅考虑下行传输D子帧，不考虑S子帧，进入（2）
+
+(2) 确定当前小区使用64QAM/256QAM表格，进入（3）
+
+(3) 基于该UE下行D子帧可用RE数，下行调度RI，下行调制方式表格，下行调度MCS查询该UE的RE级SE，获取Codeword调度MCS，计算RB级SE，进入（4）
+
+① 当Codeword为1时：
+
+RI=1：RB级SE=Codeword0\_RE级SE\*RE数量
+
+② 当Codeword为2时：
+
+1) RI=2：若使用2个Codeword，则RB级SE=Codeword0\_RE级SE\*RE数量+Codeword1\_RE级SE\*RE数量
+
+2) RI=3：RB级SE=Codeword0\_RE级SE\*RE数量\*1+Codeword1\_RE级SE\*RE数量\*2
+
+3) RI=4：RB级SE=Codeword0\_RE级SE\*RE数量\*2+Codeword1\_RE级SE\*RE数量\*2
+
+4) RI=5：若使用2个Codeword，则RB级SE=Codeword0\_RE级SE\*RE数量\*2+Codeword1\_RE级SE\*RE数量\*3
+
+5) RI=6：RB级SE=Codeword0\_RE级SE\*RE数量\*3+Codeword1\_RE级SE\*RE数量\*3
+
+6) RI=7：RB级SE=Codeword0\_RE级SE\*RE数量\*3+Codeword1\_RE级SE\*RE数量\*4
+
+7) RI=8：RB级SE=Codeword0\_RE级SE\*RE数量\*4+Codeword1\_RE级SE\*RE数量\*4若计算RB级SE>门限，则认为该UE为近点用户，否则为远点用户；
+
+(4) 若计算RB级SE>门限，则认为该UE为近点用户，否则为远点用户；
+
+注意事项：
+
+（1）对于CA场景下：主载波生成的BLER结果通知给辅载波，避免两个载波判定状态不一致问题。主辅载波下行PRB利用率不同时，本优化最终生效状态一致，不再考虑辅载波小区下行PRB利用率影响因素；
+
+（2）最终希望申请参数：
+
+1正A+3保留A：阻塞率\_近（正式A） + PRB利用率 + SE门限 阻塞率\_远 = 阻塞率\_近 + delta量（可配）。
+
+NR新增参数
+
+| MOC名 | 参数名称 | 参数中文名称 | 默认值 | 取值范围 | 中文详解 | 系统影响 | 调整原则 |
+| QosMappingStgy | **dlAmcBlockingRate** | 下行近点用户待调度数据清空时间选择策略 | 0:功能关闭 | {0:功能关闭,1:100ms,2:200ms,3:400ms,4:800ms,5:1600ms,6:3200ms,7:6400ms,8:12800ms} | 该参数用于调整广义Qos动态目标Bler功能生效策略，根据不同待调度数据清空策略，调整广义Qos目标Bler; | 该参数为广义Qos动态目标Bler功能近点用户待调度数据清空策略选择，配置越高生效概率越低，配置越低生效概率越高； | 若希望近点QosType用户出现轻微阻塞使用小区目标Bler，则降低该门限；  若希望近点QosType用户出现比较严重阻塞使用小区目标Bler，则提升该门限；  基于QosType期望回退至小区目标Bler的待调度数据量  配置越高生效概率越低，配置越低生效概率越高 |
+| 待确认 | Reserved\_远点用户阻塞率偏移 | 下行远点用户待调度数据清空时间门限偏移 | 200 | [0,1000]，单位10ms | 该参数为广义Qos动态目标Bler功能远点用户阻塞率门限偏移量，远点用户实际生效阻塞率=dlAmcBlockingRate+远点用户阻塞率门限偏移量 | 该参数为广义Qos动态目标Bler功能远点用户阻塞率门限偏移量，远点用户实际生效阻塞率=dlAmcBlockingRate+远点用户阻塞率门限偏移量；  配置越高生效概率越低，配置越低生效概率越高； | 若希望远点QosType用户出现轻微阻塞使用小区目标Bler，则降低该门限；  若希望远点QosType用户出现比较严重阻塞使用小区目标Bler，则提升该门限；  根据外场实测结果进行调整 |
+| 待确认 | Reserved\_下行SE门限 | 基于阻塞率功能中下行近点远点用户SE区分门限 | 150 | [1,1024]，Bytes/RB | 该参数为广义Qos动态目标Bler功能下行阻塞率统计中近点和远点用户区分门限，该门限基于UE下行实际调度结果统计。 | 该参数用于调整下行阻塞率统计中近点和远点用户区分门限，提升该参数时则近点用户门限提高，近点用户判断难度增加，远点用户相对增加；降低该参数时则近点用户增加，远点用户相对减少； | 升该参数时则近点用户门限提高，近点用户判断难度增加，远点用户相对增加；降低该参数时则近点用户增加，远点用户相对减少；  根据外场实测结果进行调整 |
+
+LTE新增参数
+
+| 表名 | 参数名称（短名） | 参数名称（中文） | 类别 | 显示默认值 | 显示取值范围 | 中文详解 | 系统影响 | 调整原则 |
+| [R\_DLTRFFTYPCELL](https://wxlab.zte.com.cn:7891/?c=lte&a=alltabledetail&id=273&branch=master) | **dlAmcBlockingRate** | 下行近点用户待调度数据清空时间门限 | A2 | 0 | [0,1000]，单位10ms | 该参数用于控制广义Qos动态目标Bler功能是否生效，且该参数为近点用户阻塞率门限；本功能是对广义QosType差异化目标Bler功能的优化，提升多业务并发场景下行调度速率； | 该参数用于控制广义Qos动态目标Bler功能是否生效，配置为非0时下行广义QosType级AMC在高负荷或高阻塞率下回退至小区调度策略；  配置越高生效概率越低，配置越低生效概率越高； | 若希望近点QosType用户出现轻微阻塞使用小区目标Bler，则降低该门限；  若希望近点QosType用户出现比较严重阻塞使用小区目标Bler，则提升该门限；  基于QosType期望回退至小区目标Bler的待调度数据量 |
+| [R\_DLTRFFTYPCELL](https://wxlab.zte.com.cn:7891/?c=lte&a=alltabledetail&id=273&branch=master) | **dlAmcBlockingRate4far** | 下行远点用户待调度数据清空时间门限偏移 | A2 | 0 | [0,1000]，单位10ms | 该参数为广义Qos动态目标Bler功能远点用户阻塞率门限偏移量，远点用户实际生效阻塞率=dlAmcBlockingRate+远点用户阻塞率门限偏移量 | 该参数为广义Qos动态目标Bler功能远点用户阻塞率门限偏移量，远点用户实际生效阻塞率=dlAmcBlockingRate+远点用户阻塞率门限偏移量；  配置越高生效概率越低，配置越低生效概率越高； | 若希望远点QosType用户出现轻微阻塞使用小区目标Bler，则降低该门限；  若希望远点QosType用户出现比较严重阻塞使用小区目标Bler，则提升该门限；  根据外场实测结果进行调整 |
+| [R\_DLTRFFTYPCELL](https://wxlab.zte.com.cn:7891/?c=lte&a=alltabledetail&id=273&branch=master) | **dlAmcBlockingRateSE** | 基于阻塞率功能中下行近点远点用户SE区分门限 | A2 | 150 | [1,1000]，Bytes/RB | 该参数为广义Qos动态目标Bler功能下行阻塞率统计中近点和远点用户区分门限，该门限基于UE下行实际调度结果统计。 | 该参数用于调整下行阻塞率统计中近点和远点用户区分门限，提升该参数时则近点用户门限提高，近点用户判断难度增加，远点用户相对增加；降低该参数时则近点用户增加，远点用户相对减少； | 升该参数时则近点用户门限提高，近点用户判断难度增加，远点用户相对增加；降低该参数时则近点用户增加，远点用户相对减少；  根据外场实测结果进行调整 |
+| R\_DLTRFFTYPCELL | **dlAmcBlockingRate4farLTE** | 下行近点用户待调度数据清空时间门限 | A2 | 0 | [0,1000]，单位10ms | 该参数用于控制广义Qos动态目标Bler功能是否生效，且该参数为近点用户阻塞率门限；本功能是对广义QosType差异化目标Bler功能的优化，提升多业务并发场景下行调度速率； | 该参数用于控制广义Qos动态目标Bler功能是否生效，配置为非0时下行广义QosType级AMC在高负荷或高阻塞率下回退至小区调度策略；  配置越高生效概率越低，配置越低生效概率越高； | 若希望近点QosType用户出现轻微阻塞使用小区目标Bler，则降低该门限；  若希望近点QosType用户出现比较严重阻塞使用小区目标Bler，则提升该门限；  基于QosType期望回退至小区目标Bler的待调度数据量 |
+| R\_DLTRFFTYPCELL | **dlAmcBlockingRate4farLTE4Far** | 下行远点用户待调度数据清空时间门限偏移 | A2 | 0 | [0,1000]，单位10ms | 该参数为广义Qos动态目标Bler功能远点用户阻塞率门限偏移量，远点用户实际生效阻塞率=dlAmcBlockingRate+远点用户阻塞率门限偏移量 | 该参数为广义Qos动态目标Bler功能远点用户阻塞率门限偏移量，远点用户实际生效阻塞率=dlAmcBlockingRate+远点用户阻塞率门限偏移量；  配置越高生效概率越低，配置越低生效概率越高； | 若希望远点QosType用户出现轻微阻塞使用小区目标Bler，则降低该门限；  若希望远点QosType用户出现比较严重阻塞使用小区目标Bler，则提升该门限；  根据外场实测结果进行调整 |
+|  |  |  |  |  |  |  |  |  |
+
+### 3.5.3 “上行广义QosType AMC目标Bler自适应”关键流程设计
+
+#### 3.5.3.1 关键流程流程图设计
+
+#### 3.5.3.2 关键流程标准化表格
+
+#### 3.5.3.3 解释业务信息
+
+**1、上行广义qostype 用户配置基于阻塞率和负荷的功能生效逻辑：**
+
+（1）目前需要在三主键中，增加一个参数用以控制某条三主键配置是否可以生效基于阻塞率和符合的低BLER保障放开功能，配置为1表示该三主键配置下可以放开，配置为0表示不可以放开；
+
+（2）三主键承载对于该配置首先按照三主键的匹配优先级顺序进行功能匹配，具体优先级如下所示：
+
+第一优先级：切片+5QI+type；
+
+第二优先级：切片+type；
+
+第三优先级：切片+5QI；
+
+第四优先级：切片；
+
+第五优先级：5QI+type；
+
+第六优先级：Type；
+
+第七优先级：5QI
+
+1. 对于配置了该参数的三主键承载，优先按照上述优先级顺序进行UE级功能生效判断，如果某个UE能够匹配到的承载对应的最高优先级对应的本参数配置为1，则本功能可以生效，否则本功能不生效；
+
+   1. 举例说明如下：
+
+      | 切片 | 5QI | 广义qostype | 本功能配置 | 最终结果 |
+      | --- | --- | --- | --- | --- |
+      | 1 | -1 | 2 | 0 | 1、按照切片1+type2的配置对应的功能为0，表示最终本UE不生效本功能  2、如果第一条未匹配上（仅匹配上后三条），则按照切片3+5QI4对应的配置为1，表示最终本UE可以生效本功能 |
+      | 3 | 4 |  | 1 |
+      |  | 5 | 6 | 0 |
+      |  |  | 7 | 1 |
+2. 对于某个优先级下存在多条承载共存的情况，按照至少有一条承载生效，则本UE可以生效本功能的逻辑来生效。
+
+   1. 举例说明如下：
+
+   | 切片 | 5QI | 广义qostype | 本功能配置 | 最终结果 |
+   | --- | --- | --- | --- | --- |
+   | 1 | -1 | 2 | 0 | 如果同时存在两条优先级顺序相同且优先级最高的承载，则只要有任何一个承载配置的功能参数为1，则表示本UE最终可以生效本功能 |
+   | 3 | -1 | 4 | 1 |
+
+**2、上行广义QosType（三主键）用户生效基于阻塞率和负荷的低BLER保障放开功能判断**
+
+如果三主键配置的本功能最终按照1中的匹配结果，本UE可以生效本功能，则按照下述逻辑进行功能判断生效：
+
+（1）小区级上行PRB利用率（10s级），10s周期判断一次，判断周期到达时，针对可以生效本功能的UE：
+
+1. 如果当前小区级上行PRB利用率高于门限，则对于本功能参数配置为1的UE，如果当前生效的三主键目标BLER小于小区级目标BLER，则不再生效三主键配置的目标BLER，而按照小区级策略进行生效（即可以生效小区级其他普通目标BLER的策略）
+
+   1. 如果满足智能多目标BLER生效条件，则生效智能多目标BLER结果；
+   2. 否则如果满足自适应BLER生效条件，则生效自适应目标BLER；
+   3. 否则如果满足redcapue，生效redcap的目标BLER。
+
+      相当于满足PRB利用率后，原先生效小于小区级目标BLER的三主键用户，都不再生效三主键配置的目标BLER，而生效小区级的整体策略，相当于未匹配生效三主键的目标BLER。
+2. 如果当前小区级上行PRB利用率小于等于门限，则对于本功能参数配置为1的UE，如果当前生效的三主键目标BLER小于小区级目标BLER，则需要进一步判断：
+
+   1. 根据UE级的上行阻塞率，如果阻塞率高于门限，则不再生效三主键的目标BLER；
+   2. 如果阻塞率低于门限，则继续生效三主键的目标BLER
+
+（2）针对不在生效三主键低于小区级目标BLER的用户，后续可以正常生效针对低目标BLER隔离的部分功能，如果跨阶试探、均衡SINR外环调整、slotamc等等。
+
+**3、删除原有广义qostype（三主键）用户近点降低BLER功能**
+
+原有三主键下，针对广义qostype存在遗留功能，在低负荷下生效三主键的广义qoptype的BLER的用户，在满足近点条件之后，用户的目标BLER和1%取小逻辑。
+
+该逻辑外场后续不使用，前期也基本没有使用过，因此，在本需求中，针对该逻辑进行删除，后续不再维护该逻辑，原有参数也一并删除回收，按照功能废弃处理。
+
+### 3.5.4 “下行广义QosType AMC目标Bler自适应”关键流程设计
+
+#### 3.5.4.1 关键流程流程图设计
+
+#### 3.5.4.2 关键流程标准化表格
+
+#### 3.5.4.3 解释业务信息
+
+若满足回退小区级目标BLER的条件（以下几项同时满足）：
+
+（1）广义Qos用户（NR：1~5，11及以上；LTE：1~6）；
+
+（2）NR：匹配的三主键目标BLER<10%；LTE：dlAmc4GeneralQoSswch≥1；
+
+（3）非语音用户（NR：5QI1/2，LTE：QCI1/2）；
+
+（4）小区级下行PRB利用率超过门限 或 UE级下行阻塞率超过门限；
+
+**NR侧**
+
+不使能三主键级目标BLER，其他按照当前流程执行；
+
+说明：“其他按照当前流程执行”的含义为，对于特殊业务，比如redcap UE，slotAMC等仍按照原流程选择目标BLER，而不是强行选择小区目标BLER配置或目标BLER自适应结果。
+
+**LTE侧**
+
+外环更新的门限读取小区级配置；
+
+说明：“外环更新的门限读取小区级配置”的含义，当基于多轨目标bler自适应功能使能，该广义Qos用户可执行目标BLER自适应结果；广义Qos用户不使能智能多目标BLER，此处仍不使能。
+
+对CA的波及：
+
+（1）辅载波激活去激活，辅载波变更（添加或删除），各载波独立判断回退条件；
+
+（2）回退时，若为Format1b，则回退为Format1b的小区级配置；否则，回退为非Format1b的小区级配置。
+
+说明：现状，CA且TDD下会有PUCCH Format1b（UE级），单独配置小区级目标BLER，且广义Qos1~6在Format1b下也有独立配置目标BLER。
+
+LTE侧的小区级配置参数补充到算法方案。
+
+| 参数名称（短名） | 参数名称（中文） |
+| --- | --- |
+| [wNACKThrsh](https://wxlab.zte.com.cn:7891/?c=lte&a=allfielddetail&id=8248&branch=master) | 下行NACK统计门限 |
+| [wACKThrsh](https://wxlab.zte.com.cn:7891/?c=lte&a=allfielddetail&id=8249&branch=master) | 下行ACK统计门限 |
+| [wSchdNACKThrsh](https://wxlab.zte.com.cn:7891/?c=lte&a=allfielddetail&id=8250&branch=master) | 下行NACK统计时调度窗长 |
+| [wSchdACKThrsh](https://wxlab.zte.com.cn:7891/?c=lte&a=allfielddetail&id=8251&branch=master) | 下行ACK统计时调度窗长 |
+| [wNACKThrshMultiplex](https://wxlab.zte.com.cn:7891/?c=lte&a=allfielddetail&id=8252&branch=master) | TDD复用反馈下的下行NACK统计门限 |
+| [wACKThrshMultiplex](https://wxlab.zte.com.cn:7891/?c=lte&a=allfielddetail&id=8253&branch=master) | TDD复用反馈下的下行ACK统计门限 |
+| [wNACKThrshTddCaFmt1b](https://wxlab.zte.com.cn:7891/?c=lte&a=allfielddetail&id=8254&branch=master) | TDD CA下ACK/NACK为带信道选择format 1b反馈时的下行NACK统计门限 |
+| [wACKThrshTddCaFmt1b](https://wxlab.zte.com.cn:7891/?c=lte&a=allfielddetail&id=8255&branch=master) | TDD CA下ACK/NACK为带信道选择format 1b反馈时的下行ACK统计门限 |
+| [wNACKThrsh4QoS](https://wxlab.zte.com.cn:7891/?c=lte&a=allfielddetail&id=8273&branch=master) | QoS保障用户下行NACK统计门限 |
+| [wACKThrsh4QoS](https://wxlab.zte.com.cn:7891/?c=lte&a=allfielddetail&id=8274&branch=master) | QoS保障用户下行ACK统计门限 |
+| [wSchdNACKThrsh4QoS](https://wxlab.zte.com.cn:7891/?c=lte&a=allfielddetail&id=8275&branch=master) | QoS保障用户下行NACK统计时调度窗长 |
+| [wSchdACKThrsh4QoS](https://wxlab.zte.com.cn:7891/?c=lte&a=allfielddetail&id=8276&branch=master) | QoS保障用户下行ACK统计时调度窗长 |
+| [wNACKThrshMultiplex4QoS](https://wxlab.zte.com.cn:7891/?c=lte&a=allfielddetail&id=8277&branch=master) | QoS保障用户TDD复用反馈下的下行NACK统计门限 |
+| [wACKThrshMultiplex4QoS](https://wxlab.zte.com.cn:7891/?c=lte&a=allfielddetail&id=8278&branch=master) | QoS保障用户TDD复用反馈下的下行ACK统计门限 |
+| [wNACKThrshTddCaFmt1b4QoS](https://wxlab.zte.com.cn:7891/?c=lte&a=allfielddetail&id=8279&branch=master) | QoS保障用户TDD CA下format 1b反馈时的下行NACK统计门限 |
+| [wACKThrshTddCaFmt1b4QoS](https://wxlab.zte.com.cn:7891/?c=lte&a=allfielddetail&id=8280&branch=master) | QoS保障用户TDD CA format 1b反馈时的下行ACK统计门限 |
+
+## 3.6 对各大特性耦合
+
+| 特性 | 有无耦合 | 耦合分析 | 应对策略 |
+| --- | --- | --- | --- |
+| Comp | 无 |  |  |
+| FDD DSS | 无 |  |  |
+| RedCap | 无 |  |  |
+| SC | 无 |  |  |
+| 高铁 | 无 |  |  |
+| NTN | 无 |  |  |
+| 5G-R | 无 |  |  |
+| 节能 | 无 |  |  |
+| VoNR | 无 |  |  |
+| 切片 | 无 |  |  |
+| ATU | 无 |  |  |
+| 三层小区模型 | 无 |  |  |
+| 非标带宽 | 无 |  |  |
+
+## 3.7 新增/修改网管参数表
+
+## 3.8 新增/修改网管参数约束规则
+
+## 3.9 新增counter设计
+
+## 3.10 性能分析
+
+### 3.10.1 “基于多业务并发的广义QosType目标Bler回退至小区级目标Bler”场景描述
+
+### 3.10.2 “广义QosType目标Bler基于小区级自适应”场景描述
+
+## 3.11 波及分析
+
+## 3.12 文档评审记录
+
+# 4 附录
+
+## 4.1 会议纪要
+
+**2025.04.12**
+
+时间：20250412，14:15~16:15，线上68012703\*183838。
+
+与会：李博航、崔金龙、潘传义、任嘉诚、付竹竹、杜超、李朝阳、姚武军
+
+纪要：
+
+1、澄清系统方案，几个主要点如下。
+
+a. 明确RNLU->CMAC子系统接口。
+
+-消息T\_Rnlu2CmacUeSchdErrMsg，内容在T\_UeSchdErrMsg增加字段（启用预留字段）。@崔金龙，@郭世军，@任嘉诚
+
+-SPA给用户面发消息触发在NSA场景发阻塞率时，通知发1个承载，更换承载时原来的承载要通知用户面不再发。@杜超，@郭世军
+
+-CMAC按最高优先级的承载，进行TYPE级差异化目标BLER（原流程），本次接收RNLU消息时，只取用该承载的阻塞率；否则认为未收到阻塞率。@李博航，@郭世军，@任嘉诚
+
+b. 明确CA场景策略。（上午会议68086397\*271925）@李博航，@李朝阳
+
+-CA-PCC-UE：使用汇总主辅载波输出的UE级堵塞率，使用主载波的PRB使用功率，计算出CA-PCC-UE的动态的目标BLER。
+
+-CA-SCC-UE：与CA-PCC-UE保持一致，使用CA-PCC-UE的目标BLER。由CA-PCC-UE通知CA-SCC-UE。
+
+2、遗留AP。
+
+a. CMAC需要新增的UE级数据，需要找预留字段，待开发阶段落地。@任嘉诚、@付竹竹、@姚武军
+
+b. CA场景,CA-PCC-UE上的计算，CA-SCC-UE上的转发，在新增字段落地后，落实下来。@李朝阳，@任嘉诚，@姚武军
+
+c. 新增参数，预期5个，请算法输出参数底稿，开发提交。远近点判决门限x1、区分远近点的用户面阻塞率&基带阻塞率的终端阻塞门限x4。固化的PRB使用率的高低门限，需明确敲定。@李博航，@姚武军，@付竹竹
+
+**2025.04.07**
+
+**研讨需求**：[市场需求 RAN-6166005](https://rdcloud.zte.com.cn/uportal/rd-uportal/workspaces/RAN/apps/wim/allWorkItems/RAN-6166005?teamId=bdv_132886): 广义QOS识别用户支持下行动态目标BLER【NR】
+
+**研讨时间**：2025-04-07 18:40 ~ 20:40
+
+**需求方案**：<https://i.zte.com.cn/index/ispace/#/space/b3406ddb052f4c5da716ff9485814817/wiki/page/8f548e4454eb4a25b302b8283007ceeb/view>
+
+**讨论人**：唐轩10191935; 李博航10192443; 崔金龙10072697; 周浩10256622; 姚武军10125560; 牛勇清10189966; 杜超10183876;
+
+**讨论纪要**：
+
+1、超级小区下，阻塞率的计算请求是只在小区级主CP上收发。
+
+2、版本早期（约4年前）reserved228~reserved230默认值都是0，查深蓝系统外场为修改部署。版本现状相当于匹配到qostype后，就按照配置的三主键级BLER生效。
+
+本需求删除reserved228~230控制的逻辑。在本需求开关关闭的情况下，如果还保持是仅匹配到qostype的UE生效，则可以保证是平滑升级。
+
+论达成一致，只对匹配到qostype的UE生效。
+
+3、SPA只在主载波发阻塞率计算请求，PPS收到后计算阻塞率只在主载波上发响应。
+
+PRB利用率，主辅载波分别计算的，会存在下面BLER生效不一致问题。
+
+主载波 PRB利用率高于80%，走的是小区高BLER，走SE优先。
+
+辅载波 PRB利用率低于30%或介于30-80之间，可能走低BLER。
+
+讨论后决定，主载波生成的BLER结果通知给辅载波，避免两个载波判定状态不一致问题。
+
+4、需求是性能需求，担心生效比例低（比如生效场景占比1%，生效的场景中有5%增益，那么整网增益万分之5就不易观测到），担心增益被淹没。
+
+算法反馈有特性的观测指标，交付需求是按照RDC算法描述页的场景构造验证。
+
+5、参数问题，反复讨论多轮，最新的讨论结果是以下两种情况，再无压缩空间，上升决策采纳哪种。
+
+1正A+2保留A：阻塞率\_近（正式A） + PRB利用率 + SE门限 阻塞率\_远 = 阻塞率\_近 + delta量（写死）。
+
+1正A+3保留A：阻塞率\_近（正式A） + PRB利用率 + SE门限 阻塞率\_远 = 阻塞率\_近 + delta量（可配）。
+
+6、算法描述 若连续2秒该UE阻塞率低于低门限，则该UE上行AMC QosType差异化配置重新生效。
+
+因为用户面发阻塞率响应是固定每500ms一次，SPA实现转换下变成连续4次低于低门限，不再增加定时器处理。
+
+7、与PPS的接口问题，讨论决定复用 EVENT\_V3\_UE\_COMMON\_MSG(发)、EVENT\_PPS\_COMMON\_MSG 消息。接口定义如下：
+
+typedef struct DlUeBlockRateReq
+
+{
+
+WORD16 ueIndex
+
+UCHAR lchId;
+
+}DlUeBlockRateReq;
+
+typedef struct DlUeBlockRateRsp
+
+{
+
+WORD16 ueIndex
+
+UCHAR lchId;
+
+WORD16 dlUeBlockRateRst; 单位 ms 取值范围：0~65535
+
+}DlUeBlockRateRsp;
+
+8、遗留问题：PRB利用率做过TY，现在的SIC发送的PRB利用率是真实的？还是TY过的？----- 杜超。
+
+如果不涉及给局方解释自洽问题，则使用真实的统计。
+
+讨论后决定，不管当前的PRB利用率是咋统计的（真实的orTY的），都不再开发另一个，减少版本冗余。
+
+2025.01.18
+
+参会人员：杨文乐，崔金龙，王代锋，付竹竹，李博航
+
+对于NSA场景下NR和LTE侧下行广义QosType基于BSR清空时间处理：
+
+（1）对于NSA场景下NR（SPA）和LTE（CMAC）缺少交互接口，若NR侧退出保守调度时，无法通知至LTE侧
+
+需要增加NRSPA->用户面NR（X2-U）/控制面NR（X2-C）->用户面LTE/控制面LTE->LTECMAC交互接口，且当前缺少相关交互接口，
+
+新增接口和通知消息复杂度过高，不建议增加；
+
+（2）在不考虑小区负荷退出（回退至小区目标Bler）场景下，建议NR和LTE侧两边广义QosType退出保守调度采参数拉齐，通过参数控制两边因阻塞率退出（回退至小区目标Bler）机制一致；
+
+（3）在NSA场景下，NR侧和LTE侧原保障参数就存在差异，因此基于当前已有结果评估，NSA用户两条腿的AMC差异外场已有，并非本场景首次引入；
+
+确认结果如下：
+
+![](https://i.zte.com.cn//zte-rdcloud-rdc-rdcserver/file/viewFile/0d9bf3bd-6077-45ce-8e92-20a67cffd2a8/10192443?w=0&h=0 "image.png")
+
+2025.01.03
+
+会议纪要：
+
+崔金龙，付竹竹，刁一峪，杨文乐，李博航
+
+（1）对于SA场景下desired data rate计算开关reserved218[3]是否隔离——请崔主席确认支持；
+
+（2）对于desired data rate计算，用户面周期计算后通知SPA需要新增接口，通知频度为500ms——请崔主席评估；
+
+（3）SA+NSA（NR）匹配广义QosType成功后，通知用户面UE承载信息，用于用户面计算下行CU+DU的BSR清空时间——请付工评估；
+
+（4）用户面统计是待调度数据量小于毫秒级单位时，向下取整报0ms——请崔主席确认；
+
+（5）对于NSA场景下，若UE未添加SN链接，则按照LTE终端进行处理；若UE添加SN链接，则按照NSA处理；
+
+（6）对于NSA-LTE-CA场景下看到的用户面通知时同一个结果，主辅载波处理一致；
+
+（7）对于CA场景下，主辅载波转发复用原CA接口，转发耗时做多几十ms——绍涛总确认；
+
+（8）对于NSA场景，LTE用户未添加SN之前是被广义QosType，再添加SN之后，NR侧是否会通知广义QosType——待控制面确认，李博航；
+
+2024.12.02
+
+QosType差异化自适应回退机制
+
+胡海鹏，李积江，唐轩，何颢，宫腾，崔欢，李博航
+
+（1）是否考虑QosType6，7，8-10，不需要考虑————胡海鹏，钱荣鑫
+
+（2）对于目标Bler自适应机制，已有流程
+
+当QosType目标Bler低于10%，不生效自适应目标Bler；
+
+当QosType目标Bler高于10%，生效自适应目标Bler；
+
+（3）小区目标Bler定义：非广义QosType用户生效的AMC策略，包括不限于跨阶，分段，自适应；
+
+（4）上下行PRB利用率门限：当从QosType级低目标Bler回退至小区级目标Bler时，时延指标可能存在恶化场景；不一定是正增益；
+
+调度效率提升后，重率率也会提升，对于PDCCH/PDSCH/PUSCH资源可能存在抢占，导致拐点出现，无法保证一定是正收益；
+
+（5）对于从保守调度的目标Bler回退至小区级时，是否需要考虑非小区级自适应目标bler————唐轩，胡海鹏，钱荣鑫
+
+（5-1）回退至小区级策略（非广义QosType用户生效的AMC策略，包括不限于跨阶，分段，自适应）；
+
+（5-2）回退至小区级10%目标Bler固定配置；
+
+（6）三主键优先级匹配，匹配优先级相同且当生效多套相同的目标bler时，若任意存在一套目标Bler开启回退，则按照回退生效；
+
+（7）VoNR的不走三主键的回退逻辑，避免和语音进行冲突；————李博航
+
+（8）上下行PRB利用率门限需要考虑广义Qos负荷门限判断复用相同参数门限，小区级控制基于负荷退广义QosType保守调度；————李博航
+
+（9）对于5G还存在一个问题：近点存在配置bler与1%取小的实现，通过PRB利用率限制0%才会生效；深蓝核查后，确认外场无使用，则建议删除；
+
+深蓝核查——何颢；
+
+各位看下是否还有遗漏，感谢。
+
+## 4.2 相关链接
+
+| RDC需求链接 | 仿真报告 |
+| --- | --- |
+| https://rdcloud.zte.com.cn/rdcloud/workspaces/workItems/RAN-6166005 |  |
