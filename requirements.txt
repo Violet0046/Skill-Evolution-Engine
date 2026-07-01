@@ -1,5 +1,10 @@
-# Python version: >=3.8,<3.12
+# Python version: >=3.10
+#
+# Skill Evolution Engine 依赖
+#
+# 注意：阶段 1 / 2 / 3 的纯 Python 部分（see-collect / see-analyze / see-evolve）
+# 仅依赖标准库 + pydantic，无需安装 anthropic SDK。
+# anthropic SDK 仅在主 agent 想用脚本直接调 LLM 时需要（通常主 agent 走 Claude Code 内置 sub-agent）。
 
-# Core dependencies
-python-dotenv>=1.0.0
+# 数据模型（已无 pydantic 强制需求，保留以备 schema 校验使用）
 pydantic>=2.0.0,<3.0.0

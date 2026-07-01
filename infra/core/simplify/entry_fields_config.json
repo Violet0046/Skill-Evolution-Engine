@@ -1,0 +1,221 @@
+{
+  "truncate_enabled": true,
+  "_DROP_CLASSES": [
+    "progress.hook_progress",
+    "progress.skill_progress",
+    "mode",
+    "queue-operation",
+    "file-history-snapshot",
+    "last-prompt",
+    "system",
+    "permission-mode",
+    "attachment.todo_reminder",
+    "attachment.skill_listing",
+    "attachment.nested_memory",
+    "attachment.dynamic_skill",
+    "attachment.edited_text_file",
+    "attachment.hook_additional_context",
+    "attachment.command_permissions",
+    "attachment.task_reminder",
+    "attachment.date_change",
+    "attachment.queued_command",
+    "attachment.mcp_instructions_delta",
+    "attachment.hook_cancelled",
+    "attachment.auto_mode",
+    "attachment.auto_mode_exit"
+  ],
+  "_META": {
+    "_TRUNCATE": [
+      {
+        "path": "toolUseResult.stdout",
+        "max_head": 2048,
+        "max_tail": 1024,
+        "marker": "\n…[truncated, {n} bytes omitted]…\n",
+        "keep_whole_if_is_error": true
+      },
+      {
+        "path": "toolUseResult.stderr",
+        "max_head": 2048,
+        "max_tail": 1024,
+        "marker": "\n…[truncated, {n} bytes omitted]…\n",
+        "keep_whole_if_is_error": true
+      },
+      {
+        "path": "message.content[*].content",
+        "max_head": 2048,
+        "max_tail": 1024,
+        "marker": "\n…[truncated, {n} bytes omitted]…\n",
+        "keep_whole_if_is_error": true,
+        "empty_marker": "(empty)"
+      },
+      {
+        "path": "message.content[*].text",
+        "max_head": 6144,
+        "max_tail": 1024,
+        "marker": "\n…[truncated, {n} bytes omitted]…\n"
+      },
+      {
+        "path": "attachment.stdout",
+        "max_head": 2048,
+        "max_tail": 1024,
+        "marker": "\n…[truncated, {n} bytes omitted]…\n",
+        "keep_whole_if_is_error": true
+      },
+      {
+        "path": "attachment.stderr",
+        "max_head": 2048,
+        "max_tail": 1024,
+        "marker": "\n…[truncated, {n} bytes omitted]…\n",
+        "keep_whole_if_is_error": true
+      },
+      {
+        "path": "data.message.message.content[*].content",
+        "max_head": 2048,
+        "max_tail": 1024,
+        "marker": "\n…[truncated, {n} bytes omitted]…\n",
+        "keep_whole_if_is_error": true
+      }
+    ]
+  },
+  "user_command": {
+    "drop": [
+      "type",
+      "promptId",
+      "sessionId",
+      "permissionMode",
+      "entrypoint",
+      "isSidechain",
+      "userType",
+      "version",
+      "gitBranch",
+      "isMeta",
+      "cwd",
+      "slug"
+    ]
+  },
+  "user_input": {
+    "drop": [
+      "type",
+      "message.content[*].type",
+      "sessionId",
+      "entrypoint",
+      "isSidechain",
+      "userType",
+      "version",
+      "gitBranch",
+      "isMeta",
+      "agentId",
+      "cwd",
+      "slug"
+    ]
+  },
+  "tool_result": {
+    "drop": [
+      "type",
+      "message.content[*].type",
+      "sessionId",
+      "isSidechain",
+      "userType",
+      "version",
+      "gitBranch",
+      "entrypoint",
+      "isMeta",
+      "cwd",
+      "slug"
+    ]
+  },
+  "ai_text": {
+    "drop": [
+      "type",
+      "message.content[*].type",
+      "message.model",
+      "message.usage",
+      "sessionId",
+      "isSidechain",
+      "userType",
+      "version",
+      "gitBranch",
+      "entrypoint",
+      "cwd",
+      "slug"
+    ]
+  },
+  "ai_tool_call": {
+    "drop": [
+      "type",
+      "message.content[*].type",
+      "message.model",
+      "message.usage",
+      "sessionId",
+      "isSidechain",
+      "userType",
+      "version",
+      "gitBranch",
+      "entrypoint",
+      "cwd",
+      "slug"
+    ]
+  },
+  "attachment.hook_success": {
+    "drop": [
+      "type",
+      "sessionId",
+      "attachment.content",
+      "attachment.toolUseID",
+      "isSidechain",
+      "userType",
+      "version",
+      "gitBranch",
+      "entrypoint",
+      "cwd",
+      "slug"
+    ]
+  },
+  "attachment.async_hook_response": {
+    "drop": [
+      "type",
+      "sessionId",
+      "isSidechain",
+      "userType",
+      "version",
+      "gitBranch",
+      "entrypoint",
+      "cwd",
+      "slug"
+    ]
+  },
+  "attachment.hook_blocking_error": {
+    "drop": [
+      "type",
+      "sessionId",
+      "isSidechain",
+      "userType",
+      "version",
+      "gitBranch",
+      "entrypoint",
+      "cwd",
+      "slug"
+    ]
+  },
+  "attachment.hook_non_blocking_error": {
+    "drop": [
+      "type",
+      "sessionId",
+      "isSidechain",
+      "userType",
+      "version",
+      "gitBranch",
+      "entrypoint",
+      "cwd",
+      "slug"
+    ]
+  },
+  "ai-title": {
+    "drop": [
+      "type",
+      "sessionId",
+      "cwd",
+      "slug"
+    ]
+  }
+}
