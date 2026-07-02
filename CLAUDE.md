@@ -67,3 +67,9 @@ evolver 规则：`rules/evolver-agent-rules.md`
 - 使用中文回答
 - 默认目录为当前工作目录
 - 主 agent 不直接读 session / 不写 SKILL.md（让 sub-agent 做）
+- **Python 脚本必须走 `bash infra/scripts/with-python.sh` 垫片**（项目要求 Python 3.8+）。**禁止**直接 `python infra/scripts/*.py`
+- **3 阶段工作流用 slash command 触发**：`/see-collect` / `/see-analyze <session_id>` / `/see-evolve <report.json>`（见 [rules/main-agent-rules.md](rules/main-agent-rules.md)）
+- **3 阶段工作流的硬性调度链路**（commands/*.md 是脚本入口；sub-agent 调度由主 agent 负责）：
+  1. 跑完 `see-collect.py` → 检查退出码
+  2. 跑完 `see-analyze.py` → 拿到 bundle（`prompt_template_path` + `tool_schemas` + `session_id` + **`report_path`**）→ **调 `infra/scripts/resolve-architecture.py <session_id>` 拿 `arch_path_abs` + `exists`**（`exists=false` 就 AskUserQuestion 问用户 agent 名）→ **Read `bundle.prompt_template_path` 拿 prompt 模板** → **Read `arch_path_abs` 拿目标 agent 架构 JSON** → 拼 prompt（`prompt_template + "\n\n## 目标 agent 架构\n```json\n" + 架构内容 + "\n```\n\n## 报告输出路径\n请用 Write 工具把 analysis_report.json 写到：\n`" + bundle.report_path + "`"`）→ **用 Agent 工具调 sub-agent**（`type=general-purpose`, `prompt=<拼好的 prompt>`, `tools=["Bash", "Write"]`，sub-agent 用 Bash 调 see_* CLI，见 [prompts/analyzer-prompt.md](prompts/analyzer-prompt.md)）→ 等它写 `analysis_report.json`
+  3. 跑完 `see-evolve.py` → 拿到 bundle（`prompt_template_path` + `summary` + `suggestions` + `skill_search_paths`）→ **Read `bundle.prompt_template_path`** → **用 Agent 工具调 sub-agent**（`type=general-purpose`, `prompt=<Read 内容>`, `tools=[Read, Write, Edit, Bash]`，Bash 调 patch_parser 必须走 with-python.sh 垫片）→ 等它输出 `evolution_report.json`

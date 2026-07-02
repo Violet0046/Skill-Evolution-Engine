@@ -14,29 +14,15 @@
 工作目录为 Skill-Evolution-Engine 项目根：
 
 ```bash
-PYTHONPATH=infra python infra/scripts/see-analyze.py {session_id} [--root <dir>] [--output <bundle.json>]
+PYTHONPATH=infra bash infra/scripts/with-python.sh infra/scripts/see-analyze.py {session_id} [--root <dir>] [--output <bundle.json>]
 ```
 
 CLI 会：
 1. 校验 session 存在
 2. 预热失败索引（懒构建）
-3. 输出一份 `analyzer_bundle.json`，含 analyzer 提示词 + 3 个 `see_*` tool schemas
+3. 输出一份 `analyzer_bundle.json`（stdout），含 `session_id` + `overview_summary` + `tool_schemas` + `prompt_template_path`
 
-### 步骤 3：调度 analyzer sub-agent
-主 agent 拿到 bundle 后，调用 sub-agent：
-
-```
-Agent(
-  type="general-purpose",
-  prompt=bundle.analyzer_prompt,    # 已填好 session_id
-  tools=bundle.tool_schemas,        # 3 个 see_*
-)
-```
-
-sub-agent 跑完后写 `analysis_report.json`。
-
-### 步骤 4：显示结果
-显示脚本输出（bundle JSON），不添加额外内容。
+> **本命令的职责到此为止**——不调 sub-agent、不写 analysis_report.json。sub-agent 调度由主 agent 按 CLAUDE.md「执行规则」负责。
 
 ## 执行规则
 - 只执行脚本，不输出额外解释

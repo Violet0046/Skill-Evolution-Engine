@@ -1,5 +1,5 @@
 """
-entry_detail.py —— see_entry_detail 工具
+failure_detail.py —— see_entry_detail 工具
 
 用途：
   按 (session_id, uuid) 取出单条 entry 的完整上下文，是 see_* 工具

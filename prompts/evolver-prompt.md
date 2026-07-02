@@ -23,10 +23,29 @@
 
 ## 输入
 
-主 agent 会告诉你：
+主 agent 会告诉你（通过 bundle）：
 - `analysis_report.json` 路径
-- `skills_dir` 路径
-- `evolved_skills_dir` 路径（可选，默认 `<skills_dir>/../evolved_skills/`）
+- `skills_dir` 路径（**可能为空**——为空时按 Step 1.5 自己探测）
+- `evolved_skills_dir` 路径
+- `skill_search_paths` 候选路径列表（仅当 skills_dir 为空时有意义）
+
+## Step 1.5: 探测 skills_dir（仅当主 agent 没传）
+
+如果 `bundle.skills_dir` 为空，按 `bundle.skill_search_paths` 顺序探测：
+
+```bash
+for p in "${skill_search_paths[@]}"; do
+    p=$(eval echo "$p")   # 展开 $CWD / $HOME / *
+    if [ -d "$p" ]; then
+        echo "CANDIDATE: $p"
+    fi
+done
+```
+
+从候选里**挑选一个**作为 skills_dir：
+- 如果只有 1 个候选 → 用它
+- 如果多个 → 优先 `.claude/skills/` / `.claude/agents/<name>/skills/`，按业务相关性
+- 如果 0 个 → **用 AskUserQuestion 问用户**（"找不到 skills 目录，请指定"）
 
 ## 工作流（**每条 suggestion**）
 
@@ -34,13 +53,18 @@
 
 从 `analysis_report.json` 取 `suggestions[]`，按 `priority` 排序（high > medium > low），过滤掉 `priority == "low"`。
 
-### Step 2: 读 SKILL.md
+### Step 2: 读目标文件
+
+`target_file` 是**相对路径**（如 `skills/查询需求信息/SKILL.md` 或 `.claude/agents/foo/agent.md`），
+**与 skills_dir 拼接**得绝对路径：
 
 ```bash
-Read: {skills_dir}/{target_skill}/SKILL.md
+Read: {skills_dir}/{target_file}
 ```
 
-不存在 → 跳过，记 `status: "skill_not_found"`，继续下一条。
+文件不存在 → 跳过，记 `status: "file_not_found"`，继续下一条。
+
+> **不只改 SKILL.md**——`target_file` 可能是 subagent 定义（`.claude/agents/<name>/*.md`）或其它 .md 文件，按字段实际值读。
 
 ### Step 3: 决定形式
 
@@ -56,7 +80,7 @@ Read: {skills_dir}/{target_skill}/SKILL.md
 CHANGE_SUMMARY: <一句话描述修复内容>
 
 *** Begin Patch
-*** Update File: SKILL.md
+*** Update File: {target_file 相对于 skills_dir 的路径}
 @@ <锚点行（已存在且唯一）>
  <上下文行（保留）>
 -<要删除的行>
@@ -65,7 +89,7 @@ CHANGE_SUMMARY: <一句话描述修复内容>
 *** End Patch
 ```
 
-**完整 SKILL.md 格式**：
+**完整文件格式**（subagent 整体重写 / 新 skill 整体新建时用）：
 ```
 CHANGE_SUMMARY: <一句话描述>
 
@@ -84,13 +108,13 @@ description: <新description 含触发条件>
 **Patch 模式**：
 ```bash
 echo '<patch 文本>' > /tmp/patch.txt
-python -m core.patch.patch_parser {skills_dir}/{target_skill}/SKILL.md /tmp/patch.txt
+bash infra/scripts/with-python.sh -m core.patch.patch_parser {skills_dir}/{target_file} /tmp/patch.txt
 ```
 
 **完整文件模式**：
 ```bash
-mkdir -p {evolved_skills_dir}/{target_skill}
-Write: {evolved_skills_dir}/{target_skill}/SKILL.md
+mkdir -p {evolved_skills_dir}/<target_file 所在目录>
+Write: {evolved_skills_dir}/{target_file}
 ```
 
 ### Step 6: 失败回退

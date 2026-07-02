@@ -1,5 +1,5 @@
 """
-simplify_sessions.py — 遍历 projects/ 下所有 session，仅 simplify 阶段后写到 projects-simplified/。
+see-collect.py — 遍历 projects/ 下所有 session，仅 simplify 阶段后写到 projects-simplified/。
 
 为 Skill Evolution Engine 提供简化的 session 证据数据
 load → classify → simplify → 写 NDJSON。
@@ -7,8 +7,8 @@ load → classify → simplify → 写 NDJSON。
 仅向 stdout 输出一条 JSON 摘要——模型可直接解析。
 
 用法：
-  python3.8 simplify_sessions.py                         # 默认 ../projects → ../projects-simplified
-  python3.8 simplify_sessions.py <projects_dir> <out>   # 自定义输入/输出
+  python3.8 infra/scripts/see-collect.py                         # 默认 ../projects → ../projects-simplified
+  python3.8 infra/scripts/see-collect.py <projects_dir> <out>   # 自定义输入/输出
 
 stdout JSON 返回结构：
 {

@@ -1,0 +1,12 @@
+{
+  "agent_name": "测试 agent",
+  "targets": [
+    {"name": "测试-查询", "path": "skills/测试-查询/SKILL.md"},
+    {"name": "测试-写入", "path": "skills/测试-写入/SKILL.md"},
+    {"name": "测试-校验", "path": "skills/测试-校验/SKILL.md"},
+    {"name": "测试-agent-a", "path": "agents/测试-agent-a/测试-agent-a.md"},
+    {"name": "测试-agent-b", "path": "agents/测试-agent-b/测试-agent-b.md"},
+    {"name": "测试规则-1", "path": "rules/测试规则-1.md"},
+    {"name": "测试规则-2", "path": "rules/测试规则-2.md"}
+  ]
+}

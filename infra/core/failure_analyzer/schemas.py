@@ -32,8 +32,8 @@ from typing import Any, Dict, List
 SEE_FAILURE_OVERVIEW_SCHEMA: Dict[str, Any] = {
     "name": "see_failure_overview",
     "description": (
-        "获取指定 session 的失败概览，按 session / skill / tool / phase / agent_type "
-        "五个维度聚合失败计数，附带 top-N 失败模式（含 uuid 列表）。用于分析失败的"
+        "获取指定 session 的失败概览，按 by_pattern（失败模式）+ by_agent_type（agent 类型）"
+        "两维聚合失败计数，附带 top-N 失败模式（含 uuid 列表）。用于分析失败的"
         "第一步：先看全貌，再决定深入哪类错误。"
     ),
     "input_schema": {

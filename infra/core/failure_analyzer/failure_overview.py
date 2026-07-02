@@ -132,6 +132,7 @@ def see_failure_overview(
 
     return {
         "session_id": session_id,
+        "agent_cwd": _load_agent_cwd(root, session_id),
         "summary": summary,
         "top_patterns": top_patterns,
         "by_agent_type": [
@@ -143,3 +144,12 @@ def see_failure_overview(
             for atype, info in data.get("by_agent_type", {}).items()
         ],
     }
+
+
+def _load_agent_cwd(root: str, session_id: str) -> str | None:
+    """从 session header 拿 agent_cwd（session 启动时的工作目录 = agent 项目根）。"""
+    from .common.session_reader import load_main_session
+    header, _ = load_main_session(root, session_id)
+    if not isinstance(header, dict):
+        return None
+    return header.get("cwd")

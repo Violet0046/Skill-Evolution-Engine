@@ -1,4 +1,4 @@
-"""_common —— 工具集共用的辅助模块。
+"""common —— 工具集共用的辅助模块。
 
 - session_reader.py  : 双格式 entry 迭代器
 - index_store.py     : 预建失败索引

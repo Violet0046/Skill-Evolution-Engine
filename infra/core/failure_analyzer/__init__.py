@@ -9,21 +9,17 @@ see-tools —— 失败分析 LLM 工具集
   暴露一组**按需查询**工具，让 LLM 自助调取。
 
 模块组织：
-  _common/
+  common/
     session_reader.py  —— 双格式 entry 迭代器（JSON-array / NDJSON）
     index_store.py     —— 预建失败索引（懒构建 + mtime 失效）
     errors.py          —— 统一 ToolError 与 JSON 友好输出
-  failure_overview.py  —— see_failure_overview（按 session/skill/tool/phase 四维概览）
-  find_by_pattern.py   —— see_find_by_pattern（按 tool_name:error[:80] 模式匹配）
-  entry_detail.py      —— see_entry_detail（取单条 entry 完整上下文，含 use_raw 回退）
-  context_window.py    —— see_context_window（批 2：本批未实现）
-  retry_chain.py       —— see_retry_chain（批 2：本批未实现）
-  subagent_timeline.py —— see_subagent_timeline（批 2：本批未实现）
-  failure_by_skill.py  —— see_failure_by_skill（批 3：本批未实现）
+  failure_overview.py  —— see_failure_overview（失败模式 + agent_type 两维概览）
+  failures_by_pattern.py —— see_find_by_pattern（按 tool_name:error[:80] 模式匹配）
+  failure_detail.py    —— see_entry_detail（取单条 entry 完整上下文，含 use_raw 回退）
 
 入口：
   registry.py  —— name → function 注册表（双入口共享）
-  cli.py       —— `python -m src.failure_analyzer <cmd> <args>` 形式 CLI（Bash 调用）
+  cli.py       —— `PYTHONPATH=infra python -m core.failure_analyzer <cmd> <args>` 形式 CLI（Bash 调用）
   schemas.py   —— `TOOL_SCHEMAS` 列表（直接给 Anthropic tool_use API 消费）
 
 数据约定：
@@ -42,7 +38,7 @@ from __future__ import annotations
 from .registry import REGISTRY, list_tools, resolve
 from .schemas import TOOL_SCHEMAS
 
-# 顶层导出：方便 `from src.failure_analyzer import see_failure_overview`
+# 顶层导出：方便 `from core.failure_analyzer import see_failure_overview`
 from .failure_overview import see_failure_overview  # noqa: F401
 from .failures_by_pattern import see_find_by_pattern  # noqa: F401
 from .failure_detail import see_entry_detail  # noqa: F401

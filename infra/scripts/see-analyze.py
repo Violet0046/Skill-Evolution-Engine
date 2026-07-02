@@ -1,12 +1,13 @@
-"""see-analyze.py — 阶段 2 入口（analyzer agent 准备 + 数据预热）
+"""see-analyze.py — 阶段 2 入口（数据预热 + bundle 组装）
 
 设计：
 - 不在 CLI 内调 LLM（LLM 由主 agent 调度，sub-agent 跑）
 - CLI 的职责是：
   1. 校验 session 存在
   2. 预热索引（懒构建）
-  3. 把分析提示词模板 + 工具 schema 输出为一份「analyzer_bundle.json」
-  4. 主 agent 拿到 bundle 后用 Agent 工具调起 analyzer sub-agent
+  3. 跑一次 see_failure_overview 让索引生效
+  4. 输出 analyzer_bundle（session_id + overview + tool_schemas + prompt 路径）
+- **不读 prompt 模板**：主 agent 自己 Read `prompts/analyzer-prompt.md` 并拼装 sub-agent prompt
 
 用法：
     PYTHONPATH=infra python infra/scripts/see-analyze.py <session_id> [--root <dir>] [--output <bundle.json>]
@@ -16,17 +17,18 @@
   "session_id": "...",
   "root": "...",
   "index_ready": true,                      # 索引已预热
-  "overview": {...},                        # 已运行 see_failure_overview（预热）
-  "analyzer_prompt": "..."                  # 填好的 analyzer-prompt.md
+  "overview_summary": {...},                # 已运行 see_failure_overview（预热）
+  "prompt_template_path": ".../prompts/analyzer-prompt.md",   # 主 agent 自己 Read
   "tool_schemas": [...]                     # 3 个 see_* tool_use schemas
 }
 
 主 agent 拿到 bundle 后：
-  Agent(
-    type="general-purpose",
-    prompt=bundle.analyzer_prompt,
-    tools=bundle.tool_schemas,    # Anthropic SDK 格式
-  )
+  1. Read bundle.prompt_template_path 拿 prompt 模板
+  2. Agent(
+       type="general-purpose",
+       prompt=<Read 的内容>,
+       tools=bundle.tool_schemas,
+     )
   → 跑完后写 analysis_report.json
 """
 
@@ -59,18 +61,22 @@ from core.failure_analyzer import see_failure_overview  # noqa: E402
 from core.failure_analyzer.schemas import TOOL_SCHEMAS  # noqa: E402
 
 
-PROMPT_PATH = _ROOT / "prompts" / "analyzer-prompt.md"
+PROMPT_TEMPLATE_PATH = _ROOT / "prompts" / "analyzer-prompt.md"
 
-
-def _load_prompt(session_id: str) -> str:
-    if not PROMPT_PATH.exists():
-        raise FileNotFoundError(f"analyzer 提示词不存在: {PROMPT_PATH}")
-    template = PROMPT_PATH.read_text(encoding="utf-8")
-    return template.replace("{session_id}", session_id)
+# analysis_report 输出目录（sub-agent 用 Write 工具写到这里的子路径）
+# 跑 see-analyze 时自动 mkdir -p（兜底，避免 sub-agent 写盘时"目录不存在"）
+ANALYSIS_REPORTS_DIR = _ROOT / "evidence" / "analysis_reports"
 
 
 def build_bundle(session_id: str, root: Optional[str]) -> Dict[str, Any]:
-    """构造 analyzer_bundle。"""
+    """构造 analyzer_bundle。
+
+    不再读 prompt 模板——主 agent 负责 Read `prompts/analyzer-prompt.md` 并拼装 sub-agent 的 prompt。
+    脚本只交付：session_id + overview + tool_schemas + prompt 路径 + report_path。
+    """
+    # 0) 兜底：确保 evidence/analysis_reports/ 存在（幂等）
+    ANALYSIS_REPORTS_DIR.mkdir(parents=True, exist_ok=True)
+
     # 1) 校验 + 预热（跑一次 overview 让索引生效）
     overview = see_failure_overview(session_id=session_id, root=root, refresh=False)
 
@@ -80,20 +86,20 @@ def build_bundle(session_id: str, root: Optional[str]) -> Dict[str, Any]:
             "root": root or "默认: <项目根>/evidence/projects-simplified",
             "index_ready": False,
             "error": overview["error"],
-            "analyzer_prompt": None,
+            "prompt_template_path": str(PROMPT_TEMPLATE_PATH),
+            "report_path": str(ANALYSIS_REPORTS_DIR / f"{session_id}.analysis_report.json"),
             "tool_schemas": TOOL_SCHEMAS,
         }
 
-    # 2) 填好 prompt
-    prompt = _load_prompt(session_id)
-
     return {
         "session_id": session_id,
+        "agent_cwd": overview.get("agent_cwd"),
         "root": root or "默认: <项目根>/evidence/projects-simplified",
         "index_ready": True,
         "overview_summary": overview.get("summary", {}),
         "overview_top_patterns_count": len(overview.get("top_patterns", [])),
-        "analyzer_prompt": prompt,
+        "prompt_template_path": str(PROMPT_TEMPLATE_PATH),
+        "report_path": str(ANALYSIS_REPORTS_DIR / f"{session_id}.analysis_report.json"),
         "tool_schemas": TOOL_SCHEMAS,
     }
 

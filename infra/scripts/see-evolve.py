@@ -1,15 +1,15 @@
-"""see-evolve.py — 阶段 3 入口（evolver agent 准备 + 输入校验）
+"""see-evolve.py — 阶段 3 入口（输入校验 + bundle 组装）
 
 设计同 see-analyze.py：
 - 不在 CLI 内调 LLM
 - 职责：
   1. 校验 analysis_report.json 存在且可解析
-  2. 校验 skills_dir 存在
-  3. 把 evolver 提示词模板填好 + 输出「evolver_bundle.json」
-  4. 主 agent 拿到 bundle 后用 Agent 工具调起 evolver sub-agent
+  2. 校验 skills_dir（可选）
+  3. 输出 evolver_bundle（report 路径 + skills_dir + skill_search_paths + summary + prompt 路径）
+- **不读 prompt 模板**：主 agent 自己 Read `prompts/evolver-prompt.md`
 
 用法：
-    PYTHONPATH=infra python infra/scripts/see-evolve.py <analysis_report.json> <skills_dir> \
+    PYTHONPATH=infra python infra/scripts/see-evolve.py <analysis_report.json> [skills_dir] \
         [--evolved-skills-dir <dir>] [--output <bundle.json>]
 """
 
@@ -40,13 +40,7 @@ if str(_INFRA) not in sys.path:
     sys.path.insert(0, str(_INFRA))
 
 
-PROMPT_PATH = _ROOT / "prompts" / "evolver-prompt.md"
-
-
-def _load_prompt() -> str:
-    if not PROMPT_PATH.exists():
-        raise FileNotFoundError(f"evolver 提示词不存在: {PROMPT_PATH}")
-    return PROMPT_PATH.read_text(encoding="utf-8")
+PROMPT_TEMPLATE_PATH = _ROOT / "prompts" / "evolver-prompt.md"
 
 
 def _load_report(report_path: Path) -> Dict[str, Any]:
@@ -66,16 +60,16 @@ def _summarize_suggestions(report: Dict[str, Any]) -> Dict[str, Any]:
     }
 
 
-def build_bundle(report_path: Path, skills_dir: Path, evolved_skills_dir: Optional[Path]) -> Dict[str, Any]:
-    """构造 evolver_bundle。"""
+def build_bundle(report_path: Path, skills_dir: Optional[Path], evolved_skills_dir: Optional[Path]) -> Dict[str, Any]:
+    """构造 evolver_bundle。不再读 prompt 模板——主 agent 自己 Read。"""
     if not report_path.exists():
         return {
             "report_path": str(report_path),
-            "skills_dir": str(skills_dir),
+            "skills_dir": str(skills_dir) if skills_dir else None,
             "ready": False,
             "error": f"analysis_report.json 不存在: {report_path}",
         }
-    if not skills_dir.is_dir():
+    if skills_dir is not None and not skills_dir.is_dir():
         return {
             "report_path": str(report_path),
             "skills_dir": str(skills_dir),
@@ -85,19 +79,35 @@ def build_bundle(report_path: Path, skills_dir: Path, evolved_skills_dir: Option
 
     report = _load_report(report_path)
     summary = _summarize_suggestions(report)
-    prompt = _load_prompt()
+
+    # 默认 evolved_skills_dir 位置
+    if evolved_skills_dir is None:
+        if skills_dir is not None:
+            evolved_skills_dir = skills_dir.parent / "evolved_skills"
+        else:
+            _root = Path(__file__).resolve().parents[2]
+            evolved_skills_dir = _root / "evolved_skills"
 
     return {
         "report_path": str(report_path),
-        "skills_dir": str(skills_dir),
-        "evolved_skills_dir": str(
-            evolved_skills_dir or (skills_dir.parent / "evolved_skills")
-        ),
+        "skills_dir": str(skills_dir) if skills_dir else None,
+        "evolved_skills_dir": str(evolved_skills_dir),
         "ready": True,
         "summary": summary,
-        "evolver_prompt": prompt,
+        "prompt_template_path": str(PROMPT_TEMPLATE_PATH),
+        "skill_search_paths": [
+            "$CWD/.claude/skills/",
+            "$CWD/.claude/skills/*/",
+            "$CWD/.claude/agents/*/skills/",
+            "$CWD/.claude/agents/*/.claude/skills/",
+            "$CWD/.claude/agents/*/",
+            "$CWD/skills/",
+            "$HOME/.claude/skills/",
+            "$HOME/.claude/agents/*/skills/",
+            "$HOME/.claude/agents/*/.claude/skills/",
+            "$HOME/.claude/agents/*/",
+        ],
         "context": {
-            # 把 report 摘要塞进 bundle，方便 evolver sub-agent 不必再读完整文件
             "session_id": report.get("session_id"),
             "suggestions": report.get("suggestions", []),
         },
@@ -109,9 +119,10 @@ def main() -> int:
         description="阶段 3 入口：准备 evolver agent 的 prompt + 输入校验",
     )
     parser.add_argument("report", type=Path, help="analysis_report.json 路径")
-    parser.add_argument("skills_dir", type=Path, help="被进化的 skill 源目录")
+    parser.add_argument("skills_dir", type=Path, nargs="?", default=None,
+                        help="被进化的 skill/subagent 源目录（可选；不传时 evolver 用 bundle.skill_search_paths 自动探测）")
     parser.add_argument("--evolved-skills-dir", type=Path, default=None,
-                        help="进化后副本目录（默认 <skills_dir>/../evolved_skills）")
+                        help="进化后副本目录（默认 <skills_dir>/../evolved_skills 或 <项目根>/evolved_skills）")
     parser.add_argument("--output", "-o", type=Path, default=None,
                         help="bundle 输出文件（默认 stdout）")
     args = parser.parse_args()

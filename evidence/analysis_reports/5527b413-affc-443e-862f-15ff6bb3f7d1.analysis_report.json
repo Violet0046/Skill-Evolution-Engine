@@ -1,0 +1,52 @@
+{
+  "session_id": "5527b413-affc-443e-862f-15ff6bb3f7d1",
+  "generated_at": "2026-07-02T10:00:00Z",
+  "domain_agent": "需求分析 agent",
+  "suggestions": [
+    {
+      "id": "sg-001",
+      "priority": "high",
+      "target_skill": "查询需求信息",
+      "target_file": "skills/查询需求信息/SKILL.md",
+      "direction": "在 SKILL.md 中增加前置环境检查步骤，检测到 requests 模块缺失时给出明确提示或自动尝试安装",
+      "evidence_uuids": ["dbad6dda-740f-48aa-81ea-14c3c98b878e", "48e94b02-5793-4a34-909a-364b69a31471", "61be7587-98bd-4816-a4a3-b5c0e5aa0137"],
+      "rationale": "同一 ImportError 错误在主 agent、差分场景检查单-agent、子系统变更分析-agent 中重复出现 5 次，阻塞了多次需求查询操作"
+    },
+    {
+      "id": "sg-002",
+      "priority": "medium",
+      "target_skill": "查询 icenter 页面内容",
+      "target_file": "skills/查询 icenter 页面内容/SKILL.md",
+      "direction": "在 SKILL.md 中增加认证信息获取流程：执行前先检查 .env 文件，若缺失则主动提示用户输入 emp-no 和 token",
+      "evidence_uuids": ["b647bfc7-6174-425c-bbc1-aaea48d0bf98"],
+      "rationale": "fetch_space_page.py 抛出 ValueError 时 agent 已登录 UAC 但未将凭证传递给脚本，skill 应指导如何传递认证参数"
+    },
+    {
+      "id": "sg-003",
+      "priority": "high",
+      "target_skill": "数据回流-agent",
+      "target_file": "agents/数据回流-agent/数据回流-agent.md",
+      "direction": "修改 upload.sh 脚本逻辑：当源文件不存在时仅记录警告而非报错，或者在回流规则中明确是否需要生成 model.txt",
+      "evidence_uuids": ["ce5851f8-8563-4d4d-90e9-d94f699468e2", "938eb63a-d4c4-42c0-9382-85b239ce749e"],
+      "rationale": "协议分析和问题域场景分析的回流都触发此错误，upload.sh 期望的 model.txt 不在输出规范中，导致两次回流失败"
+    },
+    {
+      "id": "sg-004",
+      "priority": "high",
+      "target_skill": "系统域变更分析 - 模块变更分析",
+      "target_file": "skills/系统域变更分析 - 模块变更分析/SKILL.md",
+      "direction": "核实 .specify/scripts/bash/consume/knowledge/collect_related_instances.sh 的实际路径，更新 SKILL.md 中的脚本调用路径或确认文件是否被误删",
+      "evidence_uuids": ["d1745286-a001-48c7-b22b-9dc080966a62"],
+      "rationale": "Exit code 127 表示脚本文件不存在，该错误在模块变更分析、组件变更分析中重复出现 3 次，阻塞系统域变更分析流程"
+    },
+    {
+      "id": "sg-005",
+      "priority": "low",
+      "target_skill": "差分场景检查单",
+      "target_file": "skills/差分场景检查单/SKILL.md",
+      "direction": "在 SKILL.md 中明确推荐使用 Skill 工具调用技能而非直接执行 Python 脚本，避免环境问题导致的失败",
+      "evidence_uuids": ["61be7587-98bd-4816-a4a3-b5c0e5aa0137"],
+      "rationale": "差分场景检查单-agent 尝试直接运行 query_simple.py 导致 ImportError，reasoning_after 提到应该用 Skill 工具调用"
+    }
+  ]
+}

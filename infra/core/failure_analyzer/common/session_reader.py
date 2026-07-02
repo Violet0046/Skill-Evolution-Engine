@@ -1,14 +1,14 @@
 """
 session_reader.py —— 双格式 entry 迭代器。
 
-数据约定（与 simplify_sessions.py 输出对齐）：
+数据约定（与 see-collect.py 输出对齐）：
 - 主文件：  <root>/<session_id>.jsonl  实际为 **JSON 数组**（顶层 `[...]`）
             800 条左右；第一条是 `{"session": {...}}` 头；其余是 entry
 - 子文件：  <root>/<session_id>/subagents/agent-<id>.jsonl  为 **NDJSON**
             第一条仍是 `{"session": {...}}` 头（isSidechain=true），其余是 entry
 
 为什么需要双格式适配：
-- simplify_sessions.py 把主文件序列化为"人类可读"的 JSON 数组（用户偏好）
+- see-collect.py 把主文件序列化为"人类可读"的 JSON 数组（用户偏好）
 - 子文件为节省 IO 用了 NDJSON（一行一条）
 - 工具集需要透明地同时处理两种格式，让上层调用不感知差异
 

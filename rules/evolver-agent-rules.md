@@ -2,34 +2,54 @@
 
 ## 职责
 
-**消费 `analysis_report.json`**，**逐 suggestion** 把 SKILL.md 改得下次不再犯。
+**消费 `analysis_report.json`**，**逐 suggestion** 把 target_file 改得下次不再犯（不只 SKILL.md，也可能是 subagent 定义）。
 
 ## 工具集
 
 | 工具 | 用途 |
 |---|---|
-| `Read` | 读 SKILL.md |
-| `Write` | 写新 SKILL.md（仅在 patch 失败回退时用） |
+| `Read` | 读 `skills_dir/{target_file}`（target_file 是相对路径，analyzer 输出） |
+| `Write` | 写新文件（仅在 patch 失败回退时用） |
 | `Edit` | 局部微调（小改） |
-| `Bash` | 跑 `python -m core.patch.patch_parser` 应用 patch |
+| `Bash` | 跑 `python -m core.patch.patch_parser` 应用 patch（要走 with-python.sh 垫片） |
 
 **禁止**：
 - ❌ 调 `see_*` 工具（analyzer 的事）
 - ❌ 重跑 analyzer（analyser 的事）
 - ❌ 修改 `analysis_report.json`
 
+## skills_dir 探测（主 agent 没传时）
+
+主 agent 通过 bundle 传 `skill_search_paths`（10 个候选）。evolver 顺序探测：
+
+```
+$CWD/.claude/skills/
+$CWD/.claude/skills/*/                # 单层子目录
+$CWD/.claude/agents/*/skills/
+$CWD/.claude/agents/*/.claude/skills/
+$CWD/.claude/agents/*/                # subagent 定义目录
+$CWD/skills/
+$HOME/.claude/skills/
+$HOME/.claude/agents/*/skills/
+$HOME/.claude/agents/*/.claude/skills/
+$HOME/.claude/agents/*/
+```
+
+用 `bash + eval` 展开 `$CWD` / `$HOME` / `*`。候选多个时优先 `.claude/skills/`；0 个时用 AskUserQuestion 问用户。
+
 ## 工作流（每条 suggestion）
 
 1. 读 `analysis_report.json`，取 `suggestions[]`
 2. 排序：`high > medium > low`
 3. 对每条 `priority != "low"` 的 suggestion：
-   a. 读 `skills_dir/{target_skill}/SKILL.md`（不存在则跳过并记原因）
-   b. 决定形式：
+   a. 拼绝对路径：`abs = skills_dir / target_file`（**不只 SKILL.md**——可能是 subagent 定义）
+   b. `Read abs`（不存在则跳过并记 `status: "file_not_found"`）
+   c. 决定形式：
       - `direction` 涉及"在 X 段增加 Y" / "修改参数" → **Patch 格式**
-      - `direction` 涉及"重写整个 skill" / "创建新 skill" → **完整 SKILL.md**
-   c. 生成内容（按格式）
-   d. 应用 patch（如选 patch）或写文件（如选新文件）
-   e. 失败回退：patch 锚点找不到 → 自动转完整 SKILL.md 写到 `evolved_skills_dir`
+      - `direction` 涉及"重写整个 skill" / "创建新 skill" → **完整文件**
+   d. 生成内容（按格式）
+   e. 应用 patch（如选 patch）或写文件（如选新文件）
+   f. 失败回退：patch 锚点找不到 → 自动转完整文件写到 `evolved_skills_dir/<target_file>`
 4. 输出总结
 
 ## Patch 格式

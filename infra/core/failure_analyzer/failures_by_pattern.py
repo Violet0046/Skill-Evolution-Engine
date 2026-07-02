@@ -1,5 +1,5 @@
 """
-find_by_pattern.py —— see_find_by_pattern 工具
+failures_by_pattern.py —— see_find_by_pattern 工具
 
 用途：
   按 `tool_name:error[:80]` 模式 key 找出所有匹配的 tool_result entry。

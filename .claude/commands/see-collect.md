@@ -14,7 +14,7 @@
 工作目录为 Skill-Evolution-Engine 项目根：
 
 ```bash
-PYTHONPATH=infra python infra/scripts/see-collect.py [projects_dir] [projects_simplified_dir]
+PYTHONPATH=infra bash infra/scripts/with-python.sh infra/scripts/see-collect.py [projects_dir] [projects_simplified_dir]
 ```
 
 ### 步骤 3：显示结果
