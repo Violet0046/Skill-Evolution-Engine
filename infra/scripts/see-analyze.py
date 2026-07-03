@@ -1,46 +1,38 @@
-"""see-analyze.py — 阶段 2 入口（数据预热 + bundle 组装）
+"""
+see-analyze.py — 阶段 2 入口（**完整** sub-agent prompt 拼装）
 
 设计：
 - 不在 CLI 内调 LLM（LLM 由主 agent 调度，sub-agent 跑）
-- CLI 的职责是：
-  1. 校验 session 存在
-  2. 预热索引（懒构建）
-  3. 跑一次 see_failure_overview 让索引生效
-  4. 输出 analyzer_bundle（session_id + overview + tool_schemas + prompt 路径）
-- **不读 prompt 模板**：主 agent 自己 Read `prompts/analyzer-prompt.md` 并拼装 sub-agent prompt
+- 主 agent 调一次本脚本 → 拿**完整** sub-agent prompt
+- CLI 内部流程：
+  1. 跑 see_failure_overview（拿 4 字段 bundle + 写 .index/ 索引，**自然产生**）
+  2. 调 core.util.resolve_architecture 拿 arch 路径（用 session_id 算）
+  3. 读 prompts/analyzer-prompt.md 模板
+  4. 读 rules/analyzer-agent-rules.md 规则
+  5. 读 arch JSON
+  6. 替换 5 个占位符（{{RULES}} / {{REPORT_PATH}} / {{AGENT_ARCH}} / {{OVERVIEW_SUMMARY}} / {{SESSION_ID}}）
+  7. 输出完整 prompt 字符串到 stdout
+
+为什么**拼完整 prompt 在这里**（**不**在主 agent）：
+- 主 agent 调 1 次拿**完整** prompt，**不**用自己拼字符串
+- 拼装逻辑集中（替换占位符的规则**只**在 see-analyze.py 里）
+- 测试简单（直接 stdout 比对）
 
 用法：
-    PYTHONPATH=infra python infra/scripts/see-analyze.py <session_id> [--root <dir>] [--output <bundle.json>]
+    PYTHONPATH=infra bash infra/scripts/with-python.sh infra/scripts/see-analyze.py <session_id> [--root <dir>] [--output <prompt.md>]
 
-输出 JSON 结构（stdout / --output 指定文件）：
-{
-  "session_id": "...",
-  "root": "...",
-  "index_ready": true,                      # 索引已预热
-  "overview_summary": {...},                # 已运行 see_failure_overview（预热）
-  "prompt_template_path": ".../prompts/analyzer-prompt.md",   # 主 agent 自己 Read
-  "tool_schemas": [...]                     # 3 个 see_* tool_use schemas
-}
-
-主 agent 拿到 bundle 后：
-  1. Read bundle.prompt_template_path 拿 prompt 模板
-  2. Agent(
-       type="general-purpose",
-       prompt=<Read 的内容>,
-       tools=bundle.tool_schemas,
-     )
-  → 跑完后写 analysis_report.json
+输出（stdout / --output 指定文件）：完整 sub-agent prompt 字符串
 """
-
 from __future__ import annotations
 
 import argparse
 import json
+import os
+import subprocess
 import sys
 from pathlib import Path
-from typing import Any, Dict, Optional
 
-# Windows GBK stdout 兜底：让 ❌ / ✅ / 中文 在 console 也能正常输出
+# Windows GBK stdout 兜底
 if hasattr(sys.stdout, "reconfigure"):
     try:
         sys.stdout.reconfigure(encoding="utf-8")
@@ -58,76 +50,118 @@ if str(_INFRA) not in sys.path:
     sys.path.insert(0, str(_INFRA))
 
 from core.failure_analyzer import see_failure_overview  # noqa: E402
-from core.failure_analyzer.schemas import TOOL_SCHEMAS  # noqa: E402
+from core.util.resolve_architecture import resolve as resolve_architecture  # noqa: E402
 
 
-PROMPT_TEMPLATE_PATH = _ROOT / "prompts" / "analyzer-prompt.md"
-
-# analysis_report 输出目录（sub-agent 用 Write 工具写到这里的子路径）
-# 跑 see-analyze 时自动 mkdir -p（兜底，避免 sub-agent 写盘时"目录不存在"）
-ANALYSIS_REPORTS_DIR = _ROOT / "evidence" / "analysis_reports"
+PROMPT_TEMPLATE = _ROOT / "prompts" / "analyzer-prompt.md"
+RULES_FILE = _ROOT / "rules" / "analyzer-agent-rules.md"
 
 
-def build_bundle(session_id: str, root: Optional[str]) -> Dict[str, Any]:
-    """构造 analyzer_bundle。
+def _run_subprocess(cmd: list[str], env_extra: dict | None = None) -> dict:
+    """跑子命令，stdout JSON 解析成 dict。失败抛 RuntimeError。"""
+    env = os.environ.copy()
+    if env_extra:
+        env.update(env_extra)
+    result = subprocess.run(cmd, capture_output=True, text=True, check=False, env=env)
+    if result.returncode != 0:
+        raise RuntimeError(f"{cmd[0]} 失败 (exit={result.returncode}): {result.stderr.strip() or result.stdout.strip()}")
+    try:
+        return json.loads(result.stdout)
+    except json.JSONDecodeError as e:
+        raise RuntimeError(f"{cmd[0]} 输出不是 JSON: {e}")
 
-    不再读 prompt 模板——主 agent 负责 Read `prompts/analyzer-prompt.md` 并拼装 sub-agent 的 prompt。
-    脚本只交付：session_id + overview + tool_schemas + prompt 路径 + report_path。
+
+def assemble_prompt(session_id: str, root: str | None) -> str:
+    """完整 sub-agent prompt 拼装（输入 session_id，**不**需要 agent_cwd）。"""
+    root_arg = ["--root", root] if root else []
+
+    # 1) overview（写 .index/，失败 raise）
+    see_failure_overview(session_id=session_id, root=root, refresh=False)
+
+    # 2) resolve_architecture（用 session_id 拿 arch 路径）
+    arch_result = _run_subprocess(
+        ["bash", str(_ROOT / "infra/scripts/with-python.sh"),
+         "-m", "core.util.resolve_architecture", session_id] + root_arg,
+    )
+    arch_path_abs = arch_result.get("arch_path_abs")
+    exists = arch_result.get("exists", False)
+    if not arch_path_abs or not exists:
+        print(f"ERROR: arch 不存在 ({arch_path_abs})", file=sys.stderr)
+        sys.exit(1)
+
+    # 3) 读模板 + 规则 + arch
+    template = PROMPT_TEMPLATE.read_text(encoding="utf-8")
+    rules = RULES_FILE.read_text(encoding="utf-8")
+    arch_content = Path(arch_path_abs).read_text(encoding="utf-8")
+
+    # 4) 失败概览段（**自己**读 .index/<sid>.json 取 summary + by_agent_type）
+    #    —— overview 已写好 .index/，**直接**读
+    index_data = json.loads(
+        (_ROOT / "evidence" / "projects-simplified" / ".index" / f"{session_id}.json")
+        .read_text(encoding="utf-8")
+    )
+    overview_md = _format_overview(index_data)
+
+    # 5) 报告路径（脚本自己算，**不**从 bundle 读）
+    report_path = str(_ROOT / "evidence" / "analysis_reports" / f"{session_id}.analysis_report.json")
+
+    # 6) 替换 5 个占位符
+    return (template
+            .replace("{{RULES}}", rules)
+            .replace("{{REPORT_PATH}}", report_path)
+            .replace("{{AGENT_ARCH}}", arch_content)
+            .replace("{{OVERVIEW_SUMMARY}}", overview_md)
+            .replace("{{SESSION_ID}}", session_id))
+
+
+def _format_overview(bundle: dict) -> str:
+    """把 bundle.summary + by_agent_type 格式化成 markdown。
+
+    by_agent_type 支持两种格式：
+    - dict（从 .index/ 文件读）：{agent_type: {count, uuids}}
+    - list[dict]（从 see_failure_overview return）：[{agent_type, count, uuids}]
     """
-    # 0) 兜底：确保 evidence/analysis_reports/ 存在（幂等）
-    ANALYSIS_REPORTS_DIR.mkdir(parents=True, exist_ok=True)
+    summary = bundle.get("summary", {})
+    by_agent_type = bundle.get("by_agent_type", {})
 
-    # 1) 校验 + 预热（跑一次 overview 让索引生效）
-    overview = see_failure_overview(session_id=session_id, root=root, refresh=False)
-
-    if "error" in overview:
-        return {
-            "session_id": session_id,
-            "root": root or "默认: <项目根>/evidence/projects-simplified",
-            "index_ready": False,
-            "error": overview["error"],
-            "prompt_template_path": str(PROMPT_TEMPLATE_PATH),
-            "report_path": str(ANALYSIS_REPORTS_DIR / f"{session_id}.analysis_report.json"),
-            "tool_schemas": TOOL_SCHEMAS,
-        }
-
-    return {
-        "session_id": session_id,
-        "agent_cwd": overview.get("agent_cwd"),
-        "root": root or "默认: <项目根>/evidence/projects-simplified",
-        "index_ready": True,
-        "overview_summary": overview.get("summary", {}),
-        "overview_top_patterns_count": len(overview.get("top_patterns", [])),
-        "prompt_template_path": str(PROMPT_TEMPLATE_PATH),
-        "report_path": str(ANALYSIS_REPORTS_DIR / f"{session_id}.analysis_report.json"),
-        "tool_schemas": TOOL_SCHEMAS,
-    }
+    lines = []
+    lines.append("**Summary**: " + json.dumps(summary, ensure_ascii=False))
+    if by_agent_type:
+        lines.append("")
+        lines.append("**By agent type** (按错误数降序):")
+        if isinstance(by_agent_type, dict):
+            for atype, info in by_agent_type.items():
+                lines.append(f"- `{atype}` ×{info.get('count', 0)}")
+        else:
+            for a in by_agent_type:
+                lines.append(f"- `{a.get('agent_type', '?')}` ×{a.get('count', 0)}")
+    return "\n".join(lines)
 
 
 def main() -> int:
     parser = argparse.ArgumentParser(
-        description="阶段 2 入口：准备 analyzer agent 的 prompt + tool schemas，并预热索引",
+        description="阶段 2 入口：拼装完整 sub-agent prompt（调 overview + resolve_architecture）",
     )
     parser.add_argument("session_id", help="目标 session UUID")
-    parser.add_argument("--root", default=None, help="简化版数据根目录（可选）")
+    parser.add_argument("--root", default=None, help="简化版数据根目录（默认 ../projects-simplified）")
     parser.add_argument("--output", "-o", type=Path, default=None,
-                        help="bundle 输出文件（默认 stdout）")
-    parser.add_argument("--refresh", action="store_true", help="强制重建索引")
+                        help="prompt 输出文件（默认 stdout）")
     args = parser.parse_args()
 
-    bundle = build_bundle(args.session_id, args.root)
+    try:
+        prompt = assemble_prompt(args.session_id, args.root)
+    except RuntimeError as e:
+        print(f"ERROR: {e}", file=sys.stderr)
+        return 2
 
     if args.output:
         args.output.parent.mkdir(parents=True, exist_ok=True)
-        args.output.write_text(
-            json.dumps(bundle, ensure_ascii=False, indent=2),
-            encoding="utf-8",
-        )
-        print(f"已写入 bundle: {args.output}")
+        args.output.write_text(prompt, encoding="utf-8")
+        print(f"已写入 prompt: {args.output}")
     else:
-        print(json.dumps(bundle, ensure_ascii=False, indent=2))
+        print(prompt, end="")
 
-    return 0 if bundle.get("index_ready") else 1
+    return 0
 
 
 if __name__ == "__main__":

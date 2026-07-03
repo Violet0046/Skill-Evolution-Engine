@@ -5,7 +5,16 @@
 MIN_MAJOR=3
 MIN_MINOR=8
 
-for py in python3.13 python3.12 python3.11 python3.10 python3.9 python3.8 python3 python; do
+# Python 解释器候选（按从高到低）
+CANDIDATES=(python3.13 python3.12 python3.11 python3.10 python3.9 python3.8 python3 python)
+
+# 自动 export infra 到 PYTHONPATH（让 `import core.xxx` 走得到）
+# 取脚本所在位置 → .. 算出 infra 目录
+_THIS_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+_INFRA_DIR="$(cd "$_THIS_DIR/.." && pwd)"
+export PYTHONPATH="$_INFRA_DIR${PYTHONPATH:+:$PYTHONPATH}"
+
+for py in "${CANDIDATES[@]}"; do
     if command -v "$py" >/dev/null 2>&1; then
         if "$py" -c "import sys; sys.exit(0 if sys.version_info >= ($MIN_MAJOR, $MIN_MINOR) else 1)" 2>/dev/null; then
             exec "$py" "$@"
@@ -14,5 +23,5 @@ for py in python3.13 python3.12 python3.11 python3.10 python3.9 python3.8 python
 done
 
 echo "with-python.sh: 需要 Python ${MIN_MAJOR}.${MIN_MINOR}+，但机器上找不到" >&2
-echo "已探测: python3.13 / 3.12 / 3.11 / 3.10 / 3.9 / 3.8 / python3 / python" >&2
+echo "尝试的候选: ${CANDIDATES[*]}" >&2
 exit 1

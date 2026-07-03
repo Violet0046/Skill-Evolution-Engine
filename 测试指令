@@ -1,0 +1,20 @@
+# 收集
+bash infra/scripts/with-python.sh infra/scripts/see-collect.py
+
+# 阶段 2 拼完整 prompt
+bash infra/scripts/with-python.sh infra/scripts/see-analyze.py 5527b413-affc-443e-862f-15ff6bb3f7d1
+bash infra/scripts/with-python.sh infra/scripts/see-analyze.py 5527b413-affc-443e-862f-15ff6bb3f7d1 --output /home/10358563/.claude/agents/Skill-Evolution-Engine/prompt.md
+
+# 预热索引（成功 stdout 静默，失败 JSON error）
+bash infra/scripts/with-python.sh -m core.failure_analyzer overview 5527b413-affc-443e-862f-15ff6bb3f7d1
+
+# 拿 arch 路径
+bash infra/scripts/with-python.sh -m core.util.resolve_architecture 5527b413-affc-443e-862f-15ff6bb3f7d1
+
+# 按 agent 查 hits
+bash infra/scripts/with-python.sh -m core.failure_analyzer find 5527b413-affc-443e-862f-15ff6bb3f7d1 --agent-type 协议分析-agent
+
+# 单条 entry 完整上下文
+bash infra/scripts/with-python.sh -m core.failure_analyzer detail 5527b413-affc-443e-862f-15ff6bb3f7d1 69be4770-180c-4a84-83e2-caa64901ca6e
+
+

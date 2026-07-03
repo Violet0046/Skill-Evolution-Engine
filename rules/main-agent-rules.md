@@ -1,18 +1,42 @@
 # 主 agent 规则（调度层）
 
-## 职责
+## 定位
 
-主 agent 只做**编排 + 进度同步**，不读 session、不做归因、不写 patch。
+主 agent 推动整个 SEE 工作流的调度——**编排 3 阶段 + 调度 sub-agent + 同步用户**。
+不读 session、不做归因、不写 patch、不跨阶段。
 
 ## 3 阶段工作流
 
-按顺序执行，**严格不可乱序**：
+按顺序执行，**严格不可乱序**。每个阶段的详细说明看对应的 `infra/phases/phaseN-*.md`（主 agent 跑阶段前必读）。
 
-```
-1. see-collect       原始 session → projects-simplified（+ 索引懒构建）
-2. see-analyze       analyzer agent 探索数据 → analysis_report.json
-3. see-evolve        evolver agent 消费报告 → 升级 SKILL.md
-```
+### 阶段 1：数据采集
+- **执行依据**：[infra/phases/phase1-collect.md](../infra/phases/phase1-collect.md)
+- **跑**：`PYTHONPATH=infra bash infra/scripts/with-python.sh infra/scripts/see-collect.py [projects_dir] [projects_simplified_dir]`
+- **主 agent 职责**：跑脚本
+- **效果**：原始 session → 简化版数据写到 `evidence/projects-simplified/`
+- **不做**：读 session、调 sub-agent
+
+### 阶段 2：失败分析
+- **执行依据**：[infra/phases/phase2-analyze.md](../infra/phases/phase2-analyze.md)
+- **跑**：`PYTHONPATH=infra bash infra/scripts/with-python.sh infra/scripts/see-analyze.py <session_id> [--root <dir>]`
+- **主 agent 职责**：跑脚本 + 调度 analyzer sub-agent（详见下面"调度链路"小节）
+- **效果**：analyzer sub-agent 写 `evidence/analysis_reports/<sid>.analysis_report.json`
+- **不做**：自己读 session、自己做归因
+
+### 阶段 3：Skill 进化
+- **执行依据**：[infra/phases/phase3-evolve.md](../infra/phases/phase3-evolve.md)
+- **跑**：`PYTHONPATH=infra bash infra/scripts/with-python.sh infra/scripts/see-evolve.py <report.json> [skills_dir]`
+- **主 agent 职责**：跑脚本 + 调度 evolver sub-agent（详见下面"调度链路"小节）
+- **效果**：evolver sub-agent 改 target_file + 输出 `evolution_report.json`
+- **不做**：自己改 SKILL.md
+
+## 阶段间交互
+
+每阶段完，**返回话给用户**等确认，不自动跳到下一阶段：
+
+- **阶段 1 完**：列出可分析 sessions（`ls evidence/projects-simplified/*.jsonl | xargs -I{} basename {} .jsonl`），问"**分析哪个 session？**"
+- **阶段 2 完**：报告 `analysis_report.json` 路径 + suggestions 数，问"**进入阶段 3 进化 skills 吗？**"
+- **阶段 3 完**：报告 `evolution_report.json` 路径 + 已升级 / 失败统计，流程结束
 
 ## 触发条件
 
@@ -75,21 +99,18 @@ session_id = "5527b413-..."  # 来自用户输入
 subprocess.run(["bash", "infra/scripts/with-python.sh", "infra/scripts/see-collect.py"], check=True)
 
 # 阶段 2: 调度 analyzer agent
-# 1) 跑 see-analyze.py 拿 bundle（含 agent_cwd + overview + tool_schemas + prompt_template_path）
-bundle = see_analyze_bundle(session_id)  # bash infra/scripts/with-python.sh infra/scripts/see-analyze.py
-agent_cwd = bundle["overview"]["agent_cwd"]              # e.g. /media/.../需求分析Agent
-prompt_tpl = read(bundle["prompt_template_path"])        # prompts/analyzer-prompt.md
-arch_path = f"agent-architectures/{Path(agent_cwd).name}.json"   # 主 agent 算 basename
-if exists(arch_path):
-    architecture = read(arch_path)                       # 目标 agent 的可改文件清单
-else:
-    architecture = "<未找到 agent-architectures/...json，自由归因>"
-# 2) 拼 prompt：模板 + 目标 agent 架构（sub-agent 看到后从 targets[] 选 target_file）
-full_prompt = prompt_tpl + "\n\n## 目标 agent 架构（来自 " + arch_path + "）\n```json\n" + architecture + "\n```"
-# 3) 调 sub-agent
+# see-analyze.py 直接输出完整 sub-agent prompt（**不**再主 agent 自己拼）
+# 内部流程：see_failure_overview → resolve_architecture → 读模板/规则/arch → 替换 5 个占位符 → 输出 prompt
+result = subprocess.run(
+    ["bash", "infra/scripts/with-python.sh", "infra/scripts/see-analyze.py", session_id],
+    capture_output=True, text=True, check=True,
+)
+prompt = result.stdout
+
+# 调 sub-agent
 analyzer = Agent(
     type="general-purpose",
-    prompt=full_prompt,
+    prompt=prompt,
     tools=["Bash", "Write"],   # sub-agent 用 Bash 调 see_* CLI（走 with-python.sh 垫片），用 Write 写 report
 )
 report_path = analyzer.run()  # 用 Write 工具一次性写 analysis_report.json

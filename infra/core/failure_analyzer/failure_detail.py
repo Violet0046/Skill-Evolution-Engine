@@ -5,7 +5,7 @@ failure_detail.py —— see_entry_detail 工具
   按 (session_id, uuid) 取出单条 entry 的完整上下文，是 see_* 工具
   集中"最深度"的查询。
 
-  LLM 通常在 see_find_by_pattern 拿到 hit uuid 后调用本工具，看
+  LLM 通常在 see_find 拿到 hit uuid 后调用本工具，看
   - 完整 input_params（不被 simplify 截断）
   - 完整 error_output
   - 同源 reasoning（最近的 ai_text，作为 LLM 当时的"思考"）

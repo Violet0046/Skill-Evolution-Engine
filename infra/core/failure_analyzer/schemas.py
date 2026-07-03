@@ -61,52 +61,7 @@ SEE_FAILURE_OVERVIEW_SCHEMA: Dict[str, Any] = {
 
 
 # ---------------------------------------------------------------------------
-# Tool 2: see_find_by_pattern
-# ---------------------------------------------------------------------------
-
-SEE_FIND_BY_PATTERN_SCHEMA: Dict[str, Any] = {
-    "name": "see_find_by_pattern",
-    "description": (
-        "按 tool_name:error[:80] 失败模式 key 找出所有匹配的 tool_result entry。"
-        "返回 hit 列表（4 字段：uuid / agent_type / timestamp / error_excerpt）。"
-        "find 是中观浏览工具：让 LLM 在不爆 context 的前提下扫描一类失败。"
-        "完整上下文（input_params / reasoning 等）请用 see_entry_detail。"
-    ),
-    "input_schema": {
-        "type": "object",
-        "properties": {
-            "session_id": {
-                "type": "string",
-                "description": "Session UUID",
-            },
-            "pattern": {
-                "type": "string",
-                "description": "失败模式 key，格式 'ToolName:error[:80]'",
-            },
-            "root": {
-                "type": "string",
-                "description": "简化版数据根目录（可选）",
-            },
-            "limit": {
-                "type": "integer",
-                "description": "返回 hit 数量上限（默认 20，最大 100）",
-                "default": 20,
-                "minimum": 1,
-                "maximum": 100,
-            },
-            "include_subagents": {
-                "type": "boolean",
-                "description": "是否包含 subagent 命中（默认 True）",
-                "default": True,
-            },
-        },
-        "required": ["session_id", "pattern"],
-    },
-}
-
-
-# ---------------------------------------------------------------------------
-# Tool 3: see_entry_detail
+# Tool 2: see_entry_detail
 # ---------------------------------------------------------------------------
 
 SEE_ENTRY_DETAIL_SCHEMA: Dict[str, Any] = {
@@ -129,7 +84,7 @@ SEE_ENTRY_DETAIL_SCHEMA: Dict[str, Any] = {
             },
             "uuid": {
                 "type": "string",
-                "description": "目标 entry 的 uuid（通常从 see_find_by_pattern 的 hits 拿）",
+                "description": "目标 entry 的 uuid（通常从 see_find 的 hits 拿）",
             },
             "root": {
                 "type": "string",
@@ -166,14 +121,12 @@ SEE_ENTRY_DETAIL_SCHEMA: Dict[str, Any] = {
 
 TOOL_SCHEMAS: List[Dict[str, Any]] = [
     SEE_FAILURE_OVERVIEW_SCHEMA,
-    SEE_FIND_BY_PATTERN_SCHEMA,
     SEE_ENTRY_DETAIL_SCHEMA,
 ]
 
 
 __all__ = [
     "SEE_FAILURE_OVERVIEW_SCHEMA",
-    "SEE_FIND_BY_PATTERN_SCHEMA",
     "SEE_ENTRY_DETAIL_SCHEMA",
     "TOOL_SCHEMAS",
 ]

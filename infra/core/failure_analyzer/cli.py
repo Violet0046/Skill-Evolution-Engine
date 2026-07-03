@@ -61,62 +61,76 @@ def _print_result(result: Dict[str, Any]) -> int:
 
 
 def cmd_overview(args: argparse.Namespace) -> int:
+    """overview 预热 .index/<sid>.json（**不**返 dict，失败 raise）。"""
     from .failure_overview import see_failure_overview
-    result = see_failure_overview(
+    see_failure_overview(
         session_id=args.session_id,
         root=args.root,
-        top_n_patterns=args.top_n_patterns,
         refresh=args.refresh,
     )
-    return _print_result(result)
+    # 成功：stdout 静默（**不** print "null"）
+    return 0
 
 
 def cmd_find(args: argparse.Namespace) -> int:
-    # 三种进入方式都列所有 pattern：
-    #   1) find <sid>                   — 不传 pattern
-    #   2) find <sid> --list-patterns   — 显式开关
-    #   3) find <sid> ""                — 显式空 pattern
-    if not args.pattern or args.list_patterns:
-        from pathlib import Path
-        from .common.errors import err as _err
-        from .common.index_store import SessionIndex
-        root = args.root or str(Path(__file__).resolve().parents[3] / "evidence" / "projects-simplified")
-        main_path = Path(root) / f"{args.session_id}.jsonl"
-        if not main_path.exists():
-            return _print_result(_err(f"session not found: {args.session_id}",
-                                       session_id=args.session_id, root=root))
-        try:
-            idx = SessionIndex(args.session_id, root)
-            data = idx.load()
-        except Exception as e:
-            return _print_result(_err(f"index load failed: {e}", session_id=args.session_id))
+    """两种进入方式都按 agent 维度（不再支持按 pattern）：
+      1) find <sid>                       — 列出所有 agent（按 count 降序）
+      2) find <sid> --agent-type <type>   — 查该 agent 的所有 hit (返回 uuid 列表 + summary)
+    """
+    from pathlib import Path
+    from .common.errors import err as _err
+    from .common.index_store import SessionIndex
 
+    root = args.root or str(Path(__file__).resolve().parents[3] / "evidence" / "projects-simplified")
+    main_path = Path(root) / f"{args.session_id}.jsonl"
+    if not main_path.exists():
+        return _print_result(_err(f"session not found: {args.session_id}",
+                                   session_id=args.session_id, root=root))
+    try:
+        idx = SessionIndex(args.session_id, root)
+        data = idx.load()
+    except Exception as e:
+        return _print_result(_err(f"index load failed: {e}", session_id=args.session_id))
+
+    # 不传 --agent-type：列所有 agent
+    if not args.agent_type:
         items = [
             {
-                "pattern": pat,
+                "agent_type": atype,
                 "count": info.get("count", 0),
-                # main_count / subagent_count 从 agent_id 推导（v1.6 索引无 source 字段）
-                "main_count": sum(1 for r in info.get("uuids", []) if r.get("agent_id") is None),
-                "subagent_count": sum(1 for r in info.get("uuids", []) if r.get("agent_id") is not None),
             }
-            for pat, info in data.get("by_pattern", {}).items()
+            for atype, info in data.get("by_agent_type", {}).items()
         ]
         return _print_result({
             "session_id": args.session_id,
-            "patterns": items,
+            "agents": items,
             "count": len(items),
-            "hint": "复制任一 pattern 值后用 find <sid> <pattern> 查具体 hit",
+            "hint": "复制任一 agent_type 值后用 find <sid> --agent-type <type> 查该 agent 的所有 hit",
         })
 
-    from .failures_by_pattern import see_find_by_pattern
-    result = see_find_by_pattern(
-        session_id=args.session_id,
-        pattern=args.pattern,
-        root=args.root,
-        limit=args.limit,
-        include_subagents=not args.main_only,
-    )
-    return _print_result(result)
+    # 传 --agent-type：返回该 agent 的所有 hit uuid + agent_id（sub-agent 用 detail 看具体）
+    bucket = data.get("by_agent_type", {}).get(args.agent_type)
+    if not bucket:
+        return _print_result({
+            "session_id": args.session_id,
+            "agent_type": args.agent_type,
+            "matched": 0,
+            "hits": [],
+        })
+
+    all_hits = bucket.get("uuids", [])
+    if args.main_only:
+        all_hits = [h for h in all_hits if h.get("agent_id") is None]
+    limited = all_hits[:args.limit]
+
+    return _print_result({
+        "session_id": args.session_id,
+        "agent_type": args.agent_type,
+        "matched": len(all_hits),
+        "returned": len(limited),
+        "hits": limited,
+        "hint": "用 detail <sid> <uuid> 看每个 hit 的完整上下文（T1→T4）",
+    })
 
 
 def cmd_detail(args: argparse.Namespace) -> int:
@@ -175,16 +189,13 @@ def build_parser() -> argparse.ArgumentParser:
     # overview
     p_ov = sub.add_parser(
         "overview", parents=[common],
-        help="获取 session 失败概览（stats + top 失败模式）",
+        help="获取 session 失败概览（stats + by_agent_type）",
         description=(
-            "返回 session 统计（总 entry 数 / 错误数 / 持续时间）+ top-N 失败模式。\n"
-            "模式按出现频次降序，每个模式含 uuid 三元组（uuid + agent_id + source）。\n"
+            "返回 session 统计（总 entry 数 / 错误数 / 持续时间）+ by_agent_type 聚类（按错误数降序）。\n"
             "默认懒构建索引（首次调用约 200-400ms），加 --refresh 强制重建。"
         ),
     )
     p_ov.add_argument("session_id", help="Session UUID")
-    p_ov.add_argument("--top-n-patterns", type=int, default=10,
-                      help="top_patterns 列表上限（默认 10）")
     p_ov.add_argument("--refresh", action="store_true",
                       help="强制重建索引（覆盖源文件 mtime 检查）")
     p_ov.set_defaults(func=cmd_overview)
@@ -192,26 +203,21 @@ def build_parser() -> argparse.ArgumentParser:
     # find
     p_find = sub.add_parser(
         "find", parents=[common],
-        help="按失败模式找 entry（不传 pattern 则列出所有模式）",
+        help="按 agent 找 entry（不传 --agent-type 则列出所有 agent）",
         description=(
-            "三种用法：\n"
-            "  1) find <sid>                  — 列出所有失败模式（按 count 降序），\n"
-            "     含 main_count / subagent_count 分布\n"
-            "  2) find <sid> <pattern>        — 查该 pattern 的所有 hit（4 字段）\n"
-            "     hit 含 uuid / agent_type / timestamp / error_excerpt\n"
-            "  3) find <sid> --list-patterns  — 同 (1)，显式开关\n"
+            "两种用法：\n"
+            "  1) find <sid>                        — 列出所有 agent（按 count 降序）\n"
+            "  2) find <sid> --agent-type <type>    — 查该 agent 的所有 hit\n"
             "\n"
-            "pattern 通常从 overview 的 top_patterns[*].pattern 复制得到"
+            "agent_type 通常从 overview 的 by_agent_type[*].agent_type 复制得到"
         ),
     )
     p_find.add_argument("session_id", help="Session UUID")
-    p_find.add_argument("pattern", nargs="?", default=None,
-                        help="失败模式 key（位置参数），如 'Bash:Exit code 1'。不传则列所有。")
+    p_find.add_argument("--agent-type", default=None,
+                        help="按 agent_type 查所有 hit")
     p_find.add_argument("--limit", type=int, default=20, help="返回 hit 上限（默认 20）")
     p_find.add_argument("--main-only", action="store_true",
                         help="仅返回主流程命中（不含 subagent）")
-    p_find.add_argument("--list-patterns", action="store_true",
-                        help="显式开关：列所有模式（不传 pattern 时已是默认行为）")
     p_find.set_defaults(func=cmd_find)
 
     # detail

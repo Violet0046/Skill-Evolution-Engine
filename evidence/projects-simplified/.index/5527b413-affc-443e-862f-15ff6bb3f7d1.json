@@ -1,265 +1,198 @@
 {
   "session_id": "5527b413-affc-443e-862f-15ff6bb3f7d1",
-  "stats": {
+  "agent_cwd": "/media/vdc/V3Bak/SDD/prcoess/workspace/需求分析Agent",
+  "summary": {
     "total_entries": 2417,
     "total_errors": 27,
     "main_errors": 4,
     "sub_errors": 23,
-    "subagent_files": 36
+    "subagent_files": 36,
+    "session_duration_hours": 7.04
   },
-  "by_pattern": {
-    "Bash:Exit code 1": {
-      "count": 8,
-      "uuids": [
-        {
-          "uuid": "dbad6dda-740f-48aa-81ea-14c3c98b878e",
-          "agent_id": null,
-          "agent_type": "main"
-        },
-        {
-          "uuid": "48e94b02-5793-4a34-909a-364b69a31471",
-          "agent_id": null,
-          "agent_type": "main"
-        },
-        {
-          "uuid": "b647bfc7-6174-425c-bbc1-aaea48d0bf98",
-          "agent_id": null,
-          "agent_type": "main"
-        },
-        {
-          "uuid": "61be7587-98bd-4816-a4a3-b5c0e5aa0137",
-          "agent_id": "a1cd7b2c3f94f91b6",
-          "agent_type": "差分场景检查单-agent"
-        },
-        {
-          "uuid": "e62649de-ca31-4a2e-aebb-2b46c41c3542",
-          "agent_id": "a1cd7b2c3f94f91b6",
-          "agent_type": "差分场景检查单-agent"
-        },
-        {
-          "uuid": "ce5851f8-8563-4d4d-90e9-d94f699468e2",
-          "agent_id": "a3d2a3220fb928756",
-          "agent_type": "数据回流-agent"
-        },
-        {
-          "uuid": "938eb63a-d4c4-42c0-9382-85b239ce749e",
-          "agent_id": "a3d2a3220fb928756",
-          "agent_type": "数据回流-agent"
-        },
-        {
-          "uuid": "0fe6189f-8788-4925-a002-77977d311034",
-          "agent_id": "aef18e33a6574ab03",
-          "agent_type": "系统域变更分析-子系统变更分析-agent"
-        }
-      ]
-    },
-    "Write:<tool_use_error>File has not been read yet. Read it first before writing to it.<": {
-      "count": 8,
-      "uuids": [
-        {
-          "uuid": "56c1286d-8715-4854-aaf7-82dc903f9bfc",
-          "agent_id": null,
-          "agent_type": "main"
-        },
-        {
-          "uuid": "437d64d4-55fc-4cd9-8964-f7becd69e1a8",
-          "agent_id": "a21382f41969ab13f",
-          "agent_type": "review-agent"
-        },
-        {
-          "uuid": "b15b9fc9-a461-48c8-8a0b-023c22f9092a",
-          "agent_id": "a21382f41969ab13f",
-          "agent_type": "review-agent"
-        },
-        {
-          "uuid": "593f0bcd-7b05-4ecc-9c84-07bc7bc0223a",
-          "agent_id": "a3d69f73edd92b684",
-          "agent_type": "review-agent"
-        },
-        {
-          "uuid": "8edbef50-4ecd-4e53-ac10-5af2c99254b7",
-          "agent_id": "a4c6ada8e09455925",
-          "agent_type": "review-agent"
-        },
-        {
-          "uuid": "f24a7d4a-d8ef-4c68-8e98-051fc18041b9",
-          "agent_id": "a4c6ada8e09455925",
-          "agent_type": "review-agent"
-        },
-        {
-          "uuid": "4c3d73f9-fb15-4fd0-af5e-b37094e8136d",
-          "agent_id": "ac553c1bd687ea52e",
-          "agent_type": "review-agent"
-        },
-        {
-          "uuid": "e3117435-d9b3-4802-80d4-f471ceb6c7d7",
-          "agent_id": "ac553c1bd687ea52e",
-          "agent_type": "review-agent"
-        }
-      ]
-    },
-    "Bash:Exit code 2": {
-      "count": 4,
+  "by_agent_type": {
+    "review-agent": {
+      "count": 10,
       "uuids": [
         {
           "uuid": "999c39fd-7121-4172-bfcf-32790de221ab",
           "agent_id": "a0e80e5895aab69b8",
-          "agent_type": "review-agent"
+          "failure_pattern": "Bash:Exit code 2"
         },
         {
-          "uuid": "df4b1d90-5377-4958-b170-787581f69866",
-          "agent_id": "a1cd7b2c3f94f91b6",
-          "agent_type": "差分场景检查单-agent"
+          "uuid": "437d64d4-55fc-4cd9-8964-f7becd69e1a8",
+          "agent_id": "a21382f41969ab13f",
+          "failure_pattern": "Write:<tool_use_error>File has not been read yet. Read it first before writing to it.<"
         },
         {
-          "uuid": "a3468757-32b5-4712-8ef5-a124b33868b4",
-          "agent_id": "a21d30098e8b27513",
-          "agent_type": "问题域场景分析-场景要素分析-agent"
+          "uuid": "b15b9fc9-a461-48c8-8a0b-023c22f9092a",
+          "agent_id": "a21382f41969ab13f",
+          "failure_pattern": "Write:<tool_use_error>File has not been read yet. Read it first before writing to it.<"
         },
-        {
-          "uuid": "eaee66bb-8a75-4cde-9af1-50c5eec8bc42",
-          "agent_id": "a2383ab6f2ab3cba3",
-          "agent_type": "问题域场景分析-根因分析-agent"
-        }
-      ]
-    },
-    "Bash:Exit code 127": {
-      "count": 3,
-      "uuids": [
-        {
-          "uuid": "d1745286-a001-48c7-b22b-9dc080966a62",
-          "agent_id": "a68a1347dca87b6ec",
-          "agent_type": "系统域变更分析-模块变更分析-agent"
-        },
-        {
-          "uuid": "ae8125d8-85c4-4400-8d67-c0cb85448669",
-          "agent_id": "a68a1347dca87b6ec",
-          "agent_type": "系统域变更分析-模块变更分析-agent"
-        },
-        {
-          "uuid": "31df3abd-f577-4c6b-88ee-cf8ccdfbd0c4",
-          "agent_id": "adda22217284ec389",
-          "agent_type": "系统域变更分析-组件变更分析-agent"
-        }
-      ]
-    },
-    "Edit:<tool_use_error>Error: No such tool available: Edit. Edit exists but is not enab": {
-      "count": 1,
-      "uuids": [
-        {
-          "uuid": "8f5a1906-82ce-412e-9e20-64cf2b2e587f",
-          "agent_id": "a5ab45c0eea85f972",
-          "agent_type": "协议分析-agent"
-        }
-      ]
-    },
-    "Read:EISDIR: illegal operation on a directory, read '/media/vdc/V3Bak/SDD/prcoess/wor": {
-      "count": 1,
-      "uuids": [
         {
           "uuid": "3d65db5a-7b56-44f7-9a75-b1a2a1b8930f",
           "agent_id": "a35c89f62ddae1f83",
-          "agent_type": "review-agent"
+          "failure_pattern": "Read:EISDIR: illegal operation on a directory, read '/media/vdc/V3Bak/SDD/prcoess/wor"
+        },
+        {
+          "uuid": "99b2f84e-7c1d-46ff-b29f-7545f00a849c",
+          "agent_id": "a3d69f73edd92b684",
+          "failure_pattern": "Read:File does not exist. Note: your current working directory is /media/vdc/V3Bak/SD"
+        },
+        {
+          "uuid": "593f0bcd-7b05-4ecc-9c84-07bc7bc0223a",
+          "agent_id": "a3d69f73edd92b684",
+          "failure_pattern": "Write:<tool_use_error>File has not been read yet. Read it first before writing to it.<"
+        },
+        {
+          "uuid": "8edbef50-4ecd-4e53-ac10-5af2c99254b7",
+          "agent_id": "a4c6ada8e09455925",
+          "failure_pattern": "Write:<tool_use_error>File has not been read yet. Read it first before writing to it.<"
+        },
+        {
+          "uuid": "f24a7d4a-d8ef-4c68-8e98-051fc18041b9",
+          "agent_id": "a4c6ada8e09455925",
+          "failure_pattern": "Write:<tool_use_error>File has not been read yet. Read it first before writing to it.<"
+        },
+        {
+          "uuid": "4c3d73f9-fb15-4fd0-af5e-b37094e8136d",
+          "agent_id": "ac553c1bd687ea52e",
+          "failure_pattern": "Write:<tool_use_error>File has not been read yet. Read it first before writing to it.<"
+        },
+        {
+          "uuid": "e3117435-d9b3-4802-80d4-f471ceb6c7d7",
+          "agent_id": "ac553c1bd687ea52e",
+          "failure_pattern": "Write:<tool_use_error>File has not been read yet. Read it first before writing to it.<"
         }
       ]
     },
-    "Read:File content (274.8KB) exceeds maximum allowed size (256KB). Use offset and limi": {
-      "count": 1,
+    "main": {
+      "count": 4,
+      "uuids": [
+        {
+          "uuid": "dbad6dda-740f-48aa-81ea-14c3c98b878e",
+          "agent_id": null,
+          "failure_pattern": "Bash:Exit code 1"
+        },
+        {
+          "uuid": "48e94b02-5793-4a34-909a-364b69a31471",
+          "agent_id": null,
+          "failure_pattern": "Bash:Exit code 1"
+        },
+        {
+          "uuid": "b647bfc7-6174-425c-bbc1-aaea48d0bf98",
+          "agent_id": null,
+          "failure_pattern": "Bash:Exit code 1"
+        },
+        {
+          "uuid": "56c1286d-8715-4854-aaf7-82dc903f9bfc",
+          "agent_id": null,
+          "failure_pattern": "Write:<tool_use_error>File has not been read yet. Read it first before writing to it.<"
+        }
+      ]
+    },
+    "差分场景检查单-agent": {
+      "count": 3,
+      "uuids": [
+        {
+          "uuid": "df4b1d90-5377-4958-b170-787581f69866",
+          "agent_id": "a1cd7b2c3f94f91b6",
+          "failure_pattern": "Bash:Exit code 2"
+        },
+        {
+          "uuid": "61be7587-98bd-4816-a4a3-b5c0e5aa0137",
+          "agent_id": "a1cd7b2c3f94f91b6",
+          "failure_pattern": "Bash:Exit code 1"
+        },
+        {
+          "uuid": "e62649de-ca31-4a2e-aebb-2b46c41c3542",
+          "agent_id": "a1cd7b2c3f94f91b6",
+          "failure_pattern": "Bash:Exit code 1"
+        }
+      ]
+    },
+    "协议分析-agent": {
+      "count": 2,
       "uuids": [
         {
           "uuid": "69be4770-180c-4a84-83e2-caa64901ca6e",
           "agent_id": "a5ab45c0eea85f972",
-          "agent_type": "协议分析-agent"
-        }
-      ]
-    },
-    "Read:File does not exist. Note: your current working directory is /media/vdc/V3Bak/SD": {
-      "count": 1,
-      "uuids": [
+          "failure_pattern": "Read:File content (274.8KB) exceeds maximum allowed size (256KB). Use offset and limi"
+        },
         {
-          "uuid": "99b2f84e-7c1d-46ff-b29f-7545f00a849c",
-          "agent_id": "a3d69f73edd92b684",
-          "agent_type": "review-agent"
+          "uuid": "8f5a1906-82ce-412e-9e20-64cf2b2e587f",
+          "agent_id": "a5ab45c0eea85f972",
+          "failure_pattern": "Edit:<tool_use_error>Error: No such tool available: Edit. Edit exists but is not enab"
         }
-      ]
-    }
-  },
-  "by_agent_type": {
-    "review-agent": {
-      "errors": 10,
-      "error_uuids": [
-        "999c39fd-7121-4172-bfcf-32790de221ab",
-        "437d64d4-55fc-4cd9-8964-f7becd69e1a8",
-        "b15b9fc9-a461-48c8-8a0b-023c22f9092a",
-        "3d65db5a-7b56-44f7-9a75-b1a2a1b8930f",
-        "99b2f84e-7c1d-46ff-b29f-7545f00a849c",
-        "593f0bcd-7b05-4ecc-9c84-07bc7bc0223a",
-        "8edbef50-4ecd-4e53-ac10-5af2c99254b7",
-        "f24a7d4a-d8ef-4c68-8e98-051fc18041b9",
-        "4c3d73f9-fb15-4fd0-af5e-b37094e8136d",
-        "e3117435-d9b3-4802-80d4-f471ceb6c7d7"
-      ]
-    },
-    "main": {
-      "errors": 4,
-      "error_uuids": [
-        "dbad6dda-740f-48aa-81ea-14c3c98b878e",
-        "48e94b02-5793-4a34-909a-364b69a31471",
-        "b647bfc7-6174-425c-bbc1-aaea48d0bf98",
-        "56c1286d-8715-4854-aaf7-82dc903f9bfc"
-      ]
-    },
-    "差分场景检查单-agent": {
-      "errors": 3,
-      "error_uuids": [
-        "df4b1d90-5377-4958-b170-787581f69866",
-        "61be7587-98bd-4816-a4a3-b5c0e5aa0137",
-        "e62649de-ca31-4a2e-aebb-2b46c41c3542"
       ]
     },
     "数据回流-agent": {
-      "errors": 2,
-      "error_uuids": [
-        "ce5851f8-8563-4d4d-90e9-d94f699468e2",
-        "938eb63a-d4c4-42c0-9382-85b239ce749e"
-      ]
-    },
-    "协议分析-agent": {
-      "errors": 2,
-      "error_uuids": [
-        "69be4770-180c-4a84-83e2-caa64901ca6e",
-        "8f5a1906-82ce-412e-9e20-64cf2b2e587f"
+      "count": 2,
+      "uuids": [
+        {
+          "uuid": "ce5851f8-8563-4d4d-90e9-d94f699468e2",
+          "agent_id": "a3d2a3220fb928756",
+          "failure_pattern": "Bash:Exit code 1"
+        },
+        {
+          "uuid": "938eb63a-d4c4-42c0-9382-85b239ce749e",
+          "agent_id": "a3d2a3220fb928756",
+          "failure_pattern": "Bash:Exit code 1"
+        }
       ]
     },
     "系统域变更分析-模块变更分析-agent": {
-      "errors": 2,
-      "error_uuids": [
-        "d1745286-a001-48c7-b22b-9dc080966a62",
-        "ae8125d8-85c4-4400-8d67-c0cb85448669"
-      ]
-    },
-    "问题域场景分析-场景要素分析-agent": {
-      "errors": 1,
-      "error_uuids": [
-        "a3468757-32b5-4712-8ef5-a124b33868b4"
-      ]
-    },
-    "问题域场景分析-根因分析-agent": {
-      "errors": 1,
-      "error_uuids": [
-        "eaee66bb-8a75-4cde-9af1-50c5eec8bc42"
-      ]
-    },
-    "系统域变更分析-组件变更分析-agent": {
-      "errors": 1,
-      "error_uuids": [
-        "31df3abd-f577-4c6b-88ee-cf8ccdfbd0c4"
+      "count": 2,
+      "uuids": [
+        {
+          "uuid": "d1745286-a001-48c7-b22b-9dc080966a62",
+          "agent_id": "a68a1347dca87b6ec",
+          "failure_pattern": "Bash:Exit code 127"
+        },
+        {
+          "uuid": "ae8125d8-85c4-4400-8d67-c0cb85448669",
+          "agent_id": "a68a1347dca87b6ec",
+          "failure_pattern": "Bash:Exit code 127"
+        }
       ]
     },
     "系统域变更分析-子系统变更分析-agent": {
-      "errors": 1,
-      "error_uuids": [
-        "0fe6189f-8788-4925-a002-77977d311034"
+      "count": 1,
+      "uuids": [
+        {
+          "uuid": "0fe6189f-8788-4925-a002-77977d311034",
+          "agent_id": "aef18e33a6574ab03",
+          "failure_pattern": "Bash:Exit code 1"
+        }
+      ]
+    },
+    "系统域变更分析-组件变更分析-agent": {
+      "count": 1,
+      "uuids": [
+        {
+          "uuid": "31df3abd-f577-4c6b-88ee-cf8ccdfbd0c4",
+          "agent_id": "adda22217284ec389",
+          "failure_pattern": "Bash:Exit code 127"
+        }
+      ]
+    },
+    "问题域场景分析-场景要素分析-agent": {
+      "count": 1,
+      "uuids": [
+        {
+          "uuid": "a3468757-32b5-4712-8ef5-a124b33868b4",
+          "agent_id": "a21d30098e8b27513",
+          "failure_pattern": "Bash:Exit code 2"
+        }
+      ]
+    },
+    "问题域场景分析-根因分析-agent": {
+      "count": 1,
+      "uuids": [
+        {
+          "uuid": "eaee66bb-8a75-4cde-9af1-50c5eec8bc42",
+          "agent_id": "a2383ab6f2ab3cba3",
+          "failure_pattern": "Bash:Exit code 2"
+        }
       ]
     }
   }

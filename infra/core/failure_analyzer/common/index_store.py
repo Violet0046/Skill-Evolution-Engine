@@ -12,7 +12,7 @@ index_store.py —— 失败索引懒构建 + mtime 失效检测。
     * schema_version 用 mtime 检查替
     * built_at / source_signature 是纯 debug 字段，LLM 不用
   - 不存 by_tool / by_skill / by_phase（by_skill 不可靠，by_tool 可从 pattern 拆出）
-  - 不存 by_agent_id / by_agent_type（用 by_pattern 替）
+  - 不存 by_pattern（用 by_agent_type 替，sub-agent 按 agent 入手）
   - 不存 tool_use_chains（用 by_pattern + 时间戳 + uuid 顺序替）
 
 索引 schema（v1.6，uuids 三元组）：
@@ -216,8 +216,7 @@ class SessionIndex:
                 if u:
                     uuid_to_call[u] = e
 
-        # 3) 扫 tool_result，错误入 by_pattern（内嵌 agent_type）
-        by_pattern: Dict[str, Dict[str, Any]] = {}
+        # 3) 扫 tool_result，按 agent_type 聚合（hit 含 failure_pattern 字段，按 pattern 去重时用）
         by_agent_type: Dict[str, Dict[str, Any]] = {}
         main_errors = 0
         sub_errors = 0
@@ -237,14 +236,13 @@ class SessionIndex:
             if not is_error:
                 continue
 
-            # 找对应 ai_tool_call → tool_name
+            # 推导 agent_id / agent_type + 计算 failure_pattern
             call_uuid = e.get("sourceToolAssistantUUID")
             call_entry = uuid_to_call.get(call_uuid) if call_uuid else None
             tool_name = _get_tool_name_from_call(call_entry) if call_entry else "Unknown"
             error_first = _get_error_first_line(e)
-            pattern = _make_pattern_key(tool_name, error_first)
+            failure_pattern = _make_pattern_key(tool_name, error_first)
 
-            # 推导 agent_id / agent_type（v1.6 删 source，工具层按需从 agent_id 推导）
             src_label = e.get("_source", "main")
             if src_label == "main":
                 agent_id: Optional[str] = None
@@ -253,25 +251,19 @@ class SessionIndex:
                 agent_id = src_label.split(":", 1)[1]
                 agent_type = agent_meta.get(agent_id, {}).get("agentType", "unknown")
 
-            # by_pattern —— 错误 uuid 的唯一权威源（v1.6 三元组：uuid/agent_id/agent_type）
+            # hit 记录（含 failure_pattern，find 返回时带）
             u = e.get("uuid")
-            bucket = by_pattern.setdefault(pattern, {"count": 0, "uuids": []})
-            bucket["count"] += 1
-            if u:
-                bucket["uuids"].append({
-                    "uuid": u,
-                    "agent_id": agent_id,
-                    "agent_type": agent_type,
-                })
+            hit = {
+                "uuid": u,
+                "agent_id": agent_id,
+                "failure_pattern": failure_pattern,
+            } if u else None
 
-            # by_agent_type 聚合（v1.5 简化：只统计）
-            atype_bucket = by_agent_type.setdefault(agent_type, {
-                "errors": 0,
-                "error_uuids": [],
-            })
-            atype_bucket["errors"] += 1
-            if u:
-                atype_bucket["error_uuids"].append(u)
+            # by_agent_type 聚合
+            if hit:
+                bucket = by_agent_type.setdefault(agent_type, {"count": 0, "uuids": []})
+                bucket["count"] += 1
+                bucket["uuids"].append(hit)
 
             # main / sub 错误计数
             if src_label == "main":
@@ -279,27 +271,25 @@ class SessionIndex:
             else:
                 sub_errors += 1
 
-        # 4) 排序 by_pattern（按 count desc）
-        by_pattern_sorted = dict(
-            sorted(by_pattern.items(), key=lambda kv: (-kv[1]["count"], kv[0]))
-        )
-
-        # 排序 by_agent_type（按 errors desc）
+        # 4) 排序 by_agent_type（按 count desc）
         by_agent_type_sorted = dict(
-            sorted(by_agent_type.items(), key=lambda kv: -kv[1]["errors"])
+            sorted(by_agent_type.items(), key=lambda kv: (-kv[1]["count"], kv[0]))
         )
 
-        # 5) 装配索引（v1.5：无 agent_meta；by_agent_type 仅含 errors/error_uuids）
+        # 5) 装配索引（与 see_failure_overview return 对齐：4 字段）
+        from ..failure_overview import _compute_session_duration_hours, _load_agent_cwd
+        summary = {
+            "total_entries": len(all_entries),
+            "total_errors": main_errors + sub_errors,
+            "main_errors": main_errors,
+            "sub_errors": sub_errors,
+            "subagent_files": len(sub_map),
+            "session_duration_hours": _compute_session_duration_hours(self.session_id, str(self.root)),
+        }
         index_data = {
             "session_id": self.session_id,
-            "stats": {
-                "total_entries": len(all_entries),
-                "total_errors": main_errors + sub_errors,
-                "main_errors": main_errors,
-                "sub_errors": sub_errors,
-                "subagent_files": len(sub_map),
-            },
-            "by_pattern": by_pattern_sorted,
+            "agent_cwd": _load_agent_cwd(str(self.root), self.session_id),
+            "summary": summary,
             "by_agent_type": by_agent_type_sorted,
         }
 
@@ -313,32 +303,24 @@ class SessionIndex:
         logger.info(
             f"索引构建完成: {self.session_id} | "
             f"entries={len(all_entries)} errors={main_errors + sub_errors} "
-            f"patterns={len(by_pattern)} took={elapsed:.0f}ms"
+            f"agents={len(by_agent_type)} took={elapsed:.0f}ms"
         )
 
     # ---------- 工具快捷方法 ----------
 
-    def get_pattern_uuids(self, pattern: str) -> List[Dict[str, Any]]:
-        """按 pattern key 查 uuid 三元组列表（找不到返 []）。
-
-        每个元素是 {uuid, agent_id, source}。
-        """
-        data = self.load()
-        return list(data.get("by_pattern", {}).get(pattern, {}).get("uuids", []))
-
     def get_all_error_uuid_records(self) -> List[Dict[str, Any]]:
-        """返回所有错误 uuid 记录（from by_pattern[*].uuids 并集）。"""
+        """返回所有错误 uuid 记录（从 by_agent_type[*].uuids 并集，failure_pattern 一并带出）。"""
         data = self.load()
         out: List[Dict[str, Any]] = []
-        for info in data.get("by_pattern", {}).values():
+        for info in data.get("by_agent_type", {}).values():
             out.extend(info.get("uuids", []))
         return out
 
     def find_uuid_record(self, uuid: str) -> Optional[Dict[str, Any]]:
-        """按 uuid 查错误记录（含 agent_id / source）。
+        """按 uuid 查错误记录（含 agent_id / failure_pattern）。
 
         返回：
-            {uuid, agent_id, source} 字典（如 uuid 命中某个 pattern）
+            {uuid, agent_id, failure_pattern} 字典（如 uuid 是错误）
             None（如 uuid 不是错误，或 session 内不存在）
 
         用途：

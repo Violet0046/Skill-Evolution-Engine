@@ -23,7 +23,6 @@ logger = logging.getLogger(__name__)
 # name → 实际函数（首次 resolve 时填充）
 REGISTRY: Dict[str, Optional[Callable[..., Any]]] = {
     "see_failure_overview": None,
-    "see_find_by_pattern": None,
     "see_entry_detail": None,
 }
 
@@ -42,9 +41,6 @@ def resolve(name: str) -> Callable[..., Any]:
         if name == "see_failure_overview":
             from .failure_overview import see_failure_overview
             fn = see_failure_overview
-        elif name == "see_find_by_pattern":
-            from .failures_by_pattern import see_find_by_pattern
-            fn = see_find_by_pattern
         elif name == "see_entry_detail":
             from .failure_detail import see_entry_detail
             fn = see_entry_detail

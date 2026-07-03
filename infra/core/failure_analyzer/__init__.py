@@ -13,8 +13,7 @@ see-tools —— 失败分析 LLM 工具集
     session_reader.py  —— 双格式 entry 迭代器（JSON-array / NDJSON）
     index_store.py     —— 预建失败索引（懒构建 + mtime 失效）
     errors.py          —— 统一 ToolError 与 JSON 友好输出
-  failure_overview.py  —— see_failure_overview（失败模式 + agent_type 两维概览）
-  failures_by_pattern.py —— see_find_by_pattern（按 tool_name:error[:80] 模式匹配）
+  failure_overview.py  —— see_failure_overview（按 agent_type 维度聚合）
   failure_detail.py    —— see_entry_detail（取单条 entry 完整上下文，含 use_raw 回退）
 
 入口：
@@ -40,7 +39,6 @@ from .schemas import TOOL_SCHEMAS
 
 # 顶层导出：方便 `from core.failure_analyzer import see_failure_overview`
 from .failure_overview import see_failure_overview  # noqa: F401
-from .failures_by_pattern import see_find_by_pattern  # noqa: F401
 from .failure_detail import see_entry_detail  # noqa: F401
 
 __all__ = [
@@ -48,9 +46,8 @@ __all__ = [
     "REGISTRY",
     "list_tools",
     "resolve",
-    # 三个工具函数
+    # 工具函数
     "see_failure_overview",
-    "see_find_by_pattern",
     "see_entry_detail",
     # LLM tool_use schema
     "TOOL_SCHEMAS",
