@@ -1,52 +1,79 @@
 {
   "session_id": "5527b413-affc-443e-862f-15ff6bb3f7d1",
-  "generated_at": "2026-07-02T10:00:00Z",
-  "domain_agent": "需求分析 agent",
+  "generated_at": "2026-07-03T12:00:00Z",
+  "domain_agent": "review-agent",
   "suggestions": [
     {
-      "id": "sg-001",
+      "id": "5527b413-affc-443e-862f-15ff6bb3f7d1-sg-001",
+      "priority": "high",
+      "target_skill": "ReviewAgent",
+      "target_file": "agents/ReviewAgent/review_agent.md",
+      "direction": "在 ReviewAgent 中增加 Write 操作前的 Read 检查机制，避免直接写入未读取的文件",
+      "evidence_uuids": ["437d64d4-55fc-4cd9-8964-f7becd69e1a8", "593f0bcd-7b05-4ecc-9c84-07bc7bc0223a", "8edbef50-4ecd-4e53-ac10-5af2c99254b7"],
+      "rationale": "review-agent 出现 7 次 'File has not been read yet' 错误，表明模型在生成审查结果文件时，未先读取目标文件就直接调用 Write 工具。这是高频失败模式，需在工作流中显式加入 Read 步骤。"
+    },
+    {
+      "id": "5527b413-affc-443e-862f-15ff6bb3f7d1-sg-002",
+      "priority": "medium",
+      "target_skill": "ReviewAgent",
+      "target_file": "agents/ReviewAgent/review_agent.md",
+      "direction": "增强文件路径验证逻辑，在处理子系统/牵头子系统文件前先检查路径存在性",
+      "evidence_uuids": ["999c39fd-7121-4172-bfcf-32790de221ab", "99b2f84e-7c1d-46ff-b29f-7545f00a849c"],
+      "rationale": "review-agent 出现 '牵头子系统/牵头子系统.md' 文件不存在错误（uuid: 99b2f84e），以及 ls 命令访问路径不存在（uuid: 999c39fd）。需要在规则中明确文件存在的 fallback 策略。"
+    },
+    {
+      "id": "5527b413-affc-443e-862f-15ff6bb3f7d1-sg-003",
+      "priority": "medium",
+      "target_skill": "ReviewAgent",
+      "target_file": "agents/ReviewAgent/review_agent.md",
+      "direction": "修正 Read 工具使用规范，禁止直接将目录路径作为 file_path 参数",
+      "evidence_uuids": ["3d65db5a-7b56-44f7-9a75-b1a2a1b8930f"],
+      "rationale": "review-agent 尝试读取目录 '/media/vdc/V3Bak/SDD/prcoess/workspace/需求分析Agent/changes/RAN-7961869/需求分析工作流/审查结果/step_review' 导致 EISDIR 错误。需在规则中强调 Read 只能用于文件。"
+    },
+    {
+      "id": "5527b413-affc-443e-862f-15ff6bb3f7d1-sg-004",
       "priority": "high",
       "target_skill": "查询需求信息",
       "target_file": "skills/查询需求信息/SKILL.md",
-      "direction": "在 SKILL.md 中增加前置环境检查步骤，检测到 requests 模块缺失时给出明确提示或自动尝试安装",
-      "evidence_uuids": ["dbad6dda-740f-48aa-81ea-14c3c98b878e", "48e94b02-5793-4a34-909a-364b69a31471", "61be7587-98bd-4816-a4a3-b5c0e5aa0137"],
-      "rationale": "同一 ImportError 错误在主 agent、差分场景检查单-agent、子系统变更分析-agent 中重复出现 5 次，阻塞了多次需求查询操作"
+      "direction": "解决 Python 脚本依赖问题：确保 requests 模块可用，或改用内置 urllib 实现 HTTP 请求",
+      "evidence_uuids": ["dbad6dda-740f-48aa-81ea-14c3c98b878e", "61be7587-98bd-4816-a4a3-b5c0e5aa0137"],
+      "rationale": "main agent 和 差分场景检查单-agent 均因 'ImportError: No module named requests' 失败。该技能脚本强依赖外部库，需改为标准库实现或添加依赖安装步骤。"
     },
     {
-      "id": "sg-002",
+      "id": "5527b413-affc-443e-862f-15ff6bb3f7d1-sg-005",
       "priority": "medium",
-      "target_skill": "查询 icenter 页面内容",
-      "target_file": "skills/查询 icenter 页面内容/SKILL.md",
-      "direction": "在 SKILL.md 中增加认证信息获取流程：执行前先检查 .env 文件，若缺失则主动提示用户输入 emp-no 和 token",
-      "evidence_uuids": ["b647bfc7-6174-425c-bbc1-aaea48d0bf98"],
-      "rationale": "fetch_space_page.py 抛出 ValueError 时 agent 已登录 UAC 但未将凭证传递给脚本，skill 应指导如何传递认证参数"
-    },
-    {
-      "id": "sg-003",
-      "priority": "high",
-      "target_skill": "数据回流-agent",
-      "target_file": "agents/数据回流-agent/数据回流-agent.md",
-      "direction": "修改 upload.sh 脚本逻辑：当源文件不存在时仅记录警告而非报错，或者在回流规则中明确是否需要生成 model.txt",
-      "evidence_uuids": ["ce5851f8-8563-4d4d-90e9-d94f699468e2", "938eb63a-d4c4-42c0-9382-85b239ce749e"],
-      "rationale": "协议分析和问题域场景分析的回流都触发此错误，upload.sh 期望的 model.txt 不在输出规范中，导致两次回流失败"
-    },
-    {
-      "id": "sg-004",
-      "priority": "high",
-      "target_skill": "系统域变更分析 - 模块变更分析",
-      "target_file": "skills/系统域变更分析 - 模块变更分析/SKILL.md",
-      "direction": "核实 .specify/scripts/bash/consume/knowledge/collect_related_instances.sh 的实际路径，更新 SKILL.md 中的脚本调用路径或确认文件是否被误删",
-      "evidence_uuids": ["d1745286-a001-48c7-b22b-9dc080966a62"],
-      "rationale": "Exit code 127 表示脚本文件不存在，该错误在模块变更分析、组件变更分析中重复出现 3 次，阻塞系统域变更分析流程"
-    },
-    {
-      "id": "sg-005",
-      "priority": "low",
       "target_skill": "差分场景检查单",
       "target_file": "skills/差分场景检查单/SKILL.md",
-      "direction": "在 SKILL.md 中明确推荐使用 Skill 工具调用技能而非直接执行 Python 脚本，避免环境问题导致的失败",
-      "evidence_uuids": ["61be7587-98bd-4816-a4a3-b5c0e5aa0137"],
-      "rationale": "差分场景检查单-agent 尝试直接运行 query_simple.py 导致 ImportError，reasoning_after 提到应该用 Skill 工具调用"
+      "direction": "修正脚本路径配置：query_simple.py 实际位于 skills/查询需求信息/scripts/，而非 skills/差分场景检查单/scripts/",
+      "evidence_uuids": ["df4b1d90-5377-4958-b170-787581f69866"],
+      "rationale": "差分场景检查单-agent 尝试执行不存在的脚本路径 '/media/vdc/V3Bak/SDD/prcoess/workspace/需求分析Agent/.claude/skills/差分场景检查单/scripts/query_simple.py'，实际应调用查询需求信息技能的脚本。"
+    },
+    {
+      "id": "5527b413-affc-443e-862f-15ff6bb3f7d1-sg-006",
+      "priority": "medium",
+      "target_skill": "协议分析",
+      "target_file": "skills/协议分析/SKILL.md",
+      "direction": "处理大文件读取场景：对超过 256KB 的协议文档使用 offset/limit 分块读取，或先用 Bash 搜索关键内容定位",
+      "evidence_uuids": ["69be4770-180c-4a84-83e2-caa64901ca6e"],
+      "rationale": "协议分析-agent 在读取 UECapabilityInformation.md（274.8KB）时超出大小限制。需要在工作流中预先判断文件大小，采用分块读取或 grep 定位策略。"
+    },
+    {
+      "id": "5527b413-affc-443e-862f-15ff6bb3f7d1-sg-007",
+      "priority": "low",
+      "target_skill": "协议分析",
+      "target_file": "skills/协议分析/SKILL.md",
+      "direction": "移除 Edit 工具的使用：当前环境未启用 Edit 工具，应改用 Write 工具进行文件更新",
+      "evidence_uuids": ["8f5a1906-82ce-412e-9e20-64cf2b2e587f"],
+      "rationale": "协议分析-agent 尝试使用 Edit 工具但提示 'No such tool available'。需在技能定义中明确仅使用 Read + Write 组合进行文件修改。"
+    },
+    {
+      "id": "5527b413-affc-443e-862f-15ff6bb3f7d1-sg-008",
+      "priority": "low",
+      "target_skill": "数据回流-agent",
+      "target_file": "agents/数据回流-agent/数据回流-agent.md",
+      "direction": "完善回流脚本容错：upload.sh 在源文件缺失时应跳过而非报错退出，或提前检查必需文件",
+      "evidence_uuids": ["ce5851f8-8563-4d4d-90e9-d94f699468e2"],
+      "rationale": "数据回流-agent 在执行 upload.sh 时因缺少 model.txt 文件而报错。根据协议分析规则，model.txt 并非必需输出，脚本应更灵活地处理可选文件缺失情况。"
     }
   ]
 }
