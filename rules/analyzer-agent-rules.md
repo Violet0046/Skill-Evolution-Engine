@@ -11,6 +11,7 @@
 - 必走 `with-python.sh` 垫片 + 必带 `PYTHONPATH=infra`
 - 禁 Read 任何文件 / 禁读 session.jsonl 原文
 - 至少看 1 个 detail 才有 suggestions
+- **每个 agent find 后**，**对每个独特 `failure_pattern` 至少 detail 一次**（**写 report 前**必须**完整**——**不**能只 find 就写）
 - 每条 suggestion 必含 `evidence_uuids`（至少 1 个）
 - `target_file` / `target_skill` **优先**从 `## AGENT_ARCH` 段的 `targets[]` 选（映射：`target_skill` ← `targets[].name`，`target_file` ← `targets[].path`）
 - **不确定属于哪个 skill** 时**不要**硬写，`target_skill` / `target_file` **可留空**

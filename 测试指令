@@ -12,7 +12,7 @@ bash infra/scripts/with-python.sh -m core.failure_analyzer overview 5527b413-aff
 bash infra/scripts/with-python.sh -m core.util.resolve_architecture 5527b413-affc-443e-862f-15ff6bb3f7d1
 
 # 按 agent 查 hits
-bash infra/scripts/with-python.sh -m core.failure_analyzer find 5527b413-affc-443e-862f-15ff6bb3f7d1 --agent-type 协议分析-agent
+bash infra/scripts/with-python.sh -m core.failure_analyzer find 5527b413-affc-443e-862f-15ff6bb3f7d1 --agent-type "协议分析-agent"
 
 # 单条 entry 完整上下文
 bash infra/scripts/with-python.sh -m core.failure_analyzer detail 5527b413-affc-443e-862f-15ff6bb3f7d1 69be4770-180c-4a84-83e2-caa64901ca6e

@@ -109,11 +109,43 @@ def cmd_find(args: argparse.Namespace) -> int:
         })
 
     # 传 --agent-type：返回该 agent 的所有 hit uuid + agent_id（sub-agent 用 detail 看具体）
-    bucket = data.get("by_agent_type", {}).get(args.agent_type)
-    if not bucket:
+    # **容错匹配**：先精确 → 标准化（多空白字符 → 1 个 `-`）→ 子串包含
+    import re
+    by_at = data.get("by_agent_type", {})
+    query = args.agent_type
+    bucket = by_at.get(query)
+    matched_key = query
+    if bucket is None:
+        # 标准化：多空白字符 / 多连字符 → 1 个连字符（兼容 "系统域变更分析 - 模块" vs "系统域变更分析-模块" vs "  -  "）
+        def _norm(s):
+            return re.sub(r'[\s-]+', '-', s.strip()).strip('-')
+        for key in by_at:
+            if _norm(key) == _norm(query):
+                bucket = by_at[key]
+                matched_key = key
+                break
+    if bucket is None:
+        # 子串包含（query 是 key 子集，或 key 是 query 子集）
+        substr_matches = [
+            (k, v) for k, v in by_at.items()
+            if query in k or k in query
+        ]
+        if len(substr_matches) == 1:
+            matched_key, bucket = substr_matches[0]
+        elif len(substr_matches) > 1:
+            # 多个子串匹配，列出候选让用户精确
+            return _print_result({
+                "session_id": args.session_id,
+                "agent_type": query,
+                "matched": 0,
+                "candidates": [k for k, _ in substr_matches],
+                "hits": [],
+                "hint": "query 模糊匹配到多个 agent_type，请精确指定",
+            })
+    if bucket is None:
         return _print_result({
             "session_id": args.session_id,
-            "agent_type": args.agent_type,
+            "agent_type": query,
             "matched": 0,
             "hits": [],
         })
@@ -125,7 +157,7 @@ def cmd_find(args: argparse.Namespace) -> int:
 
     return _print_result({
         "session_id": args.session_id,
-        "agent_type": args.agent_type,
+        "agent_type": matched_key,  # 用**实际**匹配到的 key（不是用户输入）
         "matched": len(all_hits),
         "returned": len(limited),
         "hits": limited,

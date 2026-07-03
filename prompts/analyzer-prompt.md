@@ -75,12 +75,12 @@ uuid 从 find 的 hits[*].uuid 复制得到
 
 按 `By agent type` 顺序（已**按错误数降序**），**依次**对每个 agent 完整处理：
 1. `find <sid> --agent-type <type>` 拿该 agent 的 hits
-2. 对该 agent 的 hits **按 `failure_pattern` 去重**（每个独特 pattern 至少 detail 一次）—— 选 1-2 个 uuid 看 T1→T4
+2. 对该 agent 的 hits **按 `failure_pattern` 去重**（**必须**对每个独特 pattern 至少 detail 一次）—— 选 1-2 个 uuid 看 T1→T4
 3. 归因 + 匹配（结合 AGENT_ARCH）—— 该 agent 涉及的建议
 4. 累积到 suggestions 列表
 5. 继续下一个 agent（重复 1-4）
 
-**所有 agent 处理完** → 写报告（用 Write 工具一次性写 `evidence/analysis_reports/<session_id>.analysis_report.json`）
+**所有 agent 处理完** → **写报告前**先**逐个**验证每个 unique failure_pattern 都 detail 过（**不**要写完才发现**漏**了）→ 用 Write 工具一次性写 `evidence/analysis_reports/<session_id>.analysis_report.json`
 
 ## 完成后
 

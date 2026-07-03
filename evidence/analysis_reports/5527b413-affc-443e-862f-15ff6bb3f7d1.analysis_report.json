@@ -1,6 +1,6 @@
 {
   "session_id": "5527b413-affc-443e-862f-15ff6bb3f7d1",
-  "generated_at": "2026-07-03T12:00:00Z",
+  "generated_at": "2026-07-03T10:00:00+00:00",
   "domain_agent": "review-agent",
   "suggestions": [
     {
@@ -8,72 +8,81 @@
       "priority": "high",
       "target_skill": "ReviewAgent",
       "target_file": "agents/ReviewAgent/review_agent.md",
-      "direction": "在 ReviewAgent 中增加 Write 操作前的 Read 检查机制，避免直接写入未读取的文件",
-      "evidence_uuids": ["437d64d4-55fc-4cd9-8964-f7becd69e1a8", "593f0bcd-7b05-4ecc-9c84-07bc7bc0223a", "8edbef50-4ecd-4e53-ac10-5af2c99254b7"],
-      "rationale": "review-agent 出现 7 次 'File has not been read yet' 错误，表明模型在生成审查结果文件时，未先读取目标文件就直接调用 Write 工具。这是高频失败模式，需在工作流中显式加入 Read 步骤。"
+      "direction": "在 ReviewAgent 执行 Write 操作前增加 Read 步骤，确保文件已被读取",
+      "evidence_uuids": ["437d64d4-55fc-4cd9-8964-f7becd69e1a8", "b15b9fc9-a461-48c8-8a0b-023c22f9092a", "593f0bcd-7b05-4ecc-9c84-07bc7bc0223a", "8edbef50-4ecd-4e53-ac10-5af2c99254b7", "f24a7d4a-d8ef-4c68-8e98-051fc18041b9", "4c3d73f9-fb15-4fd0-af5e-b37094e8136d", "e3117435-d9b3-4802-80d4-f471ceb6c7d7"],
+      "rationale": "review-agent 有 7 次失败是因为尝试写入文件前未先读取该文件，触发 Claude Code 的安全机制。详情：uuid 437d64d4 显示模型计划'生成 JSON 和 MD 审查结果文件'后直接调用 Write，但文件未被读取过。"
     },
     {
       "id": "5527b413-affc-443e-862f-15ff6bb3f7d1-sg-002",
       "priority": "medium",
-      "target_skill": "ReviewAgent",
-      "target_file": "agents/ReviewAgent/review_agent.md",
-      "direction": "增强文件路径验证逻辑，在处理子系统/牵头子系统文件前先检查路径存在性",
-      "evidence_uuids": ["999c39fd-7121-4172-bfcf-32790de221ab", "99b2f84e-7c1d-46ff-b29f-7545f00a849c"],
-      "rationale": "review-agent 出现 '牵头子系统/牵头子系统.md' 文件不存在错误（uuid: 99b2f84e），以及 ls 命令访问路径不存在（uuid: 999c39fd）。需要在规则中明确文件存在的 fallback 策略。"
+      "target_skill": "系统域变更分析 - 子系统变更分析",
+      "target_file": "skills/系统域变更分析 - 子系统变更分析/SKILL.md",
+      "direction": "修正牵头子系统文件路径配置，或增加路径存在性检查和错误处理",
+      "evidence_uuids": ["999c39fd-7121-4172-bfcf-32790de221ab"],
+      "rationale": "review-agent 在审查时尝试访问'/media/vdc/V3Bak/SDD/prcoess/workspace/需求分析Agent/changes/RAN-7961869/需求分析工作流/本地消费区/01-需求分析/系统域变更分析/牵头子系统/'目录但不存在。详情：模型试图检查牵头子系统文件夹以验证子系统名称。"
     },
     {
       "id": "5527b413-affc-443e-862f-15ff6bb3f7d1-sg-003",
       "priority": "medium",
-      "target_skill": "ReviewAgent",
-      "target_file": "agents/ReviewAgent/review_agent.md",
-      "direction": "修正 Read 工具使用规范，禁止直接将目录路径作为 file_path 参数",
-      "evidence_uuids": ["3d65db5a-7b56-44f7-9a75-b1a2a1b8930f"],
-      "rationale": "review-agent 尝试读取目录 '/media/vdc/V3Bak/SDD/prcoess/workspace/需求分析Agent/changes/RAN-7961869/需求分析工作流/审查结果/step_review' 导致 EISDIR 错误。需在规则中强调 Read 只能用于文件。"
+      "target_skill": "系统域变更分析 - 模块变更分析",
+      "target_file": "skills/系统域变更分析 - 模块变更分析/SKILL.md",
+      "direction": "修正知识收集脚本路径.specify/scripts/bash/consume/knowledge/collect_related_instances.sh",
+      "evidence_uuids": ["d1745286-a001-48c7-b22b-9dc080966a62", "ae8125d8-85c4-4400-8d67-c0cb85448669"],
+      "rationale": "系统域变更分析 - 模块变更分析-agent 两次失败都是因为脚本路径不存在。详情：uuid d1745286 显示模型尝试执行'.specify/scripts/bash/consume/knowledge/collect_related_instances.sh'但该文件不存在。"
     },
     {
       "id": "5527b413-affc-443e-862f-15ff6bb3f7d1-sg-004",
-      "priority": "high",
-      "target_skill": "查询需求信息",
-      "target_file": "skills/查询需求信息/SKILL.md",
-      "direction": "解决 Python 脚本依赖问题：确保 requests 模块可用，或改用内置 urllib 实现 HTTP 请求",
-      "evidence_uuids": ["dbad6dda-740f-48aa-81ea-14c3c98b878e", "61be7587-98bd-4816-a4a3-b5c0e5aa0137"],
-      "rationale": "main agent 和 差分场景检查单-agent 均因 'ImportError: No module named requests' 失败。该技能脚本强依赖外部库，需改为标准库实现或添加依赖安装步骤。"
+      "priority": "medium",
+      "target_skill": "系统域变更分析 - 组件变更分析",
+      "target_file": "skills/系统域变更分析 - 组件变更分析/SKILL.md",
+      "direction": "修正知识收集脚本路径，与模块变更分析使用相同修复方案",
+      "evidence_uuids": ["31df3abd-f577-4c6b-88ee-cf8ccdfbd0c4"],
+      "rationale": "系统域变更分析 - 组件变更分析-agent 失败原因与模块变更分析相同，都是知识收集脚本路径不存在。"
     },
     {
       "id": "5527b413-affc-443e-862f-15ff6bb3f7d1-sg-005",
-      "priority": "medium",
-      "target_skill": "差分场景检查单",
-      "target_file": "skills/差分场景检查单/SKILL.md",
-      "direction": "修正脚本路径配置：query_simple.py 实际位于 skills/查询需求信息/scripts/，而非 skills/差分场景检查单/scripts/",
-      "evidence_uuids": ["df4b1d90-5377-4958-b170-787581f69866"],
-      "rationale": "差分场景检查单-agent 尝试执行不存在的脚本路径 '/media/vdc/V3Bak/SDD/prcoess/workspace/需求分析Agent/.claude/skills/差分场景检查单/scripts/query_simple.py'，实际应调用查询需求信息技能的脚本。"
+      "priority": "high",
+      "target_skill": "查询需求信息",
+      "target_file": "skills/查询需求信息/SKILL.md",
+      "direction": "在查询需求信息技能的 query_simple.py 中解决 requests 模块依赖问题，或改用标准库实现",
+      "evidence_uuids": ["dbad6dda-740f-48aa-81ea-14c3c98b878e", "61be7587-98bd-4816-a4a3-b5c0e5aa0137", "0fe6189f-8788-4925-a002-77977d311034"],
+      "rationale": "多个 agent（main、差分场景检查单-agent、系统域变更分析 - 子系统变更分析-agent）都因为查询需求信息脚本缺少 requests 模块而失败。详情：uuid dbad6dda 显示 main agent 执行查询脚本时报错'ImportError: No module named requests'。"
     },
     {
       "id": "5527b413-affc-443e-862f-15ff6bb3f7d1-sg-006",
       "priority": "medium",
       "target_skill": "协议分析",
       "target_file": "skills/协议分析/SKILL.md",
-      "direction": "处理大文件读取场景：对超过 256KB 的协议文档使用 offset/limit 分块读取，或先用 Bash 搜索关键内容定位",
-      "evidence_uuids": ["69be4770-180c-4a84-83e2-caa64901ca6e"],
-      "rationale": "协议分析-agent 在读取 UECapabilityInformation.md（274.8KB）时超出大小限制。需要在工作流中预先判断文件大小，采用分块读取或 grep 定位策略。"
+      "direction": "为协议分析技能添加大文件分块读取策略，或禁用 Edit 工具改用 Write",
+      "evidence_uuids": ["69be4770-180c-4a84-83e2-caa64901ca6e", "8f5a1906-82ce-412e-9e20-64cf2b2e587f"],
+      "rationale": "协议分析-agent 遇到两个问题：1) 协议文件过大（274.8KB）超过 Read 工具限制；2) 尝试使用 Edit 工具但该工具未启用。详情：uuid 8f5a1906 显示模型计划用 Edit 更新 req_design_document.md 但报错'No such tool available: Edit'。"
     },
     {
       "id": "5527b413-affc-443e-862f-15ff6bb3f7d1-sg-007",
       "priority": "low",
-      "target_skill": "协议分析",
-      "target_file": "skills/协议分析/SKILL.md",
-      "direction": "移除 Edit 工具的使用：当前环境未启用 Edit 工具，应改用 Write 工具进行文件更新",
-      "evidence_uuids": ["8f5a1906-82ce-412e-9e20-64cf2b2e587f"],
-      "rationale": "协议分析-agent 尝试使用 Edit 工具但提示 'No such tool available'。需在技能定义中明确仅使用 Read + Write 组合进行文件修改。"
+      "target_skill": "差分场景检查单",
+      "target_file": "skills/差分场景检查单/SKILL.md",
+      "direction": "修正技能脚本路径配置，确保 query_simple.py 可被正确调用",
+      "evidence_uuids": ["df4b1d90-5377-4958-b170-787581f69866"],
+      "rationale": "差分场景检查单-agent 尝试执行技能脚本但路径不正确。详情：uuid df4b1d90 显示模型尝试执行'.claude/skills/差分场景检查单/scripts/query_simple.py'但文件不存在。"
     },
     {
       "id": "5527b413-affc-443e-862f-15ff6bb3f7d1-sg-008",
       "priority": "low",
-      "target_skill": "数据回流-agent",
-      "target_file": "agents/数据回流-agent/数据回流-agent.md",
-      "direction": "完善回流脚本容错：upload.sh 在源文件缺失时应跳过而非报错退出，或提前检查必需文件",
-      "evidence_uuids": ["ce5851f8-8563-4d4d-90e9-d94f699468e2"],
-      "rationale": "数据回流-agent 在执行 upload.sh 时因缺少 model.txt 文件而报错。根据协议分析规则，model.txt 并非必需输出，脚本应更灵活地处理可选文件缺失情况。"
+      "target_skill": "问题域场景分析",
+      "target_file": "skills/问题域场景分析/SKILL.md",
+      "direction": "确保场景类型 - 领域知识目录在知识加载时被创建，或调整规则允许可选知识源",
+      "evidence_uuids": ["a3468757-32b5-4712-8ef5-a124b33868b4"],
+      "rationale": "问题域场景分析 - 场景要素分析-agent 失败因为'场景类型 - 领域知识'目录不存在。详情：uuid a3468757 显示知识收集脚本只创建了'场景 - 领域知识'目录，但任务规范需要两个目录都存在。"
+    },
+    {
+      "id": "5527b413-affc-443e-862f-15ff6bb3f7d1-sg-009",
+      "priority": "low",
+      "target_skill": "问题域场景分析 - 根因分析",
+      "target_file": "skills/问题域场景分析 - 根因分析/SKILL.md",
+      "direction": "添加 Mermaid 验证脚本或移除对该脚本的依赖",
+      "evidence_uuids": ["eaee66bb-8a75-4cde-9af1-50c5eec8bc42"],
+      "rationale": "问题域场景分析 - 根因分析-agent 尝试执行 verify_mermaid.py 验证脚本来验证根因分析图，但脚本不存在。详情：uuid eaee66bb 显示模型计划验证 Mermaid 语法但文件找不到。"
     }
   ]
 }
