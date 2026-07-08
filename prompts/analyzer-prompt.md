@@ -10,7 +10,6 @@
 {
   "session_id": "{{SESSION_ID}}",
   "generated_at": "<ISO timestamp>",
-  "domain_agent": "<**当前 find 的 agent_type**>",
   "suggestions": [
     {
       "id": "{{SESSION_ID}}-sg-001",

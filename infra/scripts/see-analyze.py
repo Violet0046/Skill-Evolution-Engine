@@ -114,6 +114,27 @@ def assemble_prompt(session_id: str, root: str | None) -> str:
             .replace("{{SESSION_ID}}", session_id))
 
 
+def build_agent_call(session_id: str, root: str | None) -> dict:
+    """构造单个 Agent() 调用的 JSON 配置（data-driven dispatch）。
+
+    主 agent 拿这个 JSON 直接当 Agent(...) 调用的参数源——避免主 agent 自己
+    选错 subagent_type、忘加 run_in_background、或手写 prompt。
+
+    4 个字段：
+    - description: Agent tool 必填
+    - subagent_type: 硬编码 "general-purpose"（项目术语"analyzer"是逻辑角色，Agent tool 不接受）
+    - run_in_background: 硬编码 True（不阻塞，让主 agent 一次性 fire N 个）
+    - prompt: 完整的 analyzer-prompt 文本（assemble_prompt() 产物）
+    """
+    prompt = assemble_prompt(session_id, root)
+    return {
+        "description": f"Analyze session {session_id}",
+        "subagent_type": "general-purpose",
+        "run_in_background": True,
+        "prompt": prompt,
+    }
+
+
 def _format_overview(bundle: dict) -> str:
     """把 bundle.summary + by_agent_type 格式化成 markdown。
 
@@ -140,26 +161,28 @@ def _format_overview(bundle: dict) -> str:
 
 def main() -> int:
     parser = argparse.ArgumentParser(
-        description="阶段 2 入口：拼装完整 sub-agent prompt（调 overview + resolve_architecture）",
+        description="阶段 2 入口：构造 sub-agent 调用配置（data-driven dispatch JSON）",
     )
     parser.add_argument("session_id", help="目标 session UUID")
     parser.add_argument("--root", default=None, help="简化版数据根目录（默认 ../projects-simplified）")
     parser.add_argument("--output", "-o", type=Path, default=None,
-                        help="prompt 输出文件（默认 stdout）")
+                        help="prompt 字段写到文件（默认 stdout 输出 4 字段 JSON）")
     args = parser.parse_args()
 
     try:
-        prompt = assemble_prompt(args.session_id, args.root)
+        agent_call = build_agent_call(args.session_id, args.root)
     except RuntimeError as e:
         print(f"ERROR: {e}", file=sys.stderr)
         return 2
 
     if args.output:
+        # --output 模式：只写 prompt 字段到文件（给人类测试用）
         args.output.parent.mkdir(parents=True, exist_ok=True)
-        args.output.write_text(prompt, encoding="utf-8")
+        args.output.write_text(agent_call["prompt"], encoding="utf-8")
         print(f"已写入 prompt: {args.output}")
     else:
-        print(prompt, end="")
+        # 默认模式：输出 4 字段 JSON（主 agent parse 后直接当 Agent() 参数）
+        print(json.dumps(agent_call, ensure_ascii=False))
 
     return 0
 

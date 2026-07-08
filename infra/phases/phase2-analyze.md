@@ -32,32 +32,95 @@ PYTHONPATH=infra bash infra/scripts/with-python.sh infra/scripts/see-analyze.py 
 
 **触发**：用户 `/see-analyze <sid>` 或自然语言明确给出 session_id（如"分析 5527b413..."）
 
-**主 agent 职责**：
+**主 agent 职责**（**data-driven dispatch**）：
 
-1. 执行 `see-analyze.py <sid>` 一次，拿到 sub-agent prompt
-2. 调一次 `Agent()` sub-agent
+1. 执行 `see-analyze.py <sid>` 一次，stdout 是 **4 字段 JSON 配置**：
+
+   ```json
+   {
+     "description": "Analyze session <sid>",
+     "subagent_type": "general-purpose", 
+     "run_in_background": true,
+     "prompt": "# analyzer agent\n..."     // 完整 analyzer-prompt
+   }
+   ```
+
+2. **解析 JSON**，用 JSON 字段直接调 `Agent()`（**不要**自己拼 prompt 或选 `subagent_type`）：
+
+   ```python
+   call = json.loads(<Bash stdout>)
+   Agent(
+       description=call["description"],
+       subagent_type=call["subagent_type"],
+       run_in_background=call["run_in_background"],
+       prompt=call["prompt"],
+   )
+   ```
+
 3. 验证 `analysis_reports/<sid>.analysis_report.json` 生成
 
 ### 模式 B · 批处理模式（默认，无 session_id）
 
-**触发**：用户 `/see-analyze`（无参数）或自然语言"分析所有" / "批处理" / "跑阶段 2 batch"
+**触发**：用户 `/see-analyze`（无参数）或自然语言"分析所有" / "批处理"
 
 **前提**：阶段 1 已完成，且 stdout 含 `session_ids` 字段
 
-**主 agent 职责**：
+**主 agent 职责**（**data-driven dispatch**）：
 
 1. 解析阶段 1 stdout JSON 的 `session_ids[]`
-2. 对每个 sid **并行**（一次性 fire，sub-agent 后台运行）：
+2. 对每个 sid：
 
-   - 执行 `see-analyze.py <sid>` 拿到 prompt
-   - 调一次 `Agent()` sub-agent
-   - 验证 `analysis_reports/<sid>.analysis_report.json` 生成
+   - 跑 `see-analyze.py <sid>` 拿 4 字段 JSON
+   - 解析 JSON
 
-3. 全部完成后报告 N 处理 / N 失败
+3. **逐个 fire**（**错开启动避免主 agent 上下文爆炸，但保留 sub-agent 后台并发**）：
+
+   ```python
+   # 假设 session_ids = ["uuid1", "uuid2", ...]
+   task_ids = []
+   for sid in session_ids:
+       call = json.loads(<Bash stdout for sid>)  # 这个 sid 的 4 字段 JSON
+       task_id = Agent(
+           description=call["description"],
+           subagent_type=call["subagent_type"],
+           run_in_background=call["run_in_background"],
+           prompt=call["prompt"],
+       )
+       task_ids.append(task_id)
+       # ↑ fire 完立即返回 task_id，sub-agent 后台跑
+   ```
+
+4. **循环外**用 `TaskOutput` 等所有 sub-agent 完成：
+
+   ```python
+   # 全部 fire 完后再 await（**不**在循环里 await——那样会阻塞后续 sub-agent 启动）
+   for task_id in task_ids:
+       TaskOutput(task_id=task_id, block=true, timeout=600000)
+   ```
+
+5. 全部完成后报告 N 处理 / N 失败
+
+**为什么"逐个 fire"而不是"同一 message fire N 个"**：
+
+| 维度 | 同一 message N 个 | **逐个 fire（run_in_background）** |
+|---|---|---|
+| 主 agent outgoing message 大小 | **N × prompt_size**（**可能爆**）| **1 × prompt_size**（安全）|
+| Sub-agent 并发数 | N（同时启动）| 逐渐增加（每 fire 一个 +1）|
+| 总时间 | T_max | T_avg + (N-1)Δ/2 ≈ T_avg（Δ 很小）|
+| 上下文安全 | ⚠️ N 大时爆 | ✅ 安全 |
+
+> 核心：**保留 sub-agent 后台并发**（`run_in_background=true`）+ **错开启动时机**（主 agent outgoing message 一次只装 1 个 prompt）= 上下文安全 + 接近并行的速度。
+
+**data-driven dispatch 的优势**：
+
+- **`subagent_type` 硬编码为 `"general-purpose"`**——主 agent 不会再选错成 `"analyzer"`（项目里"analyzer"是逻辑角色名，Agent tool 不接受）
+- **`run_in_background` 硬编码为 `true`**——主 agent 不会再忘加（默认是同步，会串行）
+- **`prompt` 是脚本组装好的完整文本**——主 agent 不会再手写或递归构造（之前是"让 sub-agent 跑 see-analyze.py"的灾难）
+- **主 agent 退化为 dispatch 循环**——几乎不可能出错
 
 **会话契约**：`session_ids` 是阶段 1 输出的**唯一批量入口**——主 agent 不再自行 glob `evidence/projects-simplified/*.jsonl`，全部从阶段 1 stdout 读取。
 
-**并行而非串行**：每个 sub-agent **上下文完全独立**（独立 arch、独立失败索引、独立 `analysis_reports/<sid>.jsonl`），任务间**无共享状态、无依赖**。主 agent 一次性 fire N 个 sub-agent（`Agent()` 默认后台运行），等所有完成再汇总。
+**sub-agent 隔离**：每个 sub-agent **上下文完全独立**（独立 arch、独立失败索引、独立 `analysis_reports/<sid>.jsonl`），任务间**无共享状态、无依赖**。
 
 **错误隔离**：单个 sub-agent 失败不影响其他——主 agent 只需检查每个 `analysis_reports/<sid>.analysis_report.json` 是否存在 + 报告数，对失败 sid 单独标记。
 
@@ -84,5 +147,7 @@ PYTHONPATH=infra bash infra/scripts/with-python.sh infra/scripts/see-analyze.py 
 4. 读 rules/analyzer-agent-rules.md 规则
 5. 读 arch JSON
 6. 替换 5 个占位符：{{RULES}} / {{REPORT_PATH}} / {{AGENT_ARCH}} / {{OVERVIEW_SUMMARY}} / {{SESSION_ID}}
-7. 输出完整 prompt 字符串到 stdout
+7. 硬编码 subagent_type="general-purpose" + run_in_background=true
+8. 构造 4 字段 JSON：{description, subagent_type, run_in_background, prompt}
+9. 输出 JSON 字符串到 stdout
 ```
