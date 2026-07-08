@@ -31,6 +31,26 @@ evidence/projects-simplified/
     └── agent-*.meta.json
 ```
 
+### stdout JSON
+
+```json
+{
+  "status": "success",
+  "input_dir": "...",
+  "output_dir": "...",
+  "totals": { ... },
+  "failed_sessions": [],
+  "session_ids": [
+    "<main session UUID 1>",
+    "<main session UUID 2>"
+  ]
+}
+```
+
+**字段含义**：`session_ids` = 当前**成功处理**的 **main session UUID 列表**。
+
+**用途**：作为**阶段 2 的批处理入口**——主 agent 在批处理模式下，从阶段 1 stdout 解析此字段，按顺序对每个 session_id 执行 `/see-analyze`。
+
 ## 完成条件
 
 - `see-collect.py` 退出码 0，stdout JSON `status: "success"`

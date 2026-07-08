@@ -168,6 +168,13 @@ def build_summary_json(
     total_entries_in = sum(s["entries_in"] for s in ok)
     total_entries_out = sum(s["entries_out"] for s in ok)
 
+    # 提取成功的 main session UUIDs（top-level .jsonl，排除 subagents/ 子文件）
+    main_ok = [s for s in sessions
+               if s.get("type") == "main"
+               and "error" not in s
+               and s.get("session_id")]
+    session_ids = [s["session_id"] for s in main_ok]
+
     summary = {
         "status": status,
         "input_dir": str(projects_dir),
@@ -181,6 +188,7 @@ def build_summary_json(
             "entries_out": total_entries_out,
         },
         "failed_sessions": [s["input"] for s in files_failed_list],
+        "session_ids": session_ids,
     }
     if error:
         summary["error"] = error

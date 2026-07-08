@@ -1,0 +1,59 @@
+{
+  "session_id": "1dc55302-5d21-4c65-b915-029031760ee6",
+  "agent_cwd": "/home/10087141@zte.intra/AI_DEV/SDD/ran_sdd/02_SDD功能类需求_iMate_skill_subAnget/02_设计域",
+  "summary": {
+    "total_entries": 159,
+    "total_errors": 7,
+    "main_errors": 2,
+    "sub_errors": 5,
+    "subagent_files": 2,
+    "session_duration_hours": 2.79
+  },
+  "by_agent_type": {
+    "general-purpose": {
+      "count": 5,
+      "uuids": [
+        {
+          "uuid": "2fe62651-f36b-4eaa-9a26-4b9c4cc972cf",
+          "agent_id": "a9bd60fcf59a04273",
+          "failure_pattern": "Read:File does not exist. Note: your current working directory is /home/10087141@zte."
+        },
+        {
+          "uuid": "8285559d-1720-4864-8ebb-7c150b43d1ad",
+          "agent_id": "a9bd60fcf59a04273",
+          "failure_pattern": "Read:File does not exist. Note: your current working directory is /home/10087141@zte."
+        },
+        {
+          "uuid": "a05ce608-722e-462d-99aa-44b86c41d807",
+          "agent_id": "a9bd60fcf59a04273",
+          "failure_pattern": "Bash:Exit code 1"
+        },
+        {
+          "uuid": "9726734f-cace-40f4-a9ae-0c2e20987b08",
+          "agent_id": "a9bd60fcf59a04273",
+          "failure_pattern": "Read:File does not exist. Note: your current working directory is /home/10087141@zte."
+        },
+        {
+          "uuid": "03059b72-a245-4e0a-a8fd-e27333f30040",
+          "agent_id": "adb5dc3a5636ae5f4",
+          "failure_pattern": "Read:File does not exist. Note: your current working directory is /home/10087141@zte."
+        }
+      ]
+    },
+    "main": {
+      "count": 2,
+      "uuids": [
+        {
+          "uuid": "d7e1932a-4fe1-4dc4-92e7-cf2c9aeedc6d",
+          "agent_id": null,
+          "failure_pattern": "Read:File does not exist. Note: your current working directory is /home/10087141@zte."
+        },
+        {
+          "uuid": "9b426b6b-96d4-4f7e-b9c4-388650d85d9d",
+          "agent_id": null,
+          "failure_pattern": "AskUserQuestion:The user doesn't want to proceed with this tool use. The tool use was rejected ("
+        }
+      ]
+    }
+  }
+}

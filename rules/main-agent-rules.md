@@ -16,8 +16,10 @@
 
 ### 阶段 2：失败分析
 - **执行依据**：[infra/phases/phase2-analyze.md](../infra/phases/phase2-analyze.md)
-- **主 agent 职责**：执行`PYTHONPATH=infra bash infra/scripts/with-python.sh infra/scripts/see-analyze.py <session_id> [--root <dir>]`脚本 + 调度 analyzer agent
-- **效果**：analyzer agent 生成 `evidence/analysis_reports/<session_id>.analysis_report.json`
+- **主 agent 职责**：根据**是否含 session_id** 走两种执行模式：
+  - **单 session 模式**：执行 `PYTHONPATH=infra bash infra/scripts/with-python.sh infra/scripts/see-analyze.py <session_id> [--root <dir>]` 一次 + 调一次 analyzer sub-agent
+  - **批处理模式**（默认，无 session_id）：从阶段 1 stdout 解析 `session_ids[]`，**并行**对每个 sid 执行 `see-analyze.py <sid>` + 调 analyzer sub-agent（fan-out，sub-agent 后台运行）
+- **效果**：analyzer agent 生成 `evidence/analysis_reports/<session_id>.analysis_report.json`（每个 sid 一份）
 
 ### 阶段 3：Skill 进化
 - **执行依据**：[infra/phases/phase3-evolve.md](../infra/phases/phase3-evolve.md)
@@ -28,7 +30,7 @@
 
 每阶段完，**返回话给用户**等确认，不自动跳到下一阶段：
 
-- **阶段 1 完**：列出可分析 sessions（`ls evidence/projects-simplified/*.jsonl | xargs -I{} basename {} .jsonl`），问"**分析哪个 session？**"
+- **阶段 1 完**：从 stdout 解析 `session_ids[]`（取代 glob 列出 sessions），问"**分析哪个 session（或全部分析）？**"
 - **阶段 2 完**：报告 `analysis_report.json` 路径 + suggestions 数，问"**进入阶段 3 进化 skills 吗？**"
 - **阶段 3 完**：报告 `evolution_report.json` 路径 + 已升级 / 失败统计，流程结束
 
@@ -38,11 +40,13 @@
 
 - **Slash command**（直接调用）：
   - `/see-collect [projects_dir] [simplified_dir]`
-  - `/see-analyze <session_id> [--root <dir>]`
+  - `/see-analyze <session_id> [--root <dir>]`（单 session 模式）
+  - `/see-analyze`（无参数 → 批处理模式，阶段 1 stdout 的 `session_ids` 自动作为任务）
   - `/see-evolve <report.json> [skills_dir]`
 - **自然语言**（智能判断阶段 + 兜底补做之前阶段）：
   - 用户说 "采集 session X" / "处理 X" / "收集 X" → 阶段 1
-  - 用户说 "分析 X" / "帮我分析 sid" / "处理 sid 失败" → 阶段 2
+  - 用户说 "分析 X" / "帮我分析 sid" / "处理 sid 失败" → 阶段 2 单 session 模式
+  - 用户说 "分析所有" / "批处理" / "跑阶段 2 batch" / 不带 sid 的 "分析" → 阶段 2 **批处理模式**
   - 用户说 "进化 X" / "升级 skill" / "改造 X" → 阶段 3
   - 例外：`/see-collect` / `/see-analyze` / `/see-evolve` 命令**也**保留（直接用时**不**触发阶段判断）
 
@@ -58,10 +62,11 @@
 
 当用户用自然语言触发（不是 slash command）：
 
-1. **判断要进哪阶段**（**从**用户消息提取 session_id / keywords）
-   - "分析 sid" / "失败" → 阶段 2
+1. **判断要进哪阶段 + 执行模式**（**从**用户消息提取 session_id / keywords）
+   - "采集" / "处理" / "收集" → 阶段 1
+   - "分析 sid" / "失败" → 阶段 2 单 session 模式
+   - "分析所有" / "批处理" / "跑阶段 2 batch" / 不带 sid 的 "分析" → 阶段 2 **批处理模式**
    - "进化" / "升级" → 阶段 3
-   - "采集" / "处理" → 阶段 1
 2. **检查**之前阶段是否完成（按上表标志）
 3. **如**之前阶段**未**完成 → **先**补做（**不**跳过）
    - 例：用户说"分析 sid"但 `projects-simplified/<sid>.jsonl` **不**在 → **先**跑阶段 1，**再**跑阶段 2
@@ -74,7 +79,7 @@
 
 - **阶段 1 完**：
   - 报告"原始 session → 简化版数据已写到 `evidence/projects-simplified/`"
-  - 列出可分析 sessions（`ls evidence/projects-simplified/*.jsonl`）问"**分析哪个 session？**"
+  - 解析 stdout 的 `session_ids[]`，问"**分析哪个 session（或全部分析）？**"
 - **阶段 2 完**：
   - 报告 `analysis_report.json` 路径 + suggestions 数（`jq '.suggestions | length'`）
   - 问"**进入阶段 3 进化 skills 吗？**"

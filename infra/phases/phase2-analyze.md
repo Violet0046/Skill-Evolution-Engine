@@ -19,9 +19,47 @@ PYTHONPATH=infra bash infra/scripts/with-python.sh infra/scripts/see-analyze.py 
 ```
 
 参数：
+
 - `<session_id>`：必填
 - `--root`：简化版数据根目录（默认 `evidence/projects-simplified`）
 - `--output`：可选，prompt 写到文件（默认 stdout）
+
+## 两种执行模式
+
+阶段 2 由主 agent 调度，支持两种执行模式——根据**用户输入是否含 session_id** 区分：
+
+### 模式 A · 单 session 模式（显式指定）
+
+**触发**：用户 `/see-analyze <sid>` 或自然语言明确给出 session_id（如"分析 5527b413..."）
+
+**主 agent 职责**：
+
+1. 执行 `see-analyze.py <sid>` 一次，拿到 sub-agent prompt
+2. 调一次 `Agent()` sub-agent
+3. 验证 `analysis_reports/<sid>.analysis_report.json` 生成
+
+### 模式 B · 批处理模式（默认，无 session_id）
+
+**触发**：用户 `/see-analyze`（无参数）或自然语言"分析所有" / "批处理" / "跑阶段 2 batch"
+
+**前提**：阶段 1 已完成，且 stdout 含 `session_ids` 字段
+
+**主 agent 职责**：
+
+1. 解析阶段 1 stdout JSON 的 `session_ids[]`
+2. 对每个 sid **并行**（一次性 fire，sub-agent 后台运行）：
+
+   - 执行 `see-analyze.py <sid>` 拿到 prompt
+   - 调一次 `Agent()` sub-agent
+   - 验证 `analysis_reports/<sid>.analysis_report.json` 生成
+
+3. 全部完成后报告 N 处理 / N 失败
+
+**会话契约**：`session_ids` 是阶段 1 输出的**唯一批量入口**——主 agent 不再自行 glob `evidence/projects-simplified/*.jsonl`，全部从阶段 1 stdout 读取。
+
+**并行而非串行**：每个 sub-agent **上下文完全独立**（独立 arch、独立失败索引、独立 `analysis_reports/<sid>.jsonl`），任务间**无共享状态、无依赖**。主 agent 一次性 fire N 个 sub-agent（`Agent()` 默认后台运行），等所有完成再汇总。
+
+**错误隔离**：单个 sub-agent 失败不影响其他——主 agent 只需检查每个 `analysis_reports/<sid>.analysis_report.json` 是否存在 + 报告数，对失败 sid 单独标记。
 
 ## 完成条件
 
