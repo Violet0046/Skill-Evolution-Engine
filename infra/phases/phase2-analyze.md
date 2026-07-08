@@ -32,7 +32,7 @@ PYTHONPATH=infra bash infra/scripts/with-python.sh infra/scripts/see-analyze.py 
 
 **触发**：用户 `/see-analyze <sid>` 或自然语言明确给出 session_id（如"分析 5527b413..."）
 
-**主 agent 职责**（**data-driven dispatch**）：
+**主 agent 职责**：
 
 1. 执行 `see-analyze.py <sid>` 一次，stdout 是 **4 字段 JSON 配置**：
 
@@ -65,7 +65,7 @@ PYTHONPATH=infra bash infra/scripts/with-python.sh infra/scripts/see-analyze.py 
 
 **前提**：阶段 1 已完成，且 stdout 含 `session_ids` 字段
 
-**主 agent 职责**（**data-driven dispatch**）：
+**主 agent 职责**：
 
 1. 解析阶段 1 stdout JSON 的 `session_ids[]`
 2. 对每个 sid：
@@ -73,7 +73,7 @@ PYTHONPATH=infra bash infra/scripts/with-python.sh infra/scripts/see-analyze.py 
    - 跑 `see-analyze.py <sid>` 拿 4 字段 JSON
    - 解析 JSON
 
-3. **逐个 fire**（**错开启动避免主 agent 上下文爆炸，但保留 sub-agent 后台并发**）：
+3. **逐个 fire**：
 
    ```python
    # 假设 session_ids = ["uuid1", "uuid2", ...]
@@ -99,24 +99,6 @@ PYTHONPATH=infra bash infra/scripts/with-python.sh infra/scripts/see-analyze.py 
    ```
 
 5. 全部完成后报告 N 处理 / N 失败
-
-**为什么"逐个 fire"而不是"同一 message fire N 个"**：
-
-| 维度 | 同一 message N 个 | **逐个 fire（run_in_background）** |
-|---|---|---|
-| 主 agent outgoing message 大小 | **N × prompt_size**（**可能爆**）| **1 × prompt_size**（安全）|
-| Sub-agent 并发数 | N（同时启动）| 逐渐增加（每 fire 一个 +1）|
-| 总时间 | T_max | T_avg + (N-1)Δ/2 ≈ T_avg（Δ 很小）|
-| 上下文安全 | ⚠️ N 大时爆 | ✅ 安全 |
-
-> 核心：**保留 sub-agent 后台并发**（`run_in_background=true`）+ **错开启动时机**（主 agent outgoing message 一次只装 1 个 prompt）= 上下文安全 + 接近并行的速度。
-
-**data-driven dispatch 的优势**：
-
-- **`subagent_type` 硬编码为 `"general-purpose"`**——主 agent 不会再选错成 `"analyzer"`（项目里"analyzer"是逻辑角色名，Agent tool 不接受）
-- **`run_in_background` 硬编码为 `true`**——主 agent 不会再忘加（默认是同步，会串行）
-- **`prompt` 是脚本组装好的完整文本**——主 agent 不会再手写或递归构造（之前是"让 sub-agent 跑 see-analyze.py"的灾难）
-- **主 agent 退化为 dispatch 循环**——几乎不可能出错
 
 **会话契约**：`session_ids` 是阶段 1 输出的**唯一批量入口**——主 agent 不再自行 glob `evidence/projects-simplified/*.jsonl`，全部从阶段 1 stdout 读取。
 
