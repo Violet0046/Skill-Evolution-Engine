@@ -25,7 +25,7 @@
 工作目录为 Skill-Evolution-Engine 项目根：
 
 ```bash
-PYTHONPATH=infra bash infra/scripts/with-python.sh infra/scripts/see-analyze.py {session_id} [--root <dir>] [--output <prompt.md>]
+PYTHONPATH=infra bash infra/scripts/with-python.sh infra/scripts/see-analyze.py {session_id} [--root <dir>]
 ```
 
 CLI 会：
@@ -37,12 +37,12 @@ CLI 会：
 
 #### 步骤 A.2：调 Agent 工具启动 sub-agent
 
-把 stdout 作为 sub-agent 的 prompt：
+**直接把 Bash 工具的 stdout 返回值**作为 sub-agent 的 prompt（**不要**先写文件再 Read——Bash 的 stdout 已经是 sub-agent 需要的完整 prompt）：
 
 ```python
 Agent(
     type="general-purpose",
-    prompt=<步骤 A.1 的 stdout>,
+    prompt=<Bash 工具返回的 stdout（即 see-analyze.py 的输出）>,
     tools=["Bash", "Write"],   # sub-agent 用 Bash 调 see_* CLI（走 with-python.sh 垫片），用 Write 写 analysis_report.json
 )
 ```
@@ -72,18 +72,18 @@ PYTHONPATH=infra bash infra/scripts/with-python.sh infra/scripts/see-collect.py
 
 对 `session_ids[]` 里**每个 sid**：
 
-1. 执行 `see-analyze.py <sid>` 拿 prompt：
+1. 执行 `see-analyze.py <sid>` 拿 prompt（**直接用 stdout**，不要写文件）：
 
    ```bash
-   PYTHONPATH=infra bash infra/scripts/with-python.sh infra/scripts/see-analyze.py {sid} --output /tmp/prompt_{sid}.md
+   PYTHONPATH=infra bash infra/scripts/with-python.sh infra/scripts/see-analyze.py {sid}
    ```
 
-2. 调 `Agent()` sub-agent（**默认后台运行**，多个一次性 fire 实现并行）：
+2. 调 `Agent()` sub-agent（**默认后台运行**，多个一次性 fire 实现并行），**直接用 Bash 工具的 stdout 返回值**作为 prompt：
 
    ```python
    Agent(
        type="general-purpose",
-       prompt=<Read /tmp/prompt_{sid}.md 的内容>,
+       prompt=<Bash 工具返回的 stdout（即 see-analyze.py 的输出）>,
        tools=["Bash", "Write"],
    )
    ```
