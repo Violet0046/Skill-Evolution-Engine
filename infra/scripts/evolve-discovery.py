@@ -5,7 +5,11 @@ evolve-discovery.py — 阶段 3 discovery 工具
 
 输出 JSON schema：
 {
-  "target_files": ["skills/.../SKILL.md", "agents/.../agent.md", ...]
+  "targets": [
+    {"subject_name": "需求分析Agent", "target_file": "skills/.../SKILL.md"},
+    {"subject_name": "需求分析Agent", "target_file": "agents/.../agent.md"},
+    ...
+  ]
 }
 
 主 agent 工作流：
@@ -51,10 +55,15 @@ def main() -> int:
                         help=f"analysis_reports 目录（默认 {DEFAULT_REPORTS_DIR}）")
     args = parser.parse_args()
 
-    from core.evolver.aggregate import aggregate_by_target_file
+    from core.evolver.aggregate import aggregate_by_subject_target
 
-    entries = aggregate_by_target_file(args.reports_dir)
-    result = {"target_files": [e["target_file"] for e in entries]}
+    entries = aggregate_by_subject_target(args.reports_dir)
+    result = {
+        "targets": [
+            {"subject_name": e["subject_name"], "target_file": e["target_file"]}
+            for e in entries
+        ]
+    }
     print(json.dumps(result, ensure_ascii=False, indent=2))
     return 0
 

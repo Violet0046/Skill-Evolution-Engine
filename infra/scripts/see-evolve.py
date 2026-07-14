@@ -1,32 +1,34 @@
 """
-see-evolve.py — 阶段 3 单文件入口（per-target_file → 4 字段 JSON）
+see-evolve.py — 阶段 3 单文件入口（per (subject_name, target_file) → 4 字段 JSON）
 
-**职责单一**：输入 1 个 target_file → 输出 1 个 4 字段 JSON。
+**职责单一**：输入 1 组 (subject_name, target_file) → 输出 1 个 4 字段 JSON。
 
-双键消费：
-- target_file → 路径键（sub-agent 用此 Read 原文件）
-- suggestions → ID 键（从 reports_dir 读）
+路径解析：
+- project_root = <SEE_PROJECTS_HOME>/<subject_name>
+- 源文件绝对路径 = project_root / target_file → 填 {{TARGET_FILE}}（sub-agent 直接 Read）
+- suggestions 从 reports_dir 按 (subject_name, target_file) 过滤
 
 **`.change` 文件**：sub-agent 用 `Write` 工具写到
-`evidence/evolution_changes/<flatten_target_file>.change`
+`evidence/evolution_changes/<subject_name>__<flatten_target_file>.change`
 （路径由本脚本算好，通过 `{{CHANGE_OUTPUT_DIR}}/{{CHANGE_FILENAME}}` 占位符传过去）。
 
 主 agent 工作流：
-    1. evolve-discovery.py → 拿 target_files（一次性）
-    2. for tf in target_files: see-evolve.py <tf>（循环）
+    1. evolve-discovery.py → 拿 targets（[{subject_name, target_file}]，一次性）
+    2. for t in targets: see-evolve.py <subject_name> <target_file>（循环）
     3. for call: Agent(**call)（循环）
 
 调试模式（--output-prompt）：把组装好的 prompt 单独写到 .md 文件，方便人类查看。
 
 用法：
-    PYTHONPATH=infra bash infra/scripts/with-python.sh infra/scripts/see-evolve.py <target_file>
-    PYTHONPATH=infra bash infra/scripts/with-python.sh infra/scripts/see-evolve.py <tf> --output-prompt /tmp/evolve_prompt.md
+    PYTHONPATH=infra bash infra/scripts/with-python.sh infra/scripts/see-evolve.py <subject_name> <target_file>
+    PYTHONPATH=infra bash infra/scripts/with-python.sh infra/scripts/see-evolve.py <subject_name> <tf> --output-prompt /tmp/evolve_prompt.md
 """
 
 from __future__ import annotations
 
 import argparse
 import json
+import os
 import sys
 from pathlib import Path
 
@@ -48,29 +50,27 @@ if str(_INFRA) not in sys.path:
     sys.path.insert(0, str(_INFRA))
 
 
-DEFAULT_SKILLS_DIR = _ROOT / "skills"
+DEFAULT_PROJECTS_HOME = Path(os.environ.get("SEE_PROJECTS_HOME", str(_ROOT / "subjects")))
 DEFAULT_CHANGE_OUTPUT_DIR = _ROOT / "evidence" / "evolution_changes"
 DEFAULT_REPORTS_DIR = _ROOT / "evidence" / "analysis_reports"
 
 
-def _get_suggestions(target_file: str, reports_dir: Path) -> tuple[list[dict], str]:
-    """拿 suggestions + target_skill（首条 suggestion 的）。"""
-    from core.evolver.aggregate import get_suggestions_for_target
-    raw = get_suggestions_for_target(reports_dir, target_file)
-    clean = [{k: v for k, v in sg.items() if k not in ("target_skill", "target_file")}
-             for sg in raw]
-    target_skill = raw[0].get("target_skill", "") if raw else ""
-    return clean, target_skill
+def _get_suggestions(subject_name: str, target_file: str, reports_dir: Path) -> list[dict]:
+    """拿指定 (subject_name, target_file) 的 suggestions（已去冗余字段）。"""
+    from core.evolver.aggregate import get_clean_suggestions_for_target
+    return get_clean_suggestions_for_target(reports_dir, target_file, subject_name)
 
 
 def main() -> int:
     parser = argparse.ArgumentParser(
         description="阶段 3 单文件入口：per-target_file → 4 字段 JSON",
     )
+    parser.add_argument("subject_name",
+                        help="subject 名（= arch 文件名 stem，evolve-discovery 输出的 targets[].subject_name）")
     parser.add_argument("target_file",
-                        help="target_file 相对路径（如 skills/查询需求信息/SKILL.md）")
-    parser.add_argument("--skills-dir", type=Path, default=DEFAULT_SKILLS_DIR,
-                        help=f"skills 根目录（默认 {DEFAULT_SKILLS_DIR}）")
+                        help="相对项目根的路径（如 skills/查询需求信息/SKILL.md）")
+    parser.add_argument("--projects-home", type=Path, default=DEFAULT_PROJECTS_HOME,
+                        help=f"subjects 根目录（默认 SEE_PROJECTS_HOME 或 {DEFAULT_PROJECTS_HOME}）")
     parser.add_argument("--change-output-dir", type=Path, default=DEFAULT_CHANGE_OUTPUT_DIR,
                         help=f".change 文件输出目录（默认 {DEFAULT_CHANGE_OUTPUT_DIR}）")
     parser.add_argument("--reports-dir", type=Path, default=DEFAULT_REPORTS_DIR,
@@ -83,14 +83,15 @@ def main() -> int:
 
     from core.evolver.prompt_builder import build_agent_call
 
-    suggestions, target_skill = _get_suggestions(args.target_file, args.reports_dir)
+    suggestions = _get_suggestions(args.subject_name, args.target_file, args.reports_dir)
+    project_root = (args.projects_home / args.subject_name).resolve()
 
     agent_call = build_agent_call(
         target_file=args.target_file,
         suggestions=suggestions,
-        skills_dir=args.skills_dir.resolve(),
+        project_root=project_root,
         change_output_dir=args.change_output_dir.resolve(),
-        target_skill=target_skill,
+        subject_name=args.subject_name,
     )
 
     # 调试模式：写 prompt 文本

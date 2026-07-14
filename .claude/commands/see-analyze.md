@@ -44,7 +44,7 @@ CLI 内部：
 1. 校验 session 存在
 2. 预热失败索引（`.index/<session_id>.json`）
 3. 读 `prompts/analyzer-prompt.md` 模板 + `rules/analyzer-agent-rules.md` 规则 + `agent-architectures/<basename>.json` 架构
-4. 替换 5 个占位符
+4. 替换 6 个占位符
 5. **硬编码** `subagent_type="general-purpose"` + `run_in_background=true`（避免主 agent 选错）
 6. 输出 4 字段 JSON
 

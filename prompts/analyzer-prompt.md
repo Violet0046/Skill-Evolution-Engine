@@ -9,6 +9,7 @@
 ```json
 {
   "session_id": "{{SESSION_ID}}",
+  "subject_name": "{{SUBJECT_NAME}}",
   "generated_at": "<ISO timestamp>",
   "suggestions": [
     {
@@ -23,6 +24,8 @@
   ]
 }
 ```
+
+> `session_id`、`subject_name` 原样保留、勿改。
 
 ## 工具集（用 Bash 调 CLI）
 

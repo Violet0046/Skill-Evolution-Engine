@@ -139,7 +139,7 @@ PYTHONPATH=infra bash infra/scripts/with-python.sh infra/scripts/see-analyze.py 
 3. 读 prompts/analyzer-prompt.md 模板
 4. 读 rules/analyzer-agent-rules.md 规则
 5. 读 arch JSON
-6. 替换 5 个占位符：{{RULES}} / {{REPORT_PATH}} / {{AGENT_ARCH}} / {{OVERVIEW_SUMMARY}} / {{SESSION_ID}}
+6. 替换 6 个占位符：{{RULES}} / {{REPORT_PATH}} / {{AGENT_ARCH}} / {{OVERVIEW_SUMMARY}} / {{SUBJECT_NAME}} / {{SESSION_ID}}
 7. 硬编码 subagent_type="general-purpose" + run_in_background=true
 8. 构造 4 字段 JSON：{description, subagent_type, run_in_background, prompt}
 9. 输出 JSON 字符串到 stdout

@@ -1,6 +1,6 @@
 ### 禁止
 
-- 写原文件（`skills_dir/{target_file}`）—— 必须写 `.change`
+- 写回被升级的源文件 —— 必须写 `.change`
 - 读 `target_file` 之外的任何业务文件
 
 ### 反模式
