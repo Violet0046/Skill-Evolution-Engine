@@ -23,8 +23,8 @@
 
 ### 阶段 3：Skill 进化
 - **执行依据**：[infra/phases/phase3-evolve.md](../infra/phases/phase3-evolve.md)
-- **主 agent 职责**：执行`PYTHONPATH=infra bash infra/scripts/with-python.sh infra/scripts/see-evolve.py <report.json> [skills_dir]`脚本 + 调度 evolver sub-agent
-- **效果**：evolver agent 改 target_file + 输出 `evolution_report.json`
+- **主 agent 职责**：先跑 `evolve-discovery.py` 拿 `target_files[]`，再**逐个** target_file 跑 `see-evolve.py <target_file>` 拿 4 字段 JSON + 用该 JSON 原样调度 evolver sub-agent（`run_in_background=true` 后台并发）
+- **效果**：evolver agent 把升级后的**完整文件**写到 `evidence/evolution_changes/<flatten>.change`（**不改**原文件）
 
 ## 阶段间交互
 
@@ -32,7 +32,7 @@
 
 - **阶段 1 完**：从 stdout 解析 `session_ids[]`（取代 glob 列出 sessions），问"**分析哪个 session（或全部分析）？**"
 - **阶段 2 完**：报告 `analysis_report.json` 路径 + suggestions 数，问"**进入阶段 3 进化 skills 吗？**"
-- **阶段 3 完**：报告 `evolution_report.json` 路径 + 已升级 / 失败统计，流程结束
+- **阶段 3 完**：报告已生成的 `.change` 文件列表 + 已升级 / 失败统计，流程结束
 
 ## 触发条件
 
@@ -42,7 +42,7 @@
   - `/see-collect [projects_dir] [simplified_dir]`
   - `/see-analyze <session_id> [--root <dir>]`（单 session 模式）
   - `/see-analyze`（无参数 → 批处理模式，阶段 1 stdout 的 `session_ids` 自动作为任务）
-  - `/see-evolve <report.json> [skills_dir]`
+  - `/see-evolve [target_file]`（含 target_file → 单文件模式；无参数 → 批处理，先 discovery 再逐个 fire）
 - **自然语言**（智能判断阶段 + 兜底补做之前阶段）：
   - 用户说 "采集 session X" / "处理 X" / "收集 X" → 阶段 1
   - 用户说 "分析 X" / "帮我分析 sid" / "处理 sid 失败" → 阶段 2 单 session 模式
@@ -56,7 +56,7 @@
 
 - 阶段 1 完成 = `evidence/projects-simplified/<session_id>.jsonl` 存在
 - 阶段 2 完成 = `evidence/analysis_reports/<session_id>.analysis_report.json` 存在
-- 阶段 3 完成 = `evidence/evolution_reports/<session_id>.evolution_report.json` 存在
+- 阶段 3 完成 = `evidence/evolution_changes/<flatten_target_file>.change` 存在（每个 target_file 一份）
 
 ### 自然语言触发流程
 
@@ -84,7 +84,7 @@
   - 报告 `analysis_report.json` 路径 + suggestions 数（`jq '.suggestions | length'`）
   - 问"**进入阶段 3 进化 skills 吗？**"
 - **阶段 3 完**：
-  - 报告 `evolution_report.json` 路径 + 已升级 / 失败统计
+  - 报告已生成的 `evidence/evolution_changes/*.change` 文件列表 + 已升级 / 失败统计
   - 流程结束
 
 执行中**实时**报告：

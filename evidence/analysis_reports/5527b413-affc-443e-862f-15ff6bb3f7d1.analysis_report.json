@@ -1,0 +1,99 @@
+{
+  "session_id": "5527b413-affc-443e-862f-15ff6bb3f7d1",
+  "generated_at": "2026-07-09T00:00:27+08:00",
+  "suggestions": [
+    {
+      "id": "5527b413-affc-443e-862f-15ff6bb3f7d1-sg-001",
+      "priority": "high",
+      "target_skill": "查询需求信息",
+      "target_file": "skills/查询需求信息/SKILL.md",
+      "direction": "在 SKILL.md 中显式说明 query_simple.py 依赖 requests 模块，需先用 pip install requests 或激活已配虚拟环境；并提供缺包时的本地消费区数据回退路径",
+      "evidence_uuids": [
+        "dbad6dda-740f-48aa-81ea-14c3c98b878e",
+        "61be7587-98bd-4816-a4a3-b5c0e5aa0137",
+        "0fe6189f-8788-4925-a002-77977d311034"
+      ],
+      "rationale": "main (dbad6dda)、差分场景检查单-agent (61be7587)、子系统变更分析-agent (0fe6189f) 均因 ImportError: No module named requests 失败；典型堆栈来自 .claude/skills/查询需求信息/scripts/query_simple.py line 10，是高频共享脚本依赖问题"
+    },
+    {
+      "id": "5527b413-affc-443e-862f-15ff6bb3f7d1-sg-002",
+      "priority": "high",
+      "target_skill": "",
+      "target_file": "",
+      "direction": "将 .specify/scripts/bash/consume/knowledge/collect_related_instances.sh 的实际可执行路径与工作目录切换前置条件写入所有系统域变更分析-* 子 agent 的 Step 0",
+      "evidence_uuids": [
+        "d1745286-a001-48c7-b22b-9dc080966a62",
+        "31df3abd-f577-4c6b-88ee-cf8ccdfbd0c4"
+      ],
+      "rationale": "模块变更分析-agent (d1745286) 与组件变更分析-agent (31df3abd) 都以 cd changes/.../需求分析工作流 && bash .specify/... 方式调用，bash 报 Exit 127 没有那个文件或目录，相对路径未在工作目录解析成功；说明 SKILL.md 没有写明脚本绝对路径"
+    },
+    {
+      "id": "5527b413-affc-443e-862f-15ff6bb3f7d1-sg-003",
+      "priority": "high",
+      "target_skill": "ReviewAgent",
+      "target_file": "agents/ReviewAgent/review_agent.md",
+      "direction": "在 review_agent.md 工具使用规范中要求 Write 既有文件前必须先 Read 一次；并在审查流程 Step 0 增加 ls/find 命令确认目标目录（如 牵头子系统/、session-tacit-knowledge/）存在再 Read",
+      "evidence_uuids": [
+        "437d64d4-55fc-4cd9-8964-f7becd69e1a8",
+        "b15b9fc9-a461-48c8-8a0b-023c22f9092a",
+        "593f0bcd-7b05-4ecc-9c84-07bc7bc0223a",
+        "8edbef50-4ecd-4e53-ac10-5af2c99254b7",
+        "f24a7d4a-d8ef-4c68-8e98-051fc18041b9",
+        "4c3d73f9-fb15-4fd0-af5e-b37094e8136d",
+        "e3117435-d9b3-4802-80d4-f471ceb6c7d7",
+        "3d65db5a-7b56-44f7-9a75-b1a2a1b8930f",
+        "99b2f84e-7c1d-46ff-b29f-7545f00a849c",
+        "999c39fd-7121-4172-bfcf-32790de221ab"
+      ],
+      "rationale": "review-agent 共 10 次失败，其中 7 次为 Write:<tool_use_error>File has not been read yet、1 次 Read:EISDIR（拿目录当文件读）、1 次 Read:File does not exist（牵头子系统.md）、1 次 Bash:Exit 2（牵头子系统/ 目录不存在）；review_agent.md 缺少工具前置自检步骤"
+    },
+    {
+      "id": "5527b413-affc-443e-862f-15ff6bb3f7d1-sg-004",
+      "priority": "medium",
+      "target_skill": "协议分析",
+      "target_file": "skills/协议分析/SKILL.md",
+      "direction": "在 SKILL.md 中为大型知识文件（如 UECapabilityInformation.md，约 274KB）显式列出 offset+limit 的分段读取模板与必查章节；并明确 Edit 工具在本 agent 上下文不可用，必须 Read+Write 整文件改写",
+      "evidence_uuids": [
+        "69be4770-180c-4a84-83e2-caa64901ca6e",
+        "8f5a1906-82ce-412e-9e20-64cf2b2e587f"
+      ],
+      "rationale": "协议分析-agent 两次失败：Read 274.8KB 超过 256KB 限制；Edit:<tool_use_error>No such tool available: Edit. Edit exists but is not enabled；模型都通过 fallback 自救成功"
+    },
+    {
+      "id": "5527b413-affc-443e-862f-15ff6bb3f7d1-sg-005",
+      "priority": "medium",
+      "target_skill": "数据回流-agent",
+      "target_file": "agents/数据回流-agent/数据回流-agent.md",
+      "direction": "修改 upload.sh：对可选文件（如 model.txt）缺失只打 WARN 不要以 Exit 1 终止；并由 sub-agent 在调用前根据回流规则判断目标文件清单，过滤掉必无文件",
+      "evidence_uuids": [
+        "ce5851f8-8563-4d4d-90e9-d94f699468e2",
+        "938eb63a-d4c4-42c0-9382-85b239ce749e"
+      ],
+      "rationale": "两次失败均发生在协议分析回流的 upload.sh：\"源文件不存在，跳过复制：.../model.txt\" 后 Exit 1；但实际 session 目录已创建、内容已存在，子 agent 在第一次失败后第二次仍同样执行同一脚本两次"
+    },
+    {
+      "id": "5527b413-affc-443e-862f-15ff6bb3f7d1-sg-006",
+      "priority": "medium",
+      "target_skill": "系统域变更分析-子系统变更分析",
+      "target_file": "skills/系统域变更分析-子系统变更分析/SKILL.md",
+      "direction": "在 Step 0 加入目录与文件存在性自检（牵头子系统/、牵头子系统.md、子系统_职责能力描述 JSON），并给出\"目录或 md 缺失时改用 JSON 能力描述\"的回退路径",
+      "evidence_uuids": [
+        "999c39fd-7121-4172-bfcf-32790de221ab",
+        "99b2f84e-7c1d-46ff-b29f-7545f00a849c"
+      ],
+      "rationale": "review-agent 审查子系统变更分析时尝试 Read 牵头子系统/（Exit 2）和 牵头子系统.md（File does not exist），而知识实际以 JSON 形式存在；SKILL.md 未声明知识文件形态导致下游 sub-agent 误读路径"
+    },
+    {
+      "id": "5527b413-affc-443e-862f-15ff6bb3f7d1-sg-007",
+      "priority": "medium",
+      "target_skill": "问题域场景分析",
+      "target_file": "skills/问题域场景分析/SKILL.md",
+      "direction": "在 Step 0 输入门禁中强制 ls 校验 场景-领域知识/、场景类型-领域知识/、scripts/verify_mermaid.py 全部存在再继续；任一缺失时给出明确报错而非依靠 Bash Exit 2 提示",
+      "evidence_uuids": [
+        "a3468757-32b5-4712-8ef5-a124b33868b4",
+        "eaee66bb-8a75-4cde-9af1-50c5eec8bc42"
+      ],
+      "rationale": "场景要素分析 (a3468757) 因 场景类型-领域知识/ 不存在 Exit 2；根因分析 (eaee66bb) 因 scripts/verify_mermaid.py 不存在 Exit 2；两者均说明 SKILL.md 没有 Step 0 环境就绪检查"
+    }
+  ]
+}

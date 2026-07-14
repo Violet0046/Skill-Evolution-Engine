@@ -43,3 +43,5 @@ MANIFEST
 # Environment
 .env
 .env.local
+
+/subjects

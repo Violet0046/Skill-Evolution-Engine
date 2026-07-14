@@ -1,8 +1,10 @@
-进化 SKILL.md 文件（阶段 3：按 target_file 升级 + 写 evolution_report.json）。
+进化 SKILL.md 文件（阶段 3：读原文件 + 应用建议 + 写升级后的**完整文件**到 `.change`）。
 
 **支持两种模式**（与 [main-agent-rules.md](../../rules/main-agent-rules.md) 和 [phase3-evolve.md](../../infra/phases/phase3-evolve.md) 一致）：
 - **单 target_file 模式**：用户提供具体 `<target_file>` 路径
-- **批处理模式**（默认）：无参数调用时，按 target_file 聚合所有 analysis_reports，逐个 fire Agent 进化
+- **批处理模式**（默认）：无参数调用时，先 `evolve-discovery.py` 拿 `target_files[]`，逐个 fire Agent 进化
+
+> **不改原文件**：evolver 只把**完整最终态**写到 `evidence/evolution_changes/<flatten>.change`，**不写** patch、**不做**原位升级。
 
 ## 执行步骤
 
@@ -24,7 +26,7 @@
 工作目录为 Skill-Evolution-Engine 项目根：
 
 ```bash
-PYTHONPATH=infra bash infra/scripts/with-python.sh infra/scripts/see-evolve.py {target_file} [--skills-dir <path>] [--evolved-skills-dir <path>]
+PYTHONPATH=infra bash infra/scripts/with-python.sh infra/scripts/see-evolve.py {target_file} [--skills-dir <path>] [--change-output-dir <path>] [--reports-dir <path>]
 ```
 
 **stdout 是一个 4 字段 JSON 字符串**（不是裸 prompt！）：
@@ -34,16 +36,16 @@ PYTHONPATH=infra bash infra/scripts/with-python.sh infra/scripts/see-evolve.py {
   "description": "Evolve <target_file> (N suggestions)",
   "subagent_type": "general-purpose",
   "run_in_background": true,
-  "prompt": "# evolver agent · per-target_file\n...（完整 prompt）"
+  "prompt": "# evolver agent\n...（完整 prompt）"
 }
 ```
 
 CLI 内部：
 
-1. 扫 `evidence/analysis_reports/*.analysis_report.json` 找这个 target_file 的 suggestions
-2. 过滤 priority（high > medium，**low 跳过**）
+1. 从 `reports-dir` 扫 `*.analysis_report.json`，找这个 target_file 的 suggestions
+2. 按 priority 排序（high > medium > low），**不过滤任何 priority**（low 也是宝贵经验，全保留）
 3. 读 `prompts/evolver-prompt.md` 模板 + `rules/evolver-agent-rules.md` 规则
-4. 替换 6 个占位符（`{{RULES}}` / `{{TARGET_SKILL}}` / `{{TARGET_FILE}}` / `{{SKILLS_DIR}}` / `{{EVOLVED_SKILLS_DIR}}` / `{{SUGGESTIONS_JSON}}`）
+4. 替换 7 个占位符（`{{RULES}}` / `{{TARGET_SKILL}}` / `{{TARGET_FILE}}` / `{{SKILLS_DIR}}` / `{{CHANGE_OUTPUT_DIR}}` / `{{CHANGE_FILENAME}}` / `{{SUGGESTIONS_JSON}}`）
 5. **硬编码** `subagent_type="general-purpose"` + `run_in_background=true`（避免主 agent 选错）
 6. 输出 4 字段 JSON
 
@@ -74,8 +76,8 @@ TaskOutput(task_id=<id>, block=true, timeout=600000)
 sub-agent 会：
 
 - 读 `skills_dir/target_file`（如果不存在 → 报 `file_not_found`）
-- 逐条应用 suggestions（按 priority 排序）
-- 写 `evidence/evolution_reports/<target_file_safe>.evolution_report.json`
+- 按 priority 排序逐条应用 suggestions（**不过滤 priority**）到当前内容，构造**完整最终态**
+- 用 `Write` 把完整文件写到 `evidence/evolution_changes/<flatten_target_file>.change`
 - 输出 `<EVOLUTION_COMPLETE>` / `<EVOLUTION_FAILED>`
 
 ---
@@ -85,10 +87,10 @@ sub-agent 会：
 #### 步骤 B.1：拿所有 target_file 列表
 
 ```bash
-PYTHONPATH=infra bash infra/scripts/with-python.sh infra/scripts/see-evolve-aggregate.py
+PYTHONPATH=infra bash infra/scripts/with-python.sh infra/scripts/evolve-discovery.py [--reports-dir <path>]
 ```
 
-stdout JSON 含 `target_files[]`（每个 entry = `{target_skill, target_file, suggestion_count, suggestions[]}`）。
+stdout JSON = `{"target_files": ["skills/.../SKILL.md", "agents/.../agent.md", ...]}`（**扁平字符串列表**，不含 suggestions——suggestions 由步骤 B.2 里的 `see-evolve.py <tf>` 各自去 reports 读）。
 
 #### 步骤 B.2：**逐个 fire**（data-driven dispatch，逐个 target_file）
 
@@ -96,9 +98,9 @@ stdout JSON 含 `target_files[]`（每个 entry = `{target_skill, target_file, s
 > **逐个 fire** = 主 agent 一次 outgoing message 只有 1 个 prompt（避免上下文爆炸），但 N 个 sub-agent 在**后台并发跑**。
 
 ```python
-# 拿到 target_files 列表（来自步骤 B.1）
-agg = json.loads(<Bash stdout from see-evolve-aggregate.py>)
-target_files = [tf["target_file"] for tf in agg["target_files"]]
+# 拿到 target_files 列表（来自步骤 B.1，已是扁平字符串列表）
+disc = json.loads(<Bash stdout from evolve-discovery.py>)
+target_files = disc["target_files"]
 
 # 循环：对每个 target_file 调 see-evolve.py + 拿 4 字段 JSON + fire Agent
 task_ids = []
@@ -126,7 +128,7 @@ for task_id in task_ids:
 
 #### 步骤 B.4：汇总结果
 
-- 验证每个 `evidence/evolution_reports/<target_file_safe>.evolution_report.json` 是否生成
+- 验证每个 `evidence/evolution_changes/<flatten_target_file>.change` 是否生成
 - 报告 N 成功 / M 失败 / 总 target_file 数
 - 错误隔离：单个 target_file 失败不影响其他
 

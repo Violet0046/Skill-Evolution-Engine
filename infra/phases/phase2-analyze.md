@@ -8,7 +8,7 @@
 |---|---|
 | 阶段 1 已完成 | `evidence/projects-simplified/<session_id>.jsonl` 存在 |
 | 阶段 2 已完成 | `evidence/analysis_reports/<session_id>.analysis_report.json` 存在 |
-| 阶段 3 已完成 | `evidence/evolution_reports/<session_id>.evolution_report.json` 存在 |
+| 阶段 3 已完成 | `evidence/evolution_changes/<flatten_target_file>.change` 存在 |
 
 主 agent 跑阶段 2 前**自动**检查阶段 1 标志——**未**完成则**先**补跑（**不**跳过）。
 
@@ -65,40 +65,51 @@ PYTHONPATH=infra bash infra/scripts/with-python.sh infra/scripts/see-analyze.py 
 
 **前提**：阶段 1 已完成，且 stdout 含 `session_ids` 字段
 
+**核心调度原则**：**并行 see-analyze.py + 串行 fire-and-await**——两者职责分离、各取所长。
+
+| 阶段 | 并发度 | 理由 |
+| --- | --- | --- |
+| 跑 `see-analyze.py` 拿 4 字段 JSON | **并行**（N 个 Bash 在同一 outgoing message） | CLI 轻量（几秒，stdout 5-7KB），并行不抢资源 |
+| `Agent` fire + `TaskOutput` await | **批量 fire + 串行 await**（sub-agent 后台并行跑，主 agent 逐个处理结果） | 控制 context 增长线性化、失败定位一一对应、错误硬隔离 |
+
 **主 agent 职责**：
 
 1. 解析阶段 1 stdout JSON 的 `session_ids[]`
-2. 对每个 sid：
+2. **并行**跑 N 个 `see-analyze.py`（一个 outgoing message 里 N 条 Bash）：
 
-   - 跑 `see-analyze.py <sid>` 拿 4 字段 JSON
-   - 解析 JSON
+   ```bash
+   # 同一个 outgoing message 里发 N 条 Bash 并行跑
+   PYTHONPATH=infra bash infra/scripts/with-python.sh infra/scripts/see-analyze.py <sid_1>
+   PYTHONPATH=infra bash infra/scripts/with-python.sh infra/scripts/see-analyze.py <sid_2>
+   ...
+   PYTHONPATH=infra bash infra/scripts/with-python.sh infra/scripts/see-analyze.py <sid_N>
+   ```
 
-3. **逐个 fire**：
+   拿到 N 个 JSON 字符串。
+
+3. **批量 fire + 串行 await**（sub-agent 并行跑，结果处理串行）：
 
    ```python
-   # 假设 session_ids = ["uuid1", "uuid2", ...]
+   # 把 N 个 JSON 解析成列表
+   call_list = [json.loads(s) for s in json_strings]
+
+   # 第一阶段：批量 fire（**同一个 outgoing message 里 N 个 Agent 调用**——sub-agent 全部并行启动）
    task_ids = []
-   for sid in session_ids:
-       call = json.loads(<Bash stdout for sid>)  # 这个 sid 的 4 字段 JSON
+   for sid, call in zip(session_ids, call_list):
        task_id = Agent(
            description=call["description"],
            subagent_type=call["subagent_type"],
            run_in_background=call["run_in_background"],
            prompt=call["prompt"],
        )
-       task_ids.append(task_id)
-       # ↑ fire 完立即返回 task_id，sub-agent 后台跑
+       task_ids.append((sid, task_id))
+
+   # 第二阶段：串行 await（每个 sid 一个 TaskOutput——sub-agent 在后台并行跑，但 await 顺序处理结果）
+   for sid, task_id in task_ids:
+       TaskOutput(task_id=task_id, block=True, timeout=600000)
    ```
 
-4. **循环外**用 `TaskOutput` 等所有 sub-agent 完成：
-
-   ```python
-   # 全部 fire 完后再 await（**不**在循环里 await——那样会阻塞后续 sub-agent 启动）
-   for task_id in task_ids:
-       TaskOutput(task_id=task_id, block=true, timeout=600000)
-   ```
-
-5. 全部完成后报告 N 处理 / N 失败
+4. 循环结束后报告 N 处理 / N 失败
 
 **会话契约**：`session_ids` 是阶段 1 输出的**唯一批量入口**——主 agent 不再自行 glob `evidence/projects-simplified/*.jsonl`，全部从阶段 1 stdout 读取。
 
@@ -122,7 +133,7 @@ PYTHONPATH=infra bash infra/scripts/with-python.sh infra/scripts/see-analyze.py 
 
 ## see-analyze.py 内部流程
 
-```
+```text
 1. 跑 see_failure_overview（写 .index/ 索引）
 2. 调 core.util.resolve_architecture（用 session_id 拿 arch 路径）
 3. 读 prompts/analyzer-prompt.md 模板

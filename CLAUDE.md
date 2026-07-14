@@ -20,13 +20,14 @@ Skill-Evolution-Engine/
 │   ├── scripts/                    # CLI 入口
 │   │   ├── see-collect.py
 │   │   ├── see-analyze.py
-│   │   ├── see-evolve.py
+│   │   ├── see-evolve.py           # 阶段 3：单 target_file → 4 字段 JSON
+│   │   ├── evolve-discovery.py     # 阶段 3：discovery，列出所有 target_file
 │   │   └── with-python.sh          # Python 3.8+ 探测垫片（自动 export PYTHONPATH=infra）
 │   ├── core/                       # 核心模块
 │   │   ├── simplify/               # entry 字段精简
 │   │   ├── failure_analyzer/       # 3 个 see_* 工具（overview/find/detail）
 │   │   ├── util/                   # 通用工具（agent_meta / resolve_architecture / session_io / timestamp）
-│   │   └── patch/                  # Patch 解析与应用
+│   │   └── evolver/                # suggestions 聚合（aggregate）+ evolver prompt 组装（prompt_builder）
 ├── rules/                          # 3 个 agent 规则
 │   ├── main-agent-rules.md
 │   ├── analyzer-agent-rules.md
@@ -39,7 +40,8 @@ Skill-Evolution-Engine/
 └── evidence/                       # 数据目录
     ├── projects/                   # 原始 session
     ├── projects-simplified/        # 简化版（阶段 1 产出）
-    └── analysis_reports/           # analyzer 输出（<session_id>.analysis_report.json）
+    ├── analysis_reports/           # analyzer 输出（<session_id>.analysis_report.json，阶段 2 产出）
+    └── evolution_changes/          # evolver 输出（<flatten_target_file>.change，阶段 3 产出）
 ```
 
 ## 执行规则

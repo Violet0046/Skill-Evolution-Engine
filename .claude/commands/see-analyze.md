@@ -71,7 +71,7 @@ Agent(
 sub-agent 会**自动**：
 
 - 按 prompt 工作流工作（按 agent 遍历 find/detail）
-- 调 `Write` 工具把 `analysis_report.json` 写到 `evidence/analysis_reports/<session_id>.analysis_report.json`
+- 把 `analysis_report.json` 写到 `evidence/analysis_reports/<session_id>.analysis_report.json`
 - 输出 `<ANALYSIS_COMPLETE>` / `<ANALYSIS_FAILED>`
 
 ---
@@ -90,57 +90,52 @@ PYTHONPATH=infra bash infra/scripts/with-python.sh infra/scripts/see-collect.py
 
 > 阶段 1 已跑过且 `session_ids` 已知 → **跳过**本步骤直接进 B.2。
 
-#### 步骤 B.2：并行 fire N 个 sub-agent（**data-driven dispatch**）
+#### 步骤 B.2：并行 see-analyze.py + 串行 fire-and-await
 
-**核心思路**：每个 sid 调一次 `see-analyze.py` 拿到 4 字段 JSON → 用 JSON 字段直接调 Agent。**不要**自己拼 Agent 调用参数。
+**核心调度原则**：两个阶段**并发策略不同**——`see-analyze.py` 这一步轻量可以并行，`Agent fire` + `TaskOutput await` 必须串行。
 
-##### 阶段 1：对每个 sid 调 see-analyze.py，拿到 JSON
+| 阶段 | 并发度 | 理由 |
+| --- | --- | --- |
+| 跑 `see-analyze.py` 拿 4 字段 JSON | **并行**（N 条 Bash 在同一 outgoing message） | CLI 轻量（几秒，stdout 5-7KB），并行不抢资源 |
+| `Agent` fire + `TaskOutput` await | **批量 fire + 串行 await**（sub-agent 后台并行跑，主 agent 逐个处理结果） | 控制 context 增长线性化、失败定位一一对应、错误硬隔离 |
+
+##### 阶段 1：**并行**跑 N 个 see-analyze.py
+
+一个 outgoing message 里同时发 N 条 Bash，**并行**拿到 N 个 JSON：
 
 ```bash
-PYTHONPATH=infra bash infra/scripts/with-python.sh infra/scripts/see-analyze.py {sid}
+PYTHONPATH=infra bash infra/scripts/with-python.sh infra/scripts/see-analyze.py <sid_1>
+PYTHONPATH=infra bash infra/scripts/with-python.sh infra/scripts/see-analyze.py <sid_2>
+...
+PYTHONPATH=infra bash infra/scripts/with-python.sh infra/scripts/see-analyze.py <sid_N>
 ```
 
-stdout 是一个 4 字段 JSON（见步骤 A.1 的格式说明）。**对每个 sid 都跑一次**——拿到 N 个 JSON 字符串，**记住**（或塞进一个列表里）。
-
-##### 阶段 2：**逐个 fire**
-
-> **逐个 fire** = 主 agent 一次 outgoing message 只有 1 个 prompt（避免上下文爆炸），但 N 个 sub-agent 在**后台并发跑**
-
-**循环**对每个 sid 调 Agent + TaskOutput：
+拿到 N 个 JSON 字符串，**解析成列表备用**：
 
 ```python
-# 拿到 N 个 sid 的 JSON（可以预先放在一个列表里）
-# 例如：call_list = [json.loads(s) for s in json_strings]
+call_list = [json.loads(s) for s in json_strings]
+```
 
+##### 阶段 2：**批量 fire + 串行 await**（sub-agent 并行跑，结果处理串行）
+
+```python
+# 第一阶段：批量 fire（**同一个 outgoing message 里 N 个 Agent 调用**——sub-agent 全部并行启动）
 task_ids = []
-for sid in session_ids:
-    # 拿这个 sid 的 4 字段 JSON
-    call = json.loads(<Bash stdout for sid>)  # 或从 call_list 取
-
-    # fire Agent（**立即返回 task_id**，sub-agent 后台跑）
+for sid, call in zip(session_ids, call_list):
     task_id = Agent(
         description=call["description"],
         subagent_type=call["subagent_type"],
         run_in_background=call["run_in_background"],
         prompt=call["prompt"],
     )
-    task_ids.append(task_id)
+    task_ids.append((sid, task_id))
+
+# 第二阶段：串行 await（每个 sid 一个 TaskOutput——sub-agent 在后台并行跑，但 await 顺序处理结果）
+for sid, task_id in task_ids:
+    TaskOutput(task_id=task_id, block=True, timeout=600000)
 ```
 
 > **不要**自己写 `subagent_type="general-purpose"` 或 `run_in_background=true`——直接用 JSON 里的字段。
-> **不要**在循环里调 TaskOutput——**循环外**统一等所有完成（这样后续 sub-agent 可以**继续后台跑**直到我们 await）。
-
-##### 阶段 3：用 `TaskOutput` 等所有 sub-agent 完成
-
-**循环外**对每个 `task_id` **阻塞等结果**：
-
-```python
-# 现在 await 所有 sub-agent
-for task_id in task_ids:
-    TaskOutput(task_id=task_id, block=true, timeout=600000)
-```
-
-> 之所以"循环外 await"而不是"循环内 fire-and-await"——后者会让后续 sub-agent 的启动**被前面的 await 阻塞**，失去并发收益。
 
 #### 步骤 B.3：汇总结果
 
