@@ -10,7 +10,7 @@ see-analyze.py — 阶段 2 入口（**完整** sub-agent prompt 拼装）
   3. 读 prompts/analyzer-prompt.md 模板
   4. 读 rules/analyzer-agent-rules.md 规则
   5. 读 arch JSON
-  6. 替换 6 个占位符（{{RULES}} / {{REPORT_PATH}} / {{AGENT_ARCH}} / {{OVERVIEW_SUMMARY}} / {{SUBJECT_NAME}} / {{SESSION_ID}}）
+  6. 替换模板中的 5 个占位符（{{RULES}} / {{AGENT_ARCH}} / {{OVERVIEW_SUMMARY}} / {{SUBJECT_NAME}} / {{SESSION_ID}}）
   7. 输出完整 prompt 字符串到 stdout
 
 为什么**拼完整 prompt 在这里**（**不**在主 agent）：
@@ -105,13 +105,9 @@ def assemble_prompt(session_id: str, root: str | None) -> str:
     )
     overview_md = _format_overview(index_data)
 
-    # 5) 报告路径（脚本自己算，**不**从 bundle 读）
-    report_path = str(_ROOT / "evidence" / "analysis_reports" / f"{session_id}.analysis_report.json")
-
-    # 6) 替换 6 个占位符
+    # 6) 替换模板中的 5 个占位符
     return (template
             .replace("{{RULES}}", rules)
-            .replace("{{REPORT_PATH}}", report_path)
             .replace("{{AGENT_ARCH}}", arch_content)
             .replace("{{OVERVIEW_SUMMARY}}", overview_md)
             .replace("{{SUBJECT_NAME}}", subject_name)

@@ -5,7 +5,7 @@ cli.py —— `PYTHONPATH=infra python -m core.failure_analyzer <cmd> <args>` �
     overview <session_id> [--refresh] [--top-n-patterns N]
         返回 session 统计 + top-N 失败模式。默认懒构建索引。
 
-    find <session_id> [<pattern>] [--limit N] [--main-only] [--list-patterns]
+    find <session_id> [<pattern>] [--limit N] [--list-patterns]
         按失败模式找 entry。
           不传 pattern / 加 --list-patterns：列出所有 pattern（含 main/subagent 分布）
           传 pattern：搜该 pattern 的所有 hit
@@ -151,8 +151,6 @@ def cmd_find(args: argparse.Namespace) -> int:
         })
 
     all_hits = bucket.get("uuids", [])
-    if args.main_only:
-        all_hits = [h for h in all_hits if h.get("agent_id") is None]
     limited = all_hits[:args.limit]
 
     return _print_result({
@@ -248,8 +246,6 @@ def build_parser() -> argparse.ArgumentParser:
     p_find.add_argument("--agent-type", default=None,
                         help="按 agent_type 查所有 hit")
     p_find.add_argument("--limit", type=int, default=20, help="返回 hit 上限（默认 20）")
-    p_find.add_argument("--main-only", action="store_true",
-                        help="仅返回主流程命中（不含 subagent）")
     p_find.set_defaults(func=cmd_find)
 
     # detail

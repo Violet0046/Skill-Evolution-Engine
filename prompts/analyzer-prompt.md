@@ -31,7 +31,7 @@
 
 | 工具 | Bash 命令 |
 |---|---|
-| see_find | `PYTHONPATH=infra bash infra/scripts/with-python.sh -m core.failure_analyzer find <sid> [--agent-type <type>] [--limit N] [--main-only]` |
+| see_find | `PYTHONPATH=infra bash infra/scripts/with-python.sh -m core.failure_analyzer find <sid> [--agent-type <type>] [--limit N]` |
 | see_detail | `PYTHONPATH=infra bash infra/scripts/with-python.sh -m core.failure_analyzer detail <sid> <uuid>` |
 
 ### `find` 用法
