@@ -2,17 +2,17 @@
 
 ## 目标
 
-把原始 Claude Code session 数据切成**轻量版**。
+把原始 Claude Code session 数据切成**轻量版**，同时生成本次流水线的唯一执行 ID（`run_id`，传给阶段 2/3 用）。
 
 ## 入口
 
 ```bash
-PYTHONPATH=infra bash infra/scripts/with-python.sh infra/scripts/see-collect.py [<projects_dir> <projects_simplified_dir>]
+PYTHONPATH=infra bash infra/scripts/with-python.sh infra/scripts/see-collect.py [<projects_dir> <output_dir>]
 ```
 
 参数：
 - `<projects_dir>`：原始 session 目录（默认 `evidence/projects`）
-- `<projects_simplified_dir>`：输出目录（默认 `evidence/projects-simplified`）
+- `<output_dir>`：输出目录（默认 `evidence/<run_id>/projects-simplified`，其中 `<run_id>` 由脚本按当前时间戳自动生成 `YYYY-MM-DD-HHMMSS`）
 
 ## 流程
 
@@ -24,7 +24,7 @@ PYTHONPATH=infra bash infra/scripts/with-python.sh infra/scripts/see-collect.py 
 ## 输出
 
 ```
-evidence/projects-simplified/
+evidence/<run_id>/projects-simplified/
 ├── {session_id}.jsonl
 └── {session_id}/subagents/
     ├── agent-*.jsonl
@@ -36,8 +36,9 @@ evidence/projects-simplified/
 ```json
 {
   "status": "success",
+  "run_id": "<本次运行唯一 ID>",
   "input_dir": "...",
-  "output_dir": "...",
+  "output_dir": "evidence/<run_id>/projects-simplified",
   "totals": { ... },
   "failed_sessions": [],
   "session_ids": [
@@ -47,9 +48,12 @@ evidence/projects-simplified/
 }
 ```
 
-**字段含义**：`session_ids` = 当前**成功处理**的 **main session UUID 列表**。
+**字段含义**：
+- `run_id` = 本次运行的唯一 ID（脚本按时间戳自动生成；阶段 2 必须显式 `--run-id` 传给 `see-analyze.py`）
+- `session_ids` = 当前**成功处理**的 **main session UUID 列表**
 
-**用途**：作为**阶段 2 的批处理入口**——主 agent 在批处理模式下，从阶段 1 stdout 解析此字段，按顺序对每个 session_id 执行 `/see-analyze`。
+**用途**：
+- `session_ids` 作为**阶段 2 的批处理入口**——主 agent 在批处理模式下，从阶段 1 stdout 解析此字段，按顺序对每个 session_id 执行 `/see-analyze`
 
 ## 完成条件
 

@@ -41,6 +41,7 @@ import argparse
 import json
 import logging
 import sys
+from pathlib import Path
 from typing import Any, Dict, List, Optional
 
 logging.basicConfig(
@@ -65,7 +66,7 @@ def cmd_overview(args: argparse.Namespace) -> int:
     from .failure_overview import see_failure_overview
     see_failure_overview(
         session_id=args.session_id,
-        root=args.root,
+        root=resolve_run_id_root(args.run_id),
         refresh=args.refresh,
     )
     # 成功：stdout 静默（**不** print "null"）
@@ -81,7 +82,7 @@ def cmd_find(args: argparse.Namespace) -> int:
     from .common.errors import err as _err
     from .common.index_store import SessionIndex
 
-    root = args.root or str(Path(__file__).resolve().parents[3] / "evidence" / "projects-simplified")
+    root = resolve_run_id_root(args.run_id)
     main_path = Path(root) / f"{args.session_id}.jsonl"
     if not main_path.exists():
         return _print_result(_err(f"session not found: {args.session_id}",
@@ -168,7 +169,7 @@ def cmd_detail(args: argparse.Namespace) -> int:
     result = see_entry_detail(
         session_id=args.session_id,
         uuid=args.uuid,
-        root=args.root,
+        root=resolve_run_id_root(args.run_id),
         raw_root=args.raw_root,
         use_raw=args.use_raw,
         include_reasoning_before=not args.no_reasoning_before,
@@ -199,6 +200,15 @@ def cmd_list(_args: argparse.Namespace) -> int:
 # argparse 装配
 # ---------------------------------------------------------------------------
 
+def resolve_run_id_root(run_id: str) -> str:
+    """run_id → 绝对简化版数据根目录。run_id 必填，缺失直接报错。"""
+    if not run_id:
+        print("ERROR: --run-id 必填（从阶段 1 stdout 的 run_id 字段解析得到）",
+              file=sys.stderr)
+        sys.exit(2)
+    return str(Path(__file__).resolve().parents[3] / "evidence" / run_id / "projects-simplified")
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         prog="see-tools",
@@ -213,8 +223,8 @@ def build_parser() -> argparse.ArgumentParser:
 
     # 全局参数
     common = argparse.ArgumentParser(add_help=False)
-    common.add_argument("--root", default=None,
-                        help="简化版数据根目录（默认 ../projects-simplified）")
+    common.add_argument("--run-id", default=None,
+                        help="本次运行 run_id（必填，路径 evidence/<run_id>/projects-simplified 由脚本自动拼）")
 
     # overview
     p_ov = sub.add_parser(

@@ -20,28 +20,28 @@ Skill-Evolution-Engine/
 │   ├── scripts/                    # CLI 入口
 │   │   ├── see-collect.py
 │   │   ├── see-analyze.py
-│   │   ├── see-evolve.py           # 阶段 3：单 target_file → 4 字段 JSON
+│   │   ├── see-evolve.py           # 阶段 3：单 (subject_name, target_file) → 4 字段 JSON
 │   │   ├── evolve-discovery.py     # 阶段 3：discovery，列出所有 target_file
 │   │   └── with-python.sh          # Python 3.8+ 探测垫片（自动 export PYTHONPATH=infra）
 │   ├── core/                       # 核心模块
-│   │   ├── simplify/               # entry 字段精简
-│   │   ├── failure_analyzer/       # 3 个 see_* 工具（overview/find/detail）
+│   │   ├── simplify/               # entry 字段精简（classifier + simplifier）
+│   │   ├── failure_analyzer/       # 4 个 see_* 工具（overview/find/detail/list）
 │   │   ├── util/                   # 通用工具（agent_meta / resolve_architecture / session_io / timestamp）
 │   │   └── evolver/                # suggestions 聚合（aggregate）+ evolver prompt 组装（prompt_builder）
 ├── rules/                          # 3 个 agent 规则
-│   ├── main-agent-rules.md
+│   ├── main-agent-rules.md         # 调度层
 │   ├── analyzer-agent-rules.md
 │   └── evolver-agent-rules.md
 ├── prompts/                        # 2 个 sub-agent 提示词
 │   ├── analyzer-prompt.md
 │   └── evolver-prompt.md
 ├── agent-architectures/            # 各 agent 项目架构清单（JSON，sub-agent 必读）
-│   └── <agent_name>.json
-└── evidence/                       # 数据目录
-    ├── projects/                   # 原始 session
-    ├── projects-simplified/        # 简化版（阶段 1 产出）
-    ├── analysis_reports/           # analyzer 输出（<session_id>.analysis_report.json，阶段 2 产出）
-    └── evolution_changes/          # evolver 输出（<flatten_target_file>.change，阶段 3 产出）
+└── evidence/
+    ├── projects/                   # 原始 Claude Code session（只读共享）
+    └── <run_id>/                   # 一次运行的工作目录（run_id 由阶段 1 生成）
+        ├── projects-simplified/    # 阶段 1 产物：<sid>.jsonl + subagents/*.meta.json
+        ├── analysis_reports/       # 阶段 2 产物：<sid>.analysis_report.json
+        └── evolution_changes/      # 阶段 3 产物：<subject_name>__<flatten>.change
 ```
 
 ## 执行规则

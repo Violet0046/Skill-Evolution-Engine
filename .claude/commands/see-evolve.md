@@ -4,7 +4,7 @@
 - **单 target 模式**：用户提供具体 `<subject_name> <target_file>`
 - **批处理模式**（默认）：无参数调用时，先 `evolve-discovery.py` 拿 `targets[]`（每项 = `{subject_name, target_file}`），逐个 fire Agent 进化
 
-> **不改原文件**：evolver 只把**完整最终态**写到 `evidence/evolution_changes/<subject_name>__<flatten>.change`，**不写** patch、**不做**原位升级。
+> **不改原文件**：evolver 只把**完整最终态**写到 `evidence/<run_id>/evolution_changes/<subject_name>__<flatten>.change`，**不写** patch、**不做**原位升级。
 
 ## 执行步骤
 
@@ -26,7 +26,7 @@
 工作目录为 Skill-Evolution-Engine 项目根：
 
 ```bash
-PYTHONPATH=infra bash infra/scripts/with-python.sh infra/scripts/see-evolve.py {subject_name} {target_file} [--projects-home <path>] [--change-output-dir <path>] [--reports-dir <path>]
+PYTHONPATH=infra bash infra/scripts/with-python.sh infra/scripts/see-evolve.py {subject_name} {target_file} --run-id <id> [--projects-home <path>]
 ```
 
 **stdout 是一个 4 字段 JSON 字符串**（不是裸 prompt！）：
@@ -78,7 +78,7 @@ sub-agent 会：
 
 - 读 `{{TARGET_FILE}}`（脚本已填好的绝对源路径；不存在 → 报 `file_not_found`）
 - 按 priority 排序逐条应用 suggestions（**不过滤 priority**）到当前内容，构造**完整最终态**
-- 用 `Write` 把完整文件写到 `evidence/evolution_changes/<subject_name>__<flatten_target_file>.change`
+- 用 `Write` 把完整文件写到 `evidence/<run_id>/evolution_changes/<subject_name>__<flatten_target_file>.change`
 - 输出 `<EVOLUTION_COMPLETE>` / `<EVOLUTION_FAILED>`
 
 ---
@@ -88,7 +88,7 @@ sub-agent 会：
 #### 步骤 B.1：拿所有 target 列表
 
 ```bash
-PYTHONPATH=infra bash infra/scripts/with-python.sh infra/scripts/evolve-discovery.py [--reports-dir <path>]
+PYTHONPATH=infra bash infra/scripts/with-python.sh infra/scripts/evolve-discovery.py --run-id <id>
 ```
 
 stdout JSON = `{"targets": [{"subject_name": "需求分析Agent", "target_file": "skills/.../SKILL.md"}, ...]}`（每项一对 subject_name + target_file，不含 suggestions——由步骤 B.2 里的 `see-evolve.py` 各自去 reports 读）。
@@ -129,7 +129,7 @@ for task_id in task_ids:
 
 #### 步骤 B.4：汇总结果
 
-- 验证每个 `evidence/evolution_changes/<subject_name>__<flatten_target_file>.change` 是否生成
+- 验证每个 `evidence/<run_id>/evolution_changes/<subject_name>__<flatten_target_file>.change` 是否生成
 - 报告 N 成功 / M 失败 / 总 target 数
 - 错误隔离：单个 target 失败不影响其他
 

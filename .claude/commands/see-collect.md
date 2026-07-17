@@ -7,7 +7,7 @@
 ### 步骤 1：解析参数
 从用户输入中提取：
 - `projects_dir`：原始 session 目录（可选，默认 `evidence/projects`）
-- `projects_simplified_dir`：输出目录（可选，默认 `evidence/projects-simplified`）
+- `output_dir`：输出目录（可选，默认 `evidence/<run_id>/projects-simplified`，`<run_id>` 由脚本按时间戳自动生成 `YYYY-MM-DD-HHMMSS`）
 
 ### 步骤 2：执行采集
 

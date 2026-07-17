@@ -8,7 +8,7 @@ resolve_architecture.py —— 从 session_id 定位 agent-architectures/ 下对
   3. 检查文件是否存在
 
 用法：
-    PYTHONPATH=infra bash infra/scripts/with-python.sh python3.8 -m core.util.resolve_architecture <session_id> [--root <dir>]
+    PYTHONPATH=infra bash infra/scripts/with-python.sh python3.8 -m core.util.resolve_architecture <session_id> --run-id <id>
 
 输出 JSON（stdout）：
 {
@@ -35,12 +35,16 @@ from core.failure_analyzer.common.session_reader import load_main_session  # noq
 from core.failure_analyzer.failure_overview import _load_agent_cwd  # noqa: E402
 
 
-def resolve(session_id: str, root: str | None) -> dict:
+def resolve(session_id: str, run_id: str | None) -> dict:
     if not session_id:
         return {"arch_path_abs": None, "exists": False}
+    if not run_id:
+        print("ERROR: --run-id 必填（从阶段 1 stdout 的 run_id 字段解析得到）",
+              file=sys.stderr)
+        sys.exit(2)
 
-    # 1) 从 session header 拿 agent_cwd
-    root_path = Path(root) if root else _ROOT / "evidence" / "projects-simplified"
+    # 1) 从 session header 拿 agent_cwd（路径 = evidence/<run_id>/projects-simplified）
+    root_path = _ROOT / "evidence" / run_id / "projects-simplified"
     agent_cwd = _load_agent_cwd(str(root_path), session_id)
     if not agent_cwd:
         return {"arch_path_abs": None, "exists": False}
@@ -59,10 +63,11 @@ def main() -> int:
         description="从 session_id 定位 agent-architectures/ 下对应 JSON",
     )
     parser.add_argument("session_id", help="目标 session UUID（替代之前的 agent_cwd）")
-    parser.add_argument("--root", default=None, help="简化版数据根目录（默认 ../projects-simplified）")
+    parser.add_argument("--run-id", default=None,
+                        help="本次运行 run_id（必填；evidence/<run_id>/projects-simplified 由脚本自动拼）")
     args = parser.parse_args()
 
-    result = resolve(args.session_id, args.root)
+    result = resolve(args.session_id, args.run_id)
     print(json.dumps(result, ensure_ascii=False, indent=2))
     return 0 if result.get("arch_path_abs") else 1
 

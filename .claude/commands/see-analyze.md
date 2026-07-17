@@ -25,7 +25,7 @@
 工作目录为 Skill-Evolution-Engine 项目根：
 
 ```bash
-PYTHONPATH=infra bash infra/scripts/with-python.sh infra/scripts/see-analyze.py {session_id} [--root <dir>]
+PYTHONPATH=infra bash infra/scripts/with-python.sh infra/scripts/see-analyze.py {session_id} --run-id <id>
 ```
 
 **stdout 是一个 4 字段 JSON 字符串**：
@@ -71,7 +71,7 @@ Agent(
 sub-agent 会**自动**：
 
 - 按 prompt 工作流工作（按 agent 遍历 find/detail）
-- 把 `analysis_report.json` 写到 `evidence/analysis_reports/<session_id>.analysis_report.json`
+- 把 `analysis_report.json` 写到 `evidence/<run_id>/analysis_reports/<session_id>.analysis_report.json`
 - 输出 `<ANALYSIS_COMPLETE>` / `<ANALYSIS_FAILED>`
 
 ---
@@ -80,7 +80,7 @@ sub-agent 会**自动**：
 
 #### 步骤 B.1：拿 session_ids 列表
 
-如果阶段 1 未跑（`evidence/projects-simplified/<sid>.jsonl` 不存在），**先**跑阶段 1：
+如果阶段 1 未跑（`evidence/<run_id>/projects-simplified/<sid>.jsonl` 不存在），**先**跑阶段 1：
 
 ```bash
 PYTHONPATH=infra bash infra/scripts/with-python.sh infra/scripts/see-collect.py
@@ -104,10 +104,10 @@ PYTHONPATH=infra bash infra/scripts/with-python.sh infra/scripts/see-collect.py
 一个 outgoing message 里同时发 N 条 Bash，**并行**拿到 N 个 JSON：
 
 ```bash
-PYTHONPATH=infra bash infra/scripts/with-python.sh infra/scripts/see-analyze.py <sid_1>
-PYTHONPATH=infra bash infra/scripts/with-python.sh infra/scripts/see-analyze.py <sid_2>
+PYTHONPATH=infra bash infra/scripts/with-python.sh infra/scripts/see-analyze.py <sid_1> --run-id <id>
+PYTHONPATH=infra bash infra/scripts/with-python.sh infra/scripts/see-analyze.py <sid_2> --run-id <id>
 ...
-PYTHONPATH=infra bash infra/scripts/with-python.sh infra/scripts/see-analyze.py <sid_N>
+PYTHONPATH=infra bash infra/scripts/with-python.sh infra/scripts/see-analyze.py <sid_N> --run-id <id>
 ```
 
 拿到 N 个 JSON 字符串，**解析成列表备用**：
@@ -139,7 +139,7 @@ for sid, task_id in task_ids:
 
 #### 步骤 B.3：汇总结果
 
-拿到所有 TaskOutput 结果后，验证每个 sid 对应的 `analysis_reports/<sid>.analysis_report.json` 是否生成 + 报告数，统计：
+拿到所有 TaskOutput 结果后，验证每个 sid 对应的 `evidence/<run_id>/analysis_reports/<sid>.analysis_report.json` 是否生成 + 报告数，统计：
 
 - **成功**：文件存在 + `suggestions` 非空
 - **失败**：文件缺失 / sub-agent 报 `<ANALYSIS_FAILED>`

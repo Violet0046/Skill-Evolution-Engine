@@ -41,6 +41,7 @@ from __future__ import annotations
 import argparse
 import json
 import sys
+from datetime import datetime
 from pathlib import Path
 
 # 让 `from core.xxx import yyy` 能找到 `infra/core/`
@@ -61,8 +62,17 @@ from core.simplify.simplifier import simplify_entries  # noqa: E402
 SCRIPT_DIR = Path(__file__).resolve().parent
 PROJECT_ROOT = SCRIPT_DIR.parent.parent                    # infra/scripts → 项目根
 DEFAULT_PROJECTS_DIR = PROJECT_ROOT / "evidence" / "projects"
-DEFAULT_OUTPUT_DIR = PROJECT_ROOT / "evidence" / "projects-simplified"
 CONFIG_PATH = SCRIPT_DIR.parent / "core" / "simplify" / "entry_fields_config.json"
+
+
+def _make_run_id() -> str:
+    """本次运行 run_id（当前时间戳 YYYY-MM-DD-HHMMSS）。"""
+    return datetime.now().strftime("%Y-%m-%d-%H%M%S")
+
+
+def default_output_dir(run_id: str) -> Path:
+    """本次 run 的默认输出目录 = evidence/<run_id>/projects-simplified/。"""
+    return PROJECT_ROOT / "evidence" / run_id / "projects-simplified"
 
 
 def process_one_session(
@@ -140,12 +150,14 @@ def build_summary_json(
     projects_dir: Path,
     output_dir: Path,
     sessions: list,
+    run_id: str | None = None,
     error: str | None = None,
 ) -> dict:
     """汇总 sessions 列表为最终 stdout JSON 结构。
 
     - 成功的 session 只计入 totals
     - 失败的 session 同时计入 files_failed 与 failed_sessions[]
+    - run_id 透传进顶层（阶段 2/3 用它定位同一 run 的产物）
     """
     files_total = len(sessions)
     files_failed_list = [s for s in sessions if "error" in s]
@@ -177,6 +189,7 @@ def build_summary_json(
 
     summary = {
         "status": status,
+        "run_id": run_id,
         "input_dir": str(projects_dir),
         "output_dir": str(output_dir),
         "totals": {
@@ -197,7 +210,7 @@ def build_summary_json(
 
 def main() -> int:
     parser = argparse.ArgumentParser(
-        description="遍历 projects/ 下 session，仅 simplify 阶段后写到 projects-simplified/。",
+        description="遍历 projects/ 下 session，仅 simplify 阶段后写到 evidence/<run_id>/projects-simplified/。",
     )
     parser.add_argument(
         "projects_dir",
@@ -208,18 +221,20 @@ def main() -> int:
     parser.add_argument(
         "output_dir",
         nargs="?",
-        default=str(DEFAULT_OUTPUT_DIR),
-        help=f"输出简化结果目录（默认：{DEFAULT_OUTPUT_DIR}）",
+        default=None,  # 默认在 main() 里按 run_id 算
+        help="输出简化结果目录（默认：evidence/<run_id>/projects-simplified/）",
     )
     args = parser.parse_args()
 
+    run_id = _make_run_id()
     projects_dir = Path(args.projects_dir).resolve()
-    output_dir = Path(args.output_dir).resolve()
+    output_dir = Path(args.output_dir).resolve() if args.output_dir else default_output_dir(run_id)
 
     # 致命错误：目录不存在
     if not projects_dir.is_dir():
         print(json.dumps(build_summary_json(
             projects_dir, output_dir, [],
+            run_id=run_id,
             error=f"输入目录不存在: {projects_dir}",
         ), ensure_ascii=False))
         return 1
@@ -228,6 +243,7 @@ def main() -> int:
     if not jsonl_files:
         print(json.dumps(build_summary_json(
             projects_dir, output_dir, [],
+            run_id=run_id,
             error="目录中没有任何 .jsonl 文件",
         ), ensure_ascii=False))
         return 1
@@ -252,7 +268,7 @@ def main() -> int:
             })
 
     # 仅 stdout 输出 JSON
-    result = build_summary_json(projects_dir, output_dir, sessions)
+    result = build_summary_json(projects_dir, output_dir, sessions, run_id=run_id)
     print(json.dumps(result, ensure_ascii=False))
 
     return 0 if result["status"] in ("success", "partial") else 1

@@ -6,8 +6,8 @@
 
 | 阶段 | 标志 |
 |---|---|
-| 阶段 1 已完成 | `evidence/projects-simplified/<session_id>.jsonl` 存在 |
-| 阶段 2 已完成 | `evidence/analysis_reports/<session_id>.analysis_report.json` 存在 |
+| 阶段 1 已完成 | `evidence/<run_id>/projects-simplified/<session_id>.jsonl` 存在 |
+| 阶段 2 已完成 | `evidence/<run_id>/analysis_reports/<session_id>.analysis_report.json` 存在 |
 | 阶段 3 已完成 | `evidence/evolution_changes/<flatten_target_file>.change` 存在 |
 
 主 agent 跑阶段 2 前**自动**检查阶段 1 标志——**未**完成则**先**补跑（**不**跳过）。
@@ -15,13 +15,13 @@
 ## 入口
 
 ```bash
-PYTHONPATH=infra bash infra/scripts/with-python.sh infra/scripts/see-analyze.py <session_id> [--root <dir>] [--output <prompt.md>]
+PYTHONPATH=infra bash infra/scripts/with-python.sh infra/scripts/see-analyze.py <session_id> --run-id <id> [--output <prompt.md>]
 ```
 
 参数：
 
 - `<session_id>`：必填
-- `--root`：简化版数据根目录（默认 `evidence/projects-simplified`）
+- `--run-id`：本次运行 run_id（**必填**，从阶段 1 stdout 解析得到；不传直接报错）
 - `--output`：可选，prompt 写到文件（默认 stdout）
 
 ## 两种执行模式
@@ -57,7 +57,7 @@ PYTHONPATH=infra bash infra/scripts/with-python.sh infra/scripts/see-analyze.py 
    )
    ```
 
-3. 验证 `analysis_reports/<sid>.analysis_report.json` 生成
+3. 验证 `evidence/<run_id>/analysis_reports/<sid>.analysis_report.json` 生成
 
 ### 模式 B · 批处理模式（默认，无 session_id）
 
@@ -78,11 +78,11 @@ PYTHONPATH=infra bash infra/scripts/with-python.sh infra/scripts/see-analyze.py 
 2. **并行**跑 N 个 `see-analyze.py`（一个 outgoing message 里 N 条 Bash）：
 
    ```bash
-   # 同一个 outgoing message 里发 N 条 Bash 并行跑
-   PYTHONPATH=infra bash infra/scripts/with-python.sh infra/scripts/see-analyze.py <sid_1>
-   PYTHONPATH=infra bash infra/scripts/with-python.sh infra/scripts/see-analyze.py <sid_2>
+   # 同一个 outgoing message 里发 N 条 Bash 并行跑（run_id 从阶段 1 stdout 解析）
+   PYTHONPATH=infra bash infra/scripts/with-python.sh infra/scripts/see-analyze.py <sid_1> --run-id <run_id>
+   PYTHONPATH=infra bash infra/scripts/with-python.sh infra/scripts/see-analyze.py <sid_2> --run-id <run_id>
    ...
-   PYTHONPATH=infra bash infra/scripts/with-python.sh infra/scripts/see-analyze.py <sid_N>
+   PYTHONPATH=infra bash infra/scripts/with-python.sh infra/scripts/see-analyze.py <sid_N> --run-id <run_id>
    ```
 
    拿到 N 个 JSON 字符串。
@@ -111,7 +111,7 @@ PYTHONPATH=infra bash infra/scripts/with-python.sh infra/scripts/see-analyze.py 
 
 4. 循环结束后报告 N 处理 / N 失败
 
-**会话契约**：`session_ids` 是阶段 1 输出的**唯一批量入口**——主 agent 不再自行 glob `evidence/projects-simplified/*.jsonl`，全部从阶段 1 stdout 读取。
+**会话契约**：`session_ids` 是阶段 1 输出的**唯一批量入口**——主 agent 不再自行 glob 简化版目录下的 jsonl，全部从阶段 1 stdout 读取。
 
 **sub-agent 隔离**：每个 sub-agent **上下文完全独立**（独立 arch、独立失败索引、独立 `analysis_reports/<sid>.jsonl`），任务间**无共享状态、无依赖**。
 
@@ -119,7 +119,7 @@ PYTHONPATH=infra bash infra/scripts/with-python.sh infra/scripts/see-analyze.py 
 
 ## 完成条件
 
-- `evidence/analysis_reports/<session_id>.analysis_report.json` 文件存在（sub-agent 用 Write 写到这）
+- `evidence/<run_id>/analysis_reports/<session_id>.analysis_report.json` 文件存在（sub-agent 用 Write 写到这）
 - sub-agent 报告 `<ANALYSIS_COMPLETE>`（不是 `<ANALYSIS_FAILED>`）
 - 报告里 `suggestions` 字段非空
 

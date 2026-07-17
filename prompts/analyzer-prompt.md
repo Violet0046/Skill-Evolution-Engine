@@ -1,6 +1,6 @@
 # analyzer agent
 
-**任务**：调用 2 个 `see_*` 工具分析当前 session，输出 `evidence/analysis_reports/{{SESSION_ID}}.analysis_report.json`。
+**任务**：调用 2 个 `see_*` 工具分析当前 session，输出 `{{REPORT_PATH}}`。
 
 ## 报告 schema
 
@@ -29,10 +29,12 @@
 
 ## 工具集（用 Bash 调 CLI）
 
+**当前 run_id**: `{{RUN_ID}}`
+
 | 工具 | Bash 命令 |
 |---|---|
-| see_find | `PYTHONPATH=infra bash infra/scripts/with-python.sh -m core.failure_analyzer find <sid> [--agent-type <type>] [--limit N]` |
-| see_detail | `PYTHONPATH=infra bash infra/scripts/with-python.sh -m core.failure_analyzer detail <sid> <uuid>` |
+| see_find | `PYTHONPATH=infra bash infra/scripts/with-python.sh -m core.failure_analyzer find <sid> --run-id {{RUN_ID}} [--agent-type <type>] [--limit N]` |
+| see_detail | `PYTHONPATH=infra bash infra/scripts/with-python.sh -m core.failure_analyzer detail <sid> <uuid> --run-id {{RUN_ID}}` |
 
 ### `find` 用法
 
@@ -85,7 +87,7 @@ uuid 从 find 的 hits[*].uuid 复制得到
 **所有 agent 处理完** → **写报告前**先**逐个**验证每个 unique failure_pattern 都 detail 过（**不**要写完才发现**漏**了）→ **写盘硬约束**：
 
 - **必须**经 `python -c "import json, pathlib; ..."` 调 `json.dumps(report, ensure_ascii=False, indent=2)` 序列化后写盘（**不**用 Write 工具——避免内嵌双引号/反斜杠破坏 JSON）
-- 写盘路径：`evidence/analysis_reports/{{SESSION_ID}}.analysis_report.json`
+- 写盘路径：`{{REPORT_PATH}}`
 - 编码：`encoding='utf-8'`
 
 ## 完成后
