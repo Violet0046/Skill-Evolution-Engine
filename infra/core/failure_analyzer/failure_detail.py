@@ -222,10 +222,20 @@ def see_entry_detail(
                         break
 
     # 6) 5 字段聚焦输出（按时间序 T1→T2→T3→T4）
-    return {
+    result = {
         "reasoning_before": reasoning_before,  # T1: 事前计划
         "tool_name": tool_name,                # T2a
         "input_params": input_params,          # T2b
         "error_output": error_output,          # T3: 失败信息（成功时 null）
         "reasoning_after": reasoning_after,    # T4: 事后归因
     }
+
+    # review_db hook (table 003 see_evidence): fire-and-forget 入库
+    # 配置缺失 / DB 故障时内部 no-op + debug log, 绝不抛.
+    try:
+        from core.review_db.hooks import record_evidence
+        record_evidence(session_id, uuid, result)
+    except Exception as _e:  # noqa: BLE001 -- 钩子故障不应影响返回
+        logger.debug(f"review_db evidence hook skipped: {_e}")
+
+    return result

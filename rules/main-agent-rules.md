@@ -23,8 +23,11 @@
 
 ### 阶段 3：Skill 进化
 - **执行依据**：[infra/phases/phase3-evolve.md](../infra/phases/phase3-evolve.md)
-- **主 agent 职责**：先跑 `evolve-discovery.py --run-id <id>` 拿 `targets[]`（每项 = `{subject_name, target_file}`），再**逐个** target 跑 `see-evolve.py <subject_name> <target_file> --run-id <id>` 拿 4 字段 JSON + 用该 JSON 原样调度 evolver sub-agent（`run_in_background=true` 后台并发）
-- **效果**：evolver agent 把升级后的**完整文件**写到 `evidence/<run_id>/evolution_changes/<subject_name>__<flatten>.change`（**不改**原文件）
+- **主 agent 职责**：
+  1. 先跑 `evolve-discovery.py --run-id <id>` 拿 `targets[]`（每项 = `{subject_name, target_file}`）
+  2. 再**逐个** target 跑 `see-evolve.py <subject_name> <target_file> --run-id <id>` 拿 4 字段 JSON + 用该 JSON 原样调度 evolver sub-agent（`run_in_background=true` 后台并发）
+  3. **所有 sub-agent 完成后**：跑一次 `PYTHONPATH=infra bash infra/scripts/with-python.sh infra/scripts/see-evolve-finalize.py --run-id <id>`，把 `.change` 文件批量入库 `see_evolution_change`（review_db）
+- **效果**：evolver agent 把升级后的**完整文件**写到 `evidence/<run_id>/evolution_changes/<subject_name>__<flatten>.change`（**不改**原文件）。evolve-discovery 在第一时间把 targets 占位入库 `see_evolution_change`，finalize 在阶段 3 完成时把 `original_content` + `new_content` 填齐
 
 ## 阶段间交互
 
@@ -32,7 +35,7 @@
 
 - **阶段 1 完**：从 stdout 解析 `session_ids[]`（取代 glob 列出 sessions），问"**分析哪个 session（或全部分析）？**"
 - **阶段 2 完**：报告 `analysis_report.json` 路径 + suggestions 数，问"**进入阶段 3 进化 skills 吗？**"
-- **阶段 3 完**：报告已生成的 `.change` 文件列表 + 已升级 / 失败统计，流程结束
+- **阶段 3 完**：等所有 evolver sub-agent 退出 → 调一次 `see-evolve-finalize.py --run-id <id>` 把 `.change` 入库 `see_evolution_change` → 报告已生成的 `.change` 文件列表 + `flush_seconds` + 已升级 / 失败统计，流程结束
 
 ## 触发条件
 
@@ -84,7 +87,8 @@
   - 报告 `analysis_report.json` 路径 + suggestions 数（`jq '.suggestions | length'`）
   - 问"**进入阶段 3 进化 skills 吗？**"
 - **阶段 3 完**：
-  - 报告已生成的 `evidence/<run_id>/evolution_changes/*.change` 文件列表 + 已升级 / 失败统计
+  - 跑 `see-evolve-finalize.py --run-id <id>`，从 stdout 读 `flush_seconds` 与 `evolution_changes_recorded`
+  - 报告已生成的 `evidence/<run_id>/evolution_changes/*.change` 文件列表 + 已升级 / 失败统计 + `see_evolution_change` 入库行数 + finalize 耗时
   - 流程结束
 
 执行中**实时**报告：

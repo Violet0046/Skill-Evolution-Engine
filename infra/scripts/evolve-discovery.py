@@ -63,6 +63,19 @@ def main() -> int:
         return 2
     reports_dir = args.reports_dir or (_ROOT / "evidence" / args.run_id / "analysis_reports")
 
+    # review_db hook (table 002 see_analysis_report):
+    # 阶段 3 discovery 入口 = 阶段 2 sub-agent 全部完成之后, 文件已写完.
+    # 不改 prompt, 不依赖 LLM, 主 agent 一个调用点即可.
+    # 失败仅 warn (分析报告入库是副产物, 不阻塞 evolution discovery 主流程).
+    try:
+        from core.review_db.hooks import scan_and_record_analysis_reports, flush as _flush
+        rows = scan_and_record_analysis_reports(args.run_id, reports_dir)
+        _flush(timeout=10.0)
+        if rows > 0:
+            print(f"DEBUG: review_db 002 入库 {rows} 行", file=sys.stderr)
+    except Exception as _e:
+        print(f"WARN: review_db scan reports failed: {_e}", file=sys.stderr)
+
     from core.evolver.aggregate import aggregate_by_subject_target
 
     entries = aggregate_by_subject_target(reports_dir)
@@ -74,6 +87,23 @@ def main() -> int:
         ],
     }
     print(json.dumps(result, ensure_ascii=False, indent=2))
+
+    # review_db hook (table 004 see_evolution_change seed):
+    # 在 stdout 出 targets[] 之后, 立刻以占位行入库 see_evolution_change.
+    # 让 review 系统早期可见 (subject_target + suggestions_json 已就绪),
+    # original_content / new_content 留空, 等阶段 3 完成后跑 see-evolve-finalize
+    # 再覆盖补齐 (UPSERT by (run_id, subject_target)).
+    try:
+        from core.review_db.hooks import seed_evolution_changes_from_discovery, flush as _flush2
+        seeded = seed_evolution_changes_from_discovery(
+            args.run_id, result["targets"], reports_dir,
+        )
+        _flush2(timeout=10.0)
+        if seeded > 0:
+            print(f"DEBUG: review_db 004 seed {seeded} 行", file=sys.stderr)
+    except Exception as _e:
+        print(f"WARN: review_db seed failed: {_e}", file=sys.stderr)
+
     return 0
 
 

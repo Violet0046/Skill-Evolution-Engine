@@ -100,6 +100,7 @@ def main() -> int:
         project_root=project_root,
         change_output_dir=change_output_dir.resolve(),
         subject_name=args.subject_name,
+        run_id=args.run_id,
     )
 
     # 调试模式：写 prompt 文本

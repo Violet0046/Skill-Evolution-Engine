@@ -135,6 +135,18 @@ for task_id in task_ids:
 
 输出汇总："批处理完成：N 成功 / M 失败 / targets 总数 K"。
 
+#### 步骤 B.5：入库产物（review_db 钩子，**必做**）
+
+所有 sub-agent 退出后，**主动跑**一次 finalize 把 `.change` 文件批量入库 `see_evolution_change`。
+
+```bash
+PYTHONPATH=infra bash infra/scripts/with-python.sh \
+    infra/scripts/see-evolve-finalize.py --run-id <id>
+```
+
+> **不要跳过这步**：阶段 3 dispatch 时已在 `evolve-discovery.py` 里把 `(subject_target + suggestions_json)` 占位入库了，finalize 这一步负责把 `original_content` + `new_content` 填齐。
+> 失败仅 warn — `.change` 文件存在不影响用户的核心流程。
+
 ## 执行规则
 
 - 只执行脚本，不输出额外解释

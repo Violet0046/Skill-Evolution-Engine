@@ -74,6 +74,7 @@ def build_agent_call(
     project_root: Path,
     change_output_dir: Path,
     subject_name: str = "",
+    run_id: str | None = None,
 ) -> dict:
     """构造 4 字段 JSON 配置。
 
@@ -83,6 +84,7 @@ def build_agent_call(
     - project_root: subject 项目根（绝对路径，= <projects_home>/<subject_name>）
     - change_output_dir: 绝对路径（sub-agent 用此 Write .change 文件）
     - subject_name: subject 名（.change 文件名命名空间）
+    - run_id: 本次运行 ID (用于 review_db 表 004 stash)
     """
     target_file = target_file.strip()
     if not target_file:
@@ -94,6 +96,23 @@ def build_agent_call(
     # {{SUGGESTIONS_JSON}} 占位符填 suggestions（不含冗余字段）
     suggestions_payload = {"suggestions": suggestions}
     suggestions_json_str = json.dumps(suggestions_payload, ensure_ascii=False, indent=2)
+
+    # review_db hook (table 004 stash): dispatch 当时把 (suggestions + original_content)
+    # 写到 evidence/<run_id>/.dispatch_stash.json, finalize 时读回 join .change 文件.
+    # 不阻塞调用方, 配置缺失时 no-op.
+    if run_id:
+        try:
+            from core.review_db.hooks import record_evolution_change_dispatch
+            record_evolution_change_dispatch(
+                evidence_root=_PROJECT_ROOT / "evidence",
+                run_id=run_id,
+                subject_name=subject_name,
+                target_file=target_file,
+                suggestions=suggestions,
+                project_root=Path(project_root) if project_root else None,
+            )
+        except Exception as _e:  # noqa: BLE001
+            print(f"DEBUG: review_db dispatch stash failed: {_e}", file=sys.stderr)
 
     # .change 文件名（路径扁平化 + subject 前缀）
     change_filename = _flatten_target_file(target_file, subject_name)

@@ -8,3 +8,7 @@
 
 # 数据模型（已无 pydantic 强制需求，保留以备 schema 校验使用）
 pydantic>=2.0.0,<3.0.0
+
+# MySQL client (review_db 模块: 把 see-*.py 产物无感知写入本地 MySQL)
+# 仅 Linux/macOS 纯 Python 实现, 无需 libmysqlclient.
+pymysql>=1.1.0,<2.0.0

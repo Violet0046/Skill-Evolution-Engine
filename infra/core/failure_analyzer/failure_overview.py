@@ -60,6 +60,7 @@ def see_failure_overview(
     session_id: str,
     root: str | None = None,
     refresh: bool = False,
+    run_id: str | None = None,
 ) -> None:
     """see_failure_overview 主入口。
 
@@ -67,6 +68,7 @@ def see_failure_overview(
     失败：raise RuntimeError（**带**错误信息）。
 
     副作用：写 `.index/<session_id>.json`（懒构建）。
+    run_id 透传给 SessionIndex, 触发 review_db 表 001 see_run_session 钩子.
     """
     if root is None:
         # 默认：项目根/evidence/projects-simplified
@@ -79,7 +81,7 @@ def see_failure_overview(
 
     # 2) 加载/构建索引（**副作用**：写 .index/<session_id>.json）
     try:
-        idx = SessionIndex(session_id, root)
+        idx = SessionIndex(session_id, root, run_id=run_id)
         if refresh:
             idx.invalidate()
         idx.load()

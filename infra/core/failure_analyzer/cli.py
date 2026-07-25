@@ -68,6 +68,7 @@ def cmd_overview(args: argparse.Namespace) -> int:
         session_id=args.session_id,
         root=resolve_run_id_root(args.run_id),
         refresh=args.refresh,
+        run_id=args.run_id,
     )
     # 成功：stdout 静默（**不** print "null"）
     return 0

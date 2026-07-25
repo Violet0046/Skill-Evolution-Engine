@@ -82,7 +82,7 @@ def assemble_prompt(session_id: str, run_id: str) -> str:
     root = str(_ROOT / "evidence" / run_id / "projects-simplified")
 
     # 1) overview（写 .index/，失败 raise）
-    see_failure_overview(session_id=session_id, root=root, refresh=False)
+    see_failure_overview(session_id=session_id, root=root, refresh=False, run_id=run_id)
 
     # 2) resolve_architecture（用 session_id 拿 arch 路径）
     arch_result = _run_subprocess(
@@ -190,6 +190,18 @@ def main() -> int:
     except RuntimeError as e:
         print(f"ERROR: {e}", file=sys.stderr)
         return 2
+
+    # review_db hook (table 002 see_analysis_report): post-phase scan
+    # 这一步 dir 里未必已经有 .analysis_report.json (本次 prompt 还没让 sub-agent 写),
+    # 但 idempotent UPSERT 所以提前扫一次也安全 (空 -> 等下一轮 sub-agent 写完再扫).
+    # 下次 see-analyze.py 跑同一 session 或 see-evolve-finalize.py 跑的最终会扫到.
+    try:
+        from core.review_db.hooks import scan_and_record_analysis_reports, flush as _flush
+        reports_dir = _ROOT / "evidence" / args.run_id / "analysis_reports"
+        scan_and_record_analysis_reports(args.run_id, reports_dir)
+        _flush(timeout=5.0)
+    except Exception as _e:
+        print(f"WARN: review_db scan reports failed: {_e}", file=sys.stderr)
 
     if args.output:
         # --output 模式：只写 prompt 字段到文件（给人类测试用）

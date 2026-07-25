@@ -123,7 +123,12 @@ def _make_pattern_key(tool_name: str, error_first_line: str) -> str:
 class SessionIndex:
     """单个 session 的失败索引（懒构建 + mtime 失效）。"""
 
-    def __init__(self, session_id: str, root: str | None = None):
+    def __init__(
+        self,
+        session_id: str,
+        root: str | None = None,
+        run_id: str | None = None,
+    ):
         self.session_id = session_id
         # 默认根目录：项目根/evidence/projects-simplified
         # 本文件位于 infra/core/failure_analyzer/common/index_store.py
@@ -134,6 +139,9 @@ class SessionIndex:
         self.root = Path(root)
         self.index_path = self.root / ".index" / f"{session_id}.json"
         self._data: Optional[Dict[str, Any]] = None
+        # review_db hook (table 001 see_run_session): 仅当 caller 传 run_id 时触发,
+        # 默认 None 保持向后兼容 (阶段 1 内部 / CLI 调用)
+        self._run_id_for_hook = run_id
 
     # ---------- public ----------
 
@@ -305,6 +313,18 @@ class SessionIndex:
             f"entries={len(all_entries)} errors={main_errors + sub_errors} "
             f"agents={len(by_agent_type)} took={elapsed:.0f}ms"
         )
+
+        # review_db hook (table 001 see_run_session): fire-and-forget 入库
+        # 配置缺失 / DB 故障时内部 no-op + debug log, 绝不抛.
+        try:
+            from core.review_db.hooks import record_run_session_from_index
+            record_run_session_from_index(
+                run_id=self._run_id_for_hook,
+                session_id=self.session_id,
+                index_path=self.index_path,
+            )
+        except Exception as _e:  # noqa: BLE001
+            logger.debug(f"review_db run_session hook skipped: {_e}")
 
     # ---------- 工具快捷方法 ----------
 
