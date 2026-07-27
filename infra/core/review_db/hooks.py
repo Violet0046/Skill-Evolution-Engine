@@ -165,6 +165,37 @@ def scan_and_record_analysis_reports(run_id: str, reports_dir: Path) -> int:
 # ============================================================
 # 表 004 seed: evolve-discovery 时机调, 先入库占位行
 # ============================================================
+
+def _lookup_suggestions_from_reports(
+    reports_dir: Path,
+    subject_name: str,
+    target_file: str,
+) -> list:
+    """
+    从 reports_dir 桶法反查 (subject, target_file) 对应的 suggestions.
+    任何 reports 出错都兜底给空 list. seed 和 finalize 共用.
+    """
+    suggestions_for_target: list = []
+    try:
+        rdir = Path(reports_dir)
+        if not rdir.is_dir():
+            return []
+        for fp in rdir.glob("*.analysis_report.json"):
+            try:
+                data = json.loads(fp.read_text(encoding="utf-8"))
+            except Exception:
+                continue
+            if (data.get("subject_name") or "").strip() != subject_name:
+                continue
+            sgs = data.get("suggestions") or []
+            for sg in sgs:
+                if (sg.get("target_file") or "") == target_file:
+                    suggestions_for_target.append(sg)
+    except Exception as e:
+        _logger.debug(f"_lookup_suggestions_from_reports failed: {e}")
+    return suggestions_for_target
+
+
 def seed_evolution_changes_from_discovery(
     run_id: str,
     targets: list[dict],
@@ -197,26 +228,9 @@ def seed_evolution_changes_from_discovery(
             _logger.debug(f"seed_evolution_changes skip {sub!r}@{tf!r}: {e}")
             continue
 
-        # 从 reports_dir 反查该 (subject, target) 对应的 suggestions (照 002 桶法重算)
-        # 任何 reports 出错都兜底给空 list
-        suggestions_for_target: list = []
-        try:
-            from pathlib import Path
-            rdir = Path(reports_dir)
-            if rdir.is_dir():
-                for fp in rdir.glob("*.analysis_report.json"):
-                    try:
-                        data = json.loads(fp.read_text(encoding="utf-8"))
-                    except Exception:
-                        continue
-                    if (data.get("subject_name") or "").strip() != sub:
-                        continue
-                    sgs = data.get("suggestions") or []
-                    for sg in sgs:
-                        if (sg.get("target_file") or "") == tf:
-                            suggestions_for_target.append(sg)
-        except Exception as e:
-            _logger.debug(f"seed_evolution_changes read reports failed: {e}")
+        suggestions_for_target = _lookup_suggestions_from_reports(
+            reports_dir, sub, tf,
+        )
 
         try:
             c.record_evolution_change_seeded(
@@ -277,9 +291,11 @@ def scan_and_record_evolution_changes(
     evidence_root: Path,
     evolution_changes_dir: Path,
     projects_home: Path,
+    reports_dir: Path | None = None,
 ) -> int:
     """
     扫 evolution_changes/*.change, 与 stash join, 读原文件, 入库 see_evolution_change.
+    兜底: stash 没找到 suggestions 时, 若有 reports_dir 则从桶法重算.
     """
     if not run_id or not evolution_changes_dir.is_dir():
         return 0
@@ -315,7 +331,13 @@ def scan_and_record_evolution_changes(
         suggestions = stash_entry.get("suggestions_json")
         original_content = stash_entry.get("original_content", "")
 
-        # 若 stash 没拿到, 退而求其次从盘读原文件
+        # 若 stash 没拿到 suggestions (例如 stash 已被前一次 finalize 清空), 从 reports_dir 重算
+        if not suggestions and reports_dir is not None:
+            suggestions = _lookup_suggestions_from_reports(
+                reports_dir, subject_name, target_file,
+            )
+
+        # 若 stash 没拿到 original_content, 退而求其次从盘读原文件
         if not original_content:
             candidate = projects_home / subject_name / target_file
             if candidate.is_file():
@@ -325,12 +347,17 @@ def scan_and_record_evolution_changes(
                     pass
 
         try:
+            # 后端预计算 diff (Python 标准库, 零依赖).
+            from .diffutil import compute_linediff
+            linediff = compute_linediff(original_content or "", new_content or "")
+
             c.record_evolution_change(
                 run_id=run_id,
                 subject_target=subject_target,
                 original_content=original_content or "",
                 new_content=new_content or "",
                 suggestions_json=suggestions or [],
+                linediff_json=linediff,
             )
             count += 1
         except Exception as e:

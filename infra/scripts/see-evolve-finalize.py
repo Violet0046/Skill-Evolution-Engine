@@ -56,6 +56,7 @@ def main() -> int:
 
     evidence_root: Path = args.evidence_root
     evolution_changes_dir = evidence_root / args.run_id / "evolution_changes"
+    reports_dir = evidence_root / args.run_id / "analysis_reports"
     projects_home = Path(os.environ.get(  # noqa: F821  -- replaced below
         "SEE_PROJECTS_HOME", str(_ROOT / "subjects"),
     ))
@@ -82,6 +83,8 @@ def main() -> int:
                     evidence_root=evidence_root,
                     evolution_changes_dir=evolution_changes_dir,
                     projects_home=projects_home,
+                    # 给了 finalize 兜底重算 suggestions 的能力
+                    reports_dir=reports_dir if reports_dir.is_dir() else None,
                 )
             except Exception as e:
                 errors.append({"stage": "scan_changes", "error": f"{type(e).__name__}: {e}"})

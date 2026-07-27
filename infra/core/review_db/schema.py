@@ -104,14 +104,16 @@ ON DUPLICATE KEY UPDATE
 """.strip()
 
 # 表 004 see_evolution_change (UK: (run_id, subject_target))
+# 包含 linediff_json (后端预计算 diff, 6 占位符)
 UPSERT_EVOLUTION_CHANGE_SQL = """
 INSERT INTO see_evolution_change
-    (run_id, subject_target, original_content, new_content, suggestions_json)
-VALUES (%s, %s, %s, %s, %s)
+    (run_id, subject_target, original_content, new_content, suggestions_json, linediff_json)
+VALUES (%s, %s, %s, %s, %s, %s)
 ON DUPLICATE KEY UPDATE
     original_content  = VALUES(original_content),
     new_content       = VALUES(new_content),
-    suggestions_json  = VALUES(suggestions_json)
+    suggestions_json  = VALUES(suggestions_json),
+    linediff_json     = VALUES(linediff_json)
 """.strip()
 
 # 表 004 "种子" 写入: 阶段 3 evolve-discovery 时机调用, 先占位 (subject_target+suggestions_json),

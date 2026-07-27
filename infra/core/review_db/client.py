@@ -159,11 +159,13 @@ class ReviewDbClient:
         original_content: str,
         new_content: str,
         suggestions_json: Any,
+        linediff_json: Any = None,
     ) -> None:
         self._enqueue(_Task(
             op=_Op.EVOLUTION_CHANGE,
             args=(
-                run_id, subject_target, original_content, new_content, suggestions_json
+                run_id, subject_target, original_content, new_content,
+                suggestions_json, linediff_json,
             ),
             enqueued_at=time.time(),
         ))
@@ -277,11 +279,13 @@ class ReviewDbClient:
                 if not isinstance(sjson, str) else sjson,
             )
         if task.op is _Op.EVOLUTION_CHANGE:
-            _r, st, orig, new, sjson = task.args
+            _r, st, orig, new, sjson, ldiff = task.args
             return (
                 _r, st, orig, new,
                 json.dumps(sjson, ensure_ascii=False)
                 if not isinstance(sjson, str) else sjson,
+                json.dumps(ldiff, ensure_ascii=False)
+                if ldiff is not None else None,
             )
         raise RuntimeError(f"unknown op {task.op}")
 

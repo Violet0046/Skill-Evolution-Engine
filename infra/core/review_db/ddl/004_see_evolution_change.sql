@@ -30,6 +30,11 @@ CREATE TABLE IF NOT EXISTS see_evolution_change (
     --     前端点击 suggestion.id 直接反查 002 / 003
     suggestions_json        JSON         NOT NULL,
 
+    -- (4) 预计算 diff (Python difflib 在阶段 3 末算一次存)
+    --     { leftLines: [{lineNo, text, kind}], rightLines: [...], added, removed }
+    --     前端拿到直接渲染, 不再前端算算法
+    linediff_json           JSON         NULL,
+
     PRIMARY KEY (id),
     UNIQUE KEY uk_run_subject_target (run_id, subject_target)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
