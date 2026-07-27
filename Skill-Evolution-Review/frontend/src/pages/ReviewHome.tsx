@@ -6,7 +6,7 @@
  *   │ Header (reviewer + run)                                         │
  *   ├──────────────┬────────────────────────────────┬─────────────────┤
  *   │ Changes      │ Diff                          │ Suggestions     │
- *   │ (左 22%)     │ (中 50%)                       │ (右 28%)        │
+ *   │ (左 20%)     │ (中 55%)                       │ (右 25%)        │
  *   │              │                                │                 │
  *   │              │                                │ ──────────       │
  *   │              │                                │ DecisionForm    │
@@ -123,7 +123,7 @@ export function ReviewHome() {
       <main className="flex-1 min-h-0 overflow-hidden">
         <Group orientation="horizontal" className="h-full">
           {/* 左: run 选择 + 文件目录 (一改就是一个文件) */}
-          <Panel defaultSize={22} minSize={15}>
+          <Panel defaultSize={20} minSize={15}>
             <div className="h-full flex flex-col bg-background border-r overflow-hidden">
               {/* 选 run */}
               <div className="px-3 py-2 border-b shrink-0">
@@ -162,7 +162,7 @@ export function ReviewHome() {
             </div>
           </Panel>
           <Separator className="w-1 bg-border hover:bg-primary/30 transition-colors" />
-          <Panel defaultSize={50} minSize={30}>
+          <Panel defaultSize={55} minSize={30}>
             <div className="h-full bg-background border-r overflow-hidden">
               {selectedDetail ? (
                 <DiffViewer
@@ -183,7 +183,7 @@ export function ReviewHome() {
           <Separator className="w-1 bg-border hover:bg-primary/30 transition-colors" />
 
           {/* 右: suggestions + 底部 sticky 决策 */}
-          <Panel defaultSize={28} minSize={20}>
+          <Panel defaultSize={25} minSize={20}>
             <div className="h-full flex flex-col bg-background overflow-hidden">
               <div className="px-3 py-2 border-b bg-muted/30 flex items-center justify-between shrink-0">
                 <span className="text-sm font-semibold">

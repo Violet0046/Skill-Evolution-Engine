@@ -1,15 +1,14 @@
 /**
- * frontend/src/components/DiffViewer.tsx — git-style 双栏 diff + +/- 行 marker
+ * frontend/src/components/DiffViewer.tsx — git-style 双栏 diff + 自画 minimap 滚动条
  *
- * 设计 (按用户 2026-07-25 规则):
- *   - 隐藏原生滚动条 (Tailwind: overflow-y-scroll + 自定义 w-1.5 滚动条)
- *   - 在 w-1.5 自画滚动条上画 +/- 行色块 marker
- *   - marker 按内容行比例 (top: %) 固定, 不随滚动消失
- *   - 点击 marker -> 该行 scrollIntoView center
- *   - thumb (滚动滑块) 层级 > marker
- *
- * 注: 浏览器原生 scrollbar 我们隐藏, 完全用 1.5px 宽自画滚动条 + 上下挪 thumb.
- *     这是 "全自画" 妥协方案, 但 100% 满足"marker 在滚动条内部 + 滑块 > marker" 要求.
+ * 设计 (按用户 2026-07-27 规则):
+ *   - Diff 容器强制 own scroll: overflow-y-scroll + min-h-0
+ *   - 隐藏原生滚动条 (scrollbar-width:none + webkit display:none)
+ *   - 右侧预留 6px gutter 给自画滚动条
+ *   - 自画滚动条 = track(背景) + markers(绿红色块,absolute,按 content% 定位) + thumb(滑块)
+ *   - thumb z 高于 markers, click marker 跳转到对应行, 拖 thumb 改 scrollTop
+ *   - 关键: markers 画在 track 背景层内. track 容器不滚 => markers 不滚.
+ *     哪怕 diff 内容只有几行也会自画 scrollbar 留 gutter, 防止 "外层 page 滚走 overlay" 的问题.
  */
 
 import { useRef, useState } from 'react'
@@ -109,19 +108,28 @@ function DiffBody({ linediff }: { linediff: LinediffFormat }) {
   }
 
   return (
-    <div
-      ref={el => setScrollEl(el)}
-      className="flex-1 min-h-0 overflow-y-auto overflow-x-hidden font-mono text-[11px] leading-5 relative
-                 [&::-webkit-scrollbar]:w-1.5
-                 [&::-webkit-scrollbar-track]:bg-slate-100
-                 [&::-webkit-scrollbar-thumb]:bg-slate-400
-                 [&::-webkit-scrollbar-thumb]:rounded-full
-                 hover:[&::-webkit-scrollbar-thumb]:bg-slate-500"
-    >
-      <div className="grid grid-cols-2 divide-x divide-slate-200">
-        <DiffSide lines={linediff.leftLines} getRowRef={setLeftRef} />
-        <DiffSide lines={linediff.rightLines} getRowRef={setRightRef} />
+    // 左: 滚动内容区 (hidden scrollbar) | 右: 自画 minimap (不参与滚动, 永远钉在 viewport)
+    // 这个布局是核心: minimap 不在滚动容器内, 而在滚动容器的兄弟位,
+    // 所以无论怎么滚动内容, minimap 容器自身不动, 内含的 markers 也跟着不动.
+    // markers 高度按 scrollHeight 比例画在自己容器 (== viewport 高度) 内,
+    // thumb 位置按 scrollTop 比例同步.
+    <div className="flex-1 min-h-0 flex">
+      <div
+        ref={el => setScrollEl(el)}
+        // 强制 own scroll: 内容没超也强制出滚动条轨道, 避免被外层 page-scroll 拖走 overlay
+        // hide native scrollbar (webkit + ff), 把 6px 让给右侧兄弟 minimap 接管滚动感
+        className="diff-scroller flex-1 min-w-0 min-h-0 overflow-y-scroll overflow-x-hidden
+                   font-mono text-[11px] leading-5"
+      >
+        <div className="grid grid-cols-2 divide-x divide-slate-200">
+          <DiffSide lines={linediff.leftLines} getRowRef={setLeftRef} />
+          <DiffSide lines={linediff.rightLines} getRowRef={setRightRef} />
+        </div>
       </div>
+
+      {/* minimap 容器: 与滚动容器并排 (flex sibling), 它自己不滚动,
+          markers / thumb 都是它内部的 absolute 元素,
+          它们永远停留在 viewport (viewport 本身不滚, 只有左侧 scrollContainer 内部在滚). */}
       <DiffMinimapOverlay lines={lines} scrollContainer={scrollEl} />
     </div>
   )

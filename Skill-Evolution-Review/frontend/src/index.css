@@ -35,3 +35,16 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* DiffViewer 自画滚动条: 隐藏 native scrollbar, 把 6px 让给绝对定位 minimap overlay.
+   注意: 我们仍然强制容器 overflow-y:scroll (而非 auto), 保证 minimap 容器始终存在,
+   即便内容短也不会让外层 page scroll 接管. */
+.diff-scroller {
+  scrollbar-width: none;          /* Firefox */
+  -ms-overflow-style: none;       /* legacy Edge/IE */
+}
+.diff-scroller::-webkit-scrollbar {
+  display: none;                  /* WebKit/Blink */
+  width: 0;
+  height: 0;
+}

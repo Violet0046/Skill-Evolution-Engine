@@ -1,17 +1,22 @@
 /**
  * frontend/src/components/DiffMinimapOverlay.tsx
  *
- * 在 DiffViewer 滚动条轨道上"画"出 +/- 行的鸟瞰分布 (类似 VS Code minimap).
+ * 自画 minimap 滚动条 (类似 VS Code 的右侧缩略图).
  *
- * 设计:
- *   - 浮层贴 ScrollArea 右贴, width 5px
- *   - 每个 +/- 行按 clientHeight 比例画一个 marker 色块
- *   - 同色相邻标记: useMemo merge 成连续块 (hunk), 不连续分两块 (single)
- *   - 点击 marker -> 该行 scrollIntoView center
- *   - hover -> 原生 title (本期先用, 不做 fancy tooltip)
+ * 设计 (按用户 2026-07-27 规则, v2):
+ *   - 该组件与 scroller 是 flex sibling, 自己不滚动, 高度 = scroller viewport (= clientHeight)
+ *   - 内部三层 (从底到顶):
+ *       1) track   — 背景条, 浅灰
+ *       2) markers — 同色相邻 +/- 行 merge 成的连续色块, 按 scrollHeight 比例定位
+ *                    (markers 画在自己 viewport 内, 所以视觉钉死不滚走)
+ *       3) thumb   — 当前视口可视区, 按 scrollTop / (scrollHeight - clientHeight) 算位置,
+ *                    z 高于 markers, 鼠标拖动 = 改 scroller.scrollTop
+ *   - 即便没有任何 +/- 行, track + thumb 仍然按比例画 (内容短时 thumb 占满),
+ *     防止"overlay 消失"或"位置错乱". 视觉永远稳定.
  *
- * 性能: 实时测 clientHeight 仅在 lines 变化时计算 (useMemo on-lines),
- * 滚动时不重测, 因为 positions 是 % 的.
+ * 性能:
+ *   - markers 用 ResizeObserver + lines 变才重算 (%), 滚动时 thumb 位置用 onScroll 实时算
+ *   - 不再依赖 Date.now() 这种伪触发
  */
 
 import { useEffect, useMemo, useRef, useState } from 'react'
@@ -25,15 +30,15 @@ export interface MinimapLine {
 }
 
 interface Props {
-  /** 跟 DiffSide 的 lines[] 顺序完全一致 (linter 仅用 + 没 + placeholder) */
+  /** 跟 DiffSide 的 lines[] 顺序完全一致 (左右拼接后传入) */
   lines: MinimapLine[]
-  /** 容器 ScrollArea 的元素 (测高度用) */
+  /** 容器 scrollContainer 的元素 (测 scrollHeight / scrollTop / clientHeight 用) */
   scrollContainer: HTMLDivElement | null
 }
 
 interface MarkerBlock {
   kind: 'added' | 'removed'
-  startPct: number   // % from top
+  startPct: number   // % of minimap viewport (== % of scrollContainer clientHeight)
   endPct: number
   /** 跳转到最贴中间的一行 (block center line) */
   targetRow: HTMLDivElement
@@ -42,48 +47,81 @@ interface MarkerBlock {
 }
 
 export function DiffMinimapOverlay({ lines, scrollContainer }: Props) {
-  // 容器高 (px) — 用来算每行百分比
-  const [containerHeight, setContainerHeight] = useState(0)
-  // 容器 ScrollArea 滚动高 (total content) — 但 % 算的是 (行位置 / content 高度) * 100
-  // 而 scrollTop 已经给我们一个 (scrollTop / scrollHeight) 的比例
-  // 但 marker 比例是用 行位置 / content 高度
-  const [contentHeight, setContentHeight] = useState(0)
+  // viewport (= scrollContainer.clientHeight) — minimap 自身的高度
+  const [viewportH, setViewportH] = useState(0)
+  // scrollHeight — 全部内容的高度, 用于算 marker 在 minimap 内的位置%
+  const [contentH, setContentH] = useState(0)
+  // 当前 thumb 位置 (rAF 节流过的 0..1 比例)
+  const [thumbPct, setThumbPct] = useState(0)
+  const [thumbHeightPct, setThumbHeightPct] = useState(1)
+
+  const trackRef = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
     if (!scrollContainer) return
     const el = scrollContainer
     const sync = () => {
-      setContainerHeight(el.clientHeight)
-      setContentHeight(el.scrollHeight)
+      const vh = el.clientHeight
+      const ch = el.scrollHeight
+      const range = Math.max(0, ch - vh)
+      setViewportH(vh)
+      setContentH(ch)
+      setThumbHeightPct(range === 0 ? 1 : Math.min(1, vh / ch))
+      setThumbPct(range === 0 ? 0 : Math.min(1, el.scrollTop / range))
     }
     sync()
     const ro = new ResizeObserver(sync)
     ro.observe(el)
+    // 内容 child 尺寸变 → scrollHeight 变 → 也要 sync
+    // ResizeObserver 默认会观察所有后代元素, 但要看它在 el 还是 child. el 就够,
+    // 因为 scrollHeight 是 layout 触发, 内容尺寸变会同步触发 el 的尺寸可能不变,
+    // 所以也观察 content (这里用 first child, 即 .grid).
+    const grid = el.firstElementChild as HTMLElement | null
+    if (grid) ro.observe(grid)
     return () => ro.disconnect()
   }, [scrollContainer])
 
-  // 合并: 同色相邻 + 跳过 placeholder
+  // 监听 scroll: 实时同步 thumb (rAF 节流)
+  useEffect(() => {
+    if (!scrollContainer) return
+    let raf = 0
+    const onScroll = () => {
+      if (raf) return
+      raf = requestAnimationFrame(() => {
+        raf = 0
+        const ch = scrollContainer.scrollHeight
+        const vh = scrollContainer.clientHeight
+        const range = Math.max(0, ch - vh)
+        setThumbPct(range === 0 ? 0 : Math.min(1, scrollContainer.scrollTop / range))
+        setThumbHeightPct(range === 0 ? 1 : Math.min(1, vh / ch))
+      })
+    }
+    scrollContainer.addEventListener('scroll', onScroll, { passive: true })
+    return () => {
+      if (raf) cancelAnimationFrame(raf)
+      scrollContainer.removeEventListener('scroll', onScroll)
+    }
+  }, [scrollContainer])
+
+  // 合并: 同色相邻 +/- 行 → 连续块 (markers 用 scrollHeight 算 %)
+  // marker 的 top% = row.offsetTop / scrollHeight * 100
   const blocks = useMemo<MarkerBlock[]>(() => {
-    if (containerHeight <= 0 || contentHeight <= 0) return []
-    // 位置 map: 行 idx -> 0..1 比例
-    // 我们用 rowEl 的 top/bottom 比例
+    if (viewportH <= 0 || contentH <= 0) return []
     const positions: { kind: 'added' | 'removed'; topPct: number; bottomPct: number; targetRow: HTMLDivElement; lineNo: number | '' }[] = []
     for (const ln of lines) {
       if (ln.kind !== 'added' && ln.kind !== 'removed') continue
       if (!ln.rowEl) continue
-      const cTop = ln.rowEl.offsetTop      // 距离 ScrollArea 内容顶部
+      const cTop = ln.rowEl.offsetTop
       const cHeight = ln.rowEl.offsetHeight
       if (cHeight === 0) continue
       positions.push({
         kind: ln.kind,
-        topPct: (cTop / contentHeight) * 100,
-        bottomPct: ((cTop + cHeight) / contentHeight) * 100,
+        topPct: (cTop / contentH) * 100,
+        bottomPct: ((cTop + cHeight) / contentH) * 100,
         targetRow: ln.rowEl,
         lineNo: ln.lineNo ?? '',
       })
     }
-
-    // 合并相邻同色
     const merged: MarkerBlock[] = []
     for (const p of positions) {
       const last = merged[merged.length - 1]
@@ -93,7 +131,6 @@ export function DiffMinimapOverlay({ lines, scrollContainer }: Props) {
         // 连续 (允许极小缝隙, 这里精确比)
         Math.abs(last.endPct - p.topPct) < 0.5
       ) {
-        // 延长末块
         last.endPct = p.bottomPct
         last.count += 1
       } else {
@@ -108,31 +145,86 @@ export function DiffMinimapOverlay({ lines, scrollContainer }: Props) {
       }
     }
     return merged
-  }, [lines, containerHeight, contentHeight, /* 定期 re-measure */ Date.now()])
+  }, [lines, viewportH, contentH])
 
-  if (blocks.length === 0) return null
+  // 拖动 thumb: pointer events, onPointerDown 在 thumb 上开始, 移动时改 scrollContainer.scrollTop
+  const onThumbPointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
+    e.preventDefault()
+    e.stopPropagation()
+    if (!scrollContainer) return
+    const el = scrollContainer
+    const trackEl = trackRef.current
+    if (!trackEl) return
+    trackEl.setPointerCapture(e.pointerId)
+    const rect = trackEl.getBoundingClientRect()
+    const range = Math.max(1, el.scrollHeight - el.clientHeight)
+    const apply = (clientY: number) => {
+      const ratio = Math.min(1, Math.max(0, (clientY - rect.top) / rect.height))
+      el.scrollTop = ratio * range
+    }
+    apply(e.clientY)
+    const onMove = (ev: PointerEvent) => apply(ev.clientY)
+    const onUp = () => {
+      trackEl.releasePointerCapture(e.pointerId)
+      trackEl.removeEventListener('pointermove', onMove)
+      trackEl.removeEventListener('pointerup', onUp)
+      trackEl.removeEventListener('pointercancel', onUp)
+    }
+    trackEl.addEventListener('pointermove', onMove)
+    trackEl.addEventListener('pointerup', onUp)
+    trackEl.addEventListener('pointercancel', onUp)
+  }
+
+  // 没有 scrollContainer: 给一个占位条 (透明 + 宽度 6px), 保留 DOM shape 不抖动
+  if (!scrollContainer) {
+    return <div className="w-1.5 shrink-0 bg-slate-100/50" aria-hidden="true" />
+  }
 
   return (
     <div
-      className="pointer-events-none absolute right-0 top-0 bottom-0 w-1.5 z-10"
-      aria-hidden="true"
+      ref={trackRef}
+      // 关键: 不参与 flex flow 之外的滚动, 因 sibling 关系本身就是静态位置
+      // 内部 markers / thumb 全部 absolute 在这个 track 内,
+      // track 高度 = scrollContainer.clientHeight (sub px, 跟着同步的)
+      className="relative w-1.5 shrink-0 bg-slate-100 select-none cursor-pointer"
+      style={{ height: viewportH > 0 ? viewportH : undefined }}
+      role="scrollbar"
+      aria-orientation="vertical"
+      aria-valuemin={0}
+      aria-valuemax={100}
+      aria-valuenow={Math.round(thumbPct * 100)}
+      onPointerDown={(e) => {
+        // 点击空白 track: 也跳到对应位置 (类似 macOS 点击滚动条空白)
+        if (e.target === trackRef.current || (e.target as HTMLElement).dataset?.trackBg) {
+          const rect = trackRef.current!.getBoundingClientRect()
+          const range = Math.max(1, scrollContainer.scrollHeight - scrollContainer.clientHeight)
+          const ratio = Math.min(1, Math.max(0, (e.clientY - rect.top) / rect.height))
+          scrollContainer.scrollTop = ratio * range
+        }
+      }}
     >
+      {/* 背景层: 让点击事件落到 track 上 (markers / thumb 都拦冒泡到 track) */}
+      <div data-track-bg className="absolute inset-0" />
+
+      {/* markers: 按 contentH% 在 viewport (==track) 内定位, viewport 自己不滚 => markers 不滚 */}
       {blocks.map((b, i) => (
         <button
           key={i}
           type="button"
-          className={`pointer-events-auto absolute left-0 right-0 rounded-sm hover:opacity-80 ${
+          className={`absolute left-0 right-0 rounded-sm hover:opacity-90 transition-opacity ${
             b.kind === 'added'
               ? 'bg-green-500/60 hover:bg-green-500'
               : 'bg-red-500/60 hover:bg-red-500'
           }`}
           style={{
             top: `${b.startPct}%`,
-            height: `${Math.max(0.5, b.endPct - b.startPct)}%`,
+            height: `${Math.max(0.6, b.endPct - b.startPct)}%`,
           }}
-          onClick={() => {
+          onClick={(e) => {
+            e.stopPropagation()
             b.targetRow.scrollIntoView({ behavior: 'smooth', block: 'center' })
           }}
+          onPointerDown={(e) => e.stopPropagation()}
           title={
             b.kind === 'added'
               ? `+ ${b.count} 行 (从 #${b.lineNo})`
@@ -145,6 +237,17 @@ export function DiffMinimapOverlay({ lines, scrollContainer }: Props) {
           }
         />
       ))}
+
+      {/* thumb: 最上层, 同步 scrollTop, 可拖动. 颜色比 track 深. */}
+      <div
+        className="absolute left-0 right-0 bg-slate-500/70 hover:bg-slate-600 rounded-sm cursor-grab active:cursor-grabbing"
+        style={{
+          top: `${thumbPct * (1 - thumbHeightPct) * 100}%`,
+          height: `${thumbHeightPct * 100}%`,
+          minHeight: '8px',
+        }}
+        onPointerDown={onThumbPointerDown}
+      />
     </div>
   )
 }
