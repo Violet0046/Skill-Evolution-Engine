@@ -1,0 +1,29 @@
+# frontend/nginx.conf.host
+# 覆盖 base 镜像默认 nginx.conf, 仅加入 include /etc/nginx/conf.d/*.conf,
+# 真实的 server 块在 nginx.host.conf 里.
+
+#user  nobody;
+worker_processes  1;
+
+#pid        logs/nginx.pid;
+
+events {
+    worker_connections  1024;
+}
+
+http {
+    include       mime.types;
+    default_type  application/octet-stream;
+
+    sendfile        on;
+    keepalive_timeout  65;
+
+    # gzip: 让前端 html/css/js 在公司内网传输也快一点
+    gzip on;
+    gzip_types text/plain text/css application/json application/javascript
+               application/xml application/xml+rss image/svg+xml;
+    gzip_min_length 1024;
+
+    # 关键: 让 /etc/nginx/conf.d/*.conf 里的 server 块生效
+    include /etc/nginx/conf.d/*.conf;
+}

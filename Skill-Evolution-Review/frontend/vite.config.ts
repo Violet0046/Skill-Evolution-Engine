@@ -14,5 +14,12 @@ export default defineConfig({
     host: '0.0.0.0',
     port: 5173,
     strictPort: true,
+    // dev 模式下 /api 请求代理到 host 上的 uvicorn (避免 CORS 麻烦)
+    proxy: {
+      '/api': {
+        target: 'http://localhost:8000',
+        changeOrigin: true,
+      },
+    },
   },
 })

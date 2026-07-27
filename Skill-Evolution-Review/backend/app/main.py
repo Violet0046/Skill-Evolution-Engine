@@ -19,16 +19,25 @@ def create_app() -> FastAPI:
     app = FastAPI(
         title="Review System API",
         version="0.1.0",
-        description="评审系统后端: 4 个核心 API (开干 1 阶段, 路由 stub).",
+        description="评审系统后端: 4 个核心 API .",
     )
 
-    # CORS — 开干 1 允许前端 localhost:5173
-    # 后续 docker-compose 时改为前端容器名
+    # CORS — 同源部署 (nginx 反代) 时不需 CORS; 但保留以下 origin 给:
+    # 1) 本地 dev 调试 (vite dev 5173, 后端 8000)
+    # 2) 同事可能从 host 直接访问 (没有 nginx 反代场景)
+    # 3) host 内网 IP 让 IP 直接访问也行
     app.add_middleware(
         CORSMiddleware,
         allow_origins=[
+            # dev: 直接 dev server
             "http://localhost:5173",
             "http://127.0.0.1:5173",
+            # 部署后: 同源访问不需要 CORS, 但多 origin 不会报错
+            # 公司同事可能在 host IP 直连 (无 nginx 反代)
+            "http://10.90.213.38:5180",       # 公司这台机器 + 部署端口 (按你 DEPLOY.md 调整)
+            "http://10.90.213.38",             # 如果改用 80 端口
+            "http://localhost:5180",
+            "http://127.0.0.1:5180",
         ],
         allow_credentials=True,
         allow_methods=["*"],

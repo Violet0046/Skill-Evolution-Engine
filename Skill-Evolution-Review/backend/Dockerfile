@@ -1,6 +1,7 @@
 # review-system backend image
 # 用于 docker-compose 一键起. 构建上下文应该是 backend/ 目录.
-FROM python:3.11-slim
+# 公司网络访问 docker.io 不通, 走 artxa 镜像仓库
+FROM public-docker-virtual.artxa.zte.com.cn/library/python:3.11-slim
 
 # 减小镜像体积: 不缓存 pip 与缓存的 .pyc 文件
 ENV PIP_NO_CACHE_DIR=1 \

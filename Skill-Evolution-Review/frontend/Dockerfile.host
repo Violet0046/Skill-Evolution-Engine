@@ -1,0 +1,33 @@
+# frontend/Dockerfile.host — host-only 部署路径
+#
+# 用公司内网镜像 aes-measure-base:v3 (内嵌 nginx 1.21.6)
+# 关键发现: base 镜像默认 nginx.conf 不 include /etc/nginx/conf.d/*.conf,
+#          只 listen 80 上的内置 server.
+# 解法: COPY 一个 nginx.conf.default 覆盖 base 的, 使其 include 我们的 review.conf.
+#
+# 流程:
+#   host 上 vite build -> dist/
+#   这个 Dockerfile:
+#     - ln nginx 到 PATH
+#     - COPY 我们的 nginx.conf.default 覆盖 base 自带
+#     - COPY review.conf 到 conf.d/
+#     - COPY dist/ 静态资产
+
+FROM aurora-release-docker.artnj.zte.com.cn/arch_metric/aes/aes-measure-base:v3
+
+# nginx 软链到 PATH, 让我们能 nginx -t 检查配置 + 默认 CMD
+RUN ln -sf /usr/local/nginx-1.21.6/sbin/nginx /usr/local/bin/nginx
+
+# 覆盖默认 nginx.conf, 加入 include /etc/nginx/conf.d/*.conf
+COPY nginx.conf.host /usr/local/nginx-1.21.6/conf/nginx.conf
+
+# 我们的 server block (在 include path 下面会自动生效)
+COPY nginx.host.conf /etc/nginx/conf.d/review.conf
+
+# host 上 build 出的前端静态资源
+COPY dist /usr/share/nginx/html/
+
+# 容器在 5180 listen, host docker run -p 5180:5180 透传
+EXPOSE 5180
+
+CMD ["nginx", "-g", "daemon off;"]

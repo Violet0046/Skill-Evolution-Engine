@@ -1,29 +1,57 @@
-version: "3.9"
+# docker-compose.yml — Skill-Evolution-Review 一键起 (生产形态)
+#
+# 服务:
+#   - backend  : FastAPI (uvicorn) 在 review 网络内
+#   - frontend : nginx:alpine serve dist/ + 反代 /api -> backend
+#
+# 用法:
+#   docker compose up -d --build
+#   docker compose down      # 停
+#   docker compose logs -f   # 看日志
+#
+# 注意:
+#   - 不依赖外部 docker-compose-plugin (用 docker compose v2, 如安装失败见 DEPLOY.md 备用 shell 脚本)
+#   - 端口映射默认 host:5180 -> frontend:80
+#   - 公司 MySQL 在 10.89.245.224 (后端 .env 配), 不需要本地起 DB
+#   - 重启策略: unless-stopped (主机重启后容器自动拉起)
 
 services:
   backend:
     build: ./backend
     container_name: review-backend
-    ports:
-      - "8000:8000"
     env_file:
       - ./backend/.env
     environment:
       - PYTHONUNBUFFERED=1
+    # 不映射 host 端口: 前端 nginx 在 docker 网络内访问 backend:8000
+    # 如果需要 host 直接调后端 (调试用), 取消下面注释
+    # ports:
+    #   - "8000:8000"
+    networks:
+      - review
     healthcheck:
-      # 用 python 内置 urllib, 不依赖 curl (镜像里没装)
       test: ["CMD", "python", "-c", "import urllib.request,sys; urllib.request.urlopen('http://localhost:8000/healthz'); sys.exit(0)"]
-      interval: 5s
+      interval: 10s
       timeout: 3s
       retries: 5
+      start_period: 20s
+    restart: unless-stopped
 
   frontend:
-    build: ./frontend
+    build:
+      context: ./frontend
+      args:
+        VITE_API_BASE_URL: /api
     container_name: review-frontend
     ports:
-      - "5173:5173"
-    environment:
-      - VITE_API_BASE_URL=http://localhost:8000
+      - "5180:80"   # host 5180 -> 容器 80
     depends_on:
       backend:
         condition: service_healthy
+    networks:
+      - review
+    restart: unless-stopped
+
+networks:
+  review:
+    driver: bridge
