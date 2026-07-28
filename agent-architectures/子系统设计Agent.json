@@ -1,0 +1,124 @@
+{
+  "agent_name": "子系统设计Agent",
+  "agents": [
+    {
+      "name": "review-agent",
+      "path": "agents/ReviewAgent/review_agent.md",
+      "description": "审查子系统设计阶段 SubAgent 产物质量；按传入 rule_file 执行单步骤规则检查并输出机读审查结果"
+    },
+    {
+      "name": "可靠性设计-agent",
+      "path": "agents/可靠性设计-agent/可靠性设计-agent.md",
+      "description": "执行系统方案的可靠性设计。"
+    },
+    {
+      "name": "数据回流-agent",
+      "path": "agents/数据回流-agent/数据回流-agent.md",
+      "description": "专业的数据处理助手，完成数据回流处理"
+    },
+    {
+      "name": "组件间接口设计-agent",
+      "path": "agents/组件间接口设计-agent/组件间接口设计-agent.md",
+      "description": "执行组件间接口设计，包含对输入的子系统执行组件间接口设计。"
+    },
+    {
+      "name": "组件间流程设计-agent",
+      "path": "agents/组件间流程设计-agent/组件间流程设计-agent.md",
+      "description": "执行组件间流程设计，包含对输入的子系统执行组件间设计。该agent将子系统间的协作流程细化为子系统内部组件间的详细协作流程。"
+    },
+    {
+      "name": "组件间设计前置准备-agent",
+      "path": "agents/组件间设计前置准备-agent/组件间设计前置准备-agent.md",
+      "description": "执行组件间流程设计前置准备任务，生成组件间设计所需的任务状态记录表。通过处理需求分析产物来识别需要设计的子系统实例，并准备组件间设计执行环境。"
+    }
+  ],
+  "skills": [
+    {
+      "name": "SDD任务时间记录",
+      "path": "skills/SDD任务时间记录/SKILL.md",
+      "description": "调用脚本，将SDD任务时间记录到数据库中（通过部署服务）"
+    },
+    {
+      "name": "SDD任务生成文字记录",
+      "path": "skills/SDD任务生成文字记录/SKILL.md",
+      "description": "调用脚本，将SDD任务生成文字记录到数据库中"
+    },
+    {
+      "name": "产物上传下载",
+      "path": "skills/产物上传下载/SKILL.md",
+      "description": "在OpenViking平台上上传需求产物到超级工作区，或从超级工作区下载产物到本地。当用户说\"上传产物\"、\"下载产物\"、\"同步产物\"、\"上传到超级工作区\"、\"从超级工作区下载\"时触发。"
+    },
+    {
+      "name": "初始化",
+      "path": "skills/初始化/SKILL.md",
+      "description": "子系统设计初始化工作流"
+    },
+    {
+      "name": "可靠性FMEA分析",
+      "path": "skills/可靠性FMEA分析/SKILL.md",
+      "description": "可靠性FMEA分析"
+    },
+    {
+      "name": "可靠性设计评审",
+      "path": "skills/可靠性设计评审/SKILL.md",
+      "description": "执行可靠性技术评审，基于2维度评审框架验证风险闭环、10维度充分性"
+    },
+    {
+      "name": "回退初始化",
+      "path": "skills/回退初始化/SKILL.md",
+      "description": "回退工作流R1阶段初始化，完成需求信息查询、产物下载和版本管理"
+    },
+    {
+      "name": "回退文件差异对比",
+      "path": "skills/回退文件差异对比/SKILL.md",
+      "description": "比较两个文件或两个目录的差异（类似 git diff），支持 markdown 文件的章节标注。当用户说\"对比文件\"、\"查看差异\"、\"diff\"时触发。"
+    },
+    {
+      "name": "回退流程规划",
+      "path": "skills/回退流程规划/SKILL.md",
+      "description": "回退工作流R2阶段，当无未完成回退时，完成用户意图识别、下游链路计算和子系统设计/组件设计Agent执行计划生成"
+    },
+    {
+      "name": "子系统设计回退影响识别",
+      "path": "skills/子系统设计回退影响识别/SKILL.md",
+      "description": "在回退执行阶段识别子系统设计中有修改的子系统-组件组合，生成子系统_组件_组件设计回退任务计划.json文件。同时识别新增和删除的情况并告知用户。"
+    },
+    {
+      "name": "日志采集",
+      "path": "skills/日志采集-时延分析/SKILL.md",
+      "description": "采集相关日志，压缩内容"
+    },
+    {
+      "name": "组件间接口设计流程",
+      "path": "skills/组件间接口设计/SKILL.md",
+      "description": "组件间接口设计流程：分析业务接口变更类型（新增/修改/删除/检查），对各类变更进行详细设计，并将结果回流到系统库。"
+    },
+    {
+      "name": "组件间流程设计",
+      "path": "skills/组件间流程设计/SKILL.md",
+      "description": "|"
+    },
+    {
+      "name": "结果校验",
+      "path": "skills/结果校验/SKILL.md",
+      "description": "将活动分析结果告知用户，用户手动确认分析结果是否正确。正确则继续，错误则由用户提供修改建议。"
+    }
+  ],
+  "rules": [
+    {
+      "name": "全局规则",
+      "path": "rules/全局规则.md",
+      "description": "全局规则"
+    },
+    {
+      "name": "回退执行规则",
+      "path": "rules/回退执行规则.md",
+      "description": "回退规则"
+    },
+    {
+      "name": "阶段3执行规则",
+      "path": "rules/阶段3执行规则.md",
+      "description": "阶段规则"
+    }
+  ]
+}

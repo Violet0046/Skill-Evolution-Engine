@@ -1,57 +1,234 @@
 {
   "agent_name": "需求分析Agent",
-  "targets": [
-    {"name": "查询需求信息", "path": "skills/查询需求信息/SKILL.md"},
-    {"name": "查询icenter页面内容", "path": "skills/查询icenter页面内容/SKILL.md"},
-    {"name": "差分场景检查单", "path": "skills/差分场景检查单/SKILL.md"},
-    {"name": "场景检索", "path": "skills/场景检索/SKILL.md"},
-    {"name": "初始化", "path": "skills/初始化/SKILL.md"},
-    {"name": "结果校验", "path": "skills/结果校验/SKILL.md"},
-    {"name": "内容同步", "path": "skills/内容同步/SKILL.md"},
-    {"name": "特性域变更分析-变更点生成", "path": "skills/特性域变更分析-变更点生成/SKILL.md"},
-    {"name": "特性域变更分析-测试验证", "path": "skills/特性域变更分析-测试验证/SKILL.md"},
-    {"name": "特性域变更分析-用例筛选", "path": "skills/特性域变更分析-用例筛选/SKILL.md"},
-    {"name": "特性域变更分析-filesearch-用例召回", "path": "skills/特性域变更分析-filesearch-用例召回/SKILL.md"},
-    {"name": "特性域变更分析-rag-用例召回", "path": "skills/特性域变更分析-rag-用例召回/SKILL.md"},
-    {"name": "问题域场景分析", "path": "skills/问题域场景分析/SKILL.md"},
-    {"name": "问题域场景类型补充", "path": "skills/问题域场景类型补充/SKILL.md"},
-    {"name": "问题域场景类型分析", "path": "skills/问题域场景类型分析/SKILL.md"},
-    {"name": "问题域场景类型检查", "path": "skills/问题域场景类型检查/SKILL.md"},
-    {"name": "问题域场景名称标准化", "path": "skills/问题域场景名称标准化/SKILL.md"},
-    {"name": "问题域场景名称标准化检查", "path": "skills/问题域场景名称标准化检查/SKILL.md"},
-    {"name": "问题域场景输出及回流", "path": "skills/问题域场景输出及回流/SKILL.md"},
-    {"name": "问题域场景要素分析", "path": "skills/问题域场景要素分析/SKILL.md"},
-    {"name": "问题域场景要素检查", "path": "skills/问题域场景要素检查/SKILL.md"},
-    {"name": "系统域变更分析-模块变更分析", "path": "skills/系统域变更分析-模块变更分析/SKILL.md"},
-    {"name": "系统域变更分析-算法变更分析", "path": "skills/系统域变更分析-算法变更分析/SKILL.md"},
-    {"name": "系统域变更分析-子系统变更分析", "path": "skills/系统域变更分析-子系统变更分析/SKILL.md"},
-    {"name": "系统域变更分析-组件变更分析", "path": "skills/系统域变更分析-组件变更分析/SKILL.md"},
-    {"name": "协议分析", "path": "skills/协议分析/SKILL.md"},
-    {"name": "SDD内容上报", "path": "skills/SDD内容上报/SKILL.md"},
-    {"name": "SDD任务生成文字记录", "path": "skills/SDD任务生成文字记录/SKILL.md"},
-    {"name": "SDD任务时间记录", "path": "skills/SDD任务时间记录/SKILL.md"},
-    {"name": "补充实现思路分析-agent", "path": "agents/补充实现思路分析-agent/补充实现思路分析-agent.md"},
-    {"name": "差分场景检查单-agent", "path": "agents/差分场景检查单-agent/差分场景检查单-agent.md"},
-    {"name": "数据回流-agent", "path": "agents/数据回流-agent/数据回流-agent.md"},
-    {"name": "特性域-波及原因变更点与回填-agent", "path": "agents/特性域-波及原因变更点与回填-agent/特性域-波及原因变更点与回填-agent.md"},
-    {"name": "特性域-用例筛选-agent", "path": "agents/特性域-用例筛选-agent/特性域-用例筛选-agent.md"},
-    {"name": "特性域-用例召回-agent", "path": "agents/特性域-用例召回-agent/特性域-用例召回-agent.md"},
-    {"name": "问题域场景分析-类型分析-agent", "path": "agents/问题域场景分析-类型分析-agent/问题域场景分析-类型分析-agent.md"},
-    {"name": "问题域场景分析-名称标准化-agent", "path": "agents/问题域场景分析-名称标准化-agent/问题域场景分析-名称标准化-agent.md"},
-    {"name": "问题域场景分析-要素分析-agent", "path": "agents/问题域场景分析-要素分析-agent/问题域场景分析-要素分析-agent.md"},
-    {"name": "系统域变更分析-模块变更分析-agent", "path": "agents/系统域变更分析-模块变更分析-agent/系统域变更分析-模块变更分析-agent.md"},
-    {"name": "系统域变更分析-算法变更分析-agent", "path": "agents/系统域变更分析-算法变更分析-agent/系统域变更分析-算法变更分析-agent.md"},
-    {"name": "系统域变更分析-子系统变更分析-agent", "path": "agents/系统域变更分析-子系统变更分析-agent/系统域变更分析-子系统变更分析-agent.md"},
-    {"name": "系统域变更分析-组件变更分析-agent", "path": "agents/系统域变更分析-组件变更分析-agent/系统域变更分析-组件变更分析-agent.md"},
-    {"name": "协议分析-agent", "path": "agents/协议分析-agent/协议分析-agent.md"},
-    {"name": "智能需求规划-agent", "path": "agents/智能需求规划-agent/智能需求规划-agent.md"},
-    {"name": "用例召回Agent", "path": "agents/用例召回Agent/usecase_recall_agent.md"},
-    {"name": "知识搜索-agent", "path": "agents/知识搜索-agent/knowledge-search-agent.md"},
-    {"name": "ReviewAgent", "path": "agents/ReviewAgent/review_agent.md"},
-    {"name": "RootCauseAgent", "path": "agents/RootCauseAgent/root_cause_agent.md"},
-    {"name": "SceneAnalysisAgent", "path": "agents/SceneAnalysisAgent/scene_analysis_agent.md"},
-    {"name": "UserAnalysisAgent", "path": "agents/UserAnalysisAgent/user_analysis_agent.md"},
-    {"name": "阶段3执行规则", "path": "rules/阶段3执行规则.md"},
-    {"name": "全局规则", "path": "rules/全局规则.md"}
+  "agents": [
+    {
+      "name": "review-agent",
+      "path": "agents/ReviewAgent/review_agent.md",
+      "description": "审查需求分析产物质量；按传入 rule_file 与 instance_rule_files 执行活动级/阶段级规则检查并输出结果"
+    },
+    {
+      "name": "Search-agent",
+      "path": "agents/Search-agent/README.md",
+      "description": ""
+    },
+    {
+      "name": "协议分析-agent",
+      "path": "agents/协议分析-agent/协议分析-agent.md",
+      "description": "专业的协议分析专家，负责分析市场需求中的协议要素，识别可能波及的协议册、协议过程和信令信元，生成结构化的协议分析结果。"
+    },
+    {
+      "name": "差分场景应对策略-agent",
+      "path": "agents/差分场景应对策略-agent/差分场景应对策略-agent.md",
+      "description": "专业的差分场景应对策略生成专家，负责根据特性域变更分析和差分场景检查单章节，自动生成差分场景应对策略。"
+    },
+    {
+      "name": "差分场景检查单-agent",
+      "path": "agents/差分场景检查单-agent/差分场景检查单-agent.md",
+      "description": "专业的差分场景检查单分析专家，负责基于特性域变更分析结果，生成差分场景检查单，识别需求变更点对场景因素的影响。"
+    },
+    {
+      "name": "数据回流-agent",
+      "path": "agents/数据回流-agent/数据回流-agent.md",
+      "description": "专业的数据处理助手，完成数据回流处理"
+    },
+    {
+      "name": "智能需求规划",
+      "path": "agents/智能需求规划-agent/智能需求规划-agent.md",
+      "description": "基于用户意图生成需求分析执行计划（阶段2任务规划），输出工作区JSON供阶段3消费"
+    },
+    {
+      "name": "特性域变更分析-agent",
+      "path": "agents/特性域变更分析-agent/特性域变更分析-agent.md",
+      "description": "执行特性域变更分析"
+    },
+    {
+      "name": "UsecaseRecall",
+      "path": "agents/用例召回Agent/usecase_recall_agent.md",
+      "description": "用例召回子代理，负责从需求文档中提取功能点、语义映射、动态检索、执行用例召回全流程"
+    },
+    {
+      "name": "知识搜索-agent",
+      "path": "agents/知识搜索-agent/README.md",
+      "description": ""
+    },
+    {
+      "name": "系统域变更分析-agent",
+      "path": "agents/系统域变更分析-agent/系统域变更分析-agent.md",
+      "description": "检索驱动型系统域变更分析：通过 search-agent 三路独立检索波及的子系统/组件/模块，层级追溯补全，合并对齐后输出四张变更表并回填到需求设计文档"
+    },
+    {
+      "name": "补充实现思路分析-agent",
+      "path": "agents/补充实现思路分析-agent/补充实现思路分析-agent.md",
+      "description": "专业的实现思路分析信息收集专家，负责向用户收集实现思路内容，保留用户输入原文，并在需求分析文档的 实现思路分析 章节生成标准模板表格。"
+    },
+    {
+      "name": "问题域场景分析-场景要素分析-agent",
+      "path": "agents/问题域场景分析-场景要素分析-agent/问题域场景分析-场景要素分析-agent.md",
+      "description": "独立场景分析子代理，负责场景要素提取、标准场景名称识别与回流场景输出。"
+    },
+    {
+      "name": "问题域场景分析-根因分析-agent",
+      "path": "agents/问题域场景分析-根因分析-agent/问题域场景分析-根因分析-agent.md",
+      "description": "独立根因分析子代理，专责从市场需求与算法分析中充分、细致地抽取问题根因，构建因果链，映射外部触发条件，并输出可追溯、可执行的三份标准化分析文档。"
+    },
+    {
+      "name": "问题域场景分析-用户分析-agent",
+      "path": "agents/问题域场景分析-用户分析-agent/问题域场景分析-用户分析-agent.md",
+      "description": "用户分析子代理，负责生成用户需求分析收口产物并回写req_design_document。"
+    }
+  ],
+  "skills": [
+    {
+      "name": "SDD任务时间记录",
+      "path": "skills/SDD任务时间记录/SKILL.md",
+      "description": "调用脚本，将SDD任务时间记录到数据库中（通过部署服务）"
+    },
+    {
+      "name": "SDD任务生成文字记录",
+      "path": "skills/SDD任务生成文字记录/SKILL.md",
+      "description": "调用脚本，将SDD任务生成文字记录到数据库中"
+    },
+    {
+      "name": "SDD内容上报",
+      "path": "skills/SDD内容上报/SKILL.md",
+      "description": "将AI生成的内容上报给度量数据库"
+    },
+    {
+      "name": "产物上传下载",
+      "path": "skills/产物上传下载/SKILL.md",
+      "description": "在OpenViking平台上上传需求产物到超级工作区，或从超级工作区下载产物到本地。当用户说\"上传产物\"、\"下载产物\"、\"同步产物\"、\"上传到超级工作区\"、\"从超级工作区下载\"时触发。"
+    },
+    {
+      "name": "内容同步",
+      "path": "skills/内容同步/SKILL.md",
+      "description": "将指定章节的内容从 {work_dir}/req_design_document.md 同步到 Copilot 系统"
+    },
+    {
+      "name": "初始化",
+      "path": "skills/初始化/SKILL.md",
+      "description": "需求分析初始化工作流"
+    },
+    {
+      "name": "协议分析",
+      "path": "skills/协议分析/SKILL.md",
+      "description": "协议分析任务"
+    },
+    {
+      "name": "回退初始化",
+      "path": "skills/回退初始化/SKILL.md",
+      "description": "回退工作流R1阶段初始化，完成需求信息查询、产物下载和版本管理"
+    },
+    {
+      "name": "回退文件差异对比",
+      "path": "skills/回退文件差异对比/SKILL.md",
+      "description": "比较两个文件或两个目录的差异（类似 git diff），支持 markdown 文件的章节标注。当用户说\"对比文件\"、\"查看差异\"、\"diff\"时触发。"
+    },
+    {
+      "name": "回退流程规划",
+      "path": "skills/回退流程规划/SKILL.md",
+      "description": "回退工作流R2阶段，完成用户意图识别、下游链路计算和四Agent执行计划生成"
+    },
+    {
+      "name": "场景检索",
+      "path": "skills/场景检索/SKILL.md",
+      "description": "5G NR 基站场景要素提取、标准场景名称识别、候选重排与未命中回流。默认采用统一预算与阶段门控执行。"
+    },
+    {
+      "name": "差分场景应对策略",
+      "path": "skills/差分场景应对策略/SKILL.md",
+      "description": "|"
+    },
+    {
+      "name": "差分场景检查单",
+      "path": "skills/差分场景检查单/SKILL.md",
+      "description": "差分场景检查单任务"
+    },
+    {
+      "name": "日志采集",
+      "path": "skills/日志采集-时延分析/SKILL.md",
+      "description": "采集相关日志，压缩内容"
+    },
+    {
+      "name": "查询iCenter页面内容",
+      "path": "skills/查询icenter页面内容/SKILL.md",
+      "description": "通过iCenter页面链接获取空间页面内容并转换为Markdown格式"
+    },
+    {
+      "name": "查询需求信息",
+      "path": "skills/查询需求信息/SKILL.md",
+      "description": "查询RDC工作项/需求信息。当用户想要查询工作项的标题、描述、状态、字段值等信息时使用此技能。支持按标识查询、筛选指定字段、组合条件查询。"
+    },
+    {
+      "name": "特性域变更分析-filesearch-用例召回",
+      "path": "skills/特性域变更分析-filesearch-用例召回/SKILL.md",
+      "description": "基于 filesearch 的用例召回（使用 reference 目录）"
+    },
+    {
+      "name": "特性域变更分析-rag-用例召回",
+      "path": "skills/特性域变更分析-rag-用例召回/SKILL.md",
+      "description": "基于rag的用例召回"
+    },
+    {
+      "name": "特性域变更分析-变更点生成",
+      "path": "skills/特性域变更分析-变更点生成/SKILL.md",
+      "description": "特性域变更点生成"
+    },
+    {
+      "name": "特性域变更分析评审",
+      "path": "skills/特性域变更分析-测试验证/SKILL.md",
+      "description": "对于变更结果进行评审"
+    },
+    {
+      "name": "用例筛选",
+      "path": "skills/特性域变更分析-用例筛选/SKILL.md",
+      "description": "|"
+    },
+    {
+      "name": "系统域变更分析-v2",
+      "path": "skills/系统域变更分析-v2/SKILL.md",
+      "description": "检索驱动型系统域变更分析：通过 search-agent 分层检索波及的子系统/组件/模块，双向交叉验证后输出四张变更表并回填需求设计文档。以 grep 粗筛 + LLM 精评替代 v1 的全量逐条比对"
+    },
+    {
+      "name": "结果校验",
+      "path": "skills/结果校验/SKILL.md",
+      "description": "将活动分析结果告知用户，用户手动确认分析结果是否正确。正确则继续，错误则由用户提供修改建议。"
+    },
+    {
+      "name": "问题域场景分析-标准场景识别与回流",
+      "path": "skills/问题域场景分析-标准场景识别与回流/SKILL.md",
+      "description": "通过 KnowledgeSearch 子代理检索标准场景名称，对未命中的场景要素进行回流补全，产出 06/07 文件。当 05-场景要素定义.md 产出后触发。输入为 05-场景要素定义.md 与标准场景对象库，输出为 06-标准场景名称识别.md、07-回流场景识别.md。"
+    },
+    {
+      "name": "问题域场景分析-根因分析",
+      "path": "skills/问题域场景分析-根因分析/SKILL.md",
+      "description": "从市场需求与算法分析中抽取问题根因、构建因果链、映射外部触发条件，产出 01/02 标准化分析文档。当需求分析工作流进入\"问题域场景分析\"阶段时触发。输入为市场需求.md 与算法分析.md，输出为 01-问题根因分析.md、02-触发原因分析.md。"
+    },
+    {
+      "name": "问题域场景分析-用户需求分析汇总",
+      "path": "skills/问题域场景分析-用户需求分析汇总/SKILL.md",
+      "description": "对 01~07 全部分析结果进行汇总，生成用户需求分析（09），并回写 req_design_document.md。当问题域场景分析阶段完成 01~07 后触发。输入为 01~07 分析结果，输出为 09-用户需求分析.md及回写 req_design_document.md。"
+    },
+    {
+      "name": "问题域场景分析-要素提取与定义",
+      "path": "skills/问题域场景分析-要素提取与定义/SKILL.md",
+      "description": "从根因分析结果及输入材料中识别场景要素并给出定义，产出 04-场景要素分析.md 与 05-场景要素定义.md。当问题域场景分析阶段完成 01/02 后触发。输入为 01~02 分析结果及场景领域知识，输出为 04-场景要素分析.md 与 05-场景要素定义.md。"
+    }
+  ],
+  "rules": [
+    {
+      "name": "全局规则",
+      "path": "rules/全局规则.md",
+      "description": "全局规则"
+    },
+    {
+      "name": "回退执行规则",
+      "path": "rules/回退执行规则.md",
+      "description": "回退规则"
+    },
+    {
+      "name": "阶段3执行规则",
+      "path": "rules/阶段3执行规则.md",
+      "description": "阶段规则"
+    }
   ]
 }

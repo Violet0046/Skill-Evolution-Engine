@@ -1,0 +1,239 @@
+{
+  "agent_name": "组件设计Agent",
+  "agents": [
+    {
+      "name": "review-agent",
+      "path": "agents/ReviewAgent/review_agent.md",
+      "description": "审查组件设计阶段 SubAgent 产物质量；按传入 rule_file 执行单步骤规则检查并输出机读审查结果"
+    },
+    {
+      "name": "模块间协作流程设计-agent",
+      "path": "agents/模块间协作流程设计-agent/模块间协作流程设计-agent.md",
+      "description": "专业的模块间协作流程设计专家，负责基于模块选型结果，设计模块间协作流程，包括数据流转、时序交互、变更描述等。"
+    },
+    {
+      "name": "模块间接口设计-agent",
+      "path": "agents/模块间接口设计-agent/模块间接口设计-agent.md",
+      "description": "专业的模块间接口设计专家，负责基于模块间协作流程，编排接口类型判定、函数接口设计、消息接口设计与最终组装四个子技能，产出模块间接口设计。"
+    },
+    {
+      "name": "组件方案知识提取-agent",
+      "path": "agents/组件方案知识提取-agent/组件方案知识提取-agent.md",
+      "description": "组件方案知识提取 subagent：读取 `组件方案组装-agent` 已生成的固定交付物，调用 `组件对象库知识提取`、`组件系统库知识提取`、`组件过程库知识提取` 技能将设计成果写回对象库/系统库并录入过程库。不执行后置技能链（HUC/LUC变更描述组合与质量门禁已由上游组件方案组装-agent处理）。"
+    },
+    {
+      "name": "组件方案组装-agent",
+      "path": "agents/组件方案组装-agent/组件方案组装-agent.md",
+      "description": "组件方案组装 subagent：读取模块间协作流程设计、模块间接口设计、组件领域对象设计三类上游中间产物，调用组件内设计组装技能按 UseCase 维度装配成 design.md；再按路由命中执行变更描述组合-HUC-LUC、质量门禁-HUC-LUC等后置技能。专注产物组装与后置处理，不执行知识提取。"
+    },
+    {
+      "name": "组件用例设计-agent",
+      "path": "agents/组件用例设计-agent/组件用例设计-agent.md",
+      "description": "执行组件用例设计任务，负责读取前置输入，通过子系统/组件两层实例列表串行调用组件用例设计技能，并按其调用链完成组件用例设计。"
+    },
+    {
+      "name": "组件领域对象设计-agent",
+      "path": "agents/组件领域对象设计-agent/组件领域对象设计-agent.md",
+      "description": "按 {子系统, 组件} 匹配并执行\"领域对象设计-{子系统/组件}\"技能；命中则完成本组件的领域对象设计，未命中则退出不执行。依赖 spec.md / 模块间协作流程设计.md / 存量领域对象知识。"
+    }
+  ],
+  "skills": [
+    {
+      "name": "SDD任务时间记录",
+      "path": "skills/SDD任务时间记录/SKILL.md",
+      "description": "调用脚本，将SDD任务时间记录到数据库中（通过部署服务）"
+    },
+    {
+      "name": "交付边界提取",
+      "path": "skills/交付边界提取/SKILL.md",
+      "description": "交付边界提取技能。从需求设计文档中提取交付边界信息并写入设计文件。由组件内设计阶段准备技能调用。"
+    },
+    {
+      "name": "产物上传下载",
+      "path": "skills/产物上传下载/SKILL.md",
+      "description": "在OpenViking平台上上传需求产物到超级工作区，或从超级工作区下载产物到本地。当用户说\"上传产物\"、\"下载产物\"、\"同步产物\"、\"上传到超级工作区\"、\"从超级工作区下载\"时触发。"
+    },
+    {
+      "name": "内容同步-组件内",
+      "path": "skills/内容同步-组件内/SKILL.md",
+      "description": "将指定 组件内分析结果文件 的内容 同步到 Copilot 系统"
+    },
+    {
+      "name": "初始化",
+      "path": "skills/初始化/SKILL.md",
+      "description": "组件设计初始化工作流"
+    },
+    {
+      "name": "变更描述组合-HUC-LUC",
+      "path": "skills/变更描述组合-HUC-LUC/SKILL.md",
+      "description": "UC 工作流子技能（Step 5）。将模块选型、协作流程、领域对象与接口字段路径组合为\"三段式变更描述\"，并写入 design.md 的\"详细协作流程\"表。"
+    },
+    {
+      "name": "回退初始化",
+      "path": "skills/回退初始化/SKILL.md",
+      "description": "回退工作流R1阶段初始化，完成需求信息查询、产物下载和版本管理"
+    },
+    {
+      "name": "回退文件差异对比",
+      "path": "skills/回退文件差异对比/SKILL.md",
+      "description": "回退工作流R3执行前的文件对比，确认哪些文件需要回退，并输出增量差异"
+    },
+    {
+      "name": "回退流程规划",
+      "path": "skills/回退流程规划/SKILL.md",
+      "description": "回退工作流R2阶段，当无未完成回退时，完成用户意图识别和组件设计Agent执行计划生成"
+    },
+    {
+      "name": "查询iCenter页面内容",
+      "path": "skills/查询icenter页面内容/SKILL.md",
+      "description": "通过iCenter页面链接获取空间页面内容并转换为Markdown格式"
+    },
+    {
+      "name": "查询需求信息",
+      "path": "skills/查询需求信息/SKILL.md",
+      "description": "查询RDC工作项/需求信息。当用户想要查询工作项的标题、描述、状态、字段值等信息时使用此技能。支持按标识查询、筛选指定字段、组合条件查询。"
+    },
+    {
+      "name": "模块选型-CPA",
+      "path": "skills/模块选型-CPA/SKILL.md",
+      "description": "CPA 工作流子技能（Step 1）。基于 spec.md 执行 CPA 专有\"模块选型推理\"，并将结论输出到`变更模块列表.md`与`模块能力变更.md`中,供后续步骤读取。"
+    },
+    {
+      "name": "模块选型-HUC-LUC",
+      "path": "skills/模块选型-HUC-LUC/SKILL.md",
+      "description": "UC 工作流子技能（Step 1）。基于 spec.md 执行 UC 专有\"模块选型推理\"，并将结论输出到`模块变更分析结果.md`中,供后续步骤读取。"
+    },
+    {
+      "name": "模块选型-UPA",
+      "path": "skills/模块选型-UPA/SKILL.md",
+      "description": "UPA 子系统工作流子技能（Step 1）。基于 spec.md 执行组件内\"模块选型推理\"，含\"候选模块集合 → 变更模块 → 能力缺口\"通用流程；组件专有规则（如报文流向分析、业务类型识别、入口模块预选）由 `rules/{组件}_模块选型规则.md` 承载。结论输出到 `变更模块列表.md`、`模块能力变更.md` 与 `子模块能力变更.md`，供后续步骤读取。"
+    },
+    {
+      "name": "模块选型-default",
+      "path": "skills/模块选型-default/SKILL.md",
+      "description": "default工作流子技能。基于 spec.md 执行\"模块选型推理\"，并将结论输出到`模块变更分析结果.md`中,供后续步骤读取。"
+    },
+    {
+      "name": "模块间函数接口设计",
+      "path": "skills/模块间函数接口设计/SKILL.md",
+      "description": "\"组件内模块间接口设计的函数接口分支：当接口类型列表包含 function 时执行，基于模块间协作流程与函数变更分析规则，产出函数接口设计中间结果。输入：模块间协作流程设计.md、模块间协作接口类型.md，输出模块间函数接口设计中间结果.md。\""
+    },
+    {
+      "name": "模块间协作流程设计-CPA",
+      "path": "skills/模块间协作流程设计-CPA/SKILL.md",
+      "description": "CPA 工作流子技能（Step 2）。将组件级变更映射为组件内模块间协作流程，并按照模板要求输出本阶段设计产物。"
+    },
+    {
+      "name": "模块间协作流程设计-HUC-LUC",
+      "path": "skills/模块间协作流程设计-HUC-LUC/SKILL.md",
+      "description": "UC 工作流子技能（Step 2）。将组件级变更映射为组件内模块间协作流程，覆盖 Stable→Trans 展开与 spec 行粒度门禁，并写入 design.md。"
+    },
+    {
+      "name": "模块间协作流程设计-UPA",
+      "path": "skills/模块间协作流程设计-UPA/SKILL.md",
+      "description": "UPA 子系统工作流子技能。将组件级变更映射为组件内模块间协作流程，并按模板输出本阶段设计产物"
+    },
+    {
+      "name": "模块间协作流程设计-default",
+      "path": "skills/模块间协作流程设计-default/SKILL.md",
+      "description": "default工作流子技能。将组件级变更映射为组件内模块间协作流程，并按照模板要求输出本阶段设计产物。"
+    },
+    {
+      "name": "模块间接口类型判定",
+      "path": "skills/模块间接口类型判定/SKILL.md",
+      "description": "\"组件内模块间接口设计的第一步：基于组件逻辑架构/消息接口库/函数接口/协作流程等多源证据，综合判定模块间协作使用的接口类型（function/message）。输入：spec.md、模块间协作流程设计.md、变更模块列表.md，输出接口类型列表。\""
+    },
+    {
+      "name": "模块间接口设计组装",
+      "path": "skills/模块间接口设计组装/SKILL.md",
+      "description": "\"组件内模块间接口设计的最后一步：读取函数/消息接口设计中间结果，按 interface-template.md 装配为 UseCase 平铺的最终交付物。输入：模块间函数接口设计中间结果.md、模块间消息接口设计中间结果.md，输出模块间接口设计.md。\""
+    },
+    {
+      "name": "模块间消息接口设计",
+      "path": "skills/模块间消息接口设计/SKILL.md",
+      "description": "\"组件内模块间接口设计的消息接口分支：当接口类型列表包含 message 时执行，基于模块间协作流程与存量消息接口知识，产出消息接口设计中间结果。输入：模块间协作流程设计.md、模块间协作接口类型.md、存量模块间消息接口，输出模块间消息接口设计中间结果.md。\""
+    },
+    {
+      "name": "组件内设计组装",
+      "path": "skills/组件内设计组装/SKILL.md",
+      "description": "\"组件内设计产物装配技能。按照design-template.md 模板，将上游四个组件内设计产物（业务变更概述、模块间协作流程、组件领域对象、组件内接口）按 UseCase 维度组合填写到 design.md。触发词：组件内设计组装、design.md 装配、组件详设合并。\""
+    },
+    {
+      "name": "组件内设计阶段准备",
+      "path": "skills/组件内设计阶段准备/SKILL.md",
+      "description": "根据需求设计文档生成单个子系统的组件间设计文档"
+    },
+    {
+      "name": "组件变更分析",
+      "path": "skills/组件变更分析/SKILL.md",
+      "description": "组件变更分析：从系统方案提取并生成功能规范 spec.md（组件内设计流程第一阶段）。"
+    },
+    {
+      "name": "组件对象库知识提取",
+      "path": "skills/组件对象库知识提取/SKILL.md",
+      "description": "组件对象库知识提取：按照规则从组件方案设计成果中提取需要回流对象库的知识；由组件方案设计总结-Agent调用。"
+    },
+    {
+      "name": "组件方案输入检查",
+      "path": "skills/组件方案输入检查/SKILL.md",
+      "description": "检查 input/{子系统}-组件间设计.md 文件是否符合规范要求。通过纯提示词驱动执行检查，支持声明式规则配置。检查失败时必须阻断阶段1继续执行。"
+    },
+    {
+      "name": "组件用例设计",
+      "path": "skills/组件用例设计/SKILL.md",
+      "description": "组件用例设计：负责从系统方案和详设中提取关键信息，生成组件测试用例设计"
+    },
+    {
+      "name": "组件知识提取-组件用例设计知识",
+      "path": "skills/组件知识提取-组件用例设计知识/SKILL.md",
+      "description": "组件知识提取-组件用例设计知识：将组件用例设计过程录入过程库；由组件用例设计主技能调用。"
+    },
+    {
+      "name": "组件系统库知识提取",
+      "path": "skills/组件系统库知识提取/SKILL.md",
+      "description": "组件系统库知识提取：按照规则从组件方案设计成果中提取需要回流系统库的知识；由组件方案设计总结-Agent调用。"
+    },
+    {
+      "name": "组件过程库知识提取",
+      "path": "skills/组件过程库知识提取/SKILL.md",
+      "description": "组件过程库知识提取：按照规则从组件方案设计成果中提取需要回流过程库的知识；由组件方案设计总结-Agent调用。"
+    },
+    {
+      "name": "组件领域对象设计-CPA",
+      "path": "skills/组件领域对象设计-CPA/SKILL.md",
+      "description": "CPA 工作流子技能（Step 3）。基于模块详细变更说明进行组件领域对象设计，输出\"领域对象变更表\"并写入独立文件 `组件领域对象设计.md`；`design.md` 的\"领域模型设计（可选）\"章节由后续独立 SKILL 接管，本技能不写 design.md。"
+    },
+    {
+      "name": "组件领域对象设计-HUC-LUC",
+      "path": "skills/组件领域对象设计-HUC-LUC/SKILL.md",
+      "description": "UC 工作流子技能（Step 3）。按 UC Field/Context 门禁完成领域对象推理与落表，写入独立文件 `组件领域对象设计.md`；`design.md` 的\"领域模型设计（可选）\"章节由后续独立 SKILL 接管，本技能不写 design.md。"
+    },
+    {
+      "name": "质量门禁-HUC-LUC",
+      "path": "skills/质量门禁-HUC-LUC/SKILL.md",
+      "description": "UC 工作流子技能（Step 6）。按 UC 专用门禁逐项检查并修补 design.md，完成产物净化与一致性验证后方可输出完成。"
+    },
+    {
+      "name": "质量门禁-default",
+      "path": "skills/质量门禁-default/SKILL.md",
+      "description": "default工作流子技能。按default门禁逐项检查并修补 design.md，完成产物净化与一致性验证后方可输出完成。"
+    }
+  ],
+  "rules": [
+    {
+      "name": "全局规则",
+      "path": "rules/全局规则.md",
+      "description": "全局规则"
+    },
+    {
+      "name": "阶段3执行规则",
+      "path": "rules/阶段3执行规则.md",
+      "description": "阶段规则"
+    },
+    {
+      "name": "阶段4执行规则",
+      "path": "rules/阶段4执行规则.md",
+      "description": "阶段规则"
+    }
+  ]
+}
