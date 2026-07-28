@@ -21,7 +21,7 @@
  *   - 同一浏览器下次进应用 / 切 sg, 位置从 localStorage 还原
  */
 
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import {
   Group,
   Panel,
@@ -64,6 +64,10 @@ export function ReviewHome() {
   // 当前右栏展开查看的 suggestion (null 表示没展开)
   const [activeSuggestionId, setActiveSuggestionId] = useState<string | null>(null)
 
+  // modified 模式: 编辑状态 + 当前 edited 文本
+  // null 走只读 diff; string (即使 == new_content) 表示正在编辑 (textarea 启动了)
+  const [editedContent, setEditedContent] = useState<string | null>(null)
+
   useEffect(() => {
     setRunsLoading(true)
     listRuns()
@@ -87,11 +91,27 @@ export function ReviewHome() {
       .finally(() => setChangesLoading(false))
   }, [selectedRun, refreshTick])
 
+  // 把所有传给子组件的 callback 用 useCallback 稳定 reference,
+  // 避免每次 ReviewHome rerender 时把 DiffViewer/DecisionForm/EditBody 一起触发 rerender.
+  // 这是修 textarea 闪烁的关键 —— 之前每次输入新字符都新建闭包.
+  const handleStartEdit = useCallback(() => {
+    setEditedContent(selectedDetail?.new_content ?? '')
+  }, [selectedDetail])
+
+  const handleCancelEdit = useCallback(() => {
+    setEditedContent(null)
+  }, [])
+
+  const handleModifiedChange = useCallback((t: string) => {
+    setEditedContent(t)
+  }, [])
+
   const handleSelect = async (item: ChangeListItem) => {
     setSelectedId(item.id)
     setSelectedDetail(null)
-    // 切 change 时关闭 evidence 抽屉, 不让旧的 sg 继续展开
+    // 切 change 时关闭 evidence 抽屉 + 编辑模式, 不让旧的 sg / 旧编辑残留
     setActiveSuggestionId(null)
+    setEditedContent(null)
     setIsLoadingDetail(true)
     try {
       const detail = await getChange(item.id)
@@ -106,8 +126,11 @@ export function ReviewHome() {
   const handleDecision = async (body: Parameters<typeof postDecision>[1]) => {
     if (!selectedDetail) return
     await postDecision(selectedDetail.id, { ...body, reviewer })
-    // 决策后刷新列表 (评审计数会变)
+    // 决策后:
+    //   1. 刷新列表 (评审计数会变)
+    //   2. 清掉编辑模式 (避免 "确认提交后还停留在原 textarea")
     setRefreshTick(t => t + 1)
+    setEditedContent(null)
   }
 
   // ---- 子组件内联 (右栏 suggestions) ----
@@ -173,7 +196,10 @@ export function ReviewHome() {
                 <DiffViewer
                   linediff={selectedDetail.linediff ?? null}
                   originalSummary={`← ${selectedDetail.subject_target}`}
-                  newSummary="new →"
+                  newSummary={editedContent !== null ? '编辑中... (提交用 modified 决策)' : 'new →'}
+                  newContent={selectedDetail.new_content}
+                  editing={editedContent !== null}
+                  onModifiedChange={handleModifiedChange}
                 />
               ) : isLoadingDetail ? (
                 <p className="p-6 text-sm text-muted-foreground">加载中…</p>
@@ -252,6 +278,12 @@ export function ReviewHome() {
                 <div className="border-t p-3 bg-muted/20 shrink-0">
                   <DecisionForm
                     disabled={!isReady}
+                    isEditing={editedContent !== null}
+                    editedContent={editedContent}
+                    originalNewContent={selectedDetail.new_content}
+                    reviewer={reviewer}
+                    onStartEdit={handleStartEdit}
+                    onCancelEdit={handleCancelEdit}
                     onSubmit={handleDecision}
                   />
                 </div>
