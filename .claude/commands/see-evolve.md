@@ -93,49 +93,47 @@ PYTHONPATH=infra bash infra/scripts/with-python.sh infra/scripts/evolve-discover
 
 stdout JSON = `{"targets": [{"subject_name": "需求分析Agent", "target_file": "skills/.../SKILL.md"}, ...]}`（每项一对 subject_name + target_file，不含 suggestions——由步骤 B.2 里的 `see-evolve.py` 各自去 reports 读）。
 
-#### 步骤 B.2：**逐个 fire**（data-driven dispatch，逐个 target）
+#### 步骤 B.2：loop-fire + 交替 await（**永不阻塞在并发上限外**）
 
-> **关键洞察**：`run_in_background=true` 让 sub-agent **后台跑**——主 agent 不用等它完成才发下一个。
-> **逐个 fire** = 主 agent 一次 outgoing message 只有 1 个 prompt（避免上下文爆炸），但 N 个 sub-agent 在**后台并发跑**。
+**调度规则**：fire 与 await 交替——每次尝试 fire 一个新 sub-agent；fire 不下时 await 一个已完成释放槽位。
 
 ```python
-# 拿到 targets 列表（来自步骤 B.1，每项 = {subject_name, target_file}）
-disc = json.loads(<Bash stdout from evolve-discovery.py>)
-targets = disc["targets"]
+targets = json.loads(evolve_discovery.stdout)["targets"]
+pending_fires = []                  # [(target, task_id), ...] 已 fire 未 await
+done = set()
 
-# 循环：对每对 (subject_name, target_file) 调 see-evolve.py + 拿 4 字段 JSON + fire Agent
-task_ids = []
-for t in targets:
-    call = json.loads(<Bash stdout from see-evolve.py t["subject_name"] t["target_file"]>)  # 4 字段 JSON
+while len(done) < len(targets):
+    # 1. 还有未 fire 的 → fire 一个
+    if len(pending_fires) + len(done) < len(targets):
+        target = next_unfired()
+        call = json.loads(see_evolve_py(target))      # CLI 轻量
+        task_id = Agent(
+            description=call["description"],
+            subagent_type=call["subagent_type"],
+            run_in_background=call["run_in_background"],
+            prompt=call["prompt"],
+        )
+        pending_fires.append((target, task_id))
+        continue                                          # 立刻回到 loop 头
 
-    task_id = Agent(
-        description=call["description"],
-        subagent_type=call["subagent_type"],
-        run_in_background=call["run_in_background"],
-        prompt=call["prompt"],
-    )
-    task_ids.append(task_id)
+    # 2. 全部 fire 中 → await 最早的一个，释放槽位
+    if pending_fires:
+        target, task_id = pending_fires.pop(0)
+        TaskOutput(task_id=task_id, block=True, timeout=600000)
+        done.add(target)
+
+# 循环结束：所有 target 已处理
+```
+
+单次 fire 的 CLI 调用（loop 里 fire 一个调一个，CLI 轻量无需并行）：
+
+```bash
+PYTHONPATH=infra bash infra/scripts/with-python.sh infra/scripts/see-evolve.py <subject_name> <target_file> --run-id <run_id>
 ```
 
 > **不要**自己写 `subagent_type="general-purpose"` 或 `run_in_background=true`——直接用 JSON 里的字段。
-> **不要**在循环里调 TaskOutput——**循环外**统一等所有完成（这样后续 sub-agent 可以**继续后台跑**）。
 
-#### 步骤 B.3：等所有 sub-agent 完成
-
-```python
-for task_id in task_ids:
-    TaskOutput(task_id=task_id, block=true, timeout=600000)
-```
-
-#### 步骤 B.4：汇总结果
-
-- 验证每个 `evidence/<run_id>/evolution_changes/<subject_name>__<flatten_target_file>.change` 是否生成
-- 报告 N 成功 / M 失败 / 总 target 数
-- 错误隔离：单个 target 失败不影响其他
-
-输出汇总："批处理完成：N 成功 / M 失败 / targets 总数 K"。
-
-#### 步骤 B.5：入库产物（review_db 钩子，**必做**）
+#### 步骤 B.3：入库产物（review_db 钩子，**必做**）
 
 所有 sub-agent 退出后，**主动跑**一次 finalize 把 `.change` 文件批量入库 `see_evolution_change`。
 

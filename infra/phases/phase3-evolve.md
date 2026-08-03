@@ -28,24 +28,39 @@ PYTHONPATH=infra bash infra/scripts/with-python.sh infra/scripts/see-evolve.py <
 
 1. **跑 `evolve-discovery.py --run-id <id>`** → stdout JSON `{"run_id": "...", "targets": [{"subject_name": "...", "target_file": "..."}, ...]}`
 
-2. **逐个 target 跑 `see-evolve.py <subject_name> <target_file> --run-id <id>`** → 每次拿一个 **4 字段 JSON**（脚本已算好 suggestions + prompt + 绝对源路径 + `.change` 路径）：
-   ```json
-   {
-     "description": "Evolve <subject_name>/<target_file> (N suggestions)",
-     "subagent_type": "general-purpose",
-     "run_in_background": true,
-     "prompt": "# evolver agent\n...（完整 prompt，占位符已填）"
-   }
-   ```
+2. **调度规则（loop-fire）**：fire 与 await 交替——每次尝试 fire 一个新 sub-agent；fire 不下时 await 一个已完成释放槽位，**永不阻塞**。
 
-3. **用 4 字段 JSON 原样调 Agent**（**不要**手写 prompt、**不要**改 `subagent_type`）：
-   - `type=call["subagent_type"]`（已硬编码 `general-purpose`）
-   - `run_in_background=call["run_in_background"]`（已硬编码 `true`）
-   - `prompt=call["prompt"]`
-   - `tools=[Read, Write]`（evolver 只 Read 原文件 + Write `.change`，**不需要** Bash/patch）
-   - 逐个 fire——`run_in_background=true` 让 sub-agent 后台并发跑，主 agent 一次只发 1 个 prompt（避免上下文爆炸）
+```python
+targets = json.loads(evolve_discovery.stdout)["targets"]
+pending_fires = []                  # [(target, task_id), ...] 已 fire 未 await
+done = set()
 
-4. **循环外统一等所有 sub-agent 完成**（`TaskOutput` block）——evolver 把完整最终态写到 `.change`
+while len(done) < len(targets):
+    # 1. 还有未 fire 的 → fire 一个
+    if len(pending_fires) + len(done) < len(targets):
+        target = next_unfired()
+        call = json.loads(see_evolve_py(target))      # CLI 轻量
+        task_id = Agent(
+            description=call["description"],
+            subagent_type=call["subagent_type"],
+            run_in_background=call["run_in_background"],
+            prompt=call["prompt"],
+        )
+        pending_fires.append((target, task_id))
+        continue                                          # 立刻回到 loop 头
+
+    # 2. 全部 fire 中 → await 最早的一个，释放槽位
+    if pending_fires:
+        target, task_id = pending_fires.pop(0)
+        TaskOutput(task_id=task_id, block=True, timeout=600000)
+        done.add(target)
+
+# 循环结束：所有 target 已处理
+```
+
+3. **`see-evolve.py <subject_name> <target_file> --run-id <id>`** stdout 是 4 字段 JSON（description / subagent_type / run_in_background / prompt），**原样**传给 Agent——**不要**手写 prompt 或改 subagent_type。
+
+4. 循环结束后**跑 `see-evolve-finalize.py --run-id <id>`** 把 `.change` 批量入库 review_db。
 
 ## 输出
 

@@ -1,0 +1,33 @@
+{
+  "agent_name": "Skill-Evolution-Engine",
+  "agents": [
+    {
+      "name": "分析Agent",
+      "path": "agents/分析Agent/see-analyze.md",
+      "description": ""
+    },
+    {
+      "name": "进化Agent",
+      "path": "agents/进化Agent/see-evolver.md",
+      "description": ""
+    }
+  ],
+  "skills": [],
+  "rules": [
+    {
+      "name": "analyzer-agent-rules",
+      "path": "rules/analyzer-agent-rules.md",
+      "description": "其他规则"
+    },
+    {
+      "name": "evolver-agent-rules",
+      "path": "rules/evolver-agent-rules.md",
+      "description": "其他规则"
+    },
+    {
+      "name": "main-agent-rules",
+      "path": "rules/main-agent-rules.md",
+      "description": "其他规则"
+    }
+  ]
+}

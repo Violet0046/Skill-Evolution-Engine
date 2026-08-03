@@ -90,49 +90,42 @@ PYTHONPATH=infra bash infra/scripts/with-python.sh infra/scripts/see-collect.py
 
 > 阶段 1 已跑过且 `session_ids` 已知 → **跳过**本步骤直接进 B.2。
 
-#### 步骤 B.2：并行 see-analyze.py + 串行 fire-and-await
+#### 步骤 B.2：loop-fire + 交替 await（**永不阻塞在并发上限外**）
 
-**核心调度原则**：两个阶段**并发策略不同**——`see-analyze.py` 这一步轻量可以并行，`Agent fire` + `TaskOutput await` 必须串行。
+**调度规则**：fire 与 await 交替——每次尝试 fire 一个新 sub-agent；fire 不下时 await 一个已完成释放槽位。
 
-| 阶段 | 并发度 | 理由 |
-| --- | --- | --- |
-| 跑 `see-analyze.py` 拿 4 字段 JSON | **并行**（N 条 Bash 在同一 outgoing message） | CLI 轻量（几秒，stdout 5-7KB），并行不抢资源 |
-| `Agent` fire + `TaskOutput` await | **批量 fire + 串行 await**（sub-agent 后台并行跑，主 agent 逐个处理结果） | 控制 context 增长线性化、失败定位一一对应、错误硬隔离 |
+```python
+session_ids = [...]                # 阶段 1 stdout 的 session_ids[]
+pending_fires = []                  # [(sid, task_id), ...] 已 fire 未 await
+done = set()
 
-##### 阶段 1：**并行**跑 N 个 see-analyze.py
+while len(done) < len(session_ids):
+    # 1. 还有未 fire 的 → fire 一个
+    if len(pending_fires) + len(done) < len(session_ids):
+        sid = next_unfired()
+        call = json.loads(see_analyze_py(sid))          # CLI 轻量
+        task_id = Agent(
+            description=call["description"],
+            subagent_type=call["subagent_type"],
+            run_in_background=call["run_in_background"],
+            prompt=call["prompt"],
+        )
+        pending_fires.append((sid, task_id))
+        continue                                          # 立刻回到 loop 头
 
-一个 outgoing message 里同时发 N 条 Bash，**并行**拿到 N 个 JSON：
+    # 2. 全部 fire 中 → await 最早的一个，释放槽位
+    if pending_fires:
+        sid, task_id = pending_fires.pop(0)
+        TaskOutput(task_id=task_id, block=True, timeout=600000)
+        done.add(sid)
+
+# 循环结束：所有 sid 已处理
+```
+
+单次 fire 的 CLI 调用（loop 里 fire 一个调一个，CLI 轻量无需并行）：
 
 ```bash
-PYTHONPATH=infra bash infra/scripts/with-python.sh infra/scripts/see-analyze.py <sid_1> --run-id <id>
-PYTHONPATH=infra bash infra/scripts/with-python.sh infra/scripts/see-analyze.py <sid_2> --run-id <id>
-...
-PYTHONPATH=infra bash infra/scripts/with-python.sh infra/scripts/see-analyze.py <sid_N> --run-id <id>
-```
-
-拿到 N 个 JSON 字符串，**解析成列表备用**：
-
-```python
-call_list = [json.loads(s) for s in json_strings]
-```
-
-##### 阶段 2：**批量 fire + 串行 await**（sub-agent 并行跑，结果处理串行）
-
-```python
-# 第一阶段：批量 fire（**同一个 outgoing message 里 N 个 Agent 调用**——sub-agent 全部并行启动）
-task_ids = []
-for sid, call in zip(session_ids, call_list):
-    task_id = Agent(
-        description=call["description"],
-        subagent_type=call["subagent_type"],
-        run_in_background=call["run_in_background"],
-        prompt=call["prompt"],
-    )
-    task_ids.append((sid, task_id))
-
-# 第二阶段：串行 await（每个 sid 一个 TaskOutput——sub-agent 在后台并行跑，但 await 顺序处理结果）
-for sid, task_id in task_ids:
-    TaskOutput(task_id=task_id, block=True, timeout=600000)
+PYTHONPATH=infra bash infra/scripts/with-python.sh infra/scripts/see-analyze.py <sid> --run-id <run_id>
 ```
 
 > **不要**自己写 `subagent_type="general-purpose"` 或 `run_in_background=true`——直接用 JSON 里的字段。

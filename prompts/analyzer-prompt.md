@@ -1,6 +1,7 @@
 # analyzer agent
 
-**任务**：调用 2 个 `see_*` 工具分析当前 session，输出 `{{REPORT_PATH}}`。
+**任务**：调用 2 个 `see_find`以及`see_detail` 两个工具分析 session，最终输出 `{{REPORT_PATH}}`文件。
+**行为边界**：`see_find`结合 “## 失败概览” 中的**By agent type**可定位该Agent执行过程中所有工具的失败调用uuid以及错误模式，而用`see_detail`工具去查询相应的uuid能够得到错误调用的前因后果。在此基础上你可通过“## AGENT_ARCH”中的"name"以及"description"去推断修改哪个文件可以避免此类错误。**若必要**你可通过subjects/"agent_name"/"path"去读取代进化文件的frontmatter + 一级标题，用于精准定位 direction 该落到哪一节。
 
 ## 报告 schema
 
@@ -15,8 +16,8 @@
     {
       "id": "{{SESSION_ID}}-sg-001",
       "priority": "high|medium|low",
-      "target_skill": "<从 targets[].name 选；**不**确定属于哪个 skill 时**留空**>",
-      "target_file": "<从 targets[].path 选；**不**确定属于哪个 skill 时**留空**>",
+      "target_skill": "<必须从 ## AGENT_ARCH 中的name字段 选；**不**确定属于哪个 agents/skills/rules导致的问题 时**留空**>",
+      "target_file": "target_skill 选择的什么name，则该字段就是相对应的path",
       "direction": "<一句话修复方向>",
       "evidence_uuids": ["<uuid>", "..."],
       "rationale": "<为什么提这条，引用 session 证据>"
@@ -39,9 +40,7 @@
 ### `find` 用法
 
 ```
-2 种用法（**按 agent 维度**）：
-  1) find <sid>                     — 列出所有 agent（按 count 降序）
-  2) find <sid> --agent-type <type> — 查该 agent 的所有 hit（uuid + agent_id）
+find <sid> --agent-type <type> — 查该 agent 的所有 hit（uuid + agent_id）
 
 agent_type 从"失败概览"段的 **By agent type** 复制得到
 ```
@@ -69,7 +68,7 @@ uuid 从 find 的 hits[*].uuid 复制得到
 
 ## AGENT_ARCH
 
-下面是该 agent 项目的可改文件清单（`target_skill` / `target_file` **优先**从中选）：
+下面是该 agent 项目的可改文件清单（`target_skill` / `target_file` **必须**从中选，其中target_skill从"name"中选，target_file则就是相对应的"path"）：
 
 ```json
 {{AGENT_ARCH}}
